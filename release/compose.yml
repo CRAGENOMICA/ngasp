@@ -1,0 +1,64 @@
+# ==============================================================================
+# DOCKER COMPOSE FILE - RELEASE
+# ==============================================================================
+# 
+# Usage:
+#
+#   - Build : docker-compose -f compose.yml build
+#  
+
+version: '2'
+
+networks:
+  fe_net:
+  be_net:
+
+services:
+  step1:
+    build: step1/.
+    hostname: step1
+    image: step1
+  step2:
+    build: step2/.
+    hostname: step2
+    image: step2
+    depends_on:
+      - step1
+  cm:
+    build: cm/.
+    hostname: cm
+    image: cm
+    volumes:
+      - ./repository:/app/repository
+      - ./data:/app/data
+    command: node /app/webapp/server.js
+    ports:
+      - "3000:3000"
+    expose:
+      - "6969"  
+    networks: 
+      - fe_net
+      - be_net
+    depends_on:
+      - step2
+  lm:
+    build: lm/.
+    image: lm
+    volumes:
+      - ./data:/app/data
+    networks: 
+      - be_net
+    links:
+      - cm:cm
+    command: /app/bin/ngasp tcp --ip cm --port 6969
+    depends_on:
+      - cm
+  command-line:
+    build: lm/.
+    image: command-line
+    volumes:
+      - ./data:/app/data
+    command: /bin/bash
+    depends_on:
+      - step1
+

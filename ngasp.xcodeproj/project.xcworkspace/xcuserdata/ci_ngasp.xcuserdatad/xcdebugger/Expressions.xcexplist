@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "CStringTable::get_strings(CStringTable::KeyString) [inlined]:CStringTable.h">
+         <PersistentStrings>
+            <PersistentString
+               value = "strings_[encoding_][string_id]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

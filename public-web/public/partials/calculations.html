@@ -1,0 +1,58 @@
+<div class="sheet">
+  <div class="title_area">
+      <h3>{{page_title}}</h3>
+  </div>
+</div>
+
+<div class="out-sheet">
+  <div class="sheet" style="min-height: 700px;">
+
+    <br />
+    <br />
+
+    <h4>Calculation List</h4>
+    <!-- <p></p> -->
+
+    <br />
+
+    <table class="table" style="border: 1px solid #eee">
+      <thead>
+      <tr>
+	      <th width="40%">CALCULATION NAME</th>
+	      <th>DESCRIPTION</th>
+      </tr>
+      </thead>
+      <tbody>
+    		<tr class="table_row">
+		      <td>BAM to m/pileup</td>
+		      <td>Previous conversion necessary to call SNPs, calculate frequencies and other posterior analysis.</td>
+	      </tr>
+    		<tr class="table_row">
+		      <td>GH Caller</td>
+		      <td>Call SNPs and estimate frequencies using Roesti (2012) algorithm.<br />GH caller is used instead other more popular SNP callers because it calculates unbiasedly the frequencies of the variants as well as the number of samples truly sequenced. The aim of this algorithm is to have accurate estimates of the frequency of the variants and not the highest sensibility to find SNPs. This algorithm allows to estimate accuaretly the levels and patterns of variability (Nevado et al 2014).</td>
+	      </tr>
+    		<tr class="table_row">
+		      <td>Fasta Converter</td>
+		      <td>Conversion from fasta to tfasta files. Filter positions to be studied.<br />fastaconvtr is a tool for converting fasta files to a more useful format similar to gVCF. This format contains haploid, diploid, polyploid or pooled data in a easy and simply format. fastaconvtr also filter functional regions from GTF files and allow masking regions of the genome.</td>
+	      </tr>
+    		<tr class="table_row">
+		      <td>Mstatspop</td>
+		      <td>Calculation of a large number of population genetics statistics related to the level and frequency of the variants.<br />mstatspop is designed to analyze genome sequence data containing missing information. It estimates the level and patterns of variability from several populations and containing outgroup species. It performs sliding window analysis for physical or for functional positions.</td>
+	      </tr>
+    		<tr class="table_row">
+		      <td>Collect Data Columns</td>
+		      <td>Script that select a number of statistics for posterior analysis.</td>
+	      </tr>
+      </tbody>
+    </table>
+
+<!--
+7. gVCF to fasta: Conversor of gVCF format to a fasta format for analysis.
+
+8. PF caller: Algorithm based on Raineri et al (2012) designed to estimate the number of variants and their frequency with the aim to estimate unbiasedly the  levels and patterns of variability. It outputs fasta/tfasta files and a likelihood estimation of each variant per position.
+
+9. NPStats: Software to estimate the levels and patterns of variability using pooled data. The implementation is following the algorithms in Ferretti et al. 2013. It is also able to estimate the patterns and levels of variability in functional regions using an annotatio file (GFF).
+-->
+  </div>
+</div>
+

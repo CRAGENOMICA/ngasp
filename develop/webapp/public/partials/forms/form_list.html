@@ -1,0 +1,50 @@
+<div class="modal-header company_background_menu_color" > <!-- modaldraggable -->
+    <span class="modal-title caption_font"><span/>{{title}}</span>
+</div>
+
+<style>
+ul#menu {
+  padding: 5px;
+  margin: 0px;
+  border-bottom: 1px solid #ddd;
+}
+
+ul#menu li {
+    display: inline;
+    text-decoration: none;
+}
+
+.max_height {
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.selected_row
+{
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.cursor_hand
+{
+	cursor: pointer;
+	cursor: hand;
+}
+
+</style>
+
+<div class="modal-body default_font max_height">
+  <div class="row">
+    <div class="col-xs-12 col-md-12" ng-repeat="item in list" class="thumbnail">
+      <ul id="menu" class="cursor_hand" ng-class="{'selected_row':item.selected==true}" ng-click="item.selected=!item.selected">
+        <li><img src="images/experiment.png" alt="{{item.name}}"></li>
+        <li>{{item.name}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn default_button_color button_font" type="button" ng-click="OnOk()">Open</button>
+  <button class="btn default_button_color button_font" type="button" ng-click="OnCancel()">Cancel</button>
+</div>
+

@@ -1,0 +1,142 @@
+<div class="sheet" style="background-color: white">
+
+	<!-- do not set the controller here because it is in the $stateProvider -->
+
+  <div class="container-fluid">
+    <div class="hide_on_print" style="margin-bottom:40px;" />
+
+	  <div class="row URS">
+
+      <!-- HEADER -->
+      <div class="row spacer crag_document_header docs_header_font">
+        <div class="col-md-3 col-xs-3 crag_document_header_cell logo_crag"><img src="images/all_logos.png" width=70%></div>
+        <div class="col-md-3 col-xs-3 crag_document_header_cell">CENTRE DE RECERCA<br />EN AGRIGENÒMICA</div>
+        <div class="col-md-3 col-xs-3 crag_document_header_cell">CENTRO DE INVESTIGACIÓN<br />EN AGRIGENÓMICA</div>
+        <div class="col-md-3 col-xs-3 crag_document_header_cell">CENTRE FOR RESEARCH<br />IN AGRICULTURAL</div>
+      </div>
+      <!-- /HEADER -->
+
+	    <div class="row spacer">
+            <div class="company_background_titlebar_color window_padding docs_title_level_1" style="color:white">User And Functional Requirements Specification</div>
+      </div>
+
+      <br class="hide_on_print" />
+      <p class="docs_font_default">
+        <span class="docs_font_default_bold">Introduction</span><br />
+        <p>
+          This document combines two specifications: the User Requirements Specification (URS) and the Functional Requirements Specification (FRS). 
+        </p>
+        <p>
+          The objective of the User Requirements Specification document is to define the formal requirements and quality attributes that the system is expected to meet. The requirements defined in this document will provide the details necessary to furnish an effective basis for the acceptance criteria for testing. 
+        </p>
+        <p>
+          The objective of the Functional Requirements Specification is to document the operations and activities that a system must be able to perform. It includes:
+          <br />
+          <ul>
+            <li>&nbsp;* Descriptions of data to be entered into the system</li>
+            <li>&nbsp;* Descriptions of operations performed by each screen</li>
+            <li>&nbsp;* Descriptions of work-flows performed by the system</li>
+            <li>&nbsp;* Descriptions of system reports or other outputs</li>
+            <li>&nbsp;* Who can enter the data into the system</li>
+            <li>&nbsp;* How the system meets applicable regulatory requirements</li>
+          </ul>
+          <br />
+          The Functional Requirements Specification is designed to be read by a general audience. Readers should understand the system, but no particular technical knowledge should be required to understand the document.
+        </p>
+      </p>
+
+      <p class="docs_font_default">
+        <span class="docs_font_default_bold">Purpose</span><br /><br />
+        The purpose of this document is to define the user requirements. It is a way that assures that both the requesters and the developers understand the other's requirements. It also functions as a blueprint for completing a project with as little cost growth as possible.
+        This is often referred to as the "parent" document because all subsequent project management documents, such as design specifications, statements of work, software architecture specifications, testing and validation plans, and documentation plans, are related to it.
+      </p>
+
+      <p class="docs_font_default">
+        <span class="docs_font_default_bold">Note</span><br /><br />
+        All following requirements must be verifiable, clear and concise, complete, consistent, traceable, viable, necessary and implementation free.
+      </p>
+
+	    <div class="row spacer URS">
+
+        <table ng-repeat="s1 in user_requirements">
+          <tr class="docs_title_level_1 cursor_hand"><td style="padding-left: 10px" ng-click="s1.show=!s1.show">
+            {{$index + 1}}. {{s1.name}}
+            <span class="hide_on_print glyphicon small_arrow" ng-class="{'glyphicon-triangle-bottom':s1.show,'glyphicon-triangle-right':!s1.show}" ng-show="s1.list.length>0"></span>
+          </td></tr>
+          <tr ng-show="s1.show && s1.list.length>0">
+            <td>
+              <table ng-repeat="s2 in s1.list">
+                <tr class="docs_title_level_2 cursor_hand"><td style="padding-left: 10px" ng-click="s2.show=!s2.show">
+                  {{$parent.$index + 1}}.{{$index + 1}}. {{s2.name}}
+                  <span class="hide_on_print glyphicon small_arrow" ng-class="{'glyphicon-triangle-bottom':s2.show,'glyphicon-triangle-right':!s2.show}" ng-show="s2.list.length>0"></span>
+                </td></tr>
+                <tr ng-show="s2.show && s2.list.length>0">
+                  <td>
+                    <table ng-repeat="s3 in s2.list">
+                      <tr class="docs_title_level_3 cursor_hand"><td style="padding-left: 30px" ng-click="s3.show=!s3.show">
+                        {{$parent.$parent.$index + 1}}.{{$parent.$index + 1}}.{{$index + 1}}. {{s3.name}}
+                        <span class="hide_on_print glyphicon small_arrow" ng-class="{'glyphicon-triangle-bottom':s3.show,'glyphicon-triangle-right':!s3.show}" ng-show="s3.list.length>0"></span>
+                      </td></tr>
+                      <tr ng-show="s3.show && s3.list.length>0">
+                        <td>
+                          <table id="table_requirements" ng-repeat="s4 in s3.list">
+<!--
+                            <tr ng-show="$first">
+                              <th data-toggle="tooltip" data-placement="top" title="User Requirement Identification" class="center">URS</th>
+                              <th data-toggle="tooltip" data-placement="top" title="User Requirement Description" class="left">Description</th>
+                              <th data-toggle="tooltip" data-placement="top" title="User Requirement Type: M Mandatory / D Desirable / O Optional / E Possible Future Enhancement" class="center">Type</th>
+                            </tr>
+-->
+                            <tr ng-class="{'done':s4.done==true, 'to_be_done_mandatory':((s4.done==false)&&(s4.type=='M')&&(s4.why_removed==undefined)), 'to_be_done_not_mandatory':((s4.done==false)&&(s4.type!='M')&&(s4.why_removed==undefined))}">
+                              <td class="requirement_id docs_font_id">
+<!--                                <span class="glyphicon glyphicon-ok requirement_done_mark" data-toggle="tooltip" data-placement="top" title="Requirement Done" ng-show="s4.done"></span> -->
+                                <span class="glyphicon glyphicon-remove requirement_done_mark" data-toggle="tooltip" data-placement="top" title="Requirement Done" ng-show="!s4.done"></span>
+                                <span ng-class="{'strikethrough':s4.why_removed!=undefined}" ng-click="OpenDiagramsPage()" class="cursor_hand">{{s1.id}}-{{s2.id}}-{{s3.id}}-{{To3Digits(s4.id)}}&nbsp;&nbsp;</span>
+                              </td>
+                              <td class="left requirement_description">
+                                <pre class="docs_table_font" ng-bind-html="s4.desc" class="word_wrap" ng-class="{'strikethrough':s4.why_removed!=undefined}"></pre>
+                                <span ng-show="s4.why_removed!=undefined" class="docs_table_font removed_urs_motive">{{s4.why_removed}}</span>
+                              </td>
+                              <td class="center requirement_type">
+                                <pre class="docs_table_font" ng-bind-html="s4.type_long" ng-class="{'strikethrough':s4.why_removed!=undefined}"></pre>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+	    <div class="row spacer page_break">
+            <div class="company_background_titlebar_color window_padding docs_title_level_1" style="color:white">Glossary</div>
+      </div>
+
+	    <div class="row spacer">
+        <table id="glossary" class="docs_table_font">
+          <tr>
+            <th>Term</th><th>Definition</th>
+          </tr>
+          <tr ng-repeat="def in definitions">
+            <td>{{def.term}}</td><td>{{def.definition}}</td>
+          </tr>
+        </table>
+      </div>
+
+	    <div class="row spacer">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

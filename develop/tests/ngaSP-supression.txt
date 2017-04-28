@@ -1,0 +1,71 @@
+{
+   library_error_1
+   Memcheck:Param
+   set_robust_list(head)
+   fun:__pthread_initialize_minimal
+   fun:(below main)
+}
+
+{
+   library_error_2
+   Memcheck:Cond
+   fun:__register_atfork
+   fun:__libc_pthread_init
+   fun:__pthread_initialize_minimal
+   fun:(below main)
+}
+
+{
+   library_error_3
+   Memcheck:Cond
+   fun:__linkin_atfork
+   fun:ptmalloc_init.part.8
+   fun:malloc_hook_ini
+   fun:_dl_get_origin
+   fun:_dl_non_dynamic_init
+   fun:__libc_init_first
+   fun:(below main)
+}
+
+{
+   main_1
+   Memcheck:Cond
+   fun:_int_free
+   fun:main
+}
+
+
+{
+   class_member_std_string_destructor
+   Memcheck:Cond
+   fun:_int_free
+   fun:_ZNSsD1Ev
+   fun:_ZN8CManagerD1Ev
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_int_free
+   fun:_ZNSsD1Ev
+   fun:_ZN8CManager4initEiPPc
+   fun:main
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:malloc_consolidate
+   fun:_int_malloc
+   fun:malloc
+   fun:_Znwm
+   fun:_Znam
+   fun:_ZN7CLogger8writeLogENS_7LOGMODEEPKcz
+   fun:_ZN7CLogger13writeLogDebugEPKcz
+   fun:_ZN15CDataRepository4initEP7CLogger
+   fun:_ZN8CManager4initEiPPc
+   fun:main
+}
+

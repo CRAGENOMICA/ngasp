@@ -1,0 +1,20 @@
+<!-- do not set the controller here because it is in the $stateProvider -->
+<script src="./bower_components/raphael/raphael.js"></script>
+
+<div class="sheet" style="background-color:white;height:850px;padding:40px">
+	<br /><br /><br /><br />
+
+  <div id="welcome"></div>
+
+  <div id="login_frame" >
+    <form class="content" action="/login" method="post" style="z-index:10000">
+        <span class="caption_font login_field">Member Login</span>
+      <input class="default_font login_field" type="text" name="username" placeholder="username" />
+      <input class="default_font login_field" type="password" name="password" placeholder="password"/>
+      <button class="btn button_font login_field default_button_color">LOGIN</button>
+      <p class="login_field default_font"><p>Forgot Password?</p>
+    </form>
+    
+  </div>
+
+</div>

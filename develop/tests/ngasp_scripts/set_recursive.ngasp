@@ -1,0 +1,49 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/set_recursive.ngasp
+
+verbose --level debug
+
+# ============================================================
+# Literal to IDataValue
+# ============================================================
+
+set --to $precision --eq 2
+set --to $table_col_width --eq 5
+dim -n reg --as int
+dim -n col --as int
+dim -n x --as int
+dim -n y --as int
+
+set --to reg --eq 1
+set --to col --eq 1
+set --to x --eq 0
+set --to y --eq 1
+
+print -n $precision
+print -n $table_col_width
+print -n reg
+print -n col
+print -n x
+print -n y
+
+
+
+# ============================================================
+# Literal to IDataMatrix
+# ============================================================
+
+dim -n mat --as float-matrix
+set --to mat --eq "0 0 0 0;0 0 0 0;0 0 0 0"
+set --to mat[0,1] --eq 2
+print -n mat
+
+
+
+
+
+# ============================================================
+# Literal to IDataMatrixPosition
+# ============================================================
+
+set --to mat[reg,mat[x,y]] --eq 666
+print -n mat
+

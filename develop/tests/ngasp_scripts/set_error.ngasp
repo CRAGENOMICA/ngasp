@@ -1,0 +1,25 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/set_error.ngasp
+
+verbose --level debug
+
+# Unknown variable Error
+# ======================
+
+set --to x.value --eq v.length
+
+# Cast Error
+# ==========
+
+dim -n x --as int
+dim -n v --as int-vector
+set --to x.value --eq v.length
+
+# Out Of Range Error
+# ==================
+
+dim -n v --as int-vector
+set --to v.data --eq "1 2 3 4 5 6 7 8 9 10"
+set --to v.data[99] --eq 99
+print -n v
+
+

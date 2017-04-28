@@ -1,0 +1,171 @@
+<html>
+
+  <head>
+    <title></title>
+    <script language="javascript">
+
+      var id = 0;
+      var objects = [];
+
+      function FindObjectByName(name) {
+        var ret = null;
+        for(var i = 0; ((i < objects.length) && (ret == null)); i++) {
+          if (objects[i].name == name) {
+            ret = objects[i];
+          }
+        }
+        return ret;
+      }
+      
+      function FindVariableByName(name) {
+        var ret = null;
+        for(var i = 0; ((i < objects.length) && (ret == null)); i++) {
+          if ((objects[i].obj == 'variable') && (objects[i].name == name)) {
+            ret = objects[i];
+          }
+        }
+        return ret;
+      }
+
+      function FindCalculationByName(name) {
+        var ret = null;
+        for(var i = 0; ((i < objects.length) && (ret == null)); i++) {
+          if ((objects[i].obj == 'calculation') && (objects[i].name == name)) {
+            ret = objects[i];
+          }
+        }
+        return ret;
+      }
+
+      function GetParameter(value) {
+        var ret = {
+          param: null,
+          value: null,
+        };
+
+        var pos_coma = value.indexOf(",");
+        if (pos_coma != -1) {
+          ret.param = value.substr(0, pos_coma);
+          ret.value = value.substr(pos_coma + 1);
+        } else {
+          ret.param = value;
+          ret.value = null;
+        }
+
+        return ret;
+      }
+
+      function CreateVariable(name, type) {
+        objects.push({id:id, obj:'variable', name:name, type:type, value:null, inputs:[], outputs:[]});
+        id++;
+      }
+
+      function CreateCalc(name, type) {
+        objects.push({id:id, obj:'calculation', name:name, type:type, value:null, inputs:[], outputs:[]});
+        id++;
+      }
+
+      function CreateEndIf() {
+      }
+
+      function CreateEndFor() {
+      }
+
+      function CreateRemoveVariable() {
+      }
+
+
+
+      function AssignValue(name, eq, value) {
+        if (name.indexOf(".inputs") != -1) {
+          // document.write("<br />+++++++ INPUTS : " + value + "<br />");        
+          name = name.replace(".inputs", "");
+          var calc = FindCalculationByName(name);
+
+          if (calc != null) {
+            var res = {
+              param: null,
+              value: value,
+            };
+
+            while (res.value != null) {
+              res = GetParameter(res);
+              
+              var obj = FindCalculationByName(res.param);
+              obj.id
+              
+            }
+          }
+        }
+        else {
+          if (name.indexOf(".outputs") != -1) {
+            // document.write("<br />+++++++ OUTPUTS : " + value + "<br />");
+            name = name.replace(".outputs", "");
+
+            
+
+[{"id":0,"to":[{"node_id":1,"input_id":1}]}]
+     
+          }
+          else {
+            var obj = FindVariableByName(name);
+            if (obj != null) {
+              obj.value = value;
+            } else {
+              document.write("<br />******* Not found: " + name + "<br />");
+            }
+          }
+        }
+      }
+
+      function CreateIf() {
+      }
+
+      function Execute() {
+      }
+
+      function CreateFor() {
+      }
+
+      function CreateConstant() {
+      }
+
+      function CreateExit() {
+      }
+
+      function CreateElse() {
+      }
+
+      function CreateReserve() {
+      }
+
+
+      function Convert() {
+        var pos_x = 100, pos_y = 100;
+
+        for(var i = 0; i < objects.length; i++) {
+          var o = objects[i];
+          document.write("CreateNode(" + o.id + ", '" + o.name + "', '" + o.type + "', " + pos_x + ", " + pos_y);
+
+          if (o.obj == 'variable') {
+            if (o.value != null) {
+              document.write(", '" + o.value + "'");
+            }
+          }
+          if (o.obj == 'calculation') {
+          }
+
+          document.write(");<br />");
+        }
+
+/*
+                    CreateNode(6, 'output', 1000, 375, 'total', null);
+                    CreateNode(5, 'output', 1000, 675, 'total', null);
+                    CreateNode(3, 'bool', 425, 625, "TRUE", [{"id":0,"to":[{"node_id":1,"input_id":1}]}]);
+                    CreateNode(4, 'bool', 425, 325, "FALSE", [{"id":0,"to":[{"node_id":0,"input_id":1}]}]);
+                    CreateNode(0, 'gc-content', 725, 300, '', [{"id":0,"to":[{"node_id":6,"input_id":0}]}]);
+                    CreateNode(1, 'gc-content', 725, 600, '', [{"id":0,"to":[{"node_id":5,"input_id":0}]}]);
+                    CreateNode(2, 'input', 200, 475, 'vector', [{"id":0,"to":[{"node_id":0,"input_id":0},{"node_id":1,"input_id":0}]}]);
+*/
+        document.write("converted.");
+      }

@@ -1,0 +1,21 @@
+verbose --level debug
+
+const --name FALSE --by 0
+const --name TRUE  --by 1
+
+dim -n sequence       --as char_vector
+dim -n get_percentage --as bool
+dim -n total          --as float
+
+set-value --to sequence       --eq "A,T,T,C,G,G,C,T,A"
+set-value --to get_percentage --eq TRUE
+
+calc -n c1 --as calc-gc-content
+set --to c1.inputs --eq "sequence,get_percentage"
+set --to c1.outputs --eq "total"
+run -n c1
+
+print -n total --mode json --eol
+exit
+
+

@@ -1,0 +1,412 @@
+
+Reading weight file...
+mstatspop v.0.1beta (20160922)
+Sebastian E. Ramos-Onsins, Luca Ferretti, Emanuele Raineri, Giacomo Marmorini, William Burgos and Gonzalo Vera
+Variability Analyses of multiple populations: Calculation and estimation of statistics and neutrality tests.
+
+mstatspop -f tfa -i ../examples/100Kchr10.tfa -o 0 -N 2 40 2 -T ../tests/previous/100chr10.tfa.10.txt -G 1 -u 1 -w 1000 -E ../examples/100Kchr10_fa2tfa_08.tfa_npops2_nsam42_nonsynonymous_max_IncludeMissingVariantsmhits_outg_ploidy1_WEIGHTS.txt -Y 0 
+
+
+****************************************************************************
+*  NUCLEOTIDE VARIABILITY, NEUTRALITY TEST AND POPULATION DIFFERENTIATION  *
+****************************************************************************
+
+ Position(s) of the Variable (converted biallelic if mhits) base with missing samples: 17485 19555 23872 23897 23998 24066 24175 24184 24223 24229 24243 24253 24375 24379
+
+ Names from sample selected by the user (the first 42, if diploid is doubled):
+
+ Population[0]:
+
+ chr_10_BGI_CWB_NCYZ0010.fa_a
+ chr_10_BGI_CWB_NCYZ0010.fa_b
+ chr_10_BGI_CWB_NCYZ0013.fa_a
+ chr_10_BGI_CWB_NCYZ0013.fa_b
+ chr_10_BGI_CWB_SYWB103.fa_a
+ chr_10_BGI_CWB_SYWB103.fa_b
+ chr_10_BGI_CWB_SYWB205.fa_a
+ chr_10_BGI_CWB_SYWB205.fa_b
+ chr_10_BGI_CWB_ZJWB01.fa_a
+ chr_10_BGI_CWB_ZJWB01.fa_b
+ chr_10_BGI_CWB_ZJWB02.fa_a
+ chr_10_BGI_CWB_ZJWB02.fa_b
+ chr_10_MS20U10_Meishan.fa_a
+ chr_10_MS20U10_Meishan.fa_b
+ chr_10_MS20U11_Meishan.fa_a
+ chr_10_MS20U11_Meishan.fa_b
+ chr_10_MS21M07_Meishan.fa_a
+ chr_10_MS21M07_Meishan.fa_b
+ chr_10_MS21M14_Meishan.fa_a
+ chr_10_MS21M14_Meishan.fa_b
+ chr_10_IBGM0327.fa_a
+ chr_10_IBGM0327.fa_b
+ chr_10_IBGU1803.fa_a
+ chr_10_IBGU1803.fa_b
+ chr_10_IBGU1804.fa_a
+ chr_10_IBGU1804.fa_b
+ chr_10_IBGU1805.fa_a
+ chr_10_IBGU1805.fa_b
+ chr_10_WB21F05_Netherlands.fa_a
+ chr_10_WB21F05_Netherlands.fa_b
+ chr_10_WB21M03_Netherlands.fa_a
+ chr_10_WB21M03_Netherlands.fa_b
+ chr_10_WB22F01_NL.fa_a
+ chr_10_WB22F01_NL.fa_b
+ chr_10_WB22F02_NL.fa_a
+ chr_10_WB22F02_NL.fa_b
+ chr_10_SCEB01F01_Scebifrons.fa_a
+ chr_10_SCEB01F01_Scebifrons.fa_b
+ chr_10_Scelebensis.fa_a
+ chr_10_Scelebensis.fa_b
+
+ Outgroup: 
+
+ chr_10_Sverrucosus.fa_a
+ chr_10_Sverrucosus.fa_b.
+
+Calculating statistics...
+
+Input file: ../examples/100Kchr10.tfa
+Priors:
+prior00: 1.000000	prior01: 24511.000000	
+
+Include Unknown positions [1/0]: 1
+Lenght of the Total alignment (including gaps): 24511
+Lenght of the Total alignment (excluding fixed gaps but counting all positions as 1, eg. Syn positions < 1 count as 1): 1035
+multiple hits: 0
+Lenght of the Selected alignment (including unknown bp if selected): 928.88
+Number of Variant (biallelic) sites (including unknown bp if selected and excluding codons with more than two variants, if selected): 15
+Ratio_S/V: 1.500
+Ratio_Missing: 0.088019
+
+Number of populations: 2
+Number of samples for each population:
+nsam[0]: 40
+nsam[1]: 2
+
+Effective length for each population (with at least one sequence, two or three sequences per pop) and excluding or including outgroup (if defined):
+Eff_length1_pop_outg[0]: 928.88	Eff_length2_pop_outg[0]: 928.88	Eff_length3_pop_outg[0]: 928.88
+
+STATISTICS:
+
+Estimates of variability for each population (an and bn for the variant positions):
+S[0]: 12	Theta(Wat)[0]: 2.866013	Theta(Taj)[0]: 1.694791	Theta(Fu&Li)[0]: 5.000000	Theta(Fay&Wu)[0]: 3.561499	Theta(Zeng)[0]: 2.628145	Theta(Achaz,Wat)[0]: 2.191856	Theta(Achaz,Taj)[0]: 1.504676	Divergence[0]: 3.558798	an_x[0]: 4.612144	bn_x[0]: 1.800116	an_xo[0]: 4.739490	bn_xo[0]: 1.804653	
+
+Estimates of NUCLEOTIDE variability for each population (if missing, corrected by the averaged effective positions):
+S[0]: 12	Theta/nt(Wat)[0]: 0.003085	Theta/nt(Taj)[0]: 0.001825	Theta/nt(Fu&Li)[0]: 0.005383	Theta/nt(Fay&Wu)[0]: 0.003834	Theta/nt(Zeng)[0]: 0.002829	Theta/nt(Achaz,Wat)[0]: 0.002360	Theta/nt(Achaz,Taj)[0]: 0.001620	Divergence[0]: 0.003831	Theta/nt(Taj)HKY[0]: NA	DivergenceHKY[0]: NA
+
+Neutrality tests for each population:
+Tajima D[0]: -1.315762	Fu&Li D[0]: -1.237219	Fu&Li F[0]: -1.400887	Fay&Wu norm H[0]: -0.943639	Fay&WuH[0]:	-1.169298	Zeng E[0]: -0.215066	Achaz Y[0]: -1.190467	WH[0]: -0.366002	R2[0]: 0.185206	
+
+Variants assigned to exclusive, fixed, polymorphic but fixed in rest of pops, and shared.
+Ss[rest] are shared variants between populations but fixed within:
+Sx[0]: 12	Sx[1]: 0	Sf: 1	Ss: 0
+
+mismatch distribution statistics:
+SDev[0]: 1.804903	Skewness[0]: 0.246158	Kurtosis[0]: -0.323237	
+
+Nucleotide and haplotype diversity WITHIN populations:
+PiW[0]: 2.392201	PiW/nt[0]: 0.002575	
+
+Frequency of variants for each population:
+fr[0,1]: 5	fr[0,2]: 3	fr[0,3]: 0	fr[0,4]: 1	fr[0,5]: 0	fr[0,6]: 0	fr[0,7]: 0	fr[0,8]: 0	fr[0,9]: 0	fr[0,10]: 0	fr[0,11]: 0	fr[0,12]: 0	fr[0,13]: 0	fr[0,14]: 0	fr[0,15]: 1	fr[0,16]: 0	fr[0,17]: 0	fr[0,18]: 0	fr[0,19]: 0	fr[0,20]: 0	fr[0,21]: 0	fr[0,22]: 0	fr[0,23]: 0	fr[0,24]: 0	fr[0,25]: 0	fr[0,26]: 0	fr[0,27]: 0	fr[0,28]: 0	fr[0,29]: 0	fr[0,30]: 0	fr[0,31]: 0	fr[0,32]: 0	fr[0,33]: 1	fr[0,34]: 1	fr[0,35]: 0	fr[0,36]: 0	fr[0,37]: 0	fr[0,38]: 0	fr[0,39]: 0	
+
+
+Positions of each variant (negative indicates it contains any missing 'N' values):
+Sx[0]: -19555 -23872 -23998 -24066 -24175 -24184 -24223 -24229 -24243 -24253 -24375 24471 
+Sf[0]: -24379 
+Sxf[0]: 
+Ss[0]: 
+Ss[rest]: 
+Sx[outg]: 
+Sf[outg]: -24379 
+Sf[outg,rest]: 
+
+Joint frequency distribution for each variant and population (No included variants that are missing or polymorphic in the outgroup):
+	pop[0]
+SNP[-19555]	0.026
+SNP[-23872]	0.056
+SNP[-23998]	0.395
+SNP[-24066]	0.105
+SNP[-24175]	0.868
+SNP[-24184]	0.028
+SNP[-24223]	0.026
+SNP[-24229]	0.053
+SNP[-24243]	0.053
+SNP[-24253]	0.895
+SNP[-24375]	0.029
+SNP[-24379]	1.000
+SNP[24471]	0.025
+
+
+Number of samples for each variant and population (No included variants are missing or polymorphic in the outgroup):
+	pop[0]
+SNP[-19555]	38
+SNP[-23872]	36
+SNP[-23998]	38
+SNP[-24066]	38
+SNP[-24175]	38
+SNP[-24184]	36
+SNP[-24223]	38
+SNP[-24229]	38
+SNP[-24243]	38
+SNP[-24253]	38
+SNP[-24375]	34
+SNP[-24379]	34
+SNP[24471]	40
+
+
+ Position(s) of the Variable (converted biallelic if mhits) base with missing samples: 27849 27890 27924 32224 42332 42368 42443 43503 43566 50685 50749 59137
+
+ Names from sample selected by the user (the first 42, if diploid is doubled):
+
+ Population[0]:
+
+ chr_10_BGI_CWB_NCYZ0010.fa_a
+ chr_10_BGI_CWB_NCYZ0010.fa_b
+ chr_10_BGI_CWB_NCYZ0013.fa_a
+ chr_10_BGI_CWB_NCYZ0013.fa_b
+ chr_10_BGI_CWB_SYWB103.fa_a
+ chr_10_BGI_CWB_SYWB103.fa_b
+ chr_10_BGI_CWB_SYWB205.fa_a
+ chr_10_BGI_CWB_SYWB205.fa_b
+ chr_10_BGI_CWB_ZJWB01.fa_a
+ chr_10_BGI_CWB_ZJWB01.fa_b
+ chr_10_BGI_CWB_ZJWB02.fa_a
+ chr_10_BGI_CWB_ZJWB02.fa_b
+ chr_10_MS20U10_Meishan.fa_a
+ chr_10_MS20U10_Meishan.fa_b
+ chr_10_MS20U11_Meishan.fa_a
+ chr_10_MS20U11_Meishan.fa_b
+ chr_10_MS21M07_Meishan.fa_a
+ chr_10_MS21M07_Meishan.fa_b
+ chr_10_MS21M14_Meishan.fa_a
+ chr_10_MS21M14_Meishan.fa_b
+ chr_10_IBGM0327.fa_a
+ chr_10_IBGM0327.fa_b
+ chr_10_IBGU1803.fa_a
+ chr_10_IBGU1803.fa_b
+ chr_10_IBGU1804.fa_a
+ chr_10_IBGU1804.fa_b
+ chr_10_IBGU1805.fa_a
+ chr_10_IBGU1805.fa_b
+ chr_10_WB21F05_Netherlands.fa_a
+ chr_10_WB21F05_Netherlands.fa_b
+ chr_10_WB21M03_Netherlands.fa_a
+ chr_10_WB21M03_Netherlands.fa_b
+ chr_10_WB22F01_NL.fa_a
+ chr_10_WB22F01_NL.fa_b
+ chr_10_WB22F02_NL.fa_a
+ chr_10_WB22F02_NL.fa_b
+ chr_10_SCEB01F01_Scebifrons.fa_a
+ chr_10_SCEB01F01_Scebifrons.fa_b
+ chr_10_Scelebensis.fa_a
+ chr_10_Scelebensis.fa_b
+
+ Outgroup: 
+
+ chr_10_Sverrucosus.fa_a
+ chr_10_Sverrucosus.fa_b.
+
+Calculating statistics...
+
+Input file: ../examples/100Kchr10.tfa
+Priors:
+prior00: 27746.000000	prior01: 59151.000000	
+
+Include Unknown positions [1/0]: 1
+Lenght of the Total alignment (including gaps): 31406
+Lenght of the Total alignment (excluding fixed gaps but counting all positions as 1, eg. Syn positions < 1 count as 1): 926
+multiple hits: 0
+Lenght of the Selected alignment (including unknown bp if selected): 839.56
+Number of Variant (biallelic) sites (including unknown bp if selected and excluding codons with more than two variants, if selected): 13
+Ratio_S/V: inf
+Ratio_Missing: 0.078402
+
+Number of populations: 2
+Number of samples for each population:
+nsam[0]: 40
+nsam[1]: 2
+
+Effective length for each population (with at least one sequence, two or three sequences per pop) and excluding or including outgroup (if defined):
+Eff_length1_pop_outg[0]: 839.56	Eff_length2_pop_outg[0]: 839.56	Eff_length3_pop_outg[0]: 839.56
+
+STATISTICS:
+
+Estimates of variability for each population (an and bn for the variant positions):
+S[0]: 9	Theta(Wat)[0]: 2.155417	Theta(Taj)[0]: 1.512257	Theta(Fu&Li)[0]: 1.000000	Theta(Fay&Wu)[0]: 6.023310	Theta(Zeng)[0]: 3.767784	Theta(Achaz,Wat)[0]: 2.522024	Theta(Achaz,Taj)[0]: 1.542727	Divergence[0]: 4.666546	an_x[0]: 4.384142	bn_x[0]: 1.763579	an_xo[0]: 4.691482	bn_xo[0]: 1.786373	
+
+Estimates of NUCLEOTIDE variability for each population (if missing, corrected by the averaged effective positions):
+S[0]: 9	Theta/nt(Wat)[0]: 0.002567	Theta/nt(Taj)[0]: 0.001801	Theta/nt(Fu&Li)[0]: 0.001191	Theta/nt(Fay&Wu)[0]: 0.007174	Theta/nt(Zeng)[0]: 0.004488	Theta/nt(Achaz,Wat)[0]: 0.003004	Theta/nt(Achaz,Taj)[0]: 0.001838	Divergence[0]: 0.005558	Theta/nt(Taj)HKY[0]: NA	DivergenceHKY[0]: NA
+
+Neutrality tests for each population:
+Tajima D[0]: -0.885389	Fu&Li D[0]: 0.765963	Fu&Li F[0]: 0.252865	Fay&Wu norm H[0]: -2.750679	Fay&WuH[0]:	-3.558635	Zeng E[0]: 1.699032	Achaz Y[0]: -1.418541	WH[0]: -2.390389	R2[0]: 0.115008	
+
+Variants assigned to exclusive, fixed, polymorphic but fixed in rest of pops, and shared.
+Ss[rest] are shared variants between populations but fixed within:
+Sx[0]: 9	Sx[1]: 0	Sf: 1	Ss: 0
+
+mismatch distribution statistics:
+SDev[0]: 1.960685	Skewness[0]: -0.563520	Kurtosis[0]: -1.439239	
+
+Nucleotide and haplotype diversity WITHIN populations:
+PiW[0]: 2.464675	PiW/nt[0]: 0.002936	
+
+Frequency of variants for each population:
+fr[0,1]: 1	fr[0,2]: 3	fr[0,3]: 1	fr[0,4]: 0	fr[0,5]: 0	fr[0,6]: 0	fr[0,7]: 0	fr[0,8]: 0	fr[0,9]: 0	fr[0,10]: 0	fr[0,11]: 0	fr[0,12]: 0	fr[0,13]: 0	fr[0,14]: 0	fr[0,15]: 0	fr[0,16]: 0	fr[0,17]: 0	fr[0,18]: 0	fr[0,19]: 0	fr[0,20]: 0	fr[0,21]: 0	fr[0,22]: 0	fr[0,23]: 0	fr[0,24]: 0	fr[0,25]: 0	fr[0,26]: 0	fr[0,27]: 0	fr[0,28]: 1	fr[0,29]: 1	fr[0,30]: 0	fr[0,31]: 0	fr[0,32]: 1	fr[0,33]: 0	fr[0,34]: 0	fr[0,35]: 0	fr[0,36]: 0	fr[0,37]: 0	fr[0,38]: 1	fr[0,39]: 0	
+
+
+Positions of each variant (negative indicates it contains any missing 'N' values):
+Sx[0]: -27849 -27890 -27924 -32224 34430 -42368 -42443 -43503 -43566 
+Sf[0]: -42332 
+Sxf[0]: 
+Ss[0]: 
+Ss[rest]: 
+Sx[outg]: 
+Sf[outg]: -42332 
+Sf[outg,rest]: 
+
+Joint frequency distribution for each variant and population (No included variants that are missing or polymorphic in the outgroup):
+	pop[0]
+SNP[-27849]	0.941
+SNP[-27890]	0.053
+SNP[-27924]	0.737
+SNP[-32224]	0.026
+SNP[34430]	0.950
+SNP[-42332]	1.000
+SNP[-42368]	0.763
+SNP[-42443]	0.088
+SNP[-43503]	0.056
+SNP[-43566]	0.053
+
+
+Number of samples for each variant and population (No included variants are missing or polymorphic in the outgroup):
+	pop[0]
+SNP[-27849]	34
+SNP[-27890]	38
+SNP[-27924]	38
+SNP[-32224]	38
+SNP[34430]	40
+SNP[-42332]	32
+SNP[-42368]	38
+SNP[-42443]	34
+SNP[-43503]	36
+SNP[-43566]	38
+
+
+ Position(s) of the Variable (converted biallelic if mhits) base with missing samples: 86546 92285 92288 97645
+
+ Names from sample selected by the user (the first 42, if diploid is doubled):
+
+ Population[0]:
+
+ chr_10_BGI_CWB_NCYZ0010.fa_a
+ chr_10_BGI_CWB_NCYZ0010.fa_b
+ chr_10_BGI_CWB_NCYZ0013.fa_a
+ chr_10_BGI_CWB_NCYZ0013.fa_b
+ chr_10_BGI_CWB_SYWB103.fa_a
+ chr_10_BGI_CWB_SYWB103.fa_b
+ chr_10_BGI_CWB_SYWB205.fa_a
+ chr_10_BGI_CWB_SYWB205.fa_b
+ chr_10_BGI_CWB_ZJWB01.fa_a
+ chr_10_BGI_CWB_ZJWB01.fa_b
+ chr_10_BGI_CWB_ZJWB02.fa_a
+ chr_10_BGI_CWB_ZJWB02.fa_b
+ chr_10_MS20U10_Meishan.fa_a
+ chr_10_MS20U10_Meishan.fa_b
+ chr_10_MS20U11_Meishan.fa_a
+ chr_10_MS20U11_Meishan.fa_b
+ chr_10_MS21M07_Meishan.fa_a
+ chr_10_MS21M07_Meishan.fa_b
+ chr_10_MS21M14_Meishan.fa_a
+ chr_10_MS21M14_Meishan.fa_b
+ chr_10_IBGM0327.fa_a
+ chr_10_IBGM0327.fa_b
+ chr_10_IBGU1803.fa_a
+ chr_10_IBGU1803.fa_b
+ chr_10_IBGU1804.fa_a
+ chr_10_IBGU1804.fa_b
+ chr_10_IBGU1805.fa_a
+ chr_10_IBGU1805.fa_b
+ chr_10_WB21F05_Netherlands.fa_a
+ chr_10_WB21F05_Netherlands.fa_b
+ chr_10_WB21M03_Netherlands.fa_a
+ chr_10_WB21M03_Netherlands.fa_b
+ chr_10_WB22F01_NL.fa_a
+ chr_10_WB22F01_NL.fa_b
+ chr_10_WB22F02_NL.fa_a
+ chr_10_WB22F02_NL.fa_b
+ chr_10_SCEB01F01_Scebifrons.fa_a
+ chr_10_SCEB01F01_Scebifrons.fa_b
+ chr_10_Scelebensis.fa_a
+ chr_10_Scelebensis.fa_b
+
+ Outgroup: 
+
+ chr_10_Sverrucosus.fa_a
+ chr_10_Sverrucosus.fa_b.
+
+Calculating statistics...
+
+Input file: ../examples/100Kchr10.tfa
+Priors:
+prior00: 86526.000000	prior01: 100000.000000	
+
+Include Unknown positions [1/0]: 1
+Lenght of the Total alignment (including gaps): 13475
+Lenght of the Total alignment (excluding fixed gaps but counting all positions as 1, eg. Syn positions < 1 count as 1): 75
+multiple hits: 0
+Lenght of the Selected alignment (including unknown bp if selected): 66.84
+Number of Variant (biallelic) sites (including unknown bp if selected and excluding codons with more than two variants, if selected): 4
+Ratio_S/V: 3.000
+Ratio_Missing: 0.417333
+
+Number of populations: 2
+Number of samples for each population:
+nsam[0]: 40
+nsam[1]: 2
+
+Effective length for each population (with at least one sequence, two or three sequences per pop) and excluding or including outgroup (if defined):
+Eff_length1_pop_outg[0]: 66.84	Eff_length2_pop_outg[0]: 66.84	Eff_length3_pop_outg[0]: 66.84
+
+STATISTICS:
+
+Estimates of variability for each population (an and bn for the variant positions):
+S[0]: 0	Theta(Wat)[0]: 0.000000	Theta(Taj)[0]: 0.000000	Theta(Fu&Li)[0]: 0.000000	Theta(Fay&Wu)[0]: 0.000000	Theta(Zeng)[0]: 0.000000	Theta(Achaz,Wat)[0]: 0.000000	Theta(Achaz,Taj)[0]: 0.000000	Divergence[0]: 0.000000	an_x[0]: 3.904312	bn_x[0]: 1.743186	an_xo[0]: 4.773041	bn_xo[0]: 1.817428	
+
+Estimates of NUCLEOTIDE variability for each population (if missing, corrected by the averaged effective positions):
+S[0]: 0	Theta/nt(Wat)[0]: 0.000000	Theta/nt(Taj)[0]: 0.000000	Theta/nt(Fu&Li)[0]: 0.000000	Theta/nt(Fay&Wu)[0]: 0.000000	Theta/nt(Zeng)[0]: 0.000000	Theta/nt(Achaz,Wat)[0]: 0.000000	Theta/nt(Achaz,Taj)[0]: 0.000000	Divergence[0]: 0.000000	Theta/nt(Taj)HKY[0]: NA	DivergenceHKY[0]: NA
+
+Neutrality tests for each population:
+Tajima D[0]: NA	Fu&Li D[0]: NA	Fu&Li F[0]: NA	Fay&Wu norm H[0]: NA	Fay&WuH[0]:	1.583575	Zeng E[0]: NA	Achaz Y[0]: NA	WH[0]: NA	R2[0]: 0.247358	
+
+Variants assigned to exclusive, fixed, polymorphic but fixed in rest of pops, and shared.
+Ss[rest] are shared variants between populations but fixed within:
+Sx[0]: 0	Sx[1]: 0	Sf: 0	Ss: 0
+
+mismatch distribution statistics:
+SDev[0]: 1.430320	Skewness[0]: -0.959787	Kurtosis[0]: -1.826652	
+
+Nucleotide and haplotype diversity WITHIN populations:
+PiW[0]: 1.583575	PiW/nt[0]: 0.023693	
+
+Frequency of variants for each population:
+fr[0,1]: 0	fr[0,2]: 0	fr[0,3]: 0	fr[0,4]: 0	fr[0,5]: 0	fr[0,6]: 0	fr[0,7]: 0	fr[0,8]: 0	fr[0,9]: 0	fr[0,10]: 0	fr[0,11]: 0	fr[0,12]: 0	fr[0,13]: 0	fr[0,14]: 0	fr[0,15]: 0	fr[0,16]: 0	fr[0,17]: 0	fr[0,18]: 0	fr[0,19]: 0	fr[0,20]: 0	fr[0,21]: 0	fr[0,22]: 0	fr[0,23]: 0	fr[0,24]: 0	fr[0,25]: 0	fr[0,26]: 0	fr[0,27]: 0	fr[0,28]: 0	fr[0,29]: 0	fr[0,30]: 0	fr[0,31]: 0	fr[0,32]: 0	fr[0,33]: 0	fr[0,34]: 0	fr[0,35]: 0	fr[0,36]: 0	fr[0,37]: 0	fr[0,38]: 0	fr[0,39]: 0	
+
+
+Positions of each variant (negative indicates it contains any missing 'N' values):
+Sx[0]: 
+Sf[0]: 
+Sxf[0]: 
+Ss[0]: 
+Ss[rest]: 
+Sx[outg]: 
+Sf[outg]: 
+Sf[outg,rest]: 
+
+Joint frequency distribution for each variant and population (No included variants that are missing or polymorphic in the outgroup):
+	pop[0]
+
+
+Number of samples for each variant and population (No included variants are missing or polymorphic in the outgroup):
+	pop[0]
+

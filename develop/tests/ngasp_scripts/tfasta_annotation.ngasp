@@ -1,0 +1,25 @@
+# build/binaries/mainExecutable/main load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/tfasta_annotation.ngasp -f ngasp
+
+verbose --level debug
+
+dim -n input_tfasta_file_name   --as string
+dim -n input_gff_file_name      --as string
+dim -n output_tfa_file_name     --as string
+
+# coding,noncoding,synonymous,nonsynonymous,silent,...
+dim -n annotation               --as string
+
+# Nuclear_Universal,mtDNA_Drosophila,mtDNA_Mammals,"AAATTTC..."
+dim -n genetic_code             --as string
+
+set --to input_tfasta_file_name --eq "/home/jjene/Desktop/gff_files/MC1R_PigsOutg_aligned.tfasta"
+set --to input_gff_file_name    --eq "/home/jjene/Desktop/gff_files/MC1R.gff"
+set --to annotation             --eq "Nuclear_Universal"
+set --to genetic_code           --eq "abc"
+set --to output_tfa_file_name   --eq "/home/jjene/Desktop/gff_files/output.tfa"
+
+calc -n tfa --as create-tfa
+set --to tfa.inputs  --eq "input_tfasta_file_name,input_gff_file_name,annotation,genetic_code,output_tfa_file_name"
+set --to tfa.outputs --eq ""
+run -n tfa
+

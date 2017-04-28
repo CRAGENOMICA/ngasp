@@ -1,0 +1,21 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/set_cast.ngasp
+
+verbose --level debug
+
+dim -n i --as int
+set --to i --eq 2
+print -n i
+
+dim -n i64 --as int64
+set --to i64 --eq 3
+print -n i64
+
+set --to i --eq i64
+print -n i
+
+dim -n ch --as char
+
+
+dim -n sum_sam --as double-vector
+reserve -n sum_sam --len i --default 0
+print -n sum_sam

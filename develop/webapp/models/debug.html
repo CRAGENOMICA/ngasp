@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Debug Page</title>
+    <script src="myscripts.js"></script> 
+    <script language="javascript">
+      function test() {
+          var date = new Date;
+
+          var seconds = date.getSeconds();
+          var minutes = date.getMinutes();
+          var hour = date.getHours();
+
+          return hour + "_" + minutes + "_" + seconds;
+      };
+
+      function init() {
+        alert(test());
+      }
+    </script>
+  </head>
+  <body onload="javascript:init()">
+  </body>
+</html>

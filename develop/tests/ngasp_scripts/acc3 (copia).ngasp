@@ -1,0 +1,50 @@
+verbose --level debug
+set --to $encoding --eq "english_bn"
+print --text "[EXPERIMENT_START]" --eol
+dim -n aaexp/10_57_51/string_vector_1_0 --as string_vector
+set --to aaexp/10_57_51/string_vector_1_0 --eq "a,b,c"
+dim -n aaexp/10_57_51/double_matrix_2_0 --as double_matrix
+set --to aaexp/10_57_51/double_matrix_2_0 --eq ""
+dim -n aaexp/10_57_51/double_matrix_3_0 --as double_matrix
+set --to aaexp/10_57_51/double_matrix_3_0 --eq ""
+dim -n aaexp/10_57_51/double_matrix_4_0 --as double_matrix
+set --to aaexp/10_57_51/double_matrix_4_0 --eq ""
+dim -n aaexp/10_57_51/aa/0/foreach_value_1_0 --as string
+set --to aaexp/10_57_51/aa/0/foreach_value_1_0 --eq ""
+dim -n aaexp/10_57_51/aa/0/foreach_iteration_2_0 --as int64
+set --to aaexp/10_57_51/aa/0/foreach_iteration_2_0 --eq ""
+for --data aaexp/10_57_51/string_vector_1_0 --ite aaexp/10_57_51/aa/0/foreach_iteration_2_0 --from 0 --to aaexp/10_57_51/string_vector_1_0.reg_length --inc 1
+set-value --to aaexp/10_57_51/aa/0/foreach_value_1_0 --eq aaexp/10_57_51/string_vector_1_0[aaexp/10_57_51/aa/0/foreach_iteration_2_0]
+print -n aaexp/10_57_51/aa/0/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+print -n aaexp/10_57_51/aa/0/foreach_value_1_0 --text "value: " --mode value  --eol
+dim -n aaexp/10_57_51/aa/0/int_in_3_0_0 --as int
+set-value --to aaexp/10_57_51/aa/0/int_in_3_0_0 --eq aaexp/10_57_51/aa/0/foreach_iteration_2_0
+dim -n aaexp/10_57_51/aa/0/calc-example_3_0 --as double_vector
+dim -n aaexp/10_57_51/aa/0/calc-example_3_1 --as double_vector
+dim -n aaexp/10_57_51/aa/0/calc-example_3_2 --as double_vector
+calc -n aaexp/10_57_51/aa/0/calc-example_3 --as calc-example
+set --to aaexp/10_57_51/aa/0/calc-example_3.inputs --eq "aaexp/10_57_51/aa/0/int_in_3_0_0"
+set --to aaexp/10_57_51/aa/0/calc-example_3.outputs --eq "aaexp/10_57_51/aa/0/calc-example_3_0,aaexp/10_57_51/aa/0/calc-example_3_1,aaexp/10_57_51/aa/0/calc-example_3_2"
+run -n aaexp/10_57_51/aa/0/calc-example_3
+del -n aaexp/10_57_51/aa/0/calc-example_3
+del -n aaexp/10_57_51/aa/0/int_in_3_0_0
+if --ref $result --eq 0
+endif
+matappend --to  aaexp/10_57_51/double_matrix_2_0 --add aaexp/10_57_51/aa/0/calc-example_3_0 --index aaexp/10_57_51/aa/0/foreach_iteration_2_0
+matappend --to  aaexp/10_57_51/double_matrix_3_0 --add aaexp/10_57_51/aa/0/calc-example_3_0 --index aaexp/10_57_51/aa/0/foreach_iteration_2_0
+matappend --to  aaexp/10_57_51/double_matrix_4_0 --add aaexp/10_57_51/aa/0/calc-example_3_0 --index aaexp/10_57_51/aa/0/foreach_iteration_2_0
+
+print -n aaexp/10_57_51/aa/0/calc-example_3_0
+print -n aaexp/10_57_51/double_matrix_2_0
+
+del -n aaexp/10_57_51/aa/0/calc-example_3_0
+del -n aaexp/10_57_51/aa/0/calc-example_3_1
+del -n aaexp/10_57_51/aa/0/calc-example_3_2
+end-for
+del -n aaexp/10_57_51/aa/0/foreach_value_1_0
+del -n aaexp/10_57_51/aa/0/foreach_iteration_2_0
+print --text "[EXPERIMENT_END]" --eol
+
+
+
+

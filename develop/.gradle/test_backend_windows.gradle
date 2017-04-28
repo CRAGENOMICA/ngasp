@@ -1,0 +1,32 @@
+/**
+ * ============================================================================
+ *  \brief     windows_tests.gradle
+ *  \details   This file defines tests constants for WINDOWS.
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Feb 10, 2016
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+*/
+
+/*
+================================================================================
+CONSTANTS
+================================================================================
+*/
+project.ext.set("NGASP_BINARY",             "F:\\ci_ngasp\\ngasp\\build\\exe\\ngasp\\ngasp.exe")
+project.ext.set("NGASP_COMMAND",            "mstatspop")
+project.ext.set("NGASP_TESTS_PATH",         ".\\tests\\current\\")
+
+project.ext.set("PREVIOUS_BINARY",          "./tests/ngasp_20160404")
+project.ext.set("PREVIOUS_TESTS_PATH",     ".\\tests\\previous\\")
+
+project.ext.set("EXAMPLES_PATH",            ".\\examples\\")
+
+project.ext.set("COMPARE_FILES_APP",        "F:\\ci_ngasp\\cygwin64\\bin\\diff.exe")
+project.ext.set("MODIFY_FILES_APP",         "F:\\ci_ngasp\\cygwin64\\bin\\sed.exe")
+
+

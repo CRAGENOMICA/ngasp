@@ -1,0 +1,51 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/if.ngasp
+
+print --text "if"
+
+dim -n vec --as int-vector
+set --to vec --eq "0 1 2 3 4 5"
+print -n vec
+if --ref vec[2] --gt 0
+	print --text "greater than test. OK!"
+endif
+
+dim -n x --as int
+dim -n y --as int
+dim -n z --as int
+
+set --to x --eq 1
+set --to y --eq 1
+set --to z --eq 3
+
+if --ref x --eq y --or --ref z --eq 3
+	print --text "Hi! AND test."
+endif
+
+if --ref x --ne y
+	print --text "x <> y"
+else
+	print --text "x == y"
+endif
+
+
+set --to x --eq 1
+set --to y --eq 1
+set --to z --eq 2
+
+if --ref x --eq y --or --ref z --eq 3
+	print --text "Hi! OR test."
+endif
+
+
+dim -n str --as string
+set --to str --eq "How old are you?"
+
+if --ref str --eq "How old are you?"
+	print --text "I'm 80 years old."
+endif
+
+set --to str --eq ""
+if --ref str --eq ""
+	print --text "Empty text. OK!"
+endif
+

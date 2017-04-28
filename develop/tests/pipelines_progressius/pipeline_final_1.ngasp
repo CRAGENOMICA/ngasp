@@ -1,0 +1,134 @@
+verbose --level debug
+dry-run -x true
+
+const --name TRUE --by 1
+const --name FALSE --by 0
+const --name RESULT_OK --by 0
+
+dim -n input_8_0 --as string
+dim -n input_1_0 --as string_vector
+dim -n input_2_0 --as string
+dim -n input_5_0 --as text-file
+dim -n input_25_0 --as gtf-file
+dim -n input_26_0 --as bed-file
+dim -n input_24_0 --as string
+dim -n input_16_0 --as text-file
+
+@LOAD_VALUES
+
+dim -n int_13_0 --as int
+set --to int_13_0 --eq "1"
+
+dim -n string_11_0 --as string
+set --to string_11_0 --eq "1 4"
+
+dim -n char_vector_21_0 --as char_vector
+set --to char_vector_21_0 --eq "max"
+
+dim -n float_20_0 --as float
+set --to float_20_0 --eq "0.5"
+
+dim -n int64_19_0 --as int64
+set --to int64_19_0 --eq "1"
+
+dim -n string_23_0 --as string
+set --to string_23_0 --eq "-1"
+
+dim -n int_12_0 --as int
+set --to int_12_0 --eq "0"
+
+dim -n int_14_0 --as int
+set --to int_14_0 --eq "1"
+
+dim -n int_22_0 --as int
+set --to int_22_0 --eq "1"
+
+dim -n int_10_0 --as int
+set --to int_10_0 --eq "1"
+
+dim -n int64_15_0 --as int64
+set --to int64_15_0 --eq "1000"
+
+dim -n mpileup-file_0_0 --as mpileup-file
+calc -n calc-bam-to-mpileup_0 --as calc-bam-to-mpileup
+set --to calc-bam-to-mpileup_0.inputs --eq "input_1_0,input_2_0"
+set --to calc-bam-to-mpileup_0.outputs --eq "mpileup-file_0_0"
+run -n calc-bam-to-mpileup_0
+
+if --ref $result --ne RESULT_OK
+exit
+endif
+
+dim -n fasta-file_3_0 --as fasta-file
+calc -n calc-snp-caller_3 --as calc-snp-caller
+set --to calc-snp-caller_3.inputs --eq "mpileup-file_0_0"
+set --to calc-snp-caller_3.outputs --eq "fasta-file_3_0"
+run -n calc-snp-caller_3
+
+if --ref $result --ne RESULT_OK
+exit
+endif
+
+dim -n text-file_fasta-file_3_0 --as text-file
+set-value --to text-file_fasta-file_3_0 --eq fasta-file_3_0
+dim -n text-file_4_0 --as text-file
+calc -n calc-concat-files_4 --as calc-concat-files
+set --to calc-concat-files_4.inputs --eq "text-file_fasta-file_3_0,input_5_0"
+set --to calc-concat-files_4.outputs --eq "text-file_4_0"
+run -n calc-concat-files_4
+del -n text-file_fasta-file_3_0
+
+if --ref $result --ne RESULT_OK
+exit
+endif
+
+dim -n fasta-file_text-file_4_0 --as fasta-file
+set-value --to fasta-file_text-file_4_0 --eq text-file_4_0
+dim -n t-fasta-file_6_0 --as t-fasta-file
+calc -n calc-fasta-to-tfasta_6 --as calc-fasta-to-tfasta
+set --to calc-fasta-to-tfasta_6.inputs --eq "fasta-file_text-file_4_0,input_25_0,input_26_0"
+set --to calc-fasta-to-tfasta_6.outputs --eq "t-fasta-file_6_0"
+run -n calc-fasta-to-tfasta_6
+del -n fasta-file_text-file_4_0
+
+if --ref $result --ne RESULT_OK
+exit
+endif
+
+dim -n string_t-fasta-file_6_0 --as string
+set-value --to string_t-fasta-file_6_0 --eq t-fasta-file_6_0
+dim -n string_7_0 --as string
+calc -n calc-mstatspop_7 --as calc-mstatspop
+set --to calc-mstatspop_7.inputs --eq "string_11_0,int_13_0,int_14_0,input_8_0,null,int_12_0,null,null,null,null,string_23_0,null,int64_19_0,null,null,null,float_20_0,null,null,null,null,null,null,null,null,null,null,char_vector_21_0,null,string_t-fasta-file_6_0,null,int_10_0,null,null,input_24_0,int64_15_0,null,int_22_0,null,null"
+set --to calc-mstatspop_7.outputs --eq "string_7_0"
+run -n calc-mstatspop_7
+del -n string_t-fasta-file_6_0
+
+if --ref $result --ne RESULT_OK
+exit
+endif
+
+dim -n text-file_string_7_0 --as text-file
+set-value --to text-file_string_7_0 --eq string_7_0
+calc -n calc-collect-data-columns_9 --as calc-collect-data-columns
+set --to calc-collect-data-columns_9.inputs --eq "text-file_string_7_0,input_16_0"
+set --to calc-collect-data-columns_9.outputs --eq ""
+run -n calc-collect-data-columns_9
+del -n text-file_string_7_0
+
+if --ref $result --ne RESULT_OK
+exit
+endif
+
+del -n int_13_0
+del -n string_11_0
+del -n char_vector_21_0
+del -n float_20_0
+del -n int64_19_0
+del -n string_23_0
+del -n int_12_0
+del -n int_14_0
+del -n int_22_0
+del -n int_10_0
+del -n int64_15_0
+

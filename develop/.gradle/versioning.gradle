@@ -1,0 +1,47 @@
+/**
+ * ============================================================================
+ *  \brief     versioning.gradle
+ *  \details   This file describes the versioning strategy
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Feb 10, 2016
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+*/
+
+class ProjectVersion {
+  Integer major
+  Integer minor
+  String build
+
+  ProjectVersion(Integer major, Integer minor, String build) {
+    this.major = major
+    this.minor = minor
+    this.build = build
+  }
+
+  @Override
+  String toString() {
+    String fullVersion = "$major.$minor"
+
+    if (build) {
+      fullVersion += ".$build"
+    }
+
+    fullVersion
+  }
+}
+
+/*
+================================================================================
+CONSTANTS
+================================================================================
+*/
+
+version = new ProjectVersion(1, 0, System.env.SOURCE_BUILD_NUMBER)
+project.ext.set("VERSION", version)
+
+

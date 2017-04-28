@@ -1,0 +1,39 @@
+<div class="modal-header company_background_menu_color"> <!-- modaldraggable -->
+    <span class="modal-title caption_font">Experiment Properties</span>
+</div>
+<!--
+        <div class="row">
+          <h3>Experiment Properties</h3>
+          <br />
+        </div>
+
+-->
+
+<div class="modal-body default_font">
+        <div class="row">
+            <div class="col col-md-3"><span class="form_label_font">Name:</span></div>
+            <div class="col col-md-9"><input type="text" class="form-control" ng-model="properties.name" placeholder="Enter name" /></div>
+        </div>
+        <div class="row spacer_small">
+            <div class="col col-md-3"><span class="form_label_font">Author/s:</span></div>
+            <div class="col col-md-9"><input type="text" class="form-control" ng-model="properties.email" placeholder="Enter author/s" /></div> <!-- email -->
+        </div>
+<!--
+        <div class="row spacer_small">
+            <div class="col col-md-3"><span class="form_label_font">Date:</span></div>
+            <div class="col col-md-9"><input type="date" class="form-control" ng-model="properties.date" placeholder="Enter date" /></div>
+        </div>
+-->
+        <div class="row spacer_small">
+            <div class="col col-md-3"><span class="form_label_font">Description:</span></div>
+            <div class="col col-md-9"><textarea rows="4" cols="44" ng-model="properties.description" placeholder="Enter description" style="padding:10px;"></textarea></div>
+        </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn default_button_color button_font" type="button" ng-click="OnOk()">Save</button>
+    <button class="btn default_button_color button_font" type="button" ng-click="OnCancel()">Cancel</button>
+</div>
+
+
+

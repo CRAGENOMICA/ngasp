@@ -1,0 +1,339 @@
+
+mstatspop v.0.1beta (20160922)
+Sebastian E. Ramos-Onsins, Luca Ferretti, Emanuele Raineri, Giacomo Marmorini, William Burgos and Gonzalo Vera
+Variability Analyses of multiple populations: Calculation and estimation of statistics and neutrality tests.
+
+mstatspop -f fasta -i ../examples/100Kchr10.fa -o 0 -N 3 20 20 2 -T ../tests/previous/100chr10.fa.10.txt -G 1 -u 1 -g ../examples/100Kchr10.gtf nonsynonymous Nuclear_Universal -c max 
+
+
+****************************************************************************
+*  NUCLEOTIDE VARIABILITY, NEUTRALITY TEST AND POPULATION DIFFERENTIATION  *
+****************************************************************************
+GFF file error: end (115567) is larger than number of total sites (100000). Row 94 not analyzed.
+ GFF file error: end (115567) is larger than number of total sites (100000). Row 95 not analyzed.
+ 
+ Excluded codons: Stop Codon starting at position 4607.
+ Excluded codons: Stop Codon starting at position 4628.
+ Excluded codons: Stop Codon starting at position 8827.
+ Excluded codons: Stop Codon starting at position 16223.
+ Excluded codons: Stop Codon starting at position 16265.
+ Excluded codons: Stop Codon starting at position 19544.
+ Excluded codons: Stop Codon starting at position 19556.
+ Excluded codons: Stop Codon starting at position 19565.
+ Excluded codons: Stop Codon starting at position 19604.
+ Excluded codons: Stop Codon starting at position 20097.
+ Excluded codons: Stop Codon starting at position 23865.
+ Excluded codons: Stop Codon starting at position 23961.
+ Excluded codons: Stop Codon starting at position 23991.
+ Excluded codons: Stop Codon starting at position 24054.
+ Excluded codons: Stop Codon starting at position 24099.
+ Excluded codons: Stop Codon starting at position 24177.
+ Excluded codons: Stop Codon starting at position 24189.
+ Excluded codons: Stop Codon starting at position 24354.
+ Excluded codons: Stop Codon starting at position 24387.
+ Excluded codons: Stop Codon starting at position 24408.
+ Excluded codons: Stop Codon starting at position 24435.
+ Excluded codons: Stop Codon starting at position 24447.
+ Excluded codons: Stop Codon starting at position 24483.
+ Excluded codons: Stop Codon starting at position 24507.
+ Excluded codons: Stop Codon starting at position 24573.
+ Excluded codons: Stop Codon starting at position 24645.
+ Excluded codons: Stop Codon starting at position 24669.
+ Excluded codons: Stop Codon starting at position 24693.
+ Excluded codons: Stop Codon starting at position 24879.
+ Excluded codons: Stop Codon starting at position 25191.
+ Excluded codons: Stop Codon starting at position 27106.
+ Excluded codons: Stop Codon starting at position 27223.
+ Excluded codons: Stop Codon starting at position 27304.
+ Excluded codons: Stop Codon starting at position 27325.
+ Excluded codons: Stop Codon starting at position 27397.
+ Excluded codons: Stop Codon starting at position 27418.
+ Excluded codons: Stop Codon starting at position 27445.
+ Excluded codons: Stop Codon starting at position 27448.
+ Excluded codons: Stop Codon starting at position 27535.
+ Excluded codons: Stop Codon starting at position 27544.
+ Excluded codons: Stop Codon starting at position 27778.
+ Excluded codons: Stop Codon starting at position 29321.
+ Excluded codons: Stop Codon starting at position 29348.
+ Excluded codons: Stop Codon starting at position 29381.
+ Excluded codons: Stop Codon starting at position 32142.
+ Excluded codons: Stop Codon starting at position 32190.
+ Excluded codons: Stop Codon starting at position 32208.
+ Excluded codons: Stop Codon starting at position 33498.
+ Excluded codons: Stop Codon starting at position 34387.
+ Excluded codons: Stop Codon starting at position 34402.
+ Excluded codons: Stop Codon starting at position 34420.
+ Excluded codons: Stop Codon starting at position 34435.
+ Excluded codons: Stop Codon starting at position 34471.
+ Excluded codons: Stop Codon starting at position 34480.
+ Excluded codons: Stop Codon starting at position 34990.
+ Excluded codons: Stop Codon starting at position 35014.
+ Excluded codons: Stop Codon starting at position 37354.
+ Excluded codons: Stop Codon starting at position 38606.
+ Excluded codons: Stop Codon starting at position 38624.
+ Excluded codons: Stop Codon starting at position 42343.
+ Excluded codons: Stop Codon starting at position 42397.
+ Excluded codons: Stop Codon starting at position 42403.
+ Excluded codons: Stop Codon starting at position 42424.
+ Excluded codons: Stop Codon starting at position 42436.
+ Excluded codons: Stop Codon starting at position 43505.
+ Excluded codons: Stop Codon starting at position 43532.
+ Excluded codons: Stop Codon starting at position 43568.
+ Excluded codons: Stop Codon starting at position 59148.
+ Excluded codons: Stop Codon starting at position 59154.
+ Excluded codons: Stop Codon starting at position 59187.
+ Excluded codons: Stop Codon starting at position 60057.
+ Excluded codons: Stop Codon starting at position 60072.
+ Excluded codons: Stop Codon starting at position 60087.
+ Excluded codons: Stop Codon starting at position 61607.
+ Excluded codons: Stop Codon starting at position 61622.
+ Excluded codons: Stop Codon starting at position 61643.
+ Excluded codons: Stop Codon starting at position 74756.
+ Excluded codons: Stop Codon starting at position 77258.
+ Excluded codons: Stop Codon starting at position 77267.
+ Excluded codons: Stop Codon starting at position 77279.
+ Excluded codons: Stop Codon starting at position 80888.
+ Excluded codons: Stop Codon starting at position 80939.
+ Excluded codons: Stop Codon starting at position 81394.
+ Excluded codons: Stop Codon starting at position 84149.
+ Excluded codons: Stop Codon starting at position 84188.
+ Excluded codons: Stop Codon starting at position 84212.
+ Excluded codons: Stop Codon starting at position 84257.
+ Excluded codons: Stop Codon starting at position 85549.
+ Excluded codons: Stop Codon starting at position 86147.
+ Excluded codons: Stop Codon starting at position 86477.
+ Excluded codons: Stop Codon starting at position 86549.
+ Excluded codons: Stop Codon starting at position 92248.
+ Excluded codons: Stop Codon starting at position 97710.
+ Excluded codons: Stop Codon starting at position 97764.
+ Excluded codons: Stop Codon starting at position 97779.
+ Position(s) of the Variable (converted biallelic if mhits) base with missing samples: 17485 19555 23872 23897 23998 24066 24175 24184 24223 24229 24243 24253 24379 24613 24624 24797 24798 24942 25016 25078 27185 27250 27311 27539 27649 27719 27890 32224 42332 42368 42443 43503 43566 50685 59137 59200 60078 61614 61620 81428 84180 84273 85672 85825 92285 92288 97645
+
+ Names from sample selected by the user (the first 42, if diploid is doubled):
+
+ Population[0]:
+
+ chr_10_BGI_CWB_NCYZ0010.fa_a
+ chr_10_BGI_CWB_NCYZ0010.fa_b
+ chr_10_BGI_CWB_NCYZ0013.fa_a
+ chr_10_BGI_CWB_NCYZ0013.fa_b
+ chr_10_BGI_CWB_SYWB103.fa_a
+ chr_10_BGI_CWB_SYWB103.fa_b
+ chr_10_BGI_CWB_SYWB205.fa_a
+ chr_10_BGI_CWB_SYWB205.fa_b
+ chr_10_BGI_CWB_ZJWB01.fa_a
+ chr_10_BGI_CWB_ZJWB01.fa_b
+ chr_10_BGI_CWB_ZJWB02.fa_a
+ chr_10_BGI_CWB_ZJWB02.fa_b
+ chr_10_MS20U10_Meishan.fa_a
+ chr_10_MS20U10_Meishan.fa_b
+ chr_10_MS20U11_Meishan.fa_a
+ chr_10_MS20U11_Meishan.fa_b
+ chr_10_MS21M07_Meishan.fa_a
+ chr_10_MS21M07_Meishan.fa_b
+ chr_10_MS21M14_Meishan.fa_a
+ chr_10_MS21M14_Meishan.fa_b
+
+ Population[1]:
+
+ chr_10_IBGM0327.fa_a
+ chr_10_IBGM0327.fa_b
+ chr_10_IBGU1803.fa_a
+ chr_10_IBGU1803.fa_b
+ chr_10_IBGU1804.fa_a
+ chr_10_IBGU1804.fa_b
+ chr_10_IBGU1805.fa_a
+ chr_10_IBGU1805.fa_b
+ chr_10_WB21F05_Netherlands.fa_a
+ chr_10_WB21F05_Netherlands.fa_b
+ chr_10_WB21M03_Netherlands.fa_a
+ chr_10_WB21M03_Netherlands.fa_b
+ chr_10_WB22F01_NL.fa_a
+ chr_10_WB22F01_NL.fa_b
+ chr_10_WB22F02_NL.fa_a
+ chr_10_WB22F02_NL.fa_b
+ chr_10_SCEB01F01_Scebifrons.fa_a
+ chr_10_SCEB01F01_Scebifrons.fa_b
+ chr_10_Scelebensis.fa_a
+ chr_10_Scelebensis.fa_b
+
+ Outgroup: 
+
+ chr_10_Sverrucosus.fa_a
+ chr_10_Sverrucosus.fa_b.
+
+Calculating statistics...
+
+Input file: ../examples/100Kchr10.fa
+GFF file: ../examples/100Kchr10.gtf
+Positions studied: nonsynonymous
+Genetic Code: Nuclear_Universal
+
+Include Unknown positions [1/0]: 1
+Lenght of the Total alignment (including gaps): 100000
+Lenght of the Total alignment (excluding fixed gaps but counting all positions as 1, eg. Syn positions < 1 count as 1): 3724
+multiple hits: 0
+Lenght of the Selected alignment (including unknown bp if selected): 3358.70
+Number of Variant (biallelic) sites (including unknown bp if selected and excluding codons with more than two variants, if selected): 52
+Ratio_S/V: 1.889
+Ratio_Missing: 0.101490
+
+Number of populations: 3
+Number of samples for each population:
+nsam[0]: 20
+nsam[1]: 20
+nsam[2]: 2
+
+Effective length for each population (with at least one sequence, two or three sequences per pop) and excluding or including outgroup (if defined):
+Eff_length1_pop_outg[0]: 3358.70	Eff_length2_pop_outg[0]: 3358.70	Eff_length3_pop_outg[0]: 3355.70
+Eff_length1_pop_outg[1]: 3358.70	Eff_length2_pop_outg[1]: 3358.70	Eff_length3_pop_outg[1]: 3358.70
+
+STATISTICS:
+
+Estimates of variability for each population (an and bn for the variant positions):
+S[0]: 18	Theta(Wat)[0]: 5.128613	Theta(Taj)[0]: 2.918911	Theta(Fu&Li)[0]: 11.000000	Theta(Fay&Wu)[0]: 3.406373	Theta(Zeng)[0]: 3.162642	Theta(Achaz,Wat)[0]: 2.782346	Theta(Achaz,Taj)[0]: 1.975533	Divergence[0]: 15.001389	an_x[0]: 3.516156	bn_x[0]: 1.705420	an_xo[0]: 3.933604	bn_xo[0]: 1.766995	
+S[1]: 23	Theta(Wat)[1]: 6.639014	Theta(Taj)[1]: 7.102958	Theta(Fu&Li)[1]: 2.000000	Theta(Fay&Wu)[1]: 12.003337	Theta(Zeng)[1]: 9.553148	Theta(Achaz,Wat)[1]: 8.550648	Theta(Achaz,Taj)[1]: 7.758946	Divergence[1]: 14.033333	an_x[1]: 3.619340	bn_x[1]: 1.732286	an_xo[1]: 3.933604	bn_xo[1]: 1.766995	
+
+Estimates of NUCLEOTIDE variability for each population (if missing, corrected by the averaged effective positions):
+S[0]: 18	Theta/nt(Wat)[0]: 0.001527	Theta/nt(Taj)[0]: 0.000869	Theta/nt(Fu&Li)[0]: 0.003275	Theta/nt(Fay&Wu)[0]: 0.001014	Theta/nt(Zeng)[0]: 0.000942	Theta/nt(Achaz,Wat)[0]: 0.000829	Theta/nt(Achaz,Taj)[0]: 0.000589	Divergence[0]: 0.004466	Theta/nt(Taj)HKY[0]: NA	DivergenceHKY[0]: NA
+S[1]: 23	Theta/nt(Wat)[1]: 0.001977	Theta/nt(Taj)[1]: 0.002115	Theta/nt(Fu&Li)[1]: 0.000595	Theta/nt(Fay&Wu)[1]: 0.003574	Theta/nt(Zeng)[1]: 0.002844	Theta/nt(Achaz,Wat)[1]: 0.002546	Theta/nt(Achaz,Taj)[1]: 0.002310	Divergence[1]: 0.004178	Theta/nt(Taj)HKY[1]: NA	DivergenceHKY[1]: NA
+
+Neutrality tests for each population:
+Tajima D[0]: -1.668515	Fu&Li D[0]: -2.082473	Fu&Li F[0]: -2.099508	Fay&Wu norm H[0]: -0.156227	Fay&WuH[0]:	0.588356	Zeng E[0]: -1.241334	Achaz Y[0]: -1.372735	WH[0]: 0.603997	R2[0]: 0.273224	
+Tajima D[1]: 0.277565	Fu&Li D[1]: 1.317239	Fu&Li F[1]: 1.056451	Fay&Wu norm H[1]: -1.249164	Fay&WuH[1]:	-2.588237	Zeng E[1]: 1.494967	Achaz Y[1]: -0.471585	WH[1]: -1.517239	R2[1]: 0.060901	
+
+Variants assigned to exclusive, fixed, polymorphic but fixed in rest of pops, and shared.
+Ss[rest] are shared variants between populations but fixed within:
+Sx[0]: 14	Sf[0]: 0	Sxf[0,rest]: 0	Ss[0]: 4
+Sx[1]: 12	Sf[1]: 0	Sxf[1,rest]: 7	Ss[1]: 4
+Sx[outg]: 0	Sf[outg]: 5	Ss[outg,rest]: 0	Ss[rest]:	NA
+
+mismatch distribution statistics:
+SDev[0]: 2.244387	Skewness[0]: -0.818691	Kurtosis[0]: -0.869445	
+SDev[1]: 7.306175	Skewness[1]: -0.272515	Kurtosis[1]: -1.483936	
+
+Fst (calculated as 1-piw/pia): OUTGROUP NOT CONSIDERED (results may be different from above)
+
+seed: 123456
+Fst(nucleotide), FstH(haplotype)
+Fst[0,1]: 0.493035	 P-value: NA	
+
+
+Nucleotide and haplotype diversity WITHIN populations:
+PiW[0]: 3.994728	PiW/nt[0]: 0.001189	
+PiW[1]: 9.415100	PiW/nt[1]: 0.002803	
+
+Nucleotide and haplotype diversity BETWEEN populations:
+PiA[0,1]: 10.405057	PiA/nt[0,1]: 0.003098	PiT[0,1]: 8.782350	PiT/nt[0,1]: 0.002615	
+
+
+Frequency of variants for each population:
+fr[0,1]: 11	fr[0,2]: 3	fr[0,3]: 1	fr[0,4]: 0	fr[0,5]: 1	fr[0,6]: 0	fr[0,7]: 0	fr[0,8]: 0	fr[0,9]: 0	fr[0,10]: 0	fr[0,11]: 0	fr[0,12]: 0	fr[0,13]: 0	fr[0,14]: 0	fr[0,15]: 1	fr[0,16]: 0	fr[0,17]: 0	fr[0,18]: 0	fr[0,19]: 1	
+fr[1,1]: 2	fr[1,2]: 8	fr[1,3]: 0	fr[1,4]: 1	fr[1,5]: 0	fr[1,6]: 2	fr[1,7]: 0	fr[1,8]: 1	fr[1,9]: 0	fr[1,10]: 1	fr[1,11]: 1	fr[1,12]: 1	fr[1,13]: 0	fr[1,14]: 3	fr[1,15]: 0	fr[1,16]: 2	fr[1,17]: 0	fr[1,18]: 1	fr[1,19]: 0	
+
+
+Positions of each variant (negative indicates it contains any missing 'N' values):
+Sx[0]: -19555 -24184 -24223 -24229 -24613 -24942 -25078 -27185 -27649 -27890 -42443 -59200 -60078 -61614 
+Sf[0]: 
+Sxf[0]: 
+Ss[0]: -23998 -24175 -27250 27581 
+Sx[1]: -23872 -24066 -24243 24471 -24797 -24798 -25016 -27311 -32224 -43503 -43566 59182 
+Sf[1]: 
+Sxf[1]: -24253 -24624 24736 -27719 34430 -42368 -84180 
+Ss[1]: -23998 -24175 -27250 27581 
+Ss[rest]: 
+Sx[outg]: 
+Sf[outg]: -24379 -27539 -42332 -61620 -84273 
+Sf[outg,rest]: 
+
+Joint frequency distribution for each variant and population (No included variants that are missing or polymorphic in the outgroup):
+	pop[0]	pop[1]
+SNP[-19555]	0.050	0.000
+SNP[-23872]	0.000	0.111
+SNP[-23998]	0.250	0.556
+SNP[-24066]	0.000	0.222
+SNP[-24175]	0.950	0.778
+SNP[-24184]	0.050	0.000
+SNP[-24223]	0.050	0.000
+SNP[-24229]	0.100	0.000
+SNP[-24243]	0.000	0.111
+SNP[-24253]	1.000	0.778
+SNP[-24379]	1.000	1.000
+SNP[24471]	0.000	0.050
+SNP[-24613]	0.050	0.000
+SNP[-24624]	1.000	0.778
+SNP[24736]	1.000	0.800
+SNP[-24797]	0.000	0.333
+SNP[-24798]	0.000	0.375
+SNP[-24942]	0.050	0.000
+SNP[-25016]	0.000	0.125
+SNP[-25078]	0.050	0.000
+SNP[-27185]	0.056	0.000
+SNP[-27250]	0.750	0.444
+SNP[-27311]	0.000	0.111
+SNP[-27539]	1.000	1.000
+SNP[27581]	0.050	0.100
+SNP[-27649]	0.050	0.000
+SNP[-27719]	1.000	0.800
+SNP[-27890]	0.111	0.000
+SNP[-32224]	0.000	0.050
+SNP[34430]	1.000	0.900
+SNP[-42332]	1.000	1.000
+SNP[-42368]	1.000	0.550
+SNP[-42443]	0.167	0.000
+SNP[-43503]	0.000	0.100
+SNP[-43566]	0.000	0.111
+SNP[59182]	0.000	0.100
+SNP[-59200]	0.100	0.000
+SNP[-60078]	0.056	0.000
+SNP[-61614]	0.062	0.000
+SNP[-61620]	1.000	1.000
+SNP[-84180]	1.000	0.750
+SNP[-84273]	1.000	1.000
+
+
+Number of samples for each variant and population (No included variants are missing or polymorphic in the outgroup):
+	pop[0]	pop[1]
+SNP[-19555]	20	18
+SNP[-23872]	18	18
+SNP[-23998]	20	18
+SNP[-24066]	20	18
+SNP[-24175]	20	18
+SNP[-24184]	20	16
+SNP[-24223]	20	18
+SNP[-24229]	20	18
+SNP[-24243]	20	18
+SNP[-24253]	20	18
+SNP[-24379]	14	20
+SNP[24471]	20	20
+SNP[-24613]	20	16
+SNP[-24624]	20	18
+SNP[24736]	20	20
+SNP[-24797]	16	18
+SNP[-24798]	18	16
+SNP[-24942]	20	18
+SNP[-25016]	18	16
+SNP[-25078]	20	14
+SNP[-27185]	18	18
+SNP[-27250]	20	18
+SNP[-27311]	18	18
+SNP[-27539]	20	18
+SNP[27581]	20	20
+SNP[-27649]	20	18
+SNP[-27719]	18	20
+SNP[-27890]	18	20
+SNP[-32224]	18	20
+SNP[34430]	20	20
+SNP[-42332]	14	18
+SNP[-42368]	18	20
+SNP[-42443]	18	16
+SNP[-43503]	16	20
+SNP[-43566]	20	18
+SNP[59182]	20	20
+SNP[-59200]	20	18
+SNP[-60078]	18	20
+SNP[-61614]	16	18
+SNP[-61620]	16	18
+SNP[-84180]	16	16
+SNP[-84273]	10	18
+

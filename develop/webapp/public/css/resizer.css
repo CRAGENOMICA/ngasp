@@ -1,0 +1,152 @@
+#topnav {
+    background-color: #333333;
+    display: block;
+    height: 35px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #DDD;
+}
+
+.sidebar_left_and_right #sidebar {
+  background-color: #EEE;
+  position: absolute;
+  top: 35px;
+  bottom: 0;
+  left: 0;
+  overflow: hidden; /*auto;*/
+
+  width: 60%; /* position X */ /*200px;*/
+}
+
+.sidebar_only_left #sidebar {
+  background-color: #EEE;
+  position: absolute;
+  top: 35px;
+  bottom: 0;
+  left: 0;
+  overflow: hidden; /*auto;*/
+
+  width: 100%; /* position X */ /*200px;*/
+}
+
+
+
+.sidebar_left_and_right #content {
+    position: absolute;
+    top: 36px; /* the right panel's top position */
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    color: #FFF;
+
+    /* Firefox */
+    left: -moz-calc(60% + 6px); /* position X - resizer size*/
+    /* WebKit */
+    left: -webkit-calc(60% + 6px);
+    /* Opera */
+    left: -o-calc(60% + 6px);
+    /* Standard */
+    left: calc(60% + 6px);
+}
+
+.sidebar_only_left #content {
+    position: absolute;
+    top: 36px; /* the right panel's top position */
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    color: #FFF;
+
+    /* Firefox */
+    left: -moz-calc(100% + 6px); /* position X - resizer size*/
+    /* WebKit */
+    left: -webkit-calc(100% + 6px);
+    /* Opera */
+    left: -o-calc(100% + 6px);
+    /* Standard */
+    left: calc(100% + 6px);
+}
+
+
+
+
+#top-content {
+    position: absolute;
+    top: 0;
+    /* Firefox */
+    bottom: -moz-calc(80% + 6px); /* position Y + resizer size*/
+    /* WebKit */
+    bottom: -webkit-calc(80% + 6px);
+    /* Opera */
+    bottom: -o-calc(80% + 6px);
+    /* Standard */
+    bottom: calc(80% + 6px);
+    left: 0;
+    right: 0;
+    background-color: #444;
+    overflow: hidden; /*auto;*/
+}
+#bottom-content {
+    position: absolute;
+
+    /* Firefox */
+    height: -moz-calc(80% + 6px); /* position Y + resizer size*/
+    /* WebKit */
+    height: -webkit-calc(80% + 6px);
+    /* Opera */
+    height: -o-calc(80% + 6px);
+    /* Standard */
+    height: calc(80% + 6px);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden; /*auto;*/
+    background-color: #777;
+}
+
+.sidebar_left_and_right #sidebar-resizer {
+  background-color: #666;
+  position: absolute;
+  top: 36px;
+  bottom: 0;
+  width: 6px;
+  cursor: e-resize;
+
+  left: 60%; /* position X */
+}
+
+.sidebar_only_left #sidebar-resizer {
+  background-color: #666;
+  position: absolute;
+  top: 36px;
+  bottom: 0;
+  width: 6px;
+  cursor: e-resize;
+
+    left: 100%; /* position X */
+}
+
+
+#content-resizer {
+    position: absolute;
+    height: 6px;
+    /* Firefox */
+    bottom: -moz-calc(80% + 6px); /* position Y + resizer size*/
+    /* WebKit */
+    bottom: -webkit-calc(80% + 6px);
+    /* Opera */
+    bottom: -o-calc(80% + 6px);
+    /* Standard */
+    bottom: calc(80% + 6px);
+    left: 0;
+    right: 0;
+    background-color: #666;
+    cursor: n-resize;
+}
+
+#sidebar-resizer:hover, #preview-resizer:hover {
+	background-color: #AAA;
+}
+

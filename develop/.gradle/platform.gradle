@@ -1,0 +1,43 @@
+/**
+ * ============================================================================
+ *  \brief     platform.gradle
+ *  \details   This file finds out the current operating system.
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Feb 10, 2016
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+*/
+
+/*
+================================================================================
+IMPORTS
+================================================================================
+*/
+
+import org.apache.tools.ant.taskdefs.condition.Os
+
+/*
+================================================================================
+CONSTANTS
+================================================================================
+*/
+
+if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+  project.ext.set("SOP", "WINDOWS")
+} else {
+  if (Os.isFamily(Os.FAMILY_MAC)) {
+    project.ext.set("SOP", "MAC")
+  } else {
+    if (Os.isFamily(Os.FAMILY_UNIX)) {
+      project.ext.set("SOP", "LINUX")
+    } else {
+    }
+  }
+}
+
+println "*** Operating System: " + SOP
+

@@ -1,0 +1,111 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/set_basics.ngasp
+
+verbose --level debug
+
+# ============================================================
+# Literal to IDataValue
+# ============================================================
+
+set --to $precision --eq 2
+set --to $table_col_width --eq 5
+dim -n x --as int
+dim -n y --as int
+set --to x --eq 88
+set --to y --eq 99
+
+print -n $precision
+print -n $table_col_width
+print -n x
+print -n y
+
+
+# ============================================================
+# Literal to IDataVector
+# ============================================================
+
+dim -n vec --as int-vector
+set --to vec --eq "1 2 3 4"
+print -n vec
+
+
+# ============================================================
+# Literal to IDataMatrix
+# ============================================================
+
+dim -n mat --as int-matrix
+set --to mat --eq "1 2 3 4;5 6 7 8;9 10 11 12"
+print -n mat
+
+
+# ============================================================
+# IDataValue to IDataValue
+# ============================================================
+
+set --to x --eq y
+print -n x
+
+# ============================================================
+# IDataValue to IDataVector Position
+# ============================================================
+
+set --to vec.data[2] --eq y.value
+print -n vec
+
+set --to vec[3] --eq y
+print -n vec
+
+# ============================================================
+# IDataValue to IDataMatrix Position
+# ============================================================
+
+set --to mat[2,2] --eq y
+print -n mat
+
+# ============================================================
+# IDataVector Position to IDataValue
+# ============================================================
+
+set --to x --eq vec[1]
+print -n x
+
+# ============================================================
+# IDataVector Position to IDataVector Position
+# ============================================================
+
+set --to vec[2] --eq vec[1]
+print -n vec
+
+
+# ============================================================
+# IDataVector Position to IDataMatrix Position
+# ============================================================
+
+set --to mat[0,0] --eq vec[1]
+print -n mat
+
+
+# ============================================================
+# IDataMatrix Position to IDataValue
+# ============================================================
+
+set --to x --eq mat[1,1]
+print -n x
+
+# ============================================================
+# IDataMatrix Position to IDataVector Position
+# ============================================================
+
+set --to vec[3] --eq mat[1,1]
+print -n vec
+
+
+# ============================================================
+# IDataMatrix Position to IDataMatrix Position
+# ============================================================
+
+set --to mat[0,1] --eq mat[1,1]
+print -n mat
+
+
+
+

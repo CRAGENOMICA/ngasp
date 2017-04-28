@@ -1,0 +1,91 @@
+/*
+ * mstatspop, Statistical Analysis using Multiple Populations for Genomic Data.
+ * Copyright (c) 2009-2017, Sebastián Ramos Onsins,
+ * Centre for Research in Agricultural Genomics.
+ * All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License version
+ * 2.1 as published by the Free Software Foundation.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License version 2.1 for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License version 2.1 along with this library; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ */
+/**
+ *  \brief     CCalcY.h
+ *  \details
+ *  \author    Joan Jené
+ *  \version   1.0
+ *  \date      July 14, 2015
+ *  \pre
+ *  \bug
+ *  \warning
+ */
+
+#ifndef CALCULATIONS_CALCS_CCALCY_H_
+#define CALCULATIONS_CALCS_CCALCY_H_
+
+#include "../ICalculation.h"
+#include "../../data_manager/common/CDataAccess.h"
+
+#include "../../data_manager/CDataManager.h"
+#include "../../data_manager/Data/CDataCharVector.h"
+#include "../../data_manager/Data/CDataInt.h"
+#include "../../data_manager/Data/CDataIntVector.h"
+#include "../../data_manager/Data/CDataInt64.h"
+#include "../../data_manager/Data/CDataInt64Vector.h"
+#include "../../data_manager/Data/CDataDouble.h"
+#include "../../data_manager/Data/CDataDoubleVector.h"
+#include "../../data_manager/Data/CDataDoubleMatrix.h"
+#include "../../data_manager/Data/CDataFloatVector.h"
+#include "../../data_manager/Data/CDataStdString.h"
+
+class CCalcY : public ICalculation {
+ private:
+  // Inputs
+  CDataInt *ploidy;
+  CDataInt64 *npops;
+  CDataDoubleVector *stats_fst1all_0;
+  CDataDoubleVector *stats_fst1all_1;
+  CDataDoubleVector *stats_fsth1all_0;
+  CDataDoubleVector *stats_fsth1all_1;
+  CDataDouble *stats_fstALL_0;
+  CDataDouble *stats_fstALL_1;
+  CDataDouble *stats_fsthALL_0;
+  CDataDouble *stats_fsthALL_1;
+  CDataDouble *stats_GstALL_0;
+  CDataDouble *stats_GstALL_1;
+
+  // Outputs
+  CDataInt64Vector *piter_i1;
+  CDataInt64Vector *piter_niteri1;
+  CDataInt64Vector *piter_ih1;
+  CDataInt64Vector *piter_niterih1;
+  CDataInt64 *piter_iall;
+  CDataInt64 *piter_niteriall;
+  CDataInt64 *piter_ihall;
+  CDataInt64 *piter_niterihall;
+  CDataInt64 *piter_ighall;
+  CDataInt64 *piter_niterighall;    
+    
+ public:
+  CCalcY();
+  virtual ~CCalcY();
+
+ public:
+  void Prepare(void);
+  void Calculate(bool dry_run);
+  void Finalize(void);
+
+ public:
+  ICalculation* clone() const { return new CCalcY(); /*clone*/  }
+};
+
+#endif  // CALCULATIONS_CALCS_CCALCY_H_

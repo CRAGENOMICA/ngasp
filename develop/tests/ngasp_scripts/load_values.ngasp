@@ -1,0 +1,5 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/load_values.ngasp -v /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/load_values_inputs.ngasp
+
+print --text "file1-A"
+@LOAD_VALUES
+print --text "file1-B"

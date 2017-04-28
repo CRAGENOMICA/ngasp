@@ -1,0 +1,86 @@
+<div class="sheet">
+	<br /><br /><br /><br />
+
+	<!-- Alerts -->
+	<alerts></alerts>
+
+	<!-- do not set the controller here because it is in the $stateProvider -->
+
+    <div class="container-fluid">
+
+	    <div class="row spacer">
+            <div class="company_title_1_font window_padding">Network</div>
+        </div>
+
+	    <div class="row spacer">
+		    <div class="col-md-12 graph_box company_background_window_color">
+			    <div class="graph_title_bar">
+				    <div class="graph_title_bar_buttons">
+					    <span class="glyphicon glyphicon-refresh graph_refresh cursor_hand" ng-click="OnRefreshLocalManagersList()"></span>
+
+					    <div class="dropdown graph_menu cursor_hand">
+						    <span data-toggle="dropdown" class="dropdown-toggle glyphicon glyphicon-option-vertical"></span>
+						    <ul class="dropdown-menu dropdown-animation dropdown-menu-right company_background_menu_color" role="menu">
+							    <li role="menuitem"><a href="#" class="menu_item_font" ng-click="OnCloseServer()">Close Server</a></li>
+						    </ul>
+					    </div>
+				    </div>
+				    <span class="company_title_2_font">Local Managers</span><br />
+				    <span class="company_title_3_font">List of local managers</span>
+			    </div>
+          <div class="table-responsive">
+			      <table class="table col-sm-12">
+			        <thead>
+				      <tr>
+					      <th>ID</th>
+					      <th>ADDRESS</th>
+					      <th>STATUS</th>
+					      <th>CAPABILITIES</th>
+					      <th>EXPERIMENTS</th>
+				      </tr>
+			        </thead>
+				      <tbody>
+			        		<tr class="table_row" ng-repeat="lm in local_manager_list">
+						      <td class="hightlited_value_font company_text_color">{{ lm.lm_id }}</td>
+						      <td>{{ lm.address }}</td>
+						      <td>{{ lm.status }}</td>
+						      <td><pre ng-bind-html="lm.capabilities" class="default_font"></pre></td>
+						      <td class="hightlited_value_font company_text_color">{{ lm.used }}</td>
+					      </tr>
+				      </tbody>
+			      </table>
+          </div>
+		    </div>
+	    </div>
+
+	    <div class="row spacer">
+		    <div class="col-md-12 graph_box company_background_window_color">
+			    <div class="graph_title_bar">
+				    <div class="graph_title_bar_buttons">
+					    <span class="glyphicon glyphicon-refresh graph_refresh cursor_hand" ng-click="OnRefreshClientsList()"></span>
+				    </div>
+				    <span class="company_title_2_font">Users</span><br />
+				    <span class="company_title_3_font">List of client browsers</span>
+			    </div>
+
+          <div class="table-responsive">
+			      <table class="table col-sm-12">
+			        <thead>
+				      <tr>
+					      <th>ADDRESS</th>
+				      </tr>
+			        </thead>
+				      <tbody>
+			        		<tr class="table_row" ng-repeat="user in clients_list">
+						      <td>{{ user.address }}</td>
+					      </tr>
+				      </tbody>
+			      </table>
+          </div>
+
+		    </div>
+	    </div>
+<br />
+
+    </div>
+</div>

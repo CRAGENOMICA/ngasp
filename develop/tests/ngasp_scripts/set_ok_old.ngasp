@@ -1,0 +1,181 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/set_ok.ngasp
+
+verbose --level debug
+
+# ============================================================
+# Literal to IDataValue
+# ============================================================
+
+set --to $precision --eq 2
+print -n $precision
+
+# ============================================================
+# Literal to IDataValue
+# ============================================================
+
+set --to $table_col_width --eq 2
+print -n $table_col_width
+
+# ============================================================
+# Literal to IDataMatrix
+# ============================================================
+
+dim -n mat --as int-matrix
+set --to mat.data --eq "1 2 3 4;5 6 7 8;9 10 11 12"
+# if --ref mat.data --ne "1 2 3 4;5 6 7 8;9 10 11 12"
+# 	print --text "5) Expected:\n 1  2  3  4\n 5  6  7  8\n 9 10 11 12" -n mat
+# endif
+
+
+
+# 1===========================================================
+# DESTINATION                    ORIGIN
+# OBJECT_VARIABLE + BASIC       DIRECT_VALUE
+# ===========================================================
+
+dim -n x --as int
+set --to x.value --eq 2
+# if --ref x.value --ne 2
+# 	print --text "1) Expected: 2" -n x
+# endif
+
+# 2===========================================================
+# DESTINATION			ORIGIN
+# OBJECT_VARIABLE + BASIC       OBJECT_VARIABLE + BASIC
+# ===========================================================
+
+dim -n y --as int
+set --to y.value --eq x.value
+# if --ref y.value --ne 2
+# 	print --text "2) Expected: 2" -n y
+# endif
+
+# 2b===========================================================
+# DESTINATION			ORIGIN
+# OBJECT_VARIABLE + BASIC       VARIABLE_POSITION + VECTOR
+# ===========================================================
+
+dim -n v --as int-vector
+set --to v.data --eq "1 2 3 4 5 6 7 8 9 10"
+set --to x.value --eq v.data[9]
+# if --ref x.value --ne 10
+# 	print --text "2b) Expected: 10" -n x
+# endif
+
+# 3===========================================================
+# DESTINATION			ORIGIN
+# OBJECT_VARIABLE + VECTOR      DIRECT_VALUE
+# ===========================================================
+
+dim -n v2 --as int-vector
+set --to v2.data --eq "10 20 30 40 50"
+# if --ref v2.data --ne "10 20 30 40 50"
+# 	print --text "3) Expected: 10 20 30 40 50" -n v2
+# endif
+
+# 4===========================================================
+# DESTINATION			ORIGIN
+# OBJECT_VARIABLE + VECTOR      OBJECT_VARIABLE + VECTOR
+# ===========================================================
+
+set --to v.data --eq v2.data
+# if --ref v.data --ne "10 20 30 40 50"
+# 	print --text "4) Expected: 10 20 30 40 50" -n v
+# endif
+
+
+# 6===========================================================
+# DESTINATION			ORIGIN
+# OBJECT_VARIABLE + MATRIX      OBJECT_VARIABLE + MATRIX
+# ===========================================================
+
+dim -n mat2 --as int-matrix
+set --to mat2.data --eq mat.data
+# if --ref mat2.data --ne "1 2 3 4;5 6 7 8;9 10 11 12"
+# 	print --text "6) Expected:\n 1  2  3  4\n 5  6  7  8\n 9 10 11 12" -n mat2
+# endif
+
+# 7===========================================================
+# DESTINATION			ORIGIN
+# VARIABLE_POSITION + VECTOR    DIRECT_VALUE
+# ===========================================================
+
+set --to v.data[3] --eq 77
+# if --ref v.data[3] --ne 77
+# 	print --text "7) Expected: 10 20 30 77 50" -n v
+# endif
+
+# 7-2===========================================================
+# DESTINATION			ORIGIN
+# VARIABLE_POSITION + VECTOR    DIRECT_VALUE
+# Position as variable [x]
+# ===========================================================
+
+set --to x.value --eq 2
+set --to v.data[x.value] --eq 33
+# if --ref v.data --ne "10 20 33 77 50"
+# 	print --text "7-2) Expected: 10 20 33 77 50" -n v
+# endif
+
+# 8===========================================================
+# DESTINATION			ORIGIN
+# VARIABLE_POSITION + VECTOR    OBJECT_VARIABLE + BASIC
+# ===========================================================
+
+set --to v.data[4] --eq x.value
+# if --ref v.data --ne "10 20 33 77 2"
+# 	print --text "8) Expected: 10 20 33 77 2" -n v
+# endif
+
+# 9===========================================================
+# DESTINATION			ORIGIN
+# VARIABLE_POSITION + VECTOR    VARIABLE_POSITION
+# ===========================================================
+
+set --to v.data[2] --eq v.data[4]
+# if --ref v.data --ne "10 20 2 77 2"
+# 	print --text "9) Expected: 10 20 2 77 2" -n v
+# endif
+
+# 10===========================================================
+# DESTINATION			ORIGIN
+# VARIABLE_POSITION + MATRIX    DIRECT_VALUE
+# ===========================================================
+
+set --to mat.data[1,1] --eq 77
+# if --ref mat.data --ne "1 2 3 4\;5 77 7 8;9 10 11 12"
+# 	print --text "10) Expected:\n  1  2  3  4\n  5  77  7  8\n  9 10 11 12" -n mat
+# endif
+
+# 10-2===========================================================
+# DESTINATION			ORIGIN
+# VARIABLE_POSITION + MATRIX    DIRECT_VALUE
+# ===========================================================
+
+set --to x.value --eq 0
+set --to mat.data[x.value,x.value] --eq 99
+# if --ref mat.data --ne "99 2 3 4\;5 77 7 8;8 10 11 12"
+# 	print --text "10-2) Expected:\n 99  2  3  4\n  5  77  7  8\n  9 10 11 12" -n mat
+# endif
+
+# 11===========================================================
+# DESTINATION			ORIGIN
+# VARIABLE_POSITION + MATRIX    OBJECT_VARIABLE + BASIC
+# ===========================================================
+
+set --to mat.data[1,2] --eq x.value
+# if --ref mat.data --ne "99 2 3 4\;5 77 0 8;9 10 11 12"
+# 	print --text "11) Expected:\n  99  2  3  4\n  5  77  0  8\n  9 10 11 12" -n mat
+# endif
+
+# 12===========================================================
+# DESTINATION			ORIGIN
+# VARIABLE_POSITION + MATRIX    VARIABLE_POSITION + MATRIX
+# ===========================================================
+
+set --to mat.data[0,0] --eq mat.data[1,1]
+# if --ref mat.data --ne "77 2 3 4\;5 77 0 8;9 10 11 12"
+# 	print --text "12) Expected:\n 77  2  3  4\n  5  77  0  8\n  9 10 11 12" -n mat
+# endif
+
+

@@ -1,0 +1,25 @@
+{
+  "name": "ngasp-web-app",
+  "version": "0.0.1",
+  "description": "ngaSP Web Application",
+  "dependencies": {
+    "body-parser": "~1.13.3",
+    "express": "~4.13.3",
+    "node-uuid": "~1.4.3",
+    "walk": "~2.3.9"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.bio.crag.local:gvera/ngasp.git"
+  },
+  "keywords": [
+    "ngasp"
+  ],
+  "author": "",
+  "license": "GNU LESSER GENERAL PUBLIC LICENSE. Version 2.1"
+}

@@ -1,0 +1,171 @@
+[jjene@localhost pipelines_progressius]$ ./runme.sh 4
+Verbose Level: debug
+00:00:00
+
+set-value --to $encoding --eq "english_bn"
+00:00:00
+
+constant --name TEST_NUMBER --by 4
+00:00:00
+
+constant --name PATH_FILES --by ./data
+00:00:00
+
+constant --name PATH_BINARIES --by ./bin
+00:00:00
+
+constant --name PATH_OUTPUT --by ./output_4
+00:00:00
+
+constant --name RESULT_OK --by 0
+00:00:00
+
+constant --name BAM_1 --by ./data/Banjo.chr12.20X.sorted.realigned.bam
+00:00:00
+
+constant --name BAM_2 --by ./data/Mimi.chr12.20X.sorted.realigned.bam
+00:00:00
+
+constant --name BAI_1 --by ./data/Banjo.chr12.20X.sorted.realigned.bam.bai
+00:00:00
+
+constant --name BAI_2 --by ./data/Mimi.chr12.20X.sorted.realigned.bam.bai
+00:00:00
+
+constant --name FASTA_REFERENCE --by ./data/reference.fas
+00:00:00
+
+constant --name INPUT_REQUIRED_COLS --by ./data/required_columns1.txt
+00:00:00
+
+constant --name MPILEUP --by ./output_4/data_paper001-2I20X.mpileup
+00:00:00
+
+constant --name FASTA_SEQUENCES --by ./output_4/data_paper001-2I20X.mpileup.fasta
+00:00:00
+
+constant --name TRANSPOSED_FASTA --by ./output_4/data_paper001-2I20X.mpileup.tfasta
+00:00:00
+
+constant --name SEQUENCES_WITH_OUTGROUP --by ./output_4/data_paper001-2I20X_outgroup.mpileup.fasta
+00:00:00
+
+constant --name STATISTICS --by ./output_4/statistics.txt
+00:00:00
+
+constant --name FILTERED_./output_4/statistics.txt --by ./output_4/filtered_statistics.txt
+00:00:00
+
+constant --name FASTA_CONVERTER_LOG --by ./output_4/fastaconvtr.log
+00:00:00
+
+constant --name SNIP_CALLER --by ./bin/snip_caller.sh
+00:00:00
+
+constant --name FASTA_CONVERTER --by ./bin/fastaconvtr
+00:00:00
+
+constant --name COLLECT_DATA_COLUMNS --by perl ./bin/collect_data_columns.pl
+00:00:00
+
+constant --name SYSTEM_CAT --by cat
+00:00:00
+
+dim -n bam_files --as string_vector
+00:00:00
+
+dim -n fasta_ref --as string
+00:00:00
+
+dim -n file_mpileup --as mpileup
+00:00:00
+
+calc -n calc_bam_mpileup --as bam2mpileup
+00:00:00
+
+set-value --to bam_files --eq "./data/Banjo.chr12.20X.sorted.realigned.bam,./data/Mimi.chr12.20X.sorted.realigned.bam"
+00:00:00
+
+set-value --to fasta_ref --eq "./data/reference.fas"
+00:00:00
+
+set-value --to file_mpileup.value --eq "./output_4/data_paper001-2I20X.mpileup"
+00:00:00
+
+set-value --to calc_bam_mpileup.inputs --eq "bam_files,fasta_ref"
+00:00:00
+
+set-value --to calc_bam_mpileup.outputs --eq "file_mpileup"
+00:00:00
+
+run-calculation -n calc_bam_mpileup
+[mpileup] 2 samples in 2 input files
+<mpileup> Set max per-file depth to 4000
+00:54:04
+
+if --ref $result --ne 0
+00:00:00
+
+endif
+00:00:00
+
+execute -c "./bin/snip_caller.sh ./output_4/data_paper001-2I20X.mpileup ./output_4/data_paper001-2I20X.mpileup.fasta"
+[GHCALLER] 2016-05-12 14:23:10,277: INFO - Input file is ./output_4/data_paper001-2I20X.mpileup 
+[GHCALLER] 2016-05-12 14:23:10,277: INFO - Number of individuals 2 
+[GHCALLER] 2016-05-12 14:23:10,277: INFO - Detected pileup start/end site [2-133360231] 
+[GHCALLER] 2016-05-12 14:23:10,302: INFO - Initializing 4 fasta sequences with size 133360231 
+[GHCALLER] 2016-05-12 14:23:10,303: INFO - Indexing file ./output_4/data_paper001-2I20X.mpileup 
+[GHCALLER] 2016-05-12 14:23:10,303: INFO - Working with input file (12786 MB) and chunk size of 50 MB 
+[GHCALLER] 2016-05-12 14:23:10,788: INFO - Time indexing file  0.485352 seconds 
+[GHCALLER] 2016-05-12 14:23:10,788: INFO - New chunks from file 255, chunk size 52428800 
+[GHCALLER] 2016-05-12 14:23:10,788: INFO - Assign tasks [255] to all workers [5] 
+[GHCALLER] 2016-05-12 14:23:10,788: INFO - Tasks assigned 1/255 
+[GHCALLER] 2016-05-12 14:23:22,928: INFO - Tasks assigned 26/255 
+[GHCALLER] 2016-05-12 14:23:35,653: INFO - Tasks assigned 51/255 
+[GHCALLER] 2016-05-12 14:23:48,349: INFO - Tasks assigned 76/255 
+[GHCALLER] 2016-05-12 14:24:01,021: INFO - Tasks assigned 101/255 
+[GHCALLER] 2016-05-12 14:24:13,306: INFO - Tasks assigned 126/255 
+[GHCALLER] 2016-05-12 14:24:25,383: INFO - Tasks assigned 151/255 
+[GHCALLER] 2016-05-12 14:24:38,598: INFO - Tasks assigned 176/255 
+[GHCALLER] 2016-05-12 14:24:52,308: INFO - Tasks assigned 201/255 
+[GHCALLER] 2016-05-12 14:25:05,911: INFO - Tasks assigned 226/255 
+[GHCALLER] 2016-05-12 14:25:20,386: INFO - Tasks assigned 251/255 
+[GHCALLER] 2016-05-12 14:25:24,854: INFO - All tasks assigned to workers 
+00:02:15
+
+if --ref $result --ne 0
+00:00:00
+
+endif
+00:00:00
+
+execute -c "cat ./output_4/data_paper001-2I20X.mpileup.fasta ./data/reference.fas  > ./output_4/data_paper001-2I20X_outgroup.mpileup.fasta"
+00:00:01
+
+if --ref $result --ne 0
+00:00:00
+
+endif
+00:00:00
+
+execute -c "./bin/fastaconvtr -F fasta -f tfasta -i ./output_4/data_paper001-2I20X.mpileup.fasta -o ./output_4/data_paper001-2I20X.mpileup.tfasta > ./output_4/fastaconvtr.log"
+00:00:25
+
+if --ref $result --ne 0
+00:00:00
+
+endif
+00:00:00
+
+mstatspop -f tfa -i ./output_4/data_paper001-2I20X.mpileup.tfasta -o 1 -N 1 4 -G 0 -p 1 -u 1 -w 1000 -T ./output_4/statistics.txt
+00:00:35
+
+execute -c "perl ./bin/collect_data_columns.pl -in ./output_4/statistics.txt -fc ./data/required_columns1.txt > ./output_4/filtered_statistics.txt"
+00:00:02
+
+if --ref $result --ne 0
+00:00:00
+
+endif
+00:00:00
+

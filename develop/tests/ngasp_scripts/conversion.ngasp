@@ -1,0 +1,11 @@
+# ./ngasp load -i /develop/tests/ngasp_scripts/conversion.ngasp
+
+dim -n x --as double_matrix
+dim -n s --as string
+
+set-value --to x --eq "1,2,3;4,5,6"
+set-value --to s --eq x
+
+print -n x --mode value --eol
+print -n s --mode value --eol
+

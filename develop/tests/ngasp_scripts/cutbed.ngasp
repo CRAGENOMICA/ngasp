@@ -1,0 +1,22 @@
+verbose --level debug
+
+const --name FALSE --by 0
+const --name TRUE  --by 1
+
+dim -n ifile       --as bed_file
+dim -n selection   --as string
+dim -n keep        --as bool
+dim -n ofile       --as bed_file
+
+set-value --to ifile      --eq "./examples/genes.bed"
+set-value --to selection  --eq "2"
+set-value --to keep       --eq FALSE
+set-value --to ofile      --eq "./examples/output.bed"
+
+calc -n c1 --as calc-cut-bed
+set --to c1.inputs  --eq "ifile,selection,keep"
+set --to c1.outputs --eq "ofile"
+run -n c1
+
+exit
+

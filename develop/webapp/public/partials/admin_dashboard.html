@@ -1,0 +1,55 @@
+<div class="sheet">
+	<br /><br /><br /><br />
+
+	<!-- Alerts -->
+	<alerts></alerts>
+
+	<!-- do not set the controller here because it is in the $stateProvider -->
+
+	<!-- VIS -->
+	<link href="./vendor/vis/vis.css" rel="stylesheet">
+	<script src="./vendor/vis/vis.js"></script>
+
+    <div class="container-fluid">
+
+	    <div class="row spacer">
+            <div class="company_title_1_font window_padding">Dashboard</div>
+        </div> <!-- row -->
+
+	    <div class="row spacer">
+		    <div class="col-md-12 graph_box company_background_window_color" id="net">
+			    <div class="graph_title_bar">
+				    <div class="graph_title_bar_buttons">
+					    <span class="glyphicon glyphicon-refresh graph_refresh cursor_hand" ng-click="OnRefreshNetworkGraph()"></span>		    
+
+					    <div class="dropdown graph_menu cursor_hand">
+						    <span data-toggle="dropdown" class="dropdown-toggle glyphicon glyphicon-option-vertical"></span>
+						    <ul class="dropdown-menu dropdown-animation dropdown-menu-right company_background_menu_color" role="menu">
+							    <li role="menuitem"><a class="menu_item_font" href="#" ng-click="OnSetLayoutHierarchical('UD')">Up Down</a></li>
+							    <li role="menuitem"><a class="menu_item_font" href="#" ng-click="OnSetLayoutHierarchical('DU')">Down Up</a></li>
+							    <li role="menuitem"><a class="menu_item_font" href="#" ng-click="OnSetLayoutHierarchical('LR')">Left Right</a></li>
+							    <li role="menuitem"><a class="menu_item_font" href="#" ng-click="OnSetLayoutHierarchical('RL')">Right Left</a></li>
+							    <li role="menuitem"><a class="menu_item_font" href="#" ng-click="OnSetLayoutHierarchical('None')">Not hierarchical</a></li>
+						    </ul>
+					    </div>	
+				    </div>
+
+				    <span class="company_title_2_font">Network</span><br />
+				    <span class="company_title_3_font">Description</span><br />
+			    </div>
+
+			    <div id="network">
+					    <canvas id="network_canvas"></canvas>
+			    </div>
+		    </div>
+	    </div> <!-- row -->
+
+	    <div class="row spacer">
+		    <div class="col-md-2 col-xs-12 col_1_4                 company_background_color_extra_1" id="graph_little_box_1"><div class="graph_little_box_shadow" /><span class="graph_little_box_text">Central Manager</span><span class="graph_little_box_number">1</span></div>
+		    <div class="col-md-2 col-xs-12 col_2_4 col-md-offset-1 company_background_color_extra_2" id="graph_little_box_2"><div class="graph_little_box_shadow" /><span class="graph_little_box_text">Users</span><span class="graph_little_box_number">{{clients_list.length}}</span></div>
+		    <div class="col-md-2 col-xs-12 col_3_4 col-md-offset-1 company_background_color_extra_3" id="graph_little_box_3"><div class="graph_little_box_shadow" /><span class="graph_little_box_text">Local Managers</span><span class="graph_little_box_number">{{local_manager_list.length}}</span></div>
+		    <div class="col-md-2 col-xs-12 col_4_4 col-md-offset-1 company_background_color_extra_4" id="graph_little_box_4"><div class="graph_little_box_shadow" /><span class="graph_little_box_text">Experiments</span><span class="graph_little_box_number">{{experiments_list.length}}</span></div>
+	    </div> <!-- row -->
+
+    </div> <!-- container -->
+</div>

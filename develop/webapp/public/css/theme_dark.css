@@ -1,0 +1,450 @@
+/*
+-------------------------------------------------------------------------------
+Company Colors
+-------------------------------------------------------------------------------
+*/
+
+/*
+--------------------------------------------------------------------------------
+Font Styles
+--------------------------------------------------------------------------------
+*/
+.theme_dark .default_font
+{
+    color: #5e5e5e;
+}
+
+.theme_dark .company_title_1_font
+{
+    font-family: 'robotoregular';
+    font-size: 15px;
+
+	color: #fff;
+
+	text-transform: uppercase;
+
+	z-index: 1;
+
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	margin: 0px;
+}
+
+.theme_dark .company_title_2_font
+{
+    font-family: 'robotoregular';
+    font-size: 17px;
+
+	color: #000;
+
+	z-index: 1;
+
+	padding: 0px;
+	margin: 0px;
+}
+
+.theme_dark .company_title_3_font
+{
+    font-family: 'robotoregular';
+    font-size: 12px;
+
+	color: #666;
+
+	z-index: 1;
+
+	padding: 0px;
+	margin: 0px;
+}
+
+
+/*
+-------------------------------------------------------------------------------
+Company Colors - Dark
+-------------------------------------------------------------------------------
+*/
+.theme_dark
+{
+	margin: 0px;
+	padding: 0px;
+	height: 100%;	/* menu height 100% */
+    background-color: #434343; /*#262626;*/
+}
+
+.theme_dark .company_background_titlebar_color
+{
+    background-color: rgb(41,41,41); /*#292929;*/
+}
+
+/* this must be the same as company_background_titlebar_color but for "color"
+instead of "background" */
+.theme_dark .company_text_color 
+{
+    color: rgb(41,41,41); /*#292929;*/
+}
+
+.theme_dark .company_sub_text_color 
+{
+    color: #e6e6e6;
+}
+
+.theme_dark .default_button_color
+{
+    background-color: rgb(41,41,41); /*#292929;*/
+    color: #eee;
+}
+
+.theme_dark .company_background_window_color
+{
+    background-color: #fafafa; /*#bbb;*/
+}
+
+.theme_dark .company_background_menu_color
+{
+    background-color: #3c3c3c;
+}
+
+.theme_dark .company_background_color_extra_1
+{
+	background-color: #636363;
+}
+
+.theme_dark .company_background_color_extra_2
+{
+	background-color: #636363;
+}
+
+.theme_dark .company_background_color_extra_3
+{
+	background-color: #636363;
+}
+
+.theme_dark .company_background_color_extra_4
+{
+	background-color: #636363;
+}
+
+
+/* Popup menu options */
+.theme_dark .dropdown-menu>li>a
+{
+    color: white;
+    font-weight: 500;
+}
+
+/*
+--------------------------------------------------------------------------------
+Context Menu
+--------------------------------------------------------------------------------
+*/
+.theme_dark .dropdown-menu {
+    background: #999;
+    padding: 5px;
+}
+.theme_dark .dropdown-menu li a {
+    color: black;
+}
+/*
+--------------------------------------------------------------------------------
+*/
+
+/* Popup menu options */
+.theme_dark .dropdown-menu>li>a:hover
+{
+    background:rgba(255,255,255,0.2);
+    font-weight: 500;
+}
+
+/* Grayscale Images */
+.theme_dark .menu_image
+{ 
+    -webkit-filter: grayscale(50%);
+    filter: grayscale(50%);
+}
+.theme_dark img.desaturate
+{
+    -webkit-filter: grayscale(50%);
+    filter: grayscale(50%);
+}
+
+
+/* Menu */
+
+/* Cursor is hover the menu item */
+.theme_dark .menu .menu_item:hover
+{
+    background:rgba(255,255,255,0.2);
+    font-weight: 500;
+}
+
+/* Row selected on the menu */
+.theme_dark .row_selected
+{
+    background:rgba(255,255,255,0.2);
+    font-weight: 500;
+}
+
+.theme_dark .menu_item_font
+{
+	margin-left: 0px;
+	color: white; /*#262626;*/
+}
+
+.theme_dark .menu_item a
+{
+	text-decoration: none;
+    color: #ababab;
+}
+
+.theme_dark .menu_subitem
+{
+	color: #ababab;
+}
+
+.theme_dark .menu_subitem:hover
+{
+	color: #ababab;
+    background:rgba(255,255,255,0.2);
+}
+
+.theme_dark .subitem_selected
+{
+	color: #ababab;
+    background:rgba(255,255,255,0.2);
+}
+
+.modal-body
+{
+    color: rgb(41,41,41); /*#292929;*/
+}
+
+/*
+-------------------------------------------------------------------------------
+Popup Messages
+-------------------------------------------------------------------------------
+*/
+.theme_dark .modal-header
+{
+    background-color: #151515;
+	color: #fff;
+}
+
+.theme_dark .modal-footer
+{
+    background-color: #edecec;
+	color: #fff;
+}
+
+.theme_dark .alert-footer
+{
+    background-color: #edecec;
+	color: #fff;
+}
+
+
+/*
+-------------------------------------------------------------------------------
+Windows
+-------------------------------------------------------------------------------
+*/
+
+.theme_dark .graph_box
+{
+}
+
+.theme_dark #graph_little_box_1
+{
+}
+
+.theme_dark #graph_little_box_2
+{
+}
+
+.theme_dark #graph_little_box_3
+{
+}
+
+.theme_dark #graph_little_box_4
+{
+}
+
+/*
+-------------------------------------------------------------------------------
+Tables
+-------------------------------------------------------------------------------
+*/
+
+.theme_dark .selected_row
+{
+  color: lightgray;
+	background-color: rgba(41,41,41,0.1);
+}
+
+.theme_dark .table_row:hover
+{
+    color: white;
+    background: rgba(41,41,41,0.1);
+}
+
+/*
+-------------------------------------------------------------------------------
+Tool Buttons
+-------------------------------------------------------------------------------
+*/
+
+.theme_dark #experiment_tools
+{
+/*    box-shadow: 0px 1px 5px #444;*/
+ /* background-color: transparent;*/ 
+  
+    border: 0px;
+    border-bottom: 2px solid #262626;
+    border-left: 2px solid #262626;
+    box-shadow: 0px 0px 0px #000;
+}
+
+.theme_dark #button_calculations
+{
+	background-image: url(../images/fx_icon.svg);
+}
+
+
+.theme_dark #button_dms
+{
+	background-image: url(../images/dm_icon.svg); 
+}
+
+.theme_dark #button_inputs
+{
+	background-image: url(../images/input_icon.svg); 
+}
+
+.theme_dark #button_outputs
+{
+	background-image: url(../images/output_icon.svg); 
+}
+
+.theme_dark #button_datas
+{
+	background-image: url(../images/data_icon.svg); 
+}
+
+.theme_dark #button_graphs
+{
+	background-image: url(../images/graph_icon.svg); 
+}
+
+.theme_dark #button_pipelines
+{
+	background-image: url(../images/pipeline_icon.svg); 
+}
+
+
+/*
+-------------------------------------------------------------------------------
+Nav Tab Bar
+-------------------------------------------------------------------------------
+*/
+
+/* Not selected document tab */
+.theme_dark .nav-tabs>li,
+.theme_dark .nav-tabs>li>a
+{
+    color: #e6e6e6;
+    background-color: transparent;
+}
+
+/* Selected document tab */
+.theme_dark .nav-tabs>li.active,
+.theme_dark .nav-tabs>li.active>a,
+.theme_dark .nav-tabs>li.active>a:focus
+{
+    color: #e6e6e6;
+    background-color: #333;
+}
+
+/* Over document tab */
+.theme_dark .nav-tabs>li:hover,
+.theme_dark .nav-tabs>li>a:hover
+{
+    color: #e6e6e6;
+    background-color: #333;
+}
+
+
+
+.theme_dark .nav_tab_bar_bottom_line
+{
+    padding: 0px;
+    margin: 0px;
+    border-bottom: 2px solid #262626;
+}
+
+.theme_dark .nav-tabs
+{
+    border: 0px;
+    border-right:  1px solid #262626; /*last line */
+}
+
+.theme_dark .document_tab
+{
+    border-right: 1px solid  #262626;
+    border-left:  1px solid #262626; /* first line */
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+.theme_dark .graph_menu,
+.theme_dark .graph_refresh,
+.theme_dark .graph_close
+{
+	color: #666;
+}
+
+.theme_dark .graph_menu:hover,
+.theme_dark .graph_refresh:hover,
+.theme_dark .graph_close:hover
+{
+	color: black;
+}
+
+/*
+-------------------------------------------------------------------------------
+Scrollbars
+-------------------------------------------------------------------------------
+*/
+
+
+.theme_dark::-webkit-scrollbar,
+.theme_dark .menu_auto_scroll::-webkit-scrollbar,
+.theme_dark .menu_node::-webkit-scrollbar,
+.theme_dark .console::-webkit-scrollbar
+{
+    width: 1em;
+}
+
+.theme_dark::-webkit-scrollbar-track, 
+.theme_dark .menu_auto_scroll::-webkit-scrollbar-track,
+.theme_dark .menu_node::-webkit-scrollbar-track,
+.theme_dark .console::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 20px #aaa;
+}
+
+.theme_dark::-webkit-scrollbar-thumb, 
+.theme_dark .menu_auto_scroll::-webkit-scrollbar-thumb,
+.theme_dark .menu_node::-webkit-scrollbar-thumb,
+.theme_dark .console::-webkit-scrollbar-thumb
+{
+  background-color: #aaa;
+  /*outline: 3px solid #99d651;*/
+}
+
+.theme_dark .output_panel
+{
+  background-color: #444;
+}
+

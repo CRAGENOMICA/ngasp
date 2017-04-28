@@ -1,0 +1,20 @@
+verbose --level debug
+
+dim -n path       --as string
+dim -n include    --as string
+dim -n exclude    --as string_vector
+dim -n files      --as string_vector
+
+set-value --to path       --eq "/develop/examples/"
+set-value --to include    --eq ".bam"
+set-value --to exclude    --eq ""
+
+calc -n c1 --as calc-list-files
+set --to c1.inputs  --eq "path,include,exclude"
+set --to c1.outputs --eq "files"
+run -n c1
+
+print -n files
+
+exit
+

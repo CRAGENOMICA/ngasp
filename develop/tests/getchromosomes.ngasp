@@ -1,0 +1,16 @@
+verbose --level debug
+
+dim -n bam --as bam_file
+dim -n names --as string_vector
+
+set-value --to bam --eq "examples/test_input_1_a.bam"
+
+print -n bam
+
+calc -n c1 --as calc-get-chrom
+set --to c1.inputs --eq "bam"
+set --to c1.outputs --eq "names"
+
+run -n c1
+
+print -n names

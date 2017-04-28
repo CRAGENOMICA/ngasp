@@ -1,0 +1,124 @@
+/**
+ * ============================================================================
+ *  \brief     windows_build.gradle
+ *  \details   This file describes the ngaSP build process for WINDOWS
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Apr 20, 2015
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+*/
+
+model {
+
+	platforms {
+		x64 {
+			architecture "x86_64"
+		}
+	}
+	
+	toolChains {
+		gcc(Gcc) {
+			path "F:\\ci_ngasp\\Win-builds\\bin"
+			eachPlatform() {
+				cppCompiler.executable "g++.exe"
+			}
+		}
+	}
+
+	components {
+		ngasp(NativeExecutableSpec) {
+		
+			targetPlatform "x64"
+		
+			sources {
+				cpp {
+					source {
+						srcDir "backend\\src"
+						include "**\\*.cpp"
+					}
+				}
+			}
+
+			binaries.all {
+				if (toolChain in Gcc) {
+				
+					/* cppCompiler.define "inGSL" GSL */
+					
+					cppCompiler.args "-O3",												/* Optimizations */
+									 "-g3",
+									 "-pedantic",
+									 "-Wall",
+									 /*"-c",*/
+									 "-ansi", 
+									 "-fmessage-length=0",
+									 "-Wno-long-long",
+									 "-Wno-variadic-macros",
+									 "-std=c++11",
+									 
+									 "-I..\\..\\..\\..\\contrib\\boost\\boost_1_60_0",					  /* Boost */
+									 
+									 "-I..\\..\\..\\..\\..\\cygwin64\\usr\\include", 		          /* zlib */								 
+
+									 "-I..\\..\\..\\..\\contrib\\seqan\\devel",         		      /* SeqAn */
+                   "-I..\\..\\..\\..\\contrib\\seqan\\seqan-contrib-D20130710-X64", /* Seqan requirements only for Window */
+
+									 "-DSEQAN_ENABLE_DEBUG=0",
+									 "-DSEQAN_HAS_ZLIB=1",
+									 "-DSEQAN_HAS_BZIP2=0",
+									 "-DSEQAN_ENABLE_TESTING=0",
+                   "-DSEQAN_HAS_EXECINFO=0",
+                   "-DSEQAN_ASYNC_IO=0",
+									 
+                   "-I..\\..\\..\\..\\contrib\\htslib\\htslib-1.3.1\\install\\include", /* HTSLib */
+
+									 /* "-IF:\\ci_ngasp", 				                                YAML */
+
+									 /* "-I/opt/lib/gsl/gsl-2.1",                                 GSL */
+									 
+									 ""
+									 
+					linker.args 	"-pthread",					/* Unknown */
+							/* "-lrt", */
+							/*"-lws2_32",*/
+							
+							/* "-static", */
+							/* "-static-libgcc", */
+							/* "-static-libstdc++", */
+						
+							"-L.\\contrib\\boost\\boost_1_60_0\\stage\\lib", 			            /* Boost mapped_file */
+					 		"-lboost_iostreams",
+
+              "-L.\\contrib\\htslib\\htslib-1.3.1\\install\\lib",               /* HTSLib */
+
+              "-lboost_system",                                                 /* time difference with boost */
+
+							"-lz", 															                      		    /* zlib */
+							/* "-lyaml-cpp", 						                                      YAML */
+							/* "-LF:\\usr\\local\\lib", */
+									
+							/* "-lgsl",                                                       GSL */
+							/* "-lgslcblas", */
+
+              "-L..\\Win-builds\\lib64",
+							"-lgcc_s"
+							"-lstdc++"
+								
+							""
+				}
+			}
+		}
+	}
+	/*repositories {
+		prebuilt {
+			boost_regex {
+				srcDir "F:\\usr\\include\\boost\\boost_1_59_0\\boost"
+			}
+		}
+	}*/
+}
+
+

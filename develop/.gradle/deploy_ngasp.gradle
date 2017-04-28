@@ -1,0 +1,416 @@
+/**
+ * ============================================================================
+ *  \brief     build.gradle
+ *  \details   This file describes the ngaSP build process
+ *             The Source Code Developer Tasks are:
+ *               $ gradle build
+ *               $ gradle runTests
+ *             Jenkins Tasks are:
+ *               $ gradlew getCodeFromRepository
+ *               $ gradlew getLastProjectVersion
+ *               $ gradlew build
+ *               $ gradlew runTests
+ *               $ gradlew checkCodeStyle
+ *               $ gradlew runDoxygen
+ *               $ gradlew compressBinary
+ *               $ gradlew publishBinary
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Apr 20, 2015
+ *  \pre
+ *  \bug
+ *  \warning   From Jenkins, the Working Directory is the Task's working dir.
+ *  \copyright CRAG 2015.
+ * ============================================================================
+*/
+apply plugin: 'cpp'
+
+/*
+--------------------------------------------------------------------------------
+Attention:
+
+The current working directory is this file's folder: ".gradle/"
+--------------------------------------------------------------------------------
+*/
+
+/*
+********************************************************************************
+DEPLOY
+********************************************************************************
+*/
+
+/*
+================================================================================
+IMPORTS
+================================================================================
+*/
+
+apply from: './platform.gradle'
+apply from: './versioning.gradle'
+apply from: './test_backend.gradle'
+apply from: './project_version.gradle'
+
+if (SOP == "WINDOWS") {
+  apply from: './deploy_ngasp_windows.gradle'
+} else {
+  if (SOP == "MAC") {
+    apply from: './deploy_ngasp_mac.gradle'
+  } else {
+    if (SOP == "LINUX") {
+      apply from: './deploy_ngasp_linux.gradle'
+    } else {
+    }
+  }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
+}
+
+/*
+================================================================================
+GET SOURCE CODE FROM REPOSITORY
+(On conflict use remote)
+================================================================================
+*/
+task discardLocalCode(type:Exec) {
+  commandLine "git",
+              "reset",
+              "--hard",
+              "HEAD"
+  doLast {
+    println "LOCAL SOURCE CODE IGNORED SUCCESSFUL"
+  }
+}
+
+task getCodeFromRepositoryIgnoreLocal(type:Exec, dependsOn:discardLocalCode) {
+  commandLine "git",
+              "pull"
+  doLast {
+    println "SOURCE CODE UPDATE SUCCESSFUL"
+  }
+}
+
+
+/*
+================================================================================
+GET SOURCE CODE FROM REPOSITORY
+(It fails if exist local uncommited modified files)
+================================================================================
+*/
+task getCodeFromRepository(type:Exec) {
+  commandLine "git",
+              "pull"
+  doLast {
+    println "SOURCE CODE UPDATE (2) SUCCESSFUL"
+  }
+}
+
+task pushCodeToRepository(type:Exec) {
+  commandLine "git",
+              "push"
+  doLast {
+    println "SOURCE CODE UPLOAD SUCCESSFUL"
+  }
+}
+
+/*
+================================================================================
+GET LAST PROJECT VERSION
+The project_version will be stored in this variable: PROJECT_VERSION
+================================================================================
+*/
+task getLastProjectVersion(type:Exec) {
+  commandLine GET_PROJECT_VERSION_APP,
+              GET_PROJECT_VERSION_SCRIPT
+  doLast {
+    println "GETTING PROJECT VERSION SUCCESSFUL"
+  }
+}
+
+/*
+================================================================================
+UNCOMPRESS ALL COMPRESSED INPUT FILES
+Some input files are stored as ZIP inside the Repository because they are very
+big. This task uncompresses these files.
+================================================================================
+*/
+task unpackExamples(type:Exec) {
+  commandLine UNPACK_EXAMPLES_APP,
+              UNPACK_EXAMPLES_SCRIPT
+  doLast {
+    println "UNPACKING EXAMPLES SUCCESSFUL"
+  }
+}
+
+/*
+================================================================================
+BUILD
+================================================================================
+
+task onwBuild() {
+  if (SOP == "WINDOWS") {
+    apply from: './build_backend_windows.gradle'
+  } else {
+    if (SOP == "MAC") {
+      apply from: './build_backend_mac.gradle'
+    } else {
+      if (SOP == "LINUX") {
+        apply from: './build_backend_linux.gradle'
+      } else {
+      }
+    }
+  }
+}
+
+build.dependsOn onwBuild
+*/
+
+/*
+================================================================================
+AFTER BUILD
+================================================================================
+
+
+build.finalizedBy(finalize)
+*/
+
+
+/*
+================================================================================ NOT ACTIVE
+CODE STYLE
+================================================================================
+*/
+task checkCodeStyle(type:Exec) {
+  commandLine CODE_STYLE_APP, STYLE_SOURCE_CODE_PATH
+
+	workingDir '.'
+
+	doFirst {
+		standardOutput = System.out
+		println workingDir
+	}
+  doLast {
+    println "CODE STYLE SUCCESSFUL"
+  }
+}
+
+/*
+================================================================================ NOT ACTIVE
+CREATE DOXYGEN DOCUMENTATION
+================================================================================
+*/
+task runDoxygen(type:Exec) {
+	commandLine DOCUMENTATION_APP, 'config'
+
+	workingDir DOCUMENTATION_PATH
+
+	doFirst {
+		/*standardOutput = System.out*/
+    standardOutput = new FileOutputStream(DOCUMENTATION_LOG_FILE)
+	}
+  doLast {
+    println "DOCUMENTATION SUCCESSFUL"
+  }
+}
+
+
+/*
+================================================================================
+BUILD DOCKERS
+================================================================================
+*/
+task buildDockers(type:Exec) {
+  workingDir "../../docker"
+  commandLine "docker-compose", "-f", "compose.yml", "build"
+
+  doLast {
+    println "BUILD DOCKERS SUCCESSFUL"
+  }
+}
+
+/*
+================================================================================
+COMPILE SOURCE CODE
+================================================================================
+*/
+task compileSourceCode(type:Exec) {
+  workingDir "../../docker"
+
+  /* -v must have an absolute path */
+  /* ci-build-lin path */
+  commandLine "docker", "run", "--rm", "-v", "/home/ci_ngasp/ngasp/develop:/develop", "compiler-environment", "/develop/compile_all.sh"
+
+  doLast {
+    println "SOURCE CODE COMPILED SUCCESSFUL"
+  }
+}
+
+/*
+================================================================================
+COPY BINARIES TO RELEASE FOLDER
+================================================================================
+*/
+task copyBinaries6(type:Exec) {
+  workingDir "../../release"
+  commandLine "cp", "-r", "../develop/repository", "."
+
+  doLast {
+    println "CM REPOSITORY COPIED SUCCESSFUL"
+  }
+}
+
+
+task copyBinaries5(type:Exec, dependsOn:copyBinaries6) {
+  workingDir "../../release"
+  commandLine "cp", "-r", "../docker/step1/Dockerfile", "step1"
+
+  doLast {
+    println "CM WEBAPP COPIED SUCCESSFUL"
+  }
+}
+
+
+task copyBinaries4(type:Exec, dependsOn:copyBinaries5) {
+  workingDir "../../release"
+  commandLine "cp", "-r", "../docker/step2/Dockerfile", "step2"
+
+  doLast {
+    println "CM WEBAPP COPIED SUCCESSFUL"
+  }
+}
+
+task copyBinaries3(type:Exec, dependsOn:copyBinaries4) {
+  workingDir "../../release"
+  commandLine "cp", "-r", "../develop/webapp", "cm"
+
+  doLast {
+    println "CM WEBAPP COPIED SUCCESSFUL"
+  }
+}
+
+
+task copyBinaries2(type:Exec, dependsOn:copyBinaries3) {
+  workingDir "../../release"
+  commandLine "cp", "-r", "../develop/webapp/bin", "cm"
+
+  doLast {
+    println "CM BINARIES COPIED SUCCESSFUL"
+  }
+}
+
+task copyBinaries(type:Exec, dependsOn:copyBinaries2) {
+  workingDir "../../release"
+  commandLine "cp", "-r", "../develop/webapp/bin", "lm"
+
+  doLast {
+    println "LM BINARIES COPIED SUCCESSFUL"
+  }
+}
+
+/*
+================================================================================ NOT ACTIVE
+COMPRESS THE RELEASE FOLDER
+================================================================================
+*/
+task compressRelease(type: Zip) {
+  from RELEASE_FOLDER
+  include "*"
+  include "**/*"
+  archiveName BINARY_NAME + "_" + PROJECT_VERSION + "_MP.zip"
+  destinationDir(file(TMP_FOLDER))
+
+  doLast {
+    println "BINARY COMPRESSION SUCCESSFUL"
+  }
+}
+/*
+  from RELEASE_FOLDER
+  include "*"
+  include "**____/____*"
+  archiveName BINARY_NAME + "_" + PROJECT_VERSION + "_" + SOP + ".zip"
+  destinationDir(file(TMP_FOLDER))
+*/
+
+/*
+task compressRelease(type:Exec) {
+  commandLine COMPRESSION_APP,
+              COMPRESSION_APP_CWD_PARAM,
+              RELEASE_PACKAGE,
+              TMP_FOLDER + BINARY_NAME + "_" + PROJECT_VERSION + "_" + SOP + ".zip",
+              "*"
+
+  doLast {
+    println "BINARY COMPRESSION SUCCESSFUL"
+  }
+}
+*/
+/*
+================================================================================
+PUBLISH THE ZIP FILE
+================================================================================
+*/
+
+task publishRelease(type:Exec) {
+  if (USE_PK_PARAM == "") {
+    commandLine PUBLISH_APP,
+                "-rpq",
+                TMP_FOLDER + BINARY_NAME + "_" + PROJECT_VERSION + "_MP.zip",
+                PUBLISH_DESTINATION  
+  }
+  else {
+    commandLine PUBLISH_APP,
+                "-rpq", 
+                USE_PK_PARAM,
+                USE_PK_ARG,
+                TMP_FOLDER + BINARY_NAME + "_" + PROJECT_VERSION + "_MP.zip",
+                PUBLISH_DESTINATION
+  }
+
+  doLast {
+    println "PROJECT PUBLISH RELEASE SUCCESSFUL"
+  }
+}
+
+
+
+task publishLastRelease(type:Exec, dependsOn:publishRelease) {
+  if (USE_PK_PARAM == "") {
+    commandLine PUBLISH_APP,
+                "-rpq",
+                TMP_FOLDER + BINARY_NAME + "_" + PROJECT_VERSION + "_MP.zip",
+                PUBLISH_DESTINATION_LAST  
+  }
+  else {
+    commandLine PUBLISH_APP,
+                "-rpq",
+                USE_PK_PARAM,
+                USE_PK_ARG,
+                TMP_FOLDER + BINARY_NAME + "_" + PROJECT_VERSION + "_MP.zip",
+                PUBLISH_DESTINATION_LAST
+  }
+
+  doLast {
+    println "PROJECT PUBLISH LAST RELEASE SUCCESSFUL"
+  }
+}
+
+
+/*
+================================================================================
+NOTES
+================================================================================
+A task is called in this way:
+  tasks.getCodeFromRepository.execute()
+A task can return FAIL in this way:
+  throw new TaskExecutionException(task, new Exception('Fail task on purpose'))
+Get environment variable:
+  System.getenv("project_version")
+*/
+
+
+clean {
+    delete "./${buildDir}/"
+}
+
+

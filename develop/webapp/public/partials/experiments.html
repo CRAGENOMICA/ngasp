@@ -1,0 +1,155 @@
+<div class="sheet">
+	<br /><br /><br /><br />
+
+	<!-- Alerts -->
+	<alerts></alerts>
+
+	<!-- do not set the controller here because it is in the $stateProvider -->
+
+<!-- 
+wrapper
+row_hideable
+ShowQueryExperiment
+-->
+  <div class="container-fluid">
+    <div class="row spacer">
+       	<div class="company_title_1_font window_padding">Experiments</div>
+    </div>
+
+    <div class="row spacer"> <!-- Experiments Row --> 
+
+	    <div class="col-md-12 graph_box company_background_window_color">
+
+        <div class="graph_title_bar">
+	        <div class="graph_title_bar_buttons">
+		        <span class="glyphicon glyphicon-refresh graph_refresh cursor_hand" ng-click="OnRefreshExperimentsList()"></span>
+
+		        <div class="dropdown graph_menu cursor_hand">
+			        <span data-toggle="dropdown" class="dropdown-toggle glyphicon glyphicon-option-vertical"></span>
+			        <ul class="dropdown-menu dropdown-animation dropdown-menu-right company_background_menu_color" role="menu">
+				        <li role="menuitem"><a href="#" class="menu_item_font" ng-click="OnRequestNewExperimentName()">New Experiment</a></li>
+				        <li role="menuitem"><a href="#" class="menu_item_font" ng-click="OnQueryExperiment()" ng-show="IsExperimentSelected()==true">Query Selected Experiment</a></li>
+			        </ul>
+		        </div>
+	        </div>
+
+	        <span class="company_title_2_font">Experiments</span><br />
+	        <span class="company_title_3_font">List of experiments</span><br />
+        </div>
+
+        <div class="table-responsive">
+          <table class="table col-sm-12">
+            <thead>
+	          <tr>
+		          <th>ID</th>
+		          <th>NAME</th>
+		          <th>STATUS</th>
+		          <th>LOCAL MANAGER</th>
+	          </tr>
+            </thead>
+	          <tbody>
+		          <tr ng-repeat="experiment in experiments_list" class="table_row" ng-class="{'selected_row cursor_hand':experiment.experiment_id==selected_experiment.experiment_id,'cursor_hand':experiment.experiment_id!=selected_experiment.experiment_id}" ng-click="OnSelectExperiment(experiment.experiment_id, experiment.name, experiment.status)">
+			          <td>{{ experiment.experiment_id }}</td>
+			          <td>{{ experiment.name }}</td>
+			          <td>{{ experiment.status }}</td>
+			          <td>{{ experiment.lm_id }}</td>
+		          </tr>
+	          </tbody>
+          </table>
+        </div>
+
+        <div ng-show="show_new_experiment">
+	        <p>
+		        <ul>
+			        <li><label>New Experiment (Id):</label></li>
+                     	<li><input type="text" ng-model="new_experiment_name"></li>
+		           	<li><button type="button" class="btn btn-default" ng-click="OnCreateExperiment()">Create</button></li>
+		           	<li><button type="button" class="btn btn-default" ng-click="OnCancelExperimentCreation()">Cancel</button></li>
+			        <li>{{new_experiment_message}}</li>
+	           	</ul>
+	        </p>
+        </div>
+
+      </div> <!-- End col-md-12 -->
+    </div> <!-- End Experiments Row --> 
+
+    <div class="row spacer"> <!-- Console Row --> 
+      
+      <div class="col-md-12 graph_box company_background_window_color">
+
+        <div class="graph_title_bar">
+	        <div class="graph_title_bar_buttons">
+		        <span class="glyphicon glyphicon-refresh graph_refresh cursor_hand" ng-click="OnGetOutput()"></span>
+		        <div class="dropdown graph_menu cursor_hand">
+			        <span data-toggle="dropdown" class="dropdown-toggle glyphicon glyphicon-option-vertical"></span>
+			        <ul class="dropdown-menu dropdown-animation dropdown-menu-right company_background_menu_color" role="menu">
+				        <li role="menuitem"><a href="#" ng-click="OnExecuteCommand()">Run Command</a></li>
+				        <li role="menuitem"><a href="#" ng-click="OnCleanOutput()">Clean Experiment Output</a></li>
+			        </ul>
+		        </div>
+		        <!-- <span class="glyphicon glyphicon-remove graph_close cursor_hand" ng-click="OnCloseQueryExperiment()"></span> -->
+	        </div>
+	        <span class="company_title_2_font">{{selected_experiment.name}} RESULTS</span><br />
+	        <span class="company_title_3_font">Shows the experiment output</span><br />
+        </div>
+
+        <div class="container">
+	        <div class="row">
+		        <div class="col-md-1"></div>
+		        <div class="col-md-10">
+			        <input focus-me type="text" class="console_font console_command" ng-model="cmd" style="width:100%" ng-enter="OnExecuteCommand()">
+		        </div>
+	        </div>
+	        <div class="row">
+		        <div class="col-md-1"></div>
+		        <div class="col-md-10">
+			        <div ng-bind-html="stdout" auto-scroll class="console_font console"></div>
+		        </div>
+	        </div>
+
+
+	        <div class="row" ng-repeat="chart in charts | chart">
+		        <div class="col-md-1"></div>
+		        <div class="col-md-10">
+              <!-- CHART -->
+              <canvas ng-show="true"
+                      style="background-color:#ddd"
+                      class="output_window chart chart-line ng-isolate-scope"
+                      chart-data="chart.data"
+                      chart-labels="chart.labels"
+                      chart-legend="true"
+                      chart-series="chart.series"
+                      chart-click=""
+                      chart-hover=""
+                      width="784" height="391" >
+              </canvas>
+		        </div>
+	        </div>
+
+	        <div class="row" ng-repeat="boxplot in charts | boxplot">
+		        <div class="col-md-1"></div>
+		        <div class="col-md-10">
+              <!-- BOXPLOT / DONUTCHART -->
+              <nvd3 ng-show="true"
+                    style="background-color:#ddd"
+                    class="output_window"
+                    options="boxplot.options"
+                    data="boxplot.data"
+                    config="config"
+                    events="events"
+                    api="api">
+              </nvd3>
+		        </div>
+	        </div>
+
+        </div>
+
+      </div> <!-- End col.md-12 -->
+
+    </div>  <!-- End Console Row -->
+
+
+  </div> <!-- container -->
+          <small>load -i tests/pipelines/yaml/gc_content.yaml -v tests/pipelines/yaml/gc_content_experiment_1.yaml -f yaml</small>
+
+</div>

@@ -1,0 +1,65 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/docs/Fasta2MatrixPol_Task/ploidy.ngasp
+
+
+# Define the populations:
+
+dim -n pops --as populations
+with -n pops
+	set -v vint_perpop_nsam --eq 8
+	set -v force_outgroup --eq 0
+	set -v outgroup_presence --eq 0
+	set -v include_unknown --eq 0
+	set -v ploidy --eq 2
+end-with
+
+print -n pops
+
+# Open the Fasta file:
+
+
+dim -n fasta --as string-set
+
+calc -n c0 --as open-fasta-file
+with -n c0
+	set -v inputs --eq "/home/jjene/NetBeansProjects/ngaSP/examples/petit.fa" pops
+	set -v outputs --eq fasta
+end-with
+
+run -n c0
+
+print -n fasta
+
+
+# Convert the Fasta into a DnaMatrix:
+
+dim -n dnamat --as char-matrix
+
+calc -n c1 --as fasta-to-dna-matrix
+with -n c1
+	set -v inputs --eq fasta pops
+	set -v outputs --eq dnamat
+end-with
+
+run -n c1
+
+print -n dnamat
+
+
+# Convert the DnaMatrix into a MatrixPol:
+
+dim -n matpol --as char-matrix
+dim -n positions --as int64-vector
+dim -n frequencies --as int64-vector
+
+calc -n c2 --as dna-matrix-to-matrix-pol
+with -n c2
+	set -v inputs --eq dnamat pops 0
+ 	set -v outputs --eq matpol positions frequencies 
+end-with
+
+run -n c2
+
+print -n matpol
+print -n positions
+print -n frequencies
+

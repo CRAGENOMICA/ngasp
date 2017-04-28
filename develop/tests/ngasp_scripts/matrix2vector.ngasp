@@ -1,0 +1,29 @@
+const --name TRUE  --by 1
+const --name FALSE --by 0
+
+dim -n v --as string_vector
+dim -n m --as string_matrix
+
+set-value --to v --eq "aaa,bbb,ccc,ddd"
+set-value --to m --eq "red,green,yellow;one,two,three;table,pencil,book"
+
+dim -n pos --as int64
+set-value --to pos --eq 0
+
+dim -n column --as bool
+set-value --to column --eq FALSE
+
+dim -n remove_index --as bool
+set-value --to remove_index --eq TRUE
+
+# print -n v
+# print -n m
+
+calc -n c1 --as calc-matrix-to-vector
+set-value --to c1.inputs --eq "m,pos,column,remove_index"
+set-value --to c1.outputs --eq "v"
+run -n c1
+
+print -n v
+print -n m
+

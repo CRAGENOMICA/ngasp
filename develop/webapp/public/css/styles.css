@@ -1,0 +1,2278 @@
+/*
+-------------------------------------------------------------------------------
+HTML & Body
+-------------------------------------------------------------------------------
+*/
+html, body
+{
+	height: 100%;	/* menu height 100% */
+}
+
+.default_body
+{
+  padding: 0px;
+  margin: 0px;
+}
+
+/*
+--------------------------------------------------------------------------------
+Font Styles
+--------------------------------------------------------------------------------
+*/
+
+.caption_font,
+.form_label_font,
+.tab_font,
+.paragraph_font,
+.hightlited_value_font
+{
+    font-family: 'robotoregular';
+
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+.logo_description_font
+{
+    font-family: 'robotobold';
+
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+
+    font-size: 12pt;
+}
+
+.default_font,
+.menu_node_font,
+.menu_item_font,
+.button_font
+{
+    font-family: 'robotoregular';
+
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+
+.default_font
+{
+    font-size: 13px;
+}
+
+.form_label_font
+{
+    font-size: 14px;
+    color: #5e5e5e;
+}
+
+.hightlited_value_font
+{
+    font-size: 14px;
+}
+
+.caption_font
+{
+    font-size: 14px;
+}
+
+.button_font
+{
+    font-size: 14px;
+}
+
+.tab_font
+{
+    font-size: 14px;
+}
+
+.paragraph_font
+{
+    font-size: 12pt;
+
+	  color: #999;
+    padding: 50px 3% 50px 3%;
+    line-height: 160%;
+    text-align: justify;
+}
+
+.menu_node_font
+{
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.menu_item_font
+{
+  font-size: 13px;
+
+  text-align:right;
+  margin: 10px 0px 10px 0px;
+}
+
+.console_font
+{
+  font-family: 'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace;
+  font-size: 13px;
+  line-height: 19px;
+	color: #333;
+	font-weight: 400;
+
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.nav_tab_title_font
+{
+  font-family: 'robotoregular';
+
+  /*text-transform: uppercase;*/
+
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+
+  font-size: 14px;
+  line-height: 19px;
+	font-weight: 600;
+}
+
+.play_button_font
+{
+  font-family: 'robotoregular';
+
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+
+  font-size: 30px;
+	font-weight: 600;
+}
+
+
+/*
+-------------------------------------------------------------------------------
+Bootstrap Scafolding Utilities
+-------------------------------------------------------------------------------
+*/
+
+/* This class can be used with class "row" for setting space between rows. */
+.spacer
+{
+    margin-top: 3%; /* define margin as you see fit */
+}
+
+.spacer_small
+{
+    margin-top: 10px; /* define margin as you see fit */
+}
+/* 
+This class can be used as "row"s parent for setting two rows in the same
+position and show / hide one of them. */
+.wrapper
+{
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
+/*
+-------------------------------------------------------------------------------
+Tooltips
+-------------------------------------------------------------------------------
+*/
+
+.tooltip-inner {
+    background-color:red;
+}
+.tooltip-arrow {
+      border-top-color: red;
+}
+
+/*
+-------------------------------------------------------------------------------
+Header
+-------------------------------------------------------------------------------
+*/
+.header
+{
+	position: fixed;
+	z-index: 10;
+	height: 65px;
+	width: 100%;
+	box-shadow: 0px 2px 5px #888888;
+	padding: 0px;
+	margin: 0px;
+
+	/* Common characteristics of all header elements */
+	color: #fff;
+	vertical-align: middle;
+}
+
+.footer
+{
+	position: fixed;
+    bottom: 0px;
+	z-index: 10;
+	height: 30px;
+	width: 100%;
+
+	padding: 0px 50px 0px 50px;
+	margin: 0px;
+
+	vertical-align: middle;
+    border: 0px;
+    border-top: 1px solid #fff;
+
+    background-color: white;
+}
+
+.cursor_hand
+{
+	cursor: pointer;
+	cursor: hand;
+}
+
+.open_menu_icon
+{
+	position: absolute;
+	left: 20px;
+	top: 13px;
+	z-index: 1;
+
+	font-size: 15px;
+}
+
+@media not print {
+  .open_menu_icon
+  {
+	  -webkit-transition:all linear 0.2s;
+	  transition:all linear 0.2s;
+  }
+}
+
+div > .glyphicon.glyphicon-arrow-right {
+	padding: 10px;
+	-moz-border-radius: 70px; 
+	-webkit-border-radius: 70px; 
+	border-radius: 70px;
+
+	background:rgba(0,0,0,0.2);
+
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.glyphicon.glyphicon-menu-hamburger {
+	padding: 10px;
+	font-size: 15px;
+}
+
+.admin_logo
+{
+	position: absolute;
+	left: 70px;
+	top: 20px;
+	z-index: 1;
+
+    width: 100px;
+    height: 23px;
+
+	background-image: url(../images/ngasp_white.svg); 
+	background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: 82px 23px;
+}
+
+.header_button
+{
+	z-index: 1; /* to be over graphs */
+	top: -5px;
+	margin-left: 2px;
+	padding: 10px;
+	display:inline-block;
+
+	/* Menu button font (three dots icon) */
+    font-family: 'robotobold';
+    font-size: 16px;
+
+	color: white;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+
+	padding: 8px 10px 6px 10px;
+	/*margin: 0px;*/
+}
+
+.header_button:hover
+{
+	background:rgba(0,0,0,0.2);
+
+	color: white;
+}
+
+
+/*
+-------------------------------------------------------------------------------
+General
+-------------------------------------------------------------------------------
+*/
+
+a
+{
+    text-decoration:none;
+}
+
+.right_alignment
+{
+    float: right;
+}
+
+/*
+-------------------------------------------------------------------------------
+Menu
+-------------------------------------------------------------------------------
+*/
+
+.menu
+{
+	width: 264px;
+	z-index: 5;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;	/* menu height 100% */
+
+
+	box-shadow: 0px 2px 5px #888888;
+}
+
+.menu_image
+{
+/*
+	position:relative;
+	top:65px;
+*/
+  margin-top: 65px;
+	width:264px;
+	height: 125px;
+
+	background-image: url(../images/crag.png); 
+	background-repeat: no-repeat;
+    background-position: top;
+}
+@media not print {
+  .menu {
+    -webkit-transition:all linear 0.3s;
+    transition:all linear 0.3s;
+  }
+}
+
+.menu.ng-hide {
+	opacity:0;
+	left: -200px;
+}
+
+.menu .items_list
+{
+/*	position:relative;
+	top:65px;*/
+
+	margin: 0px;
+	padding: 0px;
+    /* list-style-type: none; without bullets */
+}
+
+
+/*
+If you use this class, set the top value outside:
+*/
+.menu_auto_scroll
+{
+  overflow-y: auto;
+  /* This is for occuping the remaining height. From 190px to the bottom
+     of the screen */
+  width:100%;
+  position: absolute;
+  bottom: 0px;
+}
+
+#menu
+{
+  top: 190px;
+}
+
+.menu li
+{
+	margin: 0px;
+	padding: 12px 20px 12px 20px;
+	display: block; /* vertical */
+}
+
+
+
+/*
+-------------------------------------------------------------------------------
+Sheet
+-------------------------------------------------------------------------------
+*/
+
+.sheet
+{
+  margin: 0 auto;
+	max-width: 1140px;
+  min-width: 570px;
+  width: 90%;
+}
+
+.sheet ul
+{
+	margin: 0px;
+	padding: 0px;
+    list-style-type: none; /* without bullets */
+}
+
+.sheet .ul_bullets
+{
+	list-style-type: square;
+}
+
+
+/*
+Tables
+*/
+
+.sheet pre
+{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+    background-color: transparent;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td
+{
+    padding-left: 30px;
+}
+
+.table>thead>tr>th
+{
+	border-bottom: 0px solid #ddd;
+}
+
+.table-responsive
+{
+  border: 0px;
+}
+
+/*
+-------------------------------------------------------------------------------
+Welcome
+-------------------------------------------------------------------------------
+*/
+
+#welcome
+{
+    width: 100%;
+    margin: 0 auto;
+
+    width: 160px;
+    height: 70px;
+    align:center;
+
+	background-image: url(../images/ngasp.svg); 
+	background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: 160px 70px;
+
+    margin-top: 20px;
+
+}
+
+
+
+#login_frame
+{
+  background: white;
+  width: 370px;
+  height: 370px;
+  padding: 80px 40px 30px 40px;
+  border: 1px solid green;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.login_field
+{
+  width: 100%;
+  margin-top: 20px;
+}
+
+
+/*
+-------------------------------------------------------------------------------
+Net Graph
+-------------------------------------------------------------------------------
+*/
+
+#net
+{
+  min-height: 300px;
+}
+@media all and (min-width: 520px) {
+  #net
+  {
+    min-height: 500px;
+  }
+}
+
+.graph_box
+{
+	box-shadow: 0px 1px 1px #ddd;
+
+	margin:0px;
+	padding:0px 0px 1% 0px;
+}
+
+#graph_little_box_1,
+#graph_little_box_2,
+#graph_little_box_3,
+#graph_little_box_4
+{
+	height: 75px;
+	background-repeat: no-repeat;
+  margin-bottom: 1%;
+}
+
+#graph_little_box_1
+{
+	background-image: url(../images/cm.png); 
+  background-position: 14px 13px;
+}
+
+#graph_little_box_2
+{
+	background-image: url(../images/user.png); 
+  background-position: 12px 15px;
+}
+
+#graph_little_box_3
+{
+	background-image: url(../images/computer.png); 
+  background-position: 10px 13px;
+}
+
+#graph_little_box_4
+{
+	background-image: url(../images/experiment.png); 
+  background-position: 10px 13px;
+}
+
+.graph_little_box_shadow
+{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 75px;
+	height: 100%;
+	background-color: black;
+	opacity: 0.1;
+    filter: alpha(opacity=90); /* For IE8 and earlier */
+
+	-webkit-transition:all linear 0.2s;
+	transition:all linear 0.2s;
+}
+
+.graph_little_box_shadow:hover
+{
+	width: 100%;
+}
+
+.graph_little_box_text
+{
+	position: absolute;
+	left: 85px;
+	top: 5px;
+
+	/* Font Detector */
+    font-family: 'robotoregular';
+    font-size: 11px;
+
+	color: #fff;
+}
+
+.graph_little_box_number
+{
+	position: absolute;
+	left: 150px;
+	top: 30px;
+
+	/* Font Detector */
+    font-family: 'robotobold';
+    font-size: 22px;
+
+	color: #fff;
+}
+
+.graph_title_bar
+{
+	padding: 2% 2% 2% 2%;
+	margin: 0px;
+}
+
+.graph_title_bar_buttons
+{
+	float:right;
+	padding: 0px;
+	margin: 0px;
+}
+
+.graph_menu,
+.graph_refresh,
+.graph_close
+{
+	z-index: 1; /* to be over graphs */
+	top: -5px;
+	margin-left: 2px;
+	padding: 10px;
+	display:inline-block;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+	-moz-border-radius: 70px; 
+	-webkit-border-radius: 70px; 
+	border-radius: 70px;
+}
+
+.graph_menu
+{
+	padding: 8px 10px 6px 10px;
+}
+
+.graph_menu:hover,
+.graph_refresh:hover,
+.graph_close:hover
+{
+  background: lightgray;
+	color: black;
+}
+
+.graph_refresh
+{
+}
+
+
+.graph_close
+{
+}
+
+
+#network
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+
+	width: 100%;
+	height: 100%;
+}
+
+
+#vis-network
+{
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+
+/*
+-------------------------------------------------------------------------------
+Experiments
+-------------------------------------------------------------------------------
+*/
+
+
+.console
+{
+	background-color: black;
+	border-color: #eee;
+	color: white;
+	width: 100%;
+	height: 280px;
+	padding: 10px;
+  margin-bottom: 2%;
+  overflow: scroll;
+}
+
+@media (min-height: 800px) {
+  .console
+  {
+    	height: 600px;
+  }
+}
+
+.console_command
+{
+	background-color: black;
+	border-color: #eee;
+	width: 100%;
+	color: white;
+	height: 30px;
+	padding: 10px;
+}
+
+.console hr
+{
+    padding: 0px;
+    margin: 5px 0px 5px 0px;
+}
+
+/*
+-------------------------------------------------------------------------------
+Diagrams
+-------------------------------------------------------------------------------
+*/
+
+.diagram
+{
+	clear:both;
+}
+
+.diagram div
+{
+}
+
+/*
+-------------------------------------------------------------------------------
+	Boostrap 12 Columns Grid for 4 columns with separation:
+	22% 2% 2% 22% 2% 2% 22% 2% 2% 22%
+-------------------------------------------------------------------------------
+*/
+@media all and (min-width: 520px) {
+  .col_1_4
+  {
+	  width: 22%;
+	  margin: 0 2% 0 0;
+  }
+  .col_2_4
+  {
+	  width: 22%;
+	  margin: 0 2% 0 2%;
+  }
+  .col_3_4
+  {
+	  width: 22%;
+	  margin: 0 2% 0 2%;
+  }
+  .col_4_4
+  {
+	  width: 22%;
+	  margin: 0 0 0 2%;
+  }
+}
+
+.row_hideable
+{
+
+
+  top: 0px;
+
+	-webkit-transition:all linear 0.5s;
+	transition:all linear 0.5s;
+}
+
+.row_hideable.ng-hide {
+	opacity:0;
+}
+
+
+
+
+/*
+-------------------------------------------------------------------------------
+Popup Messages
+-------------------------------------------------------------------------------
+*/
+
+/*
+Modal forms appear at the middle of the screen:
+*/
+.modal {
+  text-align: center;
+}
+
+/*
+Modal form footers a little bit smaller:
+*/
+.modal-footer {
+    padding: 5px 20px 5px;
+    margin-top: 3px;
+}
+
+/*
+Modal form contents appear left aligned:
+*/
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+.modal-body {
+    padding: 15px;
+}
+
+
+
+/*
+-------------------------------------------------------------------------------
+Loading
+-------------------------------------------------------------------------------
+*/
+
+#loading {
+    z-index:2000;    
+
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -100px;
+}
+
+#loading > img {
+    width: 48px; 
+    height: 48px;
+}
+
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -100px;
+}
+
+.progress
+{
+    position:relative;
+    top:6px;
+    width:100%;
+    height: 11px;
+}
+
+.my_progress {
+  height:12px;
+  background: #8ba23a; /* #445f2e For browsers that do not support gradients 
+  background: -webkit-linear-gradient(45deg, #445f2e, white); For Safari 5.1 to 6.0 
+  background: -o-linear-gradient(45deg, #445f2e, white);  For Opera 11.1 to 12.0 
+  background: -moz-linear-gradient(45deg, #445f2e, white); For Firefox 3.6 to 15 
+  background: linear-gradient(45deg, #445f2e, white);  Standard syntax */
+}
+
+/*
+-------------------------------------------------------------------------------
+Drowpdown submenus
+-------------------------------------------------------------------------------
+*/
+
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu>.dropdown-menu {
+    top:0;
+    left:100%;
+    margin-top:-6px;
+    margin-left:-1px;
+    -webkit-border-radius:0 6px 6px 6px;
+    -moz-border-radius:0 6px 6px 6px;
+    border-radius:0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+    display:block;
+}
+/*
+This displays a triangle after the menu item:
+.dropdown-submenu>a:after {
+    display:block;
+    content:" ";
+    float:right;
+    width:0;
+    height:0;
+    border-color:transparent;
+    border-style:solid;
+    border-width:5px 0 5px 5px;
+    border-left-color:#cccccc;
+    margin-top:5px;
+    margin-right:-10px;
+}
+.dropdown-submenu:hover>a:after {
+    border-left-color:#ffffff;
+}*/
+
+.pull-left {
+
+}
+
+/*
+.dropdown-submenu.pull-left {
+    float:none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left:-100%;
+    margin-left:10px;
+    -webkit-border-radius:6px 0 6px 6px;
+    -moz-border-radius:6px 0 6px 6px;
+    border-radius:6px 0 6px 6px;
+}
+*/
+
+/*
+--------------------------------------------------------------------------------
+Pipeline
+--------------------------------------------------------------------------------
+*/
+
+/*
+-------------------------------------------------------------------------------
+Tool Buttons
+-------------------------------------------------------------------------------
+*/
+
+/*
+#experiment_tools
+{
+  position: absolute;    
+  top: 80px;
+  z-index: 4;
+  right: -5px;
+  padding-top: 10px;
+  padding-left: 9px;
+
+  width: 75px;
+  height: 170px;
+
+  border: 2px solid #232323;
+
+  border-top-left-radius: 40px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 40px;
+}
+*/
+
+#pipeline_tools
+{
+  visibility: hidden;
+
+  position: absolute;    
+  top: 380px;
+  z-index: 4;
+  right: -5px;
+  padding-top: 10px;
+  padding-left: 9px;
+
+  width: 75px;
+  height: 170px;
+
+  border: 1px solid;
+
+  border-top-left-radius: 40px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 40px;
+}
+
+#experiment_tools
+{
+    position: absolute;    
+    top: 31px; /*70px;*/
+    z-index: 4;
+    right: 0px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 40px;
+}
+
+#PlayButton
+{
+    position: absolute;    
+/*
+    top: 130px;
+    right: 50px;
+*/
+    top: 80px;
+    right: 10px;
+
+    width: 70px;
+    height: 70px;
+    z-index: 3;
+
+    border: 1px solid #888;
+
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+
+    box-shadow: 3px 3px 20px #444;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+#PlayButton:hover
+{
+    box-shadow: 3px 3px 6px #444;
+}
+
+
+/*
+#experiment_tools
+{
+    position: absolute;    
+    top: 70px;
+    z-index: 4;
+    right: 0px;
+    padding-left: 20px;
+
+    height: 47px;
+
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 40px;
+}
+*/
+
+.caret
+{
+    color: #e6e6e6;
+}
+
+.btn-group
+{
+    top: 7px;
+    /*left: 20px;*/
+}
+
+.btn-separator
+{
+/*
+    height: 30px;
+    width:15px;
+*/
+}
+
+.tool_button
+{
+    width: 40px;
+    height: 34px;
+    border: 0px solid black;
+
+	-moz-border-radius: 70px; 
+	-webkit-border-radius: 70px; 
+	border-radius: 70px;
+
+    background-color: transparent;
+}
+
+/*
+Remove focus square from buttons:
+*/
+.tool_button:focus, .tool_button:focus{
+    outline: 0;
+}
+
+.tool_button_dropdown
+{
+    width: 60px;
+}
+
+
+.menu_node
+{
+  width: 250px;
+  overflow-y: auto;
+  max-height: 350px;
+}
+
+
+@media all and (min-height: 768px) { /* (1024x768) */
+  .menu_node
+  {
+    max-height: 500px;
+  }
+}
+
+
+.btn-default.active.focus,
+.btn-default.active:hover,
+.open>.dropdown-toggle.btn-default:focus,
+.open>.dropdown-toggle.btn-default:hover
+{
+	background-color: rgba(0,0,0,0.2);
+}
+
+.btn-default.active,
+.open>.dropdown-toggle.btn-default_button_color
+{
+	background-color: red;
+}
+
+#button_calculations,
+#button_datas,
+#button_dms,
+#button_inputs,
+#button_outputs,
+#button_datas,
+#button_graphs,
+#button_pipelines
+{
+	background-repeat: no-repeat;
+    background-position: 2px 2px;
+    background-size: 29px 28px;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+#button_calculations:hover,
+#button_datas:hover,
+#button_dms:hover,
+#button_inputs:hover,
+#button_outputs:hover,
+#button_datas:hover,
+#button_graphs:hover,
+#button_pipelines:hover
+{
+	background-color: rgba(0,0,0,0.2);
+}
+
+/*
+Remove focus:
+*/
+#button_calculations:focus,
+#button_datas:focus,
+#button_dms:focus,
+#button_inputs:focus,
+#button_outputs:focus,
+#button_datas:focus,
+#button_graphs:focus,
+#button_pipelines:focus
+{
+    outline: 0;
+    background-color: transparent;
+}
+
+
+.btn-group li
+{
+    border-style: inset;
+    border: 0px solid white;
+    border-bottom: 1px solid gray;
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#button_new
+{
+    color: #e6e6e6;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+#button_new:hover
+{
+	background-color: rgba(0,0,0,0.2);
+}
+
+
+#button_load
+{
+    color: #e6e6e6;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+#button_load:hover
+{
+	background-color: rgba(0,0,0,0.2);
+}
+
+
+#button_save
+{
+    color: #e6e6e6;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+#button_save:hover
+{
+	background-color: rgba(0,0,0,0.2);
+}
+
+#button_play
+{
+    color: #e6e6e6;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+#button_play:hover
+{
+	background-color: rgba(0,0,0,0.2);
+}
+
+/*
+--------------------------------------------------------------------------------
+Zoom menu
+--------------------------------------------------------------------------------
+*/
+
+.zoom_menu
+{
+    z-index: 5;
+    position: absolute;
+    right: 5px;
+    bottom: 0px;
+
+    width: 160px;
+	border-radius: 4px;
+    padding: 10px;
+
+    box-shadow: 0px 1px 1px #444;
+
+    opacity: 0;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+.zoom_menu:hover
+{
+    opacity: 1;
+    bottom: 10px;
+}
+
+#zoom_slider
+{
+    float:left;
+    width: 100px;
+}
+
+#zoom_input
+{
+    float: right;
+    width: 50px;
+    color: black;
+    text-align: center;
+}
+
+/*
+--------------------------------------------------------------------------------
+DropDown Menus Effect
+--------------------------------------------------------------------------------
+*/
+.dropdown_animation_from_left,
+.dropdown-animation
+{
+    -webkit-animation-fill-mode: forwards;  
+    animation-fill-mode: forwards; 
+
+    transform: scale(0,0);
+    -webkit-transform: scale(0,0);
+    -moz-transform: scale(0,0);
+
+    display: block;
+
+    transition: all 0.2s ease-out;
+    -webkit-transition: all 0.2s ease-out;
+}
+
+.dropdown-animation
+{
+    -webkit-transform-origin: right top;
+    transform-origin: right top;
+}
+
+.dropdown_animation_from_left
+{
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    left: -70px;
+}
+
+.dropup .dropdown-animation
+{
+    -webkit-transform-origin: bottom;
+    transform-origin: bottom;  
+}
+
+
+.open > .dropdown-animation
+{
+    transform: scale(1,1);
+    -webkit-transform: scale(1,1);
+    -moz-transform: scale(1,1);
+}
+
+/*
+--------------------------------------------------------------------------------
+Images
+--------------------------------------------------------------------------------
+*/
+
+.hidden_image
+{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+/*
+--------------------------------------------------------------------------------
+Canvas
+--------------------------------------------------------------------------------
+*/
+
+#myCanvas
+{
+    position: absolute;
+    top:  65px;
+    padding: 0px;
+    margin: 0px;
+}
+
+/*
+--------------------------------------------------------------------------------
+Modal Forms
+--------------------------------------------------------------------------------
+*/
+
+.modal-header
+{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+/**/
+
+#right_bottom_top_panel_title
+{
+  position: relative;
+  top: 0px;
+  left: 0px;
+  height: 40px;
+}
+
+#right_bottom_bottom_panel_title
+{
+  position: relative;
+  top: 0px;
+  left: 0px;
+  height: 40px;
+}
+
+#right_bottom_bottom_panel_content
+{
+  width: 100%;
+
+  /* Firefox */
+  height: -moz-calc(100% - 40px); /* 100% - right_bottom_bottom_panel_title.height */
+  /* WebKit */
+  height: -webkit-calc(100% - 40px);
+  /* Opera */
+  height: -o-calc(100% - 40px);
+  /* Standard */
+  height: calc(100% - 40px);
+
+  /*border: 5px solid black;*/
+}
+
+#console_history
+{
+  background-color: transparent;
+  width: 100%;
+	padding: 10px;
+  overflow: scroll;
+
+  /* Firefox */
+  height: -moz-calc(100% - 40px - 40px); /* 100% - nav_bar height - console_input.height */
+  /* WebKit */
+  height: -webkit-calc(100% - 40px - 40px);
+  /* Opera */
+  height: -o-calc(100% - 40px - 40px);
+  /* Standard */
+  height: calc(100% - 40px - 40px);
+}
+
+#console_input
+{
+  position: relative;
+  top: 0px;
+  left: 0px;
+  height: 40px;
+
+  padding-left:20px;
+
+  border: none;
+  background-color: transparent;
+}
+
+#console_input_background {
+   color: black;
+   position: relative;
+   top: -29px;
+   left: 10px;
+}
+
+/*	                 <input focus-me type="text" class="console_font console_command" ng-model="cmd" style="width:100%" ng-enter="OnExecuteCommand()">
+	                 <div ng-bind-html="stdout" auto-scroll class="console_font console" width="100%" height="100%" style="height:100%;width:100%"></div>
+
+-------------------------------------------------------------------------------
+Output Graphs
+-------------------------------------------------------------------------------
+*/
+/*
+#output_frame
+{
+    position:relative;
+    top:0px;
+    left:0px;
+    width:100%;
+    height: 100%;
+
+    background-color: white;
+
+    text-align:left;
+}
+*/
+.output_window
+{
+    position:relative;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color: white;
+    border:0px solid black;
+}
+
+/*
+-------------------------------------------------------------------------------
+Output Console
+-------------------------------------------------------------------------------
+*/
+/*
+#content_console
+{
+    position:relative;
+    top:0px;
+    left:0px;
+    width:100%;
+    height: 100%;
+    padding: 10px;
+
+    background-color: #444;
+    color: white;
+
+    border:1px solid black;
+
+    overflow: scroll;
+}
+*/
+/*
+--------------------------------------------------------------------------------
+Splitter
+--------------------------------------------------------------------------------
+*/
+
+.splitter
+{
+    z-index: 4;
+    position: fixed;
+    left: 0px;
+    top: 65px;
+    width: 100%;
+    max-width: 100%
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+/*
+--------------------------------------------------------------------------------
+Nav Tabs
+--------------------------------------------------------------------------------
+*/
+
+.horizontal_aligment
+{
+    display: inline-block;
+}
+
+.nav_tab_bar
+{
+    position: relative;
+    top: 31px;
+    width: 5000px;
+    height:40px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.nav_tab_title
+{
+    position:relative;
+    top:-13px;
+    left: 15px;
+
+    margin-left:10px;
+    width:210px;
+    height:30px;
+    border:0px;
+
+    background-color: transparent;
+    text-align: left;
+
+    cursor: default;
+}
+
+.nav_tab_title_border
+{
+    border-right: 2px solid lightgray;
+    margin-right: 35px;
+}
+
+.nav_tab_button
+{
+    position:relative;
+    top:-13px;
+
+    margin-left:10px;
+    width:40px;
+    height:30px;
+    border:0px;
+
+    background-color: transparent;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+.nav_tab_button:hover
+{
+	background-color: rgba(1,1,1,0.2);
+}
+
+
+.big_nav_tab_button
+{
+  position:relative;
+
+  top:0px;
+  width:60px;
+  height:60px;
+  
+  border-radius:60px;
+  box-shadow: 2px 2px 5px #000;
+
+  margin-left:10px;
+  border:1px solid white;
+
+  background-color:rgb(75,103,53);
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+.big_nav_tab_button:hover
+{
+  background-color:rgb(55,83,33);
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover 
+{
+    border-color: transparent;
+  background-color: white;
+}
+
+
+.nav-tabs>li>a
+{
+    border: 0px;
+}
+
+.document_tab
+{
+    position:relative;
+    top:0px;
+
+    width:150px;
+    height:40px;
+    overflow:hidden;
+}
+
+#tab_left_arrow
+{
+    position:relative;
+    top:-13px;
+
+    margin-left:20px;
+    width:20px;
+    height:40px;
+    border:0px;
+
+    background-color: transparent;
+}
+
+#tab_right_arrow
+{
+    position:relative;
+    top:-13px;
+
+    margin-left:0px;
+    width:20px;
+    height:40px;
+    border:0px;
+
+    background-color: transparent;
+}
+
+.tab_close_button
+{
+    padding: 0px;
+    margin: 0px;
+    height: 20px;
+    width: 20px;
+    clear: both;
+    position: relative;
+    float: right;
+    top: 0px;
+
+    padding: 4px 0px 0px 4px;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+
+    background-color: transparent;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+.tab_close_button:hover
+{
+	background-color: rgba(1,1,1,0.2);
+}
+
+.outputab_button_group
+{
+    clear: both;
+    position: relative;
+    float: right;
+    top: 0px;
+}
+
+.outputab_button
+{
+    padding: 0px;
+    margin: 0px;
+    height: 20px;
+    width: 20px;
+
+    padding: 4px 0px 0px 4px;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+
+    background-color: transparent;
+
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+.outputab_button:hover
+{
+	background-color: rgba(1,1,1,0.2);
+}
+
+/*
+Remove focus:
+*/
+.nav_tab_button:focus,
+.document_tab:focus,
+#tab_left_arrow,
+#tab_right_arrow
+{
+    outline: 0;
+}
+
+.document_tab a
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+
+/*
+===
+*/
+.window_padding
+{
+	padding-left: 2%;
+	padding-right: 2%;
+}
+
+
+
+/*
+===
+*/
+
+
+/*
+--------------------------------------------------------------------------------
+Requirements table (Printable)
+--------------------------------------------------------------------------------
+*/
+
+.URS table
+{
+  width: 100%;
+  margin: 0px 10px 0px 0%;
+}
+
+.URS table th
+{
+  background-color: #ddd;
+  color: black;
+}
+
+
+
+#table_requirements tr
+{
+  border-bottom: 1px dotted #eee;
+}
+
+.done
+{
+  color: #888;
+}
+
+.to_be_done_mandatory
+{
+  color: red;
+  background-color: #ffeeee;
+}
+
+.to_be_done_not_mandatory
+{
+  color: red;
+  background-color: #feeedd;
+}
+
+.small_arrow
+{
+  color: #ddd;
+}
+
+.row
+{
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.removed_urs_motive
+{
+  background-color: #eee;
+  border: 1px solid #ddd;
+  font-style: italic;
+}
+
+/*
+--------------------------------------------------------------------------------
+Glossary Table
+--------------------------------------------------------------------------------
+*/
+#glossary th,
+#glossary td
+{
+  padding: 5px;
+  border: 1px solid #ddd;
+}
+
+/*
+--------------------------------------------------------------------------------
+Requirements table (Rules for the Printer)
+--------------------------------------------------------------------------------
+*/
+
+@media not print {
+  .URS table th,
+  .URS table td
+  {
+    padding: 5px 0px 5px 0px;
+  }
+
+  .requirement_id
+  {
+    width: 20%;
+    text-align: right;
+  }
+
+  .requirement_description
+  {
+  }
+
+  .requirement_type
+  {
+    width: 10%;
+  }
+}
+
+@media print {
+  .URS table th,
+  .URS table td
+  {
+    padding: 0px 0px 0px 0px;
+  }
+
+  .requirement_id
+  {
+    width: 100px;
+    text-align: right;
+  }
+
+  .requirement_description
+  {
+    width: 280px;
+  }
+
+  .requirement_type
+  {
+    width: 50px;
+  }
+}
+
+/*
+--------------------------------------------------------------------------------
+Printer
+--------------------------------------------------------------------------------
+*/
+
+@media print {
+  @page {
+     size: 7in 9.25in;
+     margin: 12mm 6mm 12mm 6mm;
+  }
+
+  .page_break
+  {
+      page-break-before: always;
+  }
+}
+
+/*
+--------------------------------------------------------------------------------
+Printable Document Header
+--------------------------------------------------------------------------------
+*/
+
+.crag_document_header
+{
+  border: 1px solid black;  
+  width: 100%;
+}
+@media not print
+{
+  .crag_document_header,
+  .crag_document_header_cell,
+  .logo_crag
+  {
+    height: 70px;
+  }
+}
+@media print
+{
+  .crag_document_header,
+  .crag_document_header_cell,
+  .logo_crag
+  {
+    height: 40px;
+  }
+}
+
+.crag_document_header_cell,
+.logo_crag
+{
+  text-align: right;
+}
+
+.crag_document_header_cell
+{
+  padding: 1% 1% 1% 4%;
+}
+
+.logo_crag
+{
+  padding: 0px;
+  border-right: 1px solid black;
+  text-align:center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+/*
+--------------------------------------------------------------------------------
+Text Beautifiers
+--------------------------------------------------------------------------------
+*/
+
+pre,
+.word_wrap
+{
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.strikethrough
+{
+  text-decoration: line-through;
+}
+
+.center
+{
+  text-align: center;
+}
+
+.left
+{
+  text-align: left;
+}
+
+/*
+--------------------------------------------------------------------------------
+Printable Documents Fonts
+--------------------------------------------------------------------------------
+*/
+
+.docs_font_default
+{
+  font-family: 'robotoregular';
+}
+
+.docs_font_default_bold
+{
+  font-family: 'robotobold';
+}
+
+.docs_font_id
+{
+  font-family: 'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace;
+}
+
+.docs_font_default,
+.docs_font_default_bold,
+.docs_font_id
+{
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  color: 666;
+}
+
+.docs_header_font
+{
+  font-family: 'robotoregular';
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  color: rgb(68,95,46);
+  text-transform: uppercase;
+}
+
+.docs_title_level_1
+{
+  font-family: 'robotoregular';
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  color: white;
+  background-color: #888;
+  text-transform: uppercase;
+  padding: 5px;
+}
+
+.docs_title_level_2
+{
+  font-family: 'robotoregular';
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.docs_title_level_3
+{
+  font-family: 'robotoregular';
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.docs_table_font
+{
+  font-family: 'robotoregular';
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  color: rgb(68,95,46);
+}
+
+@media not print {
+  .docs_font_default,
+  .docs_font_default_bold,
+  .docs_header_font,
+  .docs_table_font,
+  .docs_title_level_1,
+  .docs_title_level_2,
+  .docs_title_level_3
+  {
+    font-size: 10pt;
+  }
+  .docs_font_id
+  {
+    font-size: 10pt;
+  }
+  .hide_on_print
+  {
+  }
+}
+
+@media print {
+  .docs_font_default,
+  .docs_font_default_bold,
+  .docs_header_font,
+  .docs_table_font,
+  .docs_title_level_1,
+  .docs_title_level_2,
+  .docs_title_level_3
+  {
+    font-size: 6pt;
+  }
+  .docs_font_id
+  {
+    font-size: 6pt;
+  }
+  .hide_on_print
+  {
+    position: fixed;
+    visibility: hidden  !important;
+  }
+}
+
+/*
+--------------------------------------------------------------------------------
+Traceability Matrix
+--------------------------------------------------------------------------------
+*/
+#traceability_matrix,
+#traceability_matrix tr,
+#traceability_matrix th,
+#traceability_matrix td
+{
+  border: 0px solid #ddd;
+  background-color: white;
+  padding: 5px;
+}
+
+.urs_not_used,
+.case_not_used
+{
+  color: red;
+}
+
+/*
+--------------------------------------------------------------------------------
+Calculation Development
+--------------------------------------------------------------------------------
+*/
+
+.source_code_font
+{
+    font-family: 'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace;
+
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+.instruction_order_font
+{
+    font-family: 'robotoregular';
+
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+.instruction_font
+{
+    font-family: 'robotobold';
+
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+@media not print {
+  .source_code_font
+  {
+      font-size: 10pt;
+  }
+  .instruction_order_font
+  {
+      font-size: 15pt;
+  }
+  .instruction_font
+  {
+      font-size: 11pt;
+  }
+}
+
+@media print {
+  .source_code_font
+  {
+      font-size: 6pt;
+  }
+  .instruction_order_font
+  {
+      font-size: 8pt;
+  }
+  .instruction_font
+  {
+      font-size: 8pt;
+  }
+}
+
+
+.FileDocument
+{
+  border: 1px solid black;
+  box-shadow: 0px 2px 5px #888888;
+  padding: 10px;
+}
+
+.hightlited_source_code
+{
+  color: #888;
+  background-color: #ffffaa;
+  box-shadow: 0px 2px 5px #888888;
+  border: 1px solid #888888;
+}
+
+.instruction_order
+{
+	-moz-border-radius: 70px; 
+	-webkit-border-radius: 70px; 
+	border-radius: 70px;
+  text-align: center;
+  float: left;
+  color: white;
+  margin-right: 10px;
+  position: relative;
+}
+
+@media not print {
+  .instruction_order
+  {
+    width: 30px;
+    height: 30px;
+    top: -5px;
+    border: 1px solid black;
+  }
+}
+
+@media print {
+  .instruction_order
+  {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+
+
+.myglyphicon-command
+{
+/*
+	position: absolute;
+	left: 70px;
+	top: 20px;
+	z-index: 1;
+
+    width: 100px;
+    height: 23px;
+*/
+	background-image: url(../images/fx_icon.svg); 
+	background-repeat: no-repeat;
+    background-position: 15px 7px;
+    background-size: 24px 24px;
+}
+
+/*
+--------------------------------------------------------------------------------
+Chart
+--------------------------------------------------------------------------------
+*/
+
+.line-legend
+{
+  color: black;  /* this is the color of the leyend text */
+}
+
+
+/*
+--------------------------------------------------------------------------------
+Lists
+--------------------------------------------------------------------------------
+*/
+
+.horiz_list
+{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: 100%;
+}
+
+.horiz_list li
+{
+  display: inline;
+}
+
+.horiz_list li a
+{
+  text-decoration: none;
+}
+
+
+
+

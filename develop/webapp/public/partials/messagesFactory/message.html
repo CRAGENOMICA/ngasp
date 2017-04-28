@@ -1,0 +1,44 @@
+<div class="modal-header company_background_menu_color"  > <!-- modaldraggable -->
+    <p class="caption_font">{{title}}</p>
+    <!--
+    <div class="row clearfix">
+        <div class="col-sm-1">
+			<span class="glyphicon glyphicon-info-sign" ng-show="bAlert()"></span> 
+			<span class="glyphicon glyphicon-question-sign" ng-show="bConfirm()"></span>
+			<span class="glyphicon glyphicon-remove-sign" ng-show="bError()"></span>
+			<span class="glyphicon glyphicon-question-sign" ng-show="bInput()"></span>
+        </div>
+        <div class="col-sm-10 caption_font">
+            {{title}}
+        </div>            
+    </div>
+    -->
+</div>
+<div class="modal-body default_font">
+    <p ng-bind-html="message"></p><input focus-me ng-model="input" ng-show="bInput()" ng-enter="OnOk()" style="width:100%">
+
+    <div ng-show="ShowListValues()">
+        <select ng-readonly="bAppReadOnly()" ng-model="list_selection" multiple ng-multiple='true' ng-options="obj.valor for obj in list_values | orderBy:'valor'"></select>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <!-- FOOTER ALERT -->
+    <div ng-show="ShowOneButton()">
+        <button class="btn default_button_color button_font" ng-show="!bAppReadOnly()" ng-click="OnOk()">Ok</button>
+    </div>
+
+    <!-- FOOTER CONFIRM -->
+    <div ng-show="ShowTwoButtonsConfirm()">
+        <button class="btn default_button_color button_font" ng-show="!bAppReadOnly()" ng-click="OnOk()">Yes</button>
+        <button class="btn default_button_color button_font" ng-click="OnCancel()">No</button>
+    </div>
+    
+    <!-- FOOTER INPUT -->
+    <div ng-show="ShowTwoButtonsInput()">
+        <button class="btn default_button_color button_font" ng-show="!bAppReadOnly()" ng-click="OnOk()">Ok</button>
+        <button class="btn default_button_color button_font" ng-click="OnCancel()">Cancel</button>
+    </div>
+</div>
+
+

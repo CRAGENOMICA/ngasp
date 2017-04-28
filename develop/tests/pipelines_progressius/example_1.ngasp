@@ -1,0 +1,17 @@
+# ==============================================================================
+# ngaSP pipelie  : example_1.ngasp
+# Date           : May 30, 2016.
+# Author         : CRAG
+# Description    : Calling PIPELINE_1 with data
+# ==============================================================================
+
+  set-value --to input_8_0 --eq "./output/statistics.txt"
+  set-value --to input_1_0 --eq "./data/Banjo.chr12.20X.sorted.realigned.bam,./data/Mimi.chr12.20X.sorted.realigned.bam"
+  set-value --to input_2_0 --eq "./data/reference.fas"
+  set-value --to input_5_0 --eq "./data/reference.fas"
+  set-value --to input_25_0 --eq ""
+  set-value --to input_26_0 --eq ""
+  set-value --to input_24_0 --eq ""
+  set-value --to input_16_0 --eq "./data/required_columns1.txt"
+
+

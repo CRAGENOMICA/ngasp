@@ -1,0 +1,35 @@
+# ==============================================================================
+# MSTATSPOP PIPELINE - TEST 11
+# ==============================================================================
+
+# Only for mstatspop compatibility:
+set --to command_line 					--eq "mstatspop -f ms -i examples/ms_one_pop_simulation.txt -o 1 -p 1 -u 0 -v 0.5 -s 57354 -l 1000 -t 100 -G 0 -F 1 -q 0.01 -N 1 20 -m examples/MC1R_PigsOutg_aligned_npop3_nsam95_nonsynonymous_mask.txt "
+
+set --to file_in 						--eq "examples/ms_one_pop_simulation.txt"
+set --to formatfile 					--eq MS_FILE
+set --to output 						--eq 1
+set --to populations_initial 			--eq "20"
+set --to sort_nsam 						--eq ""
+set --to outgroup_presence 				--eq NO
+set --to force_outgroup 				--eq YES
+set --to freq_revert 					--eq 0.01
+set --to ploidy 						--eq "HAPLOID"
+set --to r2i_ploidies 					--eq ""
+set --to include_unknown 				--eq NO
+set --to n_ccov 						--eq 0
+set --to freq_missing_ms 				--eq 0
+set --to file_GFF 						--eq ""
+set --to subset_positions 				--eq ""
+set --to code_name 						--eq ""
+set --to genetic_code 					--eq ""
+set --to criteria_transcript 			--eq "max"
+set --to niter 							--eq 100
+set --to file_mas 						--eq "examples/MC1R_PigsOutg_aligned_npop3_nsam95_nonsynonymous_mask.txt"
+set --to seed 							--eq 57354
+set --to ms_svratio 					--eq 0.5
+set --to length 						--eq 1000
+set --to kind_length 					--eq 0
+set --to location_missing_ms 			--eq 0
+set --to file_H1f 						--eq ""
+set --to file_H0f 						--eq ""
+

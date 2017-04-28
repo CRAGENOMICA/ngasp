@@ -1,0 +1,2923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="ngaSP" displayName="ngaSP" projectFiles="true">
+        <logicalFolder name="calculations"
+                       displayName="calculations"
+                       projectFiles="true">
+          <logicalFolder name="Calc" displayName="Calc" projectFiles="true">
+            <itemPath>calculations/Calc/CCalcArrayOpeX.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcArrayOpeX.h</itemPath>
+            <itemPath>calculations/Calc/CCalcArraySumAll.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcArraySumAll.h</itemPath>
+            <itemPath>calculations/Calc/CCalcBCF2VCF.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcBCF2VCF.h</itemPath>
+            <itemPath>calculations/Calc/CCalcBam2Bai.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcBam2Bai.h</itemPath>
+            <itemPath>calculations/Calc/CCalcBam2Mpileup.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcBam2Mpileup.h</itemPath>
+            <itemPath>calculations/Calc/CCalcBamChromosomes.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcBamChromosomes.h</itemPath>
+            <itemPath>calculations/Calc/CCalcBoxPlotValues.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcBoxPlotValues.h</itemPath>
+            <itemPath>calculations/Calc/CCalcCollectDataColumns.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcCollectDataColumns.h</itemPath>
+            <itemPath>calculations/Calc/CCalcConcatFiles.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcConcatFiles.h</itemPath>
+            <itemPath>calculations/Calc/CCalcConcatStrings.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcConcatStrings.h</itemPath>
+            <itemPath>calculations/Calc/CCalcCreateTFastaAnnotation.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcCreateTFastaAnnotation.h</itemPath>
+            <itemPath>calculations/Calc/CCalcCutBED.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcCutBED.h</itemPath>
+            <itemPath>calculations/Calc/CCalcCutGTF.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcCutGTF.h</itemPath>
+            <itemPath>calculations/Calc/CCalcDnaMatrix2MatrixPol.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcDnaMatrix2MatrixPol.h</itemPath>
+            <itemPath>calculations/Calc/CCalcDuplicatePopulations.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcDuplicatePopulations.h</itemPath>
+            <itemPath>calculations/Calc/CCalcEffecNucAndTCGAFreqs.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcEffecNucAndTCGAFreqs.h</itemPath>
+            <itemPath>calculations/Calc/CCalcExample.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcExample.h</itemPath>
+            <itemPath>calculations/Calc/CCalcExec.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcExec.h</itemPath>
+            <itemPath>calculations/Calc/CCalcFasta2DnaMatrix.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcFasta2DnaMatrix.h</itemPath>
+            <itemPath>calculations/Calc/CCalcFasta2TFasta.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcFasta2TFasta.h</itemPath>
+            <itemPath>calculations/Calc/CCalcFileStats.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcFileStats.h</itemPath>
+            <itemPath>calculations/Calc/CCalcFreqStats.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcFreqStats.h</itemPath>
+            <itemPath>calculations/Calc/CCalcFs.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcFs.h</itemPath>
+            <itemPath>calculations/Calc/CCalcGCContent.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcGCContent.h</itemPath>
+            <itemPath>calculations/Calc/CCalcGFF.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcGFF.h</itemPath>
+            <itemPath>calculations/Calc/CCalcGetChromosomes.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcGetChromosomes.h</itemPath>
+            <itemPath>calculations/Calc/CCalcHwhafsth.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcHwhafsth.h</itemPath>
+            <itemPath>calculations/Calc/CCalcJointFreqDist.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcJointFreqDist.h</itemPath>
+            <itemPath>calculations/Calc/CCalcLengthamngAndCalcs.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcLengthamngAndCalcs.h</itemPath>
+            <itemPath>calculations/Calc/CCalcListFiles.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcListFiles.h</itemPath>
+            <itemPath>calculations/Calc/CCalcMaskFileMs.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcMaskFileMs.h</itemPath>
+            <itemPath>calculations/Calc/CCalcMatrix2Vector.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcMatrix2Vector.h</itemPath>
+            <itemPath>calculations/Calc/CCalcMismatch.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcMismatch.h</itemPath>
+            <itemPath>calculations/Calc/CCalcMstatspop.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcMstatspop.h</itemPath>
+            <itemPath>calculations/Calc/CCalcMstatspopOpenFastaFile.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcMstatspopOpenFastaFile.h</itemPath>
+            <itemPath>calculations/Calc/CCalcMstatspopOpenMsFile.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcMstatspopOpenMsFile.h</itemPath>
+            <itemPath>calculations/Calc/CCalcMstatspopOutput.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcMstatspopOutput.h</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenCoordinatesFile.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenCoordinatesFile.h</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenEffectSizesFile.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenEffectSizesFile.h</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenFastaFile.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenFastaFile.h</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenFreqSpecFile.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenFreqSpecFile.h</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenTFastaFile.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenTFastaFile.h</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenWeightPositionsFile.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcOpenWeightPositionsFile.h</itemPath>
+            <itemPath>calculations/Calc/CCalcPermute.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcPermute.h</itemPath>
+            <itemPath>calculations/Calc/CCalcPiwpiafst.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcPiwpiafst.h</itemPath>
+            <itemPath>calculations/Calc/CCalcR2.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcR2.h</itemPath>
+            <itemPath>calculations/Calc/CCalcR2p.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcR2p.h</itemPath>
+            <itemPath>calculations/Calc/CCalcRandomize.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcRandomize.h</itemPath>
+            <itemPath>calculations/Calc/CCalcSam2Mpileup.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcSam2Mpileup.h</itemPath>
+            <itemPath>calculations/Calc/CCalcSnipCaller.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcSnipCaller.h</itemPath>
+            <itemPath>calculations/Calc/CCalcSplitBAM.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcSplitBAM.h</itemPath>
+            <itemPath>calculations/Calc/CCalcSxsfss.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcSxsfss.h</itemPath>
+            <itemPath>calculations/Calc/CCalcTOptimalTests.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcTOptimalTests.h</itemPath>
+            <itemPath>calculations/Calc/CCalcVCFToGFasta.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcVCFToGFasta.h</itemPath>
+            <itemPath>calculations/Calc/CCalcX.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcX.h</itemPath>
+            <itemPath>calculations/Calc/CCalcY.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcY.h</itemPath>
+            <itemPath>calculations/Calc/CCalcZ.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcZ.h</itemPath>
+            <itemPath>calculations/Calc/CCalcnpstat.cpp</itemPath>
+            <itemPath>calculations/Calc/CCalcnpstat.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="util" displayName="util" projectFiles="true">
+            <itemPath>calculations/util/CComparison.cpp</itemPath>
+            <itemPath>calculations/util/CComparison.h</itemPath>
+            <itemPath>calculations/util/CDnaTools.cpp</itemPath>
+            <itemPath>calculations/util/CDnaTools.h</itemPath>
+            <itemPath>calculations/util/CMatrixPol.cpp</itemPath>
+            <itemPath>calculations/util/CMatrixPol.h</itemPath>
+            <itemPath>calculations/util/CMissingFreqs.cpp</itemPath>
+            <itemPath>calculations/util/CMissingFreqs.h</itemPath>
+            <itemPath>calculations/util/CValuesGFF.cpp</itemPath>
+            <itemPath>calculations/util/CValuesGFF.h</itemPath>
+          </logicalFolder>
+          <itemPath>calculations/CAllCalculations.cpp</itemPath>
+          <itemPath>calculations/CAllCalculations.h</itemPath>
+          <itemPath>calculations/CCalcFactory.cpp</itemPath>
+          <itemPath>calculations/CCalcFactory.h</itemPath>
+          <itemPath>calculations/CConnectorDef.cpp</itemPath>
+          <itemPath>calculations/CConnectorDef.h</itemPath>
+          <itemPath>calculations/ICalculation.cpp</itemPath>
+          <itemPath>calculations/ICalculation.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="commands" displayName="commands" projectFiles="true">
+          <logicalFolder name="CMD" displayName="CMD" projectFiles="true">
+            <itemPath>commands/CMD/CCMDAdd.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDAdd.h</itemPath>
+            <itemPath>commands/CMD/CCMDAppHelp.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDAppHelp.h</itemPath>
+            <itemPath>commands/CMD/CCMDAppend.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDAppend.h</itemPath>
+            <itemPath>commands/CMD/CCMDCalc.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDCalc.h</itemPath>
+            <itemPath>commands/CMD/CCMDConstant.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDConstant.h</itemPath>
+            <itemPath>commands/CMD/CCMDDelete.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDDelete.h</itemPath>
+            <itemPath>commands/CMD/CCMDDim.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDDim.h</itemPath>
+            <itemPath>commands/CMD/CCMDDryRun.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDDryRun.h</itemPath>
+            <itemPath>commands/CMD/CCMDElse.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDElse.h</itemPath>
+            <itemPath>commands/CMD/CCMDEndForeach.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDEndForeach.h</itemPath>
+            <itemPath>commands/CMD/CCMDEndIf.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDEndIf.h</itemPath>
+            <itemPath>commands/CMD/CCMDEndWith.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDEndWith.h</itemPath>
+            <itemPath>commands/CMD/CCMDExec.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDExec.h</itemPath>
+            <itemPath>commands/CMD/CCMDForeach.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDForeach.h</itemPath>
+            <itemPath>commands/CMD/CCMDHistory.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDHistory.h</itemPath>
+            <itemPath>commands/CMD/CCMDIf.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDIf.h</itemPath>
+            <itemPath>commands/CMD/CCMDLoadInstructionsFile.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDLoadInstructionsFile.h</itemPath>
+            <itemPath>commands/CMD/CCMDLog.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDLog.h</itemPath>
+            <itemPath>commands/CMD/CCMDMemInfo.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDMemInfo.h</itemPath>
+            <itemPath>commands/CMD/CCMDOpenDataFile.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDOpenDataFile.h</itemPath>
+            <itemPath>commands/CMD/CCMDOutput.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDOutput.h</itemPath>
+            <itemPath>commands/CMD/CCMDPipe.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDPipe.h</itemPath>
+            <itemPath>commands/CMD/CCMDPrint.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDPrint.h</itemPath>
+            <itemPath>commands/CMD/CCMDReserve.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDReserve.h</itemPath>
+            <itemPath>commands/CMD/CCMDReset.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDReset.h</itemPath>
+            <itemPath>commands/CMD/CCMDRun.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDRun.h</itemPath>
+            <itemPath>commands/CMD/CCMDSaveState.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDSaveState.h</itemPath>
+            <itemPath>commands/CMD/CCMDSetValue.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDSetValue.h</itemPath>
+            <itemPath>commands/CMD/CCMDSocket.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDSocket.h</itemPath>
+            <itemPath>commands/CMD/CCMDStop.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDStop.h</itemPath>
+            <itemPath>commands/CMD/CCMDSyntax.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDSyntax.h</itemPath>
+            <itemPath>commands/CMD/CCMDVerbose.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDVerbose.h</itemPath>
+            <itemPath>commands/CMD/CCMDVersion.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDVersion.h</itemPath>
+            <itemPath>commands/CMD/CCMDWith.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDWith.h</itemPath>
+            <itemPath>commands/CMD/CCMDmstatspop.cpp</itemPath>
+            <itemPath>commands/CMD/CCMDmstatspop.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="COS" displayName="COS" projectFiles="true">
+            <itemPath>commands/COS/COption.cpp</itemPath>
+            <itemPath>commands/COS/COption.h</itemPath>
+            <itemPath>commands/COS/COptionsContainer.cpp</itemPath>
+            <itemPath>commands/COS/COptionsContainer.h</itemPath>
+          </logicalFolder>
+          <itemPath>commands/CAllCommands.cpp</itemPath>
+          <itemPath>commands/CAllCommands.h</itemPath>
+          <itemPath>commands/CCommandFactory.cpp</itemPath>
+          <itemPath>commands/CCommandFactory.h</itemPath>
+          <itemPath>commands/ICommand.cpp</itemPath>
+          <itemPath>commands/ICommand.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="data_manager"
+                       displayName="data_manager"
+                       projectFiles="true">
+          <logicalFolder name="common" displayName="common" projectFiles="true">
+            <itemPath>data_manager/common/CDataAccess.cpp</itemPath>
+            <itemPath>data_manager/common/CDataAccess.h</itemPath>
+            <itemPath>data_manager/common/CDataHelper.cpp</itemPath>
+            <itemPath>data_manager/common/CDataHelper.h</itemPath>
+            <itemPath>data_manager/common/CDataSequenceIndex.cpp</itemPath>
+            <itemPath>data_manager/common/CDataSequenceIndex.h</itemPath>
+            <itemPath>data_manager/common/CFastaInfo.cpp</itemPath>
+            <itemPath>data_manager/common/CFastaInfo.h</itemPath>
+            <itemPath>data_manager/common/CGFFFile.cpp</itemPath>
+            <itemPath>data_manager/common/CGFFFile.h</itemPath>
+            <itemPath>data_manager/common/CGFFRecord.cpp</itemPath>
+            <itemPath>data_manager/common/CGFFRecord.h</itemPath>
+            <itemPath>data_manager/common/CMemoryMappedFile.cpp</itemPath>
+            <itemPath>data_manager/common/CMemoryMappedFile.h</itemPath>
+            <itemPath>data_manager/common/CTFastaAnnotation.cpp</itemPath>
+            <itemPath>data_manager/common/CTFastaAnnotation.h</itemPath>
+            <itemPath>data_manager/common/CTFastaInfo.cpp</itemPath>
+            <itemPath>data_manager/common/CTFastaInfo.h</itemPath>
+            <itemPath>data_manager/common/CTestLc.cpp</itemPath>
+            <itemPath>data_manager/common/CTestLc.h</itemPath>
+            <itemPath>data_manager/common/CTestQuad.cpp</itemPath>
+            <itemPath>data_manager/common/CTestQuad.h</itemPath>
+            <itemPath>data_manager/common/CTestQuadWc.cpp</itemPath>
+            <itemPath>data_manager/common/CTestQuadWc.h</itemPath>
+            <itemPath>data_manager/common/CTestR0.cpp</itemPath>
+            <itemPath>data_manager/common/CTestR0.h</itemPath>
+            <itemPath>data_manager/common/CTestRinf.cpp</itemPath>
+            <itemPath>data_manager/common/CTestRinf.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="Data" displayName="Data" projectFiles="true">
+            <itemPath>data_manager/Data/CDataBCF.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataBCF.h</itemPath>
+            <itemPath>data_manager/Data/CDataBam.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataBam.h</itemPath>
+            <itemPath>data_manager/Data/CDataBamIndex.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataBamIndex.h</itemPath>
+            <itemPath>data_manager/Data/CDataBoolean.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataBoolean.h</itemPath>
+            <itemPath>data_manager/Data/CDataBooleanCube.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataBooleanCube.h</itemPath>
+            <itemPath>data_manager/Data/CDataBooleanMatrix.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataBooleanMatrix.h</itemPath>
+            <itemPath>data_manager/Data/CDataBooleanVector.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataBooleanVector.h</itemPath>
+            <itemPath>data_manager/Data/CDataChar.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataChar.h</itemPath>
+            <itemPath>data_manager/Data/CDataCharCube.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataCharCube.h</itemPath>
+            <itemPath>data_manager/Data/CDataCharMatrix.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataCharMatrix.h</itemPath>
+            <itemPath>data_manager/Data/CDataCharVector.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataCharVector.h</itemPath>
+            <itemPath>data_manager/Data/CDataDouble.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataDouble.h</itemPath>
+            <itemPath>data_manager/Data/CDataDoubleCube.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataDoubleCube.h</itemPath>
+            <itemPath>data_manager/Data/CDataDoubleMatrix.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataDoubleMatrix.h</itemPath>
+            <itemPath>data_manager/Data/CDataDoubleVector.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataDoubleVector.h</itemPath>
+            <itemPath>data_manager/Data/CDataFasta.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataFasta.h</itemPath>
+            <itemPath>data_manager/Data/CDataFloat.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataFloat.h</itemPath>
+            <itemPath>data_manager/Data/CDataFloatCube.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataFloatCube.h</itemPath>
+            <itemPath>data_manager/Data/CDataFloatMatrix.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataFloatMatrix.h</itemPath>
+            <itemPath>data_manager/Data/CDataFloatVector.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataFloatVector.h</itemPath>
+            <itemPath>data_manager/Data/CDataGFF.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataGFF.h</itemPath>
+            <itemPath>data_manager/Data/CDataGFasta.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataGFasta.h</itemPath>
+            <itemPath>data_manager/Data/CDataGTF.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataGTF.h</itemPath>
+            <itemPath>data_manager/Data/CDataInt.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataInt.h</itemPath>
+            <itemPath>data_manager/Data/CDataInt64.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataInt64.h</itemPath>
+            <itemPath>data_manager/Data/CDataInt64Cube.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataInt64Cube.h</itemPath>
+            <itemPath>data_manager/Data/CDataInt64Matrix.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataInt64Matrix.h</itemPath>
+            <itemPath>data_manager/Data/CDataInt64Vector.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataInt64Vector.h</itemPath>
+            <itemPath>data_manager/Data/CDataIntCube.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataIntCube.h</itemPath>
+            <itemPath>data_manager/Data/CDataIntMatrix.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataIntMatrix.h</itemPath>
+            <itemPath>data_manager/Data/CDataIntVector.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataIntVector.h</itemPath>
+            <itemPath>data_manager/Data/CDataMpileup.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataMpileup.h</itemPath>
+            <itemPath>data_manager/Data/CDataSNP.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataSNP.h</itemPath>
+            <itemPath>data_manager/Data/CDataSam.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataSam.h</itemPath>
+            <itemPath>data_manager/Data/CDataStdString.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataStdString.h</itemPath>
+            <itemPath>data_manager/Data/CDataStdStringMatrix.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataStdStringMatrix.h</itemPath>
+            <itemPath>data_manager/Data/CDataStdStringVector.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataStdStringVector.h</itemPath>
+            <itemPath>data_manager/Data/CDataStringSet.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataStringSet.h</itemPath>
+            <itemPath>data_manager/Data/CDataTFasta.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataTFasta.h</itemPath>
+            <itemPath>data_manager/Data/CDataTextFile.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataTextFile.h</itemPath>
+            <itemPath>data_manager/Data/CDataVCF.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataVCF.h</itemPath>
+            <itemPath>data_manager/Data/CDataWeightsFile.cpp</itemPath>
+            <itemPath>data_manager/Data/CDataWeightsFile.h</itemPath>
+          </logicalFolder>
+          <itemPath>data_manager/CDataFactory.cpp</itemPath>
+          <itemPath>data_manager/CDataFactory.h</itemPath>
+          <itemPath>data_manager/CDataManager.cpp</itemPath>
+          <itemPath>data_manager/CDataManager.h</itemPath>
+          <itemPath>data_manager/IData.cpp</itemPath>
+          <itemPath>data_manager/IData.h</itemPath>
+          <itemPath>data_manager/IDataCube.cpp</itemPath>
+          <itemPath>data_manager/IDataCube.h</itemPath>
+          <itemPath>data_manager/IDataMatrix.cpp</itemPath>
+          <itemPath>data_manager/IDataMatrix.h</itemPath>
+          <itemPath>data_manager/IDataValue.cpp</itemPath>
+          <itemPath>data_manager/IDataValue.h</itemPath>
+          <itemPath>data_manager/IDataVector.cpp</itemPath>
+          <itemPath>data_manager/IDataVector.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="instructions"
+                       displayName="instructions"
+                       projectFiles="true">
+          <logicalFolder name="Inst" displayName="Inst" projectFiles="true">
+            <itemPath>instructions/Inst/CInstCommandLine.cpp</itemPath>
+            <itemPath>instructions/Inst/CInstCommandLine.h</itemPath>
+            <itemPath>instructions/Inst/CInstYAML.cpp</itemPath>
+            <itemPath>instructions/Inst/CInstYAML.h</itemPath>
+          </logicalFolder>
+          <itemPath>instructions/CController.cpp</itemPath>
+          <itemPath>instructions/CController.h</itemPath>
+          <itemPath>instructions/CFromYaml.cpp</itemPath>
+          <itemPath>instructions/CFromYaml.h</itemPath>
+          <itemPath>instructions/CInstructionFactory.cpp</itemPath>
+          <itemPath>instructions/CInstructionFactory.h</itemPath>
+          <itemPath>instructions/CInstructionsHistory.cpp</itemPath>
+          <itemPath>instructions/CInstructionsHistory.h</itemPath>
+          <itemPath>instructions/IInstruction.cpp</itemPath>
+          <itemPath>instructions/IInstruction.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="ipc" projectFiles="true">
+          <itemPath>ipc/CExperimentNode.cpp</itemPath>
+          <itemPath>ipc/CExperimentNode.h</itemPath>
+          <itemPath>ipc/CNamedPipeManager.cpp</itemPath>
+          <itemPath>ipc/CNamedPipeManager.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="language" displayName="language" projectFiles="true">
+          <itemPath>language/CStringTable.cpp</itemPath>
+          <itemPath>language/CStringTable.h</itemPath>
+          <itemPath>language/CStringTableCalcs.cpp</itemPath>
+          <itemPath>language/CStringTableCalcs.h</itemPath>
+          <itemPath>language/IStringTable.cpp</itemPath>
+          <itemPath>language/IStringTable.h</itemPath>
+          <itemPath>language/extern.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="messages" displayName="messages" projectFiles="true">
+          <itemPath>messages/CDebugEntry.cpp</itemPath>
+          <itemPath>messages/CDebugEntry.h</itemPath>
+          <itemPath>messages/CErrorEntry.cpp</itemPath>
+          <itemPath>messages/CErrorEntry.h</itemPath>
+          <itemPath>messages/CLogEntry.cpp</itemPath>
+          <itemPath>messages/CLogEntry.h</itemPath>
+          <itemPath>messages/CLogger.cpp</itemPath>
+          <itemPath>messages/CLogger.h</itemPath>
+          <itemPath>messages/CNormalEntry.cpp</itemPath>
+          <itemPath>messages/CNormalEntry.h</itemPath>
+          <itemPath>messages/CTimeStamp.cpp</itemPath>
+          <itemPath>messages/CTimeStamp.h</itemPath>
+          <itemPath>messages/CWarningEntry.cpp</itemPath>
+          <itemPath>messages/CWarningEntry.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="util" displayName="util" projectFiles="true">
+          <itemPath>util/CClock.cpp</itemPath>
+          <itemPath>util/CClock.h</itemPath>
+          <itemPath>util/CFile.cpp</itemPath>
+          <itemPath>util/CFile.h</itemPath>
+          <itemPath>util/CMapTools.cpp</itemPath>
+          <itemPath>util/CMapTools.h</itemPath>
+          <itemPath>util/CStringTools.cpp</itemPath>
+          <itemPath>util/CStringTools.h</itemPath>
+          <itemPath>util/CVectorTools.cpp</itemPath>
+          <itemPath>util/CVectorTools.h</itemPath>
+          <itemPath>util/zutil.c</itemPath>
+          <itemPath>util/zutil.h</itemPath>
+        </logicalFolder>
+        <itemPath>CManager.cpp</itemPath>
+        <itemPath>CManager.h</itemPath>
+        <itemPath>IBase.cpp</itemPath>
+        <itemPath>IBase.h</itemPath>
+        <itemPath>IFunction.cpp</itemPath>
+        <itemPath>IFunction.h</itemPath>
+        <itemPath>IObject.cpp</itemPath>
+        <itemPath>IObject.h</itemPath>
+        <itemPath>makefile</itemPath>
+        <itemPath>ngaSP_backend.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <commandlineTool>g++</commandlineTool>
+          <incDir>
+            <pElem>../samtoolslib</pElem>
+            <pElem>../samtoolslib/htslib-1.3.1</pElem>
+            <pElem>/usr/local/include/gsl</pElem>
+            <pElem>../seqan/seqan_2.0.1.0</pElem>
+          </incDir>
+          <commandLine>-std=c++1y -O0 -g -pedantic -Wall -ansi -fmessage-length=0 -Wno-long-long -Wno-variadic-macros -DinGSL=1</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>../../webapp/bin/ngasp</output>
+          <commandLine>-L/usr/local/lib -lboost_iostreams -lboost_chrono /usr/local/lib/libhts.a -lncurses -ltinfo -pthread -lboost_system -lboost_regex -lz /usr/local/lib/libgsl.a /usr/local/lib/libgslcblas.a ../../webapp/bin/libsamtoolslib.a -lboost_filesystem</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="CManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IBase.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="IBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IFunction.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="IFunction.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="IObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/CAllCalculations.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/CAllCalculations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/CCalcFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/CCalcFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/CConnectorDef.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/CConnectorDef.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcArrayOpeX.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcArrayOpeX.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcArraySumAll.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcArraySumAll.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBCF2VCF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBCF2VCF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBam2Bai.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBam2Bai.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBam2Mpileup.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBam2Mpileup.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBamChromosomes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBamChromosomes.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBoxPlotValues.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBoxPlotValues.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCollectDataColumns.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCollectDataColumns.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcConcatFiles.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcConcatFiles.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcConcatStrings.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcConcatStrings.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCreateTFastaAnnotation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCreateTFastaAnnotation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCutBED.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCutBED.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCutGTF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCutGTF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcDnaMatrix2MatrixPol.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcDnaMatrix2MatrixPol.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcDuplicatePopulations.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcDuplicatePopulations.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcEffecNucAndTCGAFreqs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcEffecNucAndTCGAFreqs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcExample.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcExample.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcExec.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcExec.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFasta2DnaMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFasta2DnaMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFasta2TFasta.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFasta2TFasta.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFileStats.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFileStats.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFreqStats.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFreqStats.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGCContent.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGCContent.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGFF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGFF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGetChromosomes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGetChromosomes.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcHwhafsth.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcHwhafsth.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcJointFreqDist.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcJointFreqDist.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcLengthamngAndCalcs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcLengthamngAndCalcs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcListFiles.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcListFiles.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMaskFileMs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMaskFileMs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMatrix2Vector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMatrix2Vector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMismatch.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMismatch.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspop.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOpenFastaFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOpenFastaFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOpenMsFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOpenMsFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOutput.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOutput.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenCoordinatesFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenCoordinatesFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenEffectSizesFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenEffectSizesFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenFastaFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenFastaFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenFreqSpecFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenFreqSpecFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenTFastaFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenTFastaFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenWeightPositionsFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenWeightPositionsFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcPermute.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcPermute.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcPiwpiafst.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcPiwpiafst.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcR2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcR2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcR2p.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcR2p.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcRandomize.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcRandomize.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSam2Mpileup.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSam2Mpileup.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSnipCaller.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSnipCaller.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSplitBAM.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSplitBAM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSxsfss.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSxsfss.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcTOptimalTests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcTOptimalTests.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcVCFToGFasta.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcVCFToGFasta.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcX.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcX.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcY.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcZ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcZ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcnpstat.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcnpstat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/ICalculation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/ICalculation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CComparison.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/util/CComparison.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CDnaTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/util/CDnaTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CMatrixPol.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/util/CMatrixPol.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CMissingFreqs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/util/CMissingFreqs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CValuesGFF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/util/CValuesGFF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CAllCommands.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CAllCommands.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CCommandFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CCommandFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAdd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAdd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAppHelp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAppHelp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAppend.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAppend.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDCalc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDCalc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDConstant.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDConstant.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDelete.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDelete.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDim.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDim.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDryRun.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDryRun.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDElse.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDElse.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndForeach.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndForeach.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndIf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndIf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndWith.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndWith.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDExec.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDExec.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDForeach.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDForeach.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDHistory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDHistory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDIf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDIf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDLoadInstructionsFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDLoadInstructionsFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDLog.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDMemInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDMemInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDOpenDataFile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDOpenDataFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDOutput.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDOutput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDPipe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDPipe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDPrint.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDPrint.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDReserve.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDReserve.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDReset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDReset.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDRun.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDRun.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSaveState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSaveState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSetValue.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSetValue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSocket.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSocket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDStop.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDStop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSyntax.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSyntax.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDVerbose.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDVerbose.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDVersion.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDVersion.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDWith.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDWith.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDmstatspop.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDmstatspop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/COS/COption.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/COS/COption.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/COS/COptionsContainer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/COS/COptionsContainer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/ICommand.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/ICommand.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/CDataFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/CDataFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/CDataManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/CDataManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBCF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBCF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBam.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBam.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBamIndex.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBamIndex.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBoolean.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBoolean.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanCube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanCube.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataChar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataChar.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharCube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharCube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDouble.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDouble.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleCube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleCube.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFasta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFasta.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloat.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatCube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatCube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGFF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGFF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGFasta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGFasta.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGTF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGTF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Cube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Cube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Matrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Matrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Vector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Vector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntCube.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntCube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntMatrix.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntVector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataMpileup.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataMpileup.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataSNP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataSNP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataSam.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataSam.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdString.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdString.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdStringMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdStringMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdStringVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdStringVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStringSet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStringSet.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataTFasta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataTFasta.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataTextFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataTextFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataVCF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataVCF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataWeightsFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataWeightsFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/IData.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IData.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/IDataCube.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IDataCube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/IDataMatrix.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IDataMatrix.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/IDataValue.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IDataValue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/IDataVector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IDataVector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataAccess.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataAccess.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataHelper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataHelper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataSequenceIndex.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataSequenceIndex.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CFastaInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CFastaInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CGFFFile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CGFFFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CGFFRecord.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CGFFRecord.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CMemoryMappedFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CMemoryMappedFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTFastaAnnotation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTFastaAnnotation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTFastaInfo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTFastaInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestLc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestLc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestQuad.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestQuad.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestQuadWc.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestQuadWc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestR0.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestR0.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestRinf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestRinf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="SourceFiles">
+        <ccTool>
+          <incDir>
+            <pElem>/opt/lib/seqan/seqan_2.0.0.0</pElem>
+            <pElem>/usr/include/boost</pElem>
+            <pElem>/usr/include/c++/4.8.3</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>/opt/yaml/yaml-cpp-0.5.1/include</pElem>
+          </incDir>
+          <commandLine>-c -fmessage-length=0 -Wno-long-long -pedantic -Wno-variadic-macros -std=c++11 -lrt</commandLine>
+          <preprocessorList>
+            <Elem>SEQAN_ENABLE_DEBUG=1</Elem>
+            <Elem>SEQAN_ENABLE_TESTING=0</Elem>
+            <Elem>SEQAN_HAS_BZIP2=0</Elem>
+            <Elem>SEQAN_HAS_ZLIB=0</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <item path="instructions/CController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="instructions/CController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="instructions/CFromYaml.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="instructions/CFromYaml.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="instructions/CInstructionFactory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="instructions/CInstructionFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="instructions/CInstructionsHistory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="instructions/CInstructionsHistory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="instructions/IInstruction.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="instructions/IInstruction.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="instructions/Inst/CInstCommandLine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="instructions/Inst/CInstCommandLine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="instructions/Inst/CInstYAML.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="instructions/Inst/CInstYAML.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ipc/CExperimentNode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ipc/CExperimentNode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ipc/CNamedPipeManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ipc/CNamedPipeManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="language/CStringTable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="language/CStringTable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="language/CStringTableCalcs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="language/CStringTableCalcs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="language/IStringTable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="language/IStringTable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="language/extern.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="makefile" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CDebugEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CDebugEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CErrorEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CErrorEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CLogEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CLogEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CLogger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CLogger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CNormalEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CNormalEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CTimeStamp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CTimeStamp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CWarningEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CWarningEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ngaSP_backend.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CClock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CClock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/CFile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/CMapTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CMapTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/CStringTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CStringTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/CVectorTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CVectorTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/zutil.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="util/zutil.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <commandLine>-O3 -g3 -pedantic -Wall -ansi -fmessage-length=0 -Wno-long-long -Wno-variadic-macros -std=c++11 -I../../contrib/boost/boost_1_60_0 -I../../contrib/seqan/seqan_2.0.1.0 -DSEQAN_ENABLE_DEBUG=1 -DSEQAN_HAS_ZLIB=1 -DSEQAN_HAS_BZIP2=0 -DSEQAN_HAS_EXECINFO=1 -DSEQAN_ENABLE_TESTING=0 -I../../contrib/htslib-1.3.1 -I../../libs/samtoolslib</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <commandLine>-L../../contrib/boost/boost_1_60_0/stage/lib -l:libboost_iostreams.a ../../contrib/htslib-1.3.1/libhts.a ../../libs/samtoolslib/dist/Debug/GNU-Linux/libsamtoolslib.a -lncurses -ltinfo -pthread -l:libboost_chrono.a -lboost_system -lz</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="CManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IBase.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="IBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IFunction.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="IFunction.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="IObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/CAllCalculations.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/CAllCalculations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/CCalcFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/CCalcFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/CConnectorDef.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/CConnectorDef.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcArrayOpeX.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcArrayOpeX.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcArraySumAll.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcArraySumAll.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBCF2VCF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBCF2VCF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBam2Bai.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBam2Bai.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBam2Mpileup.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBam2Mpileup.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBamChromosomes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBamChromosomes.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBoxPlotValues.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcBoxPlotValues.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCollectDataColumns.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCollectDataColumns.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcConcatFiles.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcConcatFiles.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcConcatStrings.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcConcatStrings.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCreateTFastaAnnotation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCreateTFastaAnnotation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCutBED.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCutBED.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCutGTF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcCutGTF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcDnaMatrix2MatrixPol.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcDnaMatrix2MatrixPol.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcDuplicatePopulations.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcDuplicatePopulations.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcEffecNucAndTCGAFreqs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcEffecNucAndTCGAFreqs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcExample.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcExample.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcExec.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcExec.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFasta2DnaMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFasta2DnaMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFasta2TFasta.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFasta2TFasta.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFileStats.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFileStats.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFreqStats.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFreqStats.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcFs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGCContent.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGCContent.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGFF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGFF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGetChromosomes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcGetChromosomes.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcHwhafsth.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcHwhafsth.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcJointFreqDist.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcJointFreqDist.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcLengthamngAndCalcs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcLengthamngAndCalcs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcListFiles.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcListFiles.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMaskFileMs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMaskFileMs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMatrix2Vector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMatrix2Vector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMismatch.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMismatch.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspop.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOpenFastaFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOpenFastaFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOpenMsFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOpenMsFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOutput.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcMstatspopOutput.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenCoordinatesFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenCoordinatesFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenEffectSizesFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenEffectSizesFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenFastaFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenFastaFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenFreqSpecFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenFreqSpecFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenTFastaFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenTFastaFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenWeightPositionsFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcOpenWeightPositionsFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcPermute.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcPermute.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcPiwpiafst.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcPiwpiafst.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcR2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcR2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcR2p.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcR2p.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcRandomize.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcRandomize.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSam2Mpileup.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSam2Mpileup.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSnipCaller.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSnipCaller.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSplitBAM.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSplitBAM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSxsfss.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcSxsfss.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcTOptimalTests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcTOptimalTests.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcVCFToGFasta.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcVCFToGFasta.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcX.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcX.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcY.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcZ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcZ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcnpstat.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/Calc/CCalcnpstat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/ICalculation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/ICalculation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CComparison.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/util/CComparison.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CDnaTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/util/CDnaTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CMatrixPol.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/util/CMatrixPol.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CMissingFreqs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="calculations/util/CMissingFreqs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="calculations/util/CValuesGFF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="calculations/util/CValuesGFF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CAllCommands.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CAllCommands.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CCommandFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CCommandFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAdd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAdd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAppHelp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAppHelp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAppend.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDAppend.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDCalc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDCalc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDConstant.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDConstant.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDelete.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDelete.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDim.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDim.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDryRun.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDDryRun.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDElse.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDElse.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndForeach.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndForeach.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndIf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndIf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndWith.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDEndWith.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDExec.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDExec.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDForeach.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDForeach.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDHistory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDHistory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDIf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDIf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDLoadInstructionsFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDLoadInstructionsFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDLog.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDMemInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDMemInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDOpenDataFile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDOpenDataFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDOutput.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDOutput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDPipe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDPipe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDPrint.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDPrint.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDReserve.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDReserve.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDReset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDReset.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDRun.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDRun.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSaveState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSaveState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSetValue.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSetValue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSocket.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSocket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDStop.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDStop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSyntax.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDSyntax.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDVerbose.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDVerbose.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDVersion.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDVersion.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDWith.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDWith.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDmstatspop.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/CMD/CCMDmstatspop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/COS/COption.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/COS/COption.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/COS/COptionsContainer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/COS/COptionsContainer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="commands/ICommand.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="commands/ICommand.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/CDataFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/CDataFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/CDataManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/CDataManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBCF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBCF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBam.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBam.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBamIndex.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBamIndex.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBoolean.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBoolean.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanCube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanCube.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataBooleanVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataChar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataChar.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharCube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharCube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataCharVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDouble.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDouble.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleCube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleCube.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataDoubleVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFasta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFasta.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloat.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatCube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatCube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataFloatVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGFF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGFF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGFasta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGFasta.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGTF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataGTF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Cube.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Cube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Matrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Matrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Vector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataInt64Vector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntCube.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntCube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntMatrix.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataIntVector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataMpileup.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataMpileup.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataSNP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataSNP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataSam.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataSam.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdString.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdString.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdStringMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdStringMatrix.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdStringVector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStdStringVector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStringSet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataStringSet.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataTFasta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataTFasta.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataTextFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataTextFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataVCF.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataVCF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataWeightsFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/Data/CDataWeightsFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/IData.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IData.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/IDataCube.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IDataCube.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/IDataMatrix.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IDataMatrix.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/IDataValue.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IDataValue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/IDataVector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/IDataVector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataAccess.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataAccess.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataHelper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataHelper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataSequenceIndex.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CDataSequenceIndex.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CFastaInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CFastaInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CGFFFile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CGFFFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CGFFRecord.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CGFFRecord.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CMemoryMappedFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CMemoryMappedFile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTFastaAnnotation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTFastaAnnotation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTFastaInfo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTFastaInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestLc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestLc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestQuad.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestQuad.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestQuadWc.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestQuadWc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestR0.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestR0.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestRinf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="data_manager/common/CTestRinf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="instructions/CController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="instructions/CController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="instructions/CFromYaml.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="instructions/CFromYaml.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="instructions/CInstructionFactory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="instructions/CInstructionFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="instructions/CInstructionsHistory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="instructions/CInstructionsHistory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="instructions/IInstruction.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="instructions/IInstruction.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="instructions/Inst/CInstCommandLine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="instructions/Inst/CInstCommandLine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="instructions/Inst/CInstYAML.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="instructions/Inst/CInstYAML.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ipc/CExperimentNode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ipc/CExperimentNode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ipc/CNamedPipeManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ipc/CNamedPipeManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="language/CStringTable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="language/CStringTable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="language/CStringTableCalcs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="language/CStringTableCalcs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="language/IStringTable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="language/IStringTable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="language/extern.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="makefile" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CDebugEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CDebugEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CErrorEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CErrorEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CLogEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CLogEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CLogger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CLogger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CNormalEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CNormalEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CTimeStamp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CTimeStamp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="messages/CWarningEntry.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="messages/CWarningEntry.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ngaSP_backend.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CClock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CClock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/CFile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/CMapTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CMapTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/CStringTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CStringTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/CVectorTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/CVectorTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/zutil.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="util/zutil.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

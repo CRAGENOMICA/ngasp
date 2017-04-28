@@ -1,0 +1,488 @@
+<div class="sheet" style="background-color: white">
+
+	<!-- do not set the controller here because it is in the $stateProvider -->
+
+  <div class="container-fluid">
+    <div class="hide_on_print" style="margin-bottom:40px;" />
+
+	  <div class="row URS">
+
+      <!-- HEADER -->
+      <div class="row spacer crag_document_header docs_header_font">
+        <div class="col-md-3 col-xs-3 crag_document_header_cell logo_crag"><img src="images/all_logos.png" width=70%></div>
+        <div class="col-md-3 col-xs-3 crag_document_header_cell">CENTRE DE RECERCA<br />EN AGRIGENÒMICA</div>
+        <div class="col-md-3 col-xs-3 crag_document_header_cell">CENTRO DE INVESTIGACIÓN<br />EN AGRIGENÓMICA</div>
+        <div class="col-md-3 col-xs-3 crag_document_header_cell">CENTRE FOR RESEARCH<br />IN AGRICULTURAL</div>
+      </div>
+      <!-- /HEADER -->
+
+	    <div class="row spacer">
+            <div class="default_button_color window_padding docs_title_level_1" style="color:white">Calculation Development</div>
+      </div>
+
+      <div class="row spacer">
+        <p>
+          <strong>EXAMPLE. Creation of the "GC Content" calculation.</strong>
+        </p>
+
+        <p>
+          In molecular biology and genetics, GC-content (or guanine-cytosine content) is the percentage of nitrogenous bases on a DNA molecule that are either guanine or cytosine (from a possibility of four different ones, also including adenine and thymine).
+        </p>
+        <p>
+          GC content is usually expressed as a percentage value, but sometimes as a ratio (called G+C ratio or GC-ratio). GC-content percentage is calculated as
+          &nbsp;
+          <img src="images/gc_content_percent.png" />
+        </p>
+        <p>
+          whereas the AT/GC ratio is calculated as
+          &nbsp;
+          <img src="images/gc_content_ratio.png" />
+        </p>
+        <p class="center">
+          <img src="images/gc_content_node.png" />
+        </p>
+      </div>
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	    <div class="row spacer">
+        <div>
+          <div class="instruction_order instruction_order_font default_button_color">1</div>
+          <div class="instruction_font">Create two constants for your calculation: one for the calculation's name and another for the calculation's description:</div>
+        </div>
+      </div>
+
+	    <div class="row spacer">
+        <span class="docs_title_level_1">CStringTable.h</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+enum KeyString {
+  ...
+  <span class="hightlited_source_code">CALC_<strong style="color:blue">GCCONTENT</strong>,</span>
+  <span class="hightlited_source_code">CALC_<strong style="color:blue">GCCONTENT</strong>_DESC,</span>
+
+  <strong>_CALC_LAST</strong>,
+  ...
+}
+          </pre>
+        </div>
+      </div>
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	    <div class="row spacer">
+        <div>
+          <div class="instruction_order instruction_order_font default_button_color">2</div>
+          <div class="instruction_font">Write your calculation name and description:</div>
+        </div>
+      </div>
+
+	    <div class="row spacer">
+        <span class="docs_title_level_1">CStringTable.cpp</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+CStringTable::CStringTable() {
+  ...
+  <span class="hightlited_source_code">strings_[COLORED][CALC_<strong style="color:blue">GCCONTENT</strong>]        = "<strong style="color:blue">gc-content</strong>";</span>
+  <span class="hightlited_source_code">strings_[COLORED][CALC_<strong style="color:blue">GCCONTENT</strong>_DESC]   = "<strong style="color:blue">Write here your calculation description</strong>";</span>
+
+  strings_[COLORED][<strong>_CALC_LAST</strong>]            = "";
+  ...
+}
+          </pre>
+        </div>
+      </div>
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	    <div class="row spacer">
+        <div>
+          <div class="instruction_order instruction_order_font default_button_color">3</div>
+          <div class="instruction_font">Add your calculation to the system:</div>
+        </div>
+      </div>
+
+	    <div class="row spacer">
+        <span class="docs_title_level_1">CCalcFactory.h</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+...
+<span class="hightlited_source_code">#include "Calc/CCalc<strong style="color:blue">GCContent</strong>.h"</span>
+
+CCalcFactory::CCalcFactory() {
+  ...
+  <span class="hightlited_source_code">data_map_[CStringTable::KeyString::CALC_<strong style="color:blue">GCCONTENT</strong>] = new CCalc<strong style="color:blue">GCContent</strong>();</span>
+}
+          </pre>
+        </div>
+      </div>
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	    <div class="row spacer">
+        <div>
+          <div class="instruction_order instruction_order_font default_button_color">4</div>
+          <div class="instruction_font">Create a class for your calculation. Use these patterns for the ".h" & ".cpp" files:</div>
+        </div>
+      </div>
+
+	    <div class="row spacer">
+        <span class="docs_title_level_1">CCalc<strong style="color:blue">GCContent</strong>.h</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+/** 
+ *  \brief     CCalc<strong style="color:blue">GCContent</strong>.h
+ *  \details
+ *  \author    
+ *  \version   
+ *  \date      
+ */
+
+#ifndef CALCULATIONS_CALCS_CCAL<strong style="color:blue">GCCONTENT</strong>_H_
+#define CALCULATIONS_CALCS_CCAL<strong style="color:blue">GCCONTENT</strong>_H_
+
+#include "../ICalculation.h"
+
+class CCalc<strong style="color:blue">GCContent</strong> : public ICalculation {
+ public:
+  CCalc<strong style="color:blue">GCContent</strong>();
+  virtual ~CCalc<strong style="color:blue">GCContent</strong>();>4<
+
+ public:
+  void Prepare(void);
+  void Calculate(bool dry_run);
+  void Finalize(void);
+
+ public:
+  ICalculation* clone() const { 
+     return new CCalc<strong style="color:blue">GCContent</strong>(); 
+  }
+};
+
+#endif  // CALCULATIONS_CALCS_CCAL<strong style="color:blue">GCCONTENT</strong>_H_
+          </pre>
+        </div>
+      </div>
+
+	    <div class="row spacer page_break">
+        <span class="docs_title_level_1">CCalc<strong style="color:blue">GCContent</strong>.cpp</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+/** 
+ *  \brief     CCalc<strong style="color:blue">GCContent</strong>.cpp
+ *  \details
+ *  \author    
+ *  \version   
+ *  \date      
+ */
+
+#include "CCalc<strong style="color:blue">GCContent</strong>.h"
+#include <cmath>
+#include "../../language/CStringTable.h"
+#include "../../data_manager/CDataManager.h"
+
+CCalc<strong style="color:blue">GCContent</strong>::CCalc<strong style="color:blue">GCContent</strong>()
+: ICalculation(CStringTable::KeyString::CALC_<strong style="color:blue">GCCONTENT</strong>,
+               CStringTable::KeyString::CALC_<strong style="color:blue">GCCONTENT</strong>_DESC) {
+}
+
+CCalc<strong style="color:blue">GCContent</strong>::~CCalc<strong style="color:blue">GCContent</strong>() {
+}
+
+void CCalc<strong style="color:blue">GCContent</strong>::Prepare(void) {
+}
+
+void CCalc<strong style="color:blue">GCContent</strong>::Calculate(bool dry_run) {
+}
+
+void CCalc<strong style="color:blue">GCContent</strong>::Finalize(void) {
+}
+          </pre>
+        </div>
+      </div>
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	    <div class="row spacer page_break">
+        <div>
+          <div class="instruction_order instruction_order_font default_button_color">5</div>
+          <div class="instruction_font">Define your calculations's inputs and outputs:</div>
+        </div>
+      </div>
+
+
+	    <div class="row spacer">
+        <span class="docs_title_level_1">CCalc<strong style="color:blue">GCContent</strong>.h</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+/** 
+ *  \brief     CCalc<strong style="color:blue">GCContent</strong>.h
+ *  \details
+ *  \author    
+ *  \version   
+ *  \date      
+ */
+
+#ifndef CALCULATIONS_CALCS_CCAL<strong style="color:blue">GCCONTENT</strong>_H_
+#define CALCULATIONS_CALCS_CCAL<strong style="color:blue">GCCONTENT</strong>_H_
+
+#include "../ICalculation.h"
+
+<span class="hightlited_source_code">// Include the data types you use:</span>
+<span class="hightlited_source_code">#include "../../data_manager/Data/<strong style="color:green">CDataCharVector</strong>.h"</span>
+<span class="hightlited_source_code">#include "../../data_manager/Data/<strong style="color:green">CDataBoolean</strong>.h"</span>
+<span class="hightlited_source_code">#include "../../data_manager/Data/<strong style="color:green">CDataFloat</strong>.h"</span>
+
+
+class CCalc<strong style="color:blue">GCContent</strong> : public ICalculation {
+ public:
+  CCalc<strong style="color:blue">GCContent</strong>();
+  virtual ~CCalc<strong style="color:blue">GCContent</strong>();>4<
+
+ public:
+  void Prepare(void);
+  void Calculate(bool dry_run);
+  void Finalize(void);
+
+ private:
+  <span class="hightlited_source_code">// Declare your inputs and outputs:</span>
+  <span class="hightlited_source_code">// Inputs</span>
+  <span class="hightlited_source_code"><strong style="color:green">CDataCharVector</strong> *vector;</span>
+  <span class="hightlited_source_code"><strong style="color:green">CDataBoolean</strong> *percentage;</span>
+
+  <span class="hightlited_source_code">// Outputs</span>
+  <span class="hightlited_source_code"><strong style="color:green">CDataFloat</strong> *total;</span>
+
+ public:
+  ICalculation* clone() const { 
+     return new CCalc<strong style="color:blue">GCContent</strong>(); 
+  }
+};
+
+#endif  // CALCULATIONS_CALCS_CCAL<strong style="color:blue">GCCONTENT</strong>_H_
+          </pre>
+        </div>
+      </div>
+
+
+
+
+
+	    <div class="row spacer">
+        <span class="docs_title_level_1">CCalc<strong style="color:blue">GCContent</strong>.cpp</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+
+/** 
+ *  \brief     CCalc<strong style="color:blue">GCContent</strong>.cpp
+ *  \details
+ *  \author    
+ *  \version   
+ *  \date      
+ */
+
+#include "CCalc<strong style="color:blue">GCContent</strong>.h"
+#include <cmath>
+#include "../../language/CStringTable.h"
+#include "../../data_manager/CDataManager.h"
+
+
+CCalc<strong style="color:blue">GCContent</strong>::CCalc<strong style="color:blue">GCContent</strong>()
+: ICalculation(CStringTable::KeyString::CALC_<strong style="color:blue">GCCONTENT</strong>,
+               CStringTable::KeyString::CALC_<strong style="color:blue">GCCONTENT</strong>_DESC) {
+  <span class="hightlited_source_code">// Define here the number of inputs and outputs of your calculation:</span>
+  <span class="hightlited_source_code">
+  BEGIN_CALCULATION_INTERFACE_DEFINITION
+    <strong style="color:green">SET_INPUT_INFO(vector)</strong>
+
+    <strong style="color:green">SET_INPUT_INFO(vector)</strong>
+
+    <strong style="color:green">SET_INPUT_INFO(percentage)</strong>
+  
+    <strong style="color:green">SET_OUTPUT_INFO(total)</strong>
+  END_CALCULATION_INTERFACE_DEFINITION
+  </span>
+}
+
+CCalc<strong style="color:blue">GCContent</strong>::~CCalc<strong style="color:blue">GCContent</strong>() {
+}
+
+void CCalc<strong style="color:blue">GCContent</strong>::Prepare(void) {
+  <span class="hightlited_source_code">// Get your inputs and outputs:</span>
+  <span class="hightlited_source_code">DM_GET_INPUTS</span>
+  <span class="hightlited_source_code">  <strong style="color:green">DM_INPUT(vector)</strong></span>
+  <span class="hightlited_source_code">  <strong style="color:green">DM_INPUT(percentage)</strong></span>
+  <span class="hightlited_source_code">DM_GET_OUTPUTS</span>
+  <span class="hightlited_source_code">  <strong style="color:green">DM_OUTPUT(total)</strong></span>
+  <span class="hightlited_source_code">DM_END</span>
+}
+
+void CCalc<strong style="color:blue">GCContent</strong>::Calculate(bool dry_run) {
+
+}
+
+void CCalc<strong style="color:blue">GCContent</strong>::Finalize(void) {
+}
+          </pre>
+        </div>
+      </div>
+
+
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	    <div class="row spacer page_break">
+        <div>
+          <div class="instruction_order instruction_order_font default_button_color">6</div>
+          <div class="instruction_font">Write your calculation:</div>
+        </div>
+      </div>
+
+	    <div class="row spacer">
+        <span class="docs_title_level_1">CCalc<strong style="color:blue">GCContent</strong>.cpp</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+/** 
+ *  \brief     CCalc<strong style="color:blue">GCContent</strong>.cpp
+ *  \details
+ *  \author    
+ *  \version   
+ *  \date      
+ */
+
+#include "CCalc<strong style="color:blue">GCContent</strong>.h"
+#include <cmath>
+#include "../../language/CStringTable.h"
+#include "../../data_manager/CDataManager.h"
+
+
+CCalc<strong style="color:blue">GCContent</strong>::CCalc<strong style="color:blue">GCContent</strong>()
+: ICalculation(CStringTable::KeyString::CALC_<strong style="color:blue">GCCONTENT</strong>,
+               CStringTable::KeyString::CALC_<strong style="color:blue">GCCONTENT</strong>_DESC) {
+  BEGIN_CALCULATION_INTERFACE_DEFINITION
+    SET_INPUT_INFO(vector)
+    SET_INPUT_INFO(percentage)
+  
+    SET_OUTPUT_INFO(total)
+  END_CALCULATION_INTERFACE_DEFINITION
+}
+
+CCalc<strong style="color:blue">GCContent</strong>::~CCalc<strong style="color:blue">GCContent</strong>() {
+}
+
+void CCalc<strong style="color:blue">GCContent</strong>::Prepare(void) {
+  // Get your inputs and outputs:
+  DM_GET_INPUTS
+    DM_INPUT(vector)
+    DM_INPUT(percentage)
+  DM_GET_OUTPUTS
+    DM_OUTPUT(total)
+  DM_END
+}
+
+void CCalc<strong style="color:blue">GCContent</strong>::Calculate(bool dry_run) {
+  <span class="hightlited_source_code">// Calculate:</span>
+
+  <span class="hightlited_source_code"><strong style="color:green">total->set_value(0);</strong></span>
+  
+  <span class="hightlited_source_code">int64_t T = 0;</span>
+  <span class="hightlited_source_code">int64_t C = 0;</span>
+  <span class="hightlited_source_code">int64_t G = 0;</span>
+  <span class="hightlited_source_code">int64_t A = 0;</span>
+  
+  <span class="hightlited_source_code">for (int64_t i = 0; i < <strong style="color:green">vector->Size()</strong>; i++) {</span>
+  <span class="hightlited_source_code">  switch(<strong style="color:green">vector[i]</strong>) {</span>
+  <span class="hightlited_source_code">    case 'T':T++;break;</span>
+  <span class="hightlited_source_code">    case 'C':C++;break;</span>
+  <span class="hightlited_source_code">    case 'G':G++;break;</span>
+  <span class="hightlited_source_code">    case 'A':A++;break;</span>
+  <span class="hightlited_source_code">    default:break;</span>
+  <span class="hightlited_source_code">  }</span>
+  <span class="hightlited_source_code">}</span>
+
+  <span class="hightlited_source_code">int64_t numerator = 0;</span>
+  <span class="hightlited_source_code">int64_t divisior = 0;</span>
+  
+  <span class="hightlited_source_code">if (<strong style="color:green">percentage->value()</strong> == true) {</span>
+  <span class="hightlited_source_code">  numerator = (G+C);</span>
+  <span class="hightlited_source_code">  divisior = (A+T+G+C);</span>
+  <span class="hightlited_source_code">} else {</span>
+  <span class="hightlited_source_code">  numerator = (A+T);</span>
+  <span class="hightlited_source_code">  divisior = (G+C);</span>    
+  <span class="hightlited_source_code">}</span>
+  
+  <span class="hightlited_source_code">if (divisior != 0) {</span>
+  <span class="hightlited_source_code">  float result = numerator;</span>
+  <span class="hightlited_source_code">  result /= divisior;</span>
+  <span class="hightlited_source_code">  <strong style="color:green">total->set_value(result);</strong></span>
+  <span class="hightlited_source_code">}</span>
+}
+
+void CCalc<strong style="color:blue">GCContent</strong>::Finalize(void) {
+}
+          </pre>
+        </div>
+      </div>
+
+
+
+
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	    <div class="row spacer page_break">
+        <div>
+          <div class="instruction_order instruction_order_font default_button_color">7</div>
+          <div class="instruction_font">Add the license & copyright note to your calculation:</div>
+        </div>
+      </div>
+
+	    <div class="row spacer">
+        <span class="docs_title_level_1">CCalc<strong style="color:blue">GCContent</strong>.h</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+
+<span class="hightlited_source_code">/* LICENSE & COPYRIGHT note */</span>
+/** 
+ *  \brief     CCalc<strong style="color:blue">GCContent</strong>.h
+ *  \details
+ *  \author    
+ *  \version   
+ *  \date      
+ */
+          </pre>
+        </div>
+      </div>
+
+
+	    <div class="row spacer">
+        <span class="docs_title_level_1">CCalc<strong style="color:blue">GCContent</strong>.cpp</span> 
+        <div class="FileDocument">
+          <pre class="source_code_font">
+
+<span class="hightlited_source_code">/* LICENSE & COPYRIGHT note */</span>
+/** 
+ *  \brief     CCalc<strong style="color:blue">GCContent</strong>.cpp
+ *  \details
+ *  \author    
+ *  \version   
+ *  \date      
+ */
+          </pre>
+        </div>
+      </div>
+
+
+
+
+
+	    <div class="row spacer">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

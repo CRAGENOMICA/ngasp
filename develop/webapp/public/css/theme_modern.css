@@ -1,0 +1,416 @@
+/*
+-------------------------------------------------------------------------------
+Company Colors
+-------------------------------------------------------------------------------
+*/
+
+/*
+--------------------------------------------------------------------------------
+Font Styles
+--------------------------------------------------------------------------------
+*/
+.theme_modern .default_font
+{
+    color: #5e5e5e;
+}
+
+.theme_modern .company_title_1_font
+{
+    font-family: 'robotoregular';
+    font-size: 15px;
+
+	color: #777;
+
+	text-transform: uppercase;
+
+	z-index: 1;
+
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	margin: 0px;
+}
+
+.theme_modern .company_title_2_font
+{
+    font-family: 'robotoregular';
+    font-size: 17px;
+
+	color: #000;
+
+	z-index: 1;
+
+	padding: 0px;
+	margin: 0px;
+}
+
+.theme_modern .company_title_3_font
+{
+    font-family: 'robotoregular';
+    font-size: 12px;
+
+	color: #aeaeae;
+
+	z-index: 1;
+
+	padding: 0px;
+	margin: 0px;
+}
+
+/*
+-------------------------------------------------------------------------------
+Company Colors - Modern
+-------------------------------------------------------------------------------
+*/
+.theme_modern
+{
+	margin: 0px;
+	padding: 0px;
+	height: 100%;	/* menu height 100% */
+    background-color: #edecec;
+}
+
+.theme_modern .company_background_titlebar_color
+{
+    background-color: rgb(66,133,244); /*#4285f4;*/
+    border-bottom: 1px solid white;
+}
+
+/* this must be the same as company_background_titlebar_color but for "color"
+instead of "background" */
+.theme_modern .company_text_color 
+{
+    color: rgb(66,133,244); /*#4285f4;*/
+}
+
+.theme_modern .company_sub_text_color 
+{
+    color: #808080;
+}
+
+.theme_modern .default_button_color
+{
+    background-color: rgb(66,133,244); /*#4285f4;*/
+    color: white;
+}
+
+.theme_modern .company_background_window_color
+{
+    background-color: white;
+}
+
+.theme_modern .company_background_menu_color
+{
+    background-color: white;
+}
+
+.theme_modern .company_background_color_extra_1
+{
+	background-color: #34495e;
+}
+
+.theme_modern .company_background_color_extra_2
+{
+	background-color: #8bc34a;
+}
+
+.theme_modern .company_background_color_extra_3
+{
+	background-color: #ff9800;
+}
+
+.theme_modern .company_background_color_extra_4
+{
+	background-color: #607d8b;
+}
+
+
+/* Popup menu options */
+.theme_modern .dropdown-menu>li>a
+{
+}
+
+/*
+--------------------------------------------------------------------------------
+Context Menu
+--------------------------------------------------------------------------------
+*/
+.theme_modern .dropdown-menu {
+    background: white;
+    padding: 5px;
+}
+.theme_modern .dropdown-menu li a {
+    color: black;
+}
+
+/*
+--------------------------------------------------------------------------------
+*/
+
+/* Popup menu options */
+.theme_modern .dropdown-menu>li>a:hover
+{
+}
+
+
+/* Menu */
+
+/* Cursor is hover the menu item */
+.theme_modern .menu .menu_item:hover
+{
+	background-color: #f4f4f4;
+}
+
+/* Row selected on the menu */
+.theme_modern .row_selected
+{
+	background-color: #f4f4f4;
+}
+
+.theme_modern .menu_item_font
+{
+	margin-left: 0px;
+	color: #262626;
+}
+
+.theme_modern .menu_item a
+{
+	text-decoration: none;
+}
+
+.theme_modern .menu_subitem
+{
+	color: #888;
+}
+
+.theme_modern .menu_subitem:hover
+{
+	color: #000;
+}
+
+.theme_modern .subitem_selected
+{
+	color: #000;
+}
+
+/*
+-------------------------------------------------------------------------------
+Popup Messages
+-------------------------------------------------------------------------------
+*/
+.theme_modern .modal-header
+{
+    background-color: rgb(66,133,244); /*#4285f4;*/
+	color: #fff;
+}
+
+.theme_modern .modal-footer
+{
+    background-color: #edecec;
+	color: #fff;
+}
+
+.theme_modern .alert-footer
+{
+    background-color: #edecec;
+	color: #fff;
+}
+
+
+/*
+-------------------------------------------------------------------------------
+Windows
+-------------------------------------------------------------------------------
+*/
+
+.theme_modern .graph_box
+{
+	box-shadow: 0px 1px 1px #ddd;
+}
+
+.theme_modern #graph_little_box_1
+{
+	box-shadow: 0px 1px 1px #ddd;
+}
+
+.theme_modern #graph_little_box_2
+{
+	box-shadow: 0px 1px 1px #ddd;
+}
+
+.theme_modern #graph_little_box_3
+{
+	box-shadow: 0px 1px 1px #ddd;
+}
+
+.theme_modern #graph_little_box_4
+{
+	box-shadow: 0px 1px 1px #ddd;
+}
+
+
+/*
+-------------------------------------------------------------------------------
+Tables
+-------------------------------------------------------------------------------
+*/
+
+.theme_modern .selected_row
+{
+	background-color: rgba(66,133,244,0.1);
+}
+
+.theme_modern .table_row:hover
+{
+    background: rgba(66,133,244,0.1);
+}
+
+
+
+/*
+-------------------------------------------------------------------------------
+Tool Buttons
+-------------------------------------------------------------------------------
+*/
+
+.theme_modern #experiment_tools
+{
+   border: 1px solid #aaa;
+    box-shadow: 0px 0px 0px #000;
+}
+
+.theme_modern #button_calculations
+{
+	background-image: url(../images/dark/fx_icon_dark.svg);
+}
+
+
+.theme_modern #button_dms
+{
+	background-image: url(../images/dark/dm_icon_dark.svg); 
+}
+
+.theme_modern #button_inputs
+{
+	background-image: url(../images/dark/input_icon_dark.svg); 
+}
+
+.theme_modern #button_outputs
+{
+	background-image: url(../images/dark/output_icon_dark.svg); 
+}
+
+.theme_modern #button_datas
+{
+	background-image: url(../images/dark/data_icon_dark.svg); 
+}
+
+.theme_modern #button_graphs
+{
+	background-image: url(../images/dark/graph_icon_dark.svg); 
+}
+
+.theme_modern #button_pipelines
+{
+	background-image: url(../images/dark/pipeline_icon_dark.svg); 
+}
+
+/*
+-------------------------------------------------------------------------------
+Nav Tab Bar
+-------------------------------------------------------------------------------
+*/
+
+/* Not selected document tab */
+.theme_modern .nav-tabs>li,
+.theme_modern .nav-tabs>li>a
+{
+    color: #808080;
+    background-color: transparent;
+}
+
+/* Selected document tab */
+.theme_modern .nav-tabs>li.active,
+.theme_modern .nav-tabs>li.active>a,
+.theme_modern .nav-tabs>li.active>a:focus
+{
+    color: #808080;
+    background-color: #eee;
+}
+
+/* Over document tab */
+.theme_modern .nav-tabs>li:hover,
+.theme_modern .nav-tabs>li>a:hover
+{
+    color: #808080;
+    background-color: #eee;
+}
+
+
+.theme_modern .nav_tab_bar_bottom_line
+{
+    padding: 0px;
+    margin: 0px;
+    border-bottom: 1px solid #aaa;
+}
+
+.theme_modern .nav-tabs
+{
+    border: 0px;
+    border-right:  1px solid #aaa; /*last line */
+}
+
+.theme_modern .document_tab
+{
+    border-right: 1px solid #aaa;
+    border-left:  1px solid #aaa; /* first line */
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+.theme_modern .graph_menu,
+.theme_modern .graph_refresh,
+.theme_modern .graph_close
+{
+	color: darkgray;
+}
+
+/*
+-------------------------------------------------------------------------------
+Scrollbars
+-------------------------------------------------------------------------------
+*/
+
+.theme_modern::-webkit-scrollbar,
+.theme_modern .menu_auto_scroll::-webkit-scrollbar,
+.theme_modern .menu_node::-webkit-scrollbar,
+.theme_modern .console::-webkit-scrollbar
+{
+    width: 1em;
+}
+
+.theme_modern::-webkit-scrollbar-track, 
+.theme_modern .menu_auto_scroll::-webkit-scrollbar-track,
+.theme_modern .menu_node::-webkit-scrollbar-track,
+.theme_modern .console::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 20px #aaa;
+}
+
+.theme_modern::-webkit-scrollbar-thumb, 
+.theme_modern .menu_auto_scroll::-webkit-scrollbar-thumb,
+.theme_modern .menu_node::-webkit-scrollbar-thumb,
+.theme_modern .console::-webkit-scrollbar-thumb
+{
+  background-color: #aaa;
+  /*outline: 3px solid #99d651;*/
+}
+
+.theme_modern .output_panel
+{
+  background-color: white;
+}
+

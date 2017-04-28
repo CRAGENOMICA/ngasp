@@ -1,0 +1,69 @@
+/**
+ * ============================================================================
+ *  \brief     samtools_linux_build.gradle
+ *  \details   This file describes the samtools library build process for LINUX
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Apr 29, 2016
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+ */
+apply plugin: 'c'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
+}
+
+model {
+	toolChains {
+		clang(Clang) {
+			path "/usr/bin"
+			eachPlatform() {
+				cppCompiler.executable "clang"
+			}
+		}
+  }
+
+	components {
+		samtoolslib(NativeLibrarySpec) {
+			sources {
+				c {
+					source {
+						srcDirs "../source/samtoolslib", "../source/samtoolslib/htslib-1.3.1/cram", "../source/samtoolslib/htslib-1.3.1/htslib", "../source/samtoolslib/htslib-1.3.1", "../source/samtoolslib/win32"
+						include "**/*.c"
+					}
+          exportedHeaders {
+						srcDirs "../source/samtoolslib/", "../source/samtoolslib/htslib-1.3.1/cram", "../source/samtoolslib/htslib-1.3.1/htslib", "../source/samtoolslib/htslib-1.3.1", "../source/samtoolslib/win32"
+          }
+				}
+      }
+
+      binaries.all {
+        cCompiler.args "-Wall",
+                       "-O2",
+                       "-c",
+                       "-g",
+                       "-I.",
+                       "-Ihtslib-1.3.1",
+                       "-I/usr/local/opt/ncurses/include",                      /* ncurses.  <-------------- Only Mac OS */
+                       ""
+                                                                                /* linker.args <-------------- Only Mac OS */
+         linker.args   "-L/usr/local/opt/ncurses/lib",                          /* ncurses */
+                       "-lcurses",
+                       "-lz",                                                   /* zlib */
+                       ""
+      }		
+		}
+	}
+}
+
+task build_and_export_lib(type: Copy, dependsOn:build) {
+  from "./build/libs/samtoolslib/static/libsamtoolslib.a"
+  into "../source/samtoolslib/lib"
+}
+
+
+

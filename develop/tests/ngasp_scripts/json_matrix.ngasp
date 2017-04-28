@@ -1,0 +1,10 @@
+dim -n   v --as double_vector
+dim -n   m --as double_matrix
+
+set-value --to v --eq "1,2,3"
+set-value --to m --eq "1,2,3;4,5,6"
+
+print -n v --mode json --eol
+print --eol
+print -n m --mode json --eol
+  

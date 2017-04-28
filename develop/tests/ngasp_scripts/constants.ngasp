@@ -1,0 +1,13 @@
+# This file is part of the standard ngasp library.
+
+	const --name FASTA_FILE					--by 1
+	const --name MS_FILE					  --by 2
+	const --name YES						    --by 1
+	const --name NO							    --by 0
+	const --name TRUE						    --by 1
+	const --name FALSE						  --by 0
+	const --name HAPLOID					  --by 1
+	const --name DIPLOID					  --by 2
+	const --name FIRST_ITERATION		--by 0
+	const --name NGASP_PATH         --by /home/jjene/NetBeansProjects/ngaSP
+

@@ -1,0 +1,134 @@
+# ==============================================================================
+# PIPELINE NAME: pipeline_total.ngasp
+# CREATION DATE: APR 29, 2016.
+# AUTHOR:        CRAG
+# ==============================================================================
+# load -i /home/jjene/NetBeansProjects/ngasp/tests/pipelines/pipeline_total.ngasp
+
+  verbose --level debug
+
+# ==============================================================================
+# CONSTANTS
+# ==============================================================================
+
+  const --name PATH_FILES              --by ./data
+  const --name PATH_BINARIES           --by ./bin
+  const --name RESULT_OK               --by 0
+  const --name HAPLOID                 --by 1
+  const --name DIPLOID                 --by 2
+  const --name OUTPUT_NONE             --by '0'
+  const --name OUTPUT_FASTA_FILE       --by 'f'
+  const --name OUTPUT_T_FASTA_FILE     --by 't'
+
+# ==============================================================================
+# EXTERNAL TOOLS
+# ==============================================================================
+
+  const --name APP_FAS_2_TFAS          --by PATH_BINARIES/fastaconvtr
+  const --name APP_COLL_DAT_COLS       --by perl ./bin/collect_data_columns.pl
+  const --name APP_SYSTEM_CAT          --by cat
+
+# ==============================================================================
+# CALCS
+# ==============================================================================
+
+  calc -n calc_get_bam_region          --as bam-region
+  calc -n calc_snip_caller             --as snip-caller
+
+# ==============================================================================
+# DATAS
+# ==============================================================================
+
+  dim -n bam_file                      --as bam
+  dim -n bam_index                     --as bam-index
+  dim -n fasta_ref                     --as fasta
+
+  dim -n region                        --as string
+
+  dim -n mpileup_ind_1                 --as mpileup
+  dim -n mpileup_ind_2                 --as mpileup
+  dim -n mpileup_ind_3                 --as mpileup
+  dim -n mpileup_ind_4                 --as mpileup
+
+  dim -n sequence_length               --as int
+  dim -n ploidy                        --as int
+  dim -n seed                          --as int
+  dim -n minimum_read_depth            --as int
+  dim -n maximum_read_depth            --as int
+  dim -n minimum_base_quality          --as int
+  dim -n output_type                   --as char
+
+# ==============================================================================
+# MAIN
+# ==============================================================================
+
+
+  set --to fasta_ref.value             --eq "PATH_FILES/c1.fa"
+  set --to region                      --eq "12:50-1100"
+  set --to output_mpileup.value        --eq "PATH_FILES/fasta_ind_1"
+  set --to calc_get_bam_region.inputs  --eq "input_bam,fasta_ref"
+  set --to calc_get_bam_region.outputs --eq "output_mpileup"
+  run -n calc_get_bam_region
+
+
+
+  print --text "--------------------------------------------------------------------------------------------------"
+  print --text "CALCULATE THE SILENT VARIABILITY IN 100Kb OF 4 DIPLOID INDIVIDUALS IN WINDOWS OF 10Kb"
+  print --text "--------------------------------------------------------------------------------------------------"
+
+
+
+
+print --text "\nCall Frequency caller of the four diploid individuals: Pileup files from BAM files using bcftools."
+execute -c "APP_PF_CALLER -l 100000 -p 2 -s 47743 -m 4 -M 25 -q 20 -f f -i INPUT_IND1_PILEUP -o PATH_OUTPUT_FILES/Ind1.pileup_p02"
+
+
+
+
+
+
+  set --to input_bam.value          --eq "PATH_FILES/c1#clip.bam"
+  set --to sequence_length         --eq 100000
+  set --to ploidy                  --eq DIPLOID
+  set --to seed                    --eq 47743
+  set --to minimum_read_depth      --eq 4
+  set --to maximum_read_depth      --eq 25
+  set --to minimum_base_quality    --eq 20
+  set --to output_type             --eq FASTA_FILE
+
+
+  print --text "\nConcatenate all four fasta files in one multifasta file: We have 8 lines: 4 diploids."
+  execute -c "APP_SYSTEM_CAT PATH_OUTPUT_FILES/Ind1.pileup_p02.fas PATH_OUTPUT_FILES/Ind2.pileup_p02.fas PATH_OUTPUT_FILES/Ind3.pileup_p02.fas PATH_OUTPUT_FILES/Ind4.pileup_p02.fas > PATH_OUTPUT_FILES/4Indp02.fas"
+
+  print --text "\nConvert multifasta file in transposed fasta file and a weight file for silent positions using GTFv2 file"
+  execute -c "APP_FAS_2_TFAS -F fasta -f tfasta -i PATH_OUTPUT_FILES/4Indp02.fas -o PATH_OUTPUT_FILES/4Indp02.tfa -g INPUT_GTF silent Nuclear_Universal -c max -u 1 > PATH_OUTPUT_FILES/4Indp02_fa2tfa_gffsil.log"
+
+  print --text "\ncalculate the silent variability in sectins of 10Kb. The last individual is an outgroup."
+  execute -c "./bin/mstatspop -f tfa -i PATH_OUTPUT_FILES/4Indp02.tfa -o 1 -N 2 6 2 -T PATH_OUTPUT_FILES/mstatspop_4Indp02.txt -G 1 -u 1 -w 10000 -E PATH_OUTPUT_FILES/4Indp02.tfa_npops1_nsam8_silent_max_IncludeMissingVariantsmhits_NOoutg_ploidy1_WEIGHTS.txt"
+
+  print --text "\nCollect only few colums like start, end, Theta_Watt, TajimaD"
+  execute -c "APP_COLL_DAT_COLS -in PATH_OUTPUT_FILES/mstatspop_4Indp02.txt -fc INPUT_REQUIRED_COLS > PATH_OUTPUT_FILES/mstatspop_4Indp02_COLUMNS.txt"
+#}
+
+#{9:0
+  print --text "\n\n--------------------------------------------------------------------------------------------------"
+  print --text "CALCULATE THE TOTAL VARIABILITY IN 100Kb OF 1 POOLED SAMPLE OF 10 CHROMOSOMES IN WINDOWS OF 10Kb"
+  print --text "--------------------------------------------------------------------------------------------------"
+
+  print --text "\nCall Frequency caller of the four diploid individuals: Pileup files from BAM files using bcftools."
+  execute -c "APP_PF_CALLER -l 100000 -p 10 -s 47743 -m 4 -M 25 -q 20 -f f -i INPUT_IND1_PILEUP -o PATH_OUTPUT_FILES/Ind1.pileup_p10" 
+
+  print --text "\nConvert multifasta file in transposed fasta file and a weight file for silent positions using GTFv2 file"
+  execute -c "APP_FAS_2_TFAS -F fasta -f tfasta -i PATH_OUTPUT_FILES/Ind1.pileup_p10.fas -o PATH_OUTPUT_FILES/Ind1.pileup_p10.tfa -u 1 > PATH_OUTPUT_FILES/Ind1.pileup_p10_fa2tfa.log"
+
+  print --text "\ncalculate the total variability in sectins of 10Kb."
+  mstatspop -f tfa -i PATH_OUTPUT_FILES/Ind1.pileup_p10.tfa -o 1 -N 1 10 -T PATH_OUTPUT_FILES/mstatspop_Ind1.pileup_p10.txt -u 1 -w 10000
+
+  print --text "\nCollect only few colums like start, end, Theta_Watt, TajimaD"
+  execute -c "APP_COLL_DAT_COLS -in PATH_OUTPUT_FILES/mstatspop_Ind1.pileup_p10.txt -fc INPUT_REQUIRED_COLS > PATH_OUTPUT_FILES/mstatspop_Ind1.pileup_p10_COLUMNS.txt"
+#}
+
+
+
+
+

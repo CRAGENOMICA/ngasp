@@ -1,0 +1,16 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/set_petit.ngasp
+
+verbose --level debug
+
+# dim -n x --as int
+dim -n v --as int-vector
+
+set --to v.data --eq "1 2 3 4 5"
+print -n v
+
+set --to v.data[1] --eq 77
+print -n v
+
+
+
+

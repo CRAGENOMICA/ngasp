@@ -1,0 +1,2673 @@
+/*
+ * ngasp, a computational solution for performing next generation analysis of 
+ * sequence polymorphisms using NGS data.
+ * Copyright (c) 2015-2017, Sebastián Ramos Onsins and Gonzalo Vera Rodríguez,
+ * Centre for Research in Agricultural Genomics.
+ * All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License version
+ * 2.1 as published by the Free Software Foundation.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License version 2.1 for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License version 2.1 along with this library; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ */
+/**
+ *  \brief     CStringTable.h
+ *  \details   This class uses the Singleton pattern.
+ *             That means that the class has only one instance, and provide a
+ *             global point of access it.
+ *             This patter can be used only because this class is ReadOnly and
+ *             it won't be a problem when using threads.
+ *  \author    Joan Jené
+ *  \version   1.0
+ *  \date      Mar 31, 2015
+ *  \pre
+ *  \bug
+ *  \warning
+ */
+
+#ifndef BACKEND_SRC_LANGUAGE_CSTRINGTABLE_H_
+#define BACKEND_SRC_LANGUAGE_CSTRINGTABLE_H_
+
+#include "IStringTable.h"
+
+
+#define STR(x)  CStringTable::Instance()->get_strings(KeyString::x)
+#define STR2(x) CStringTable::Instance()->get_strings(x)
+#define STRC(x) CStringTable::Instance()->get_char(KeyString::x)
+#define ID(x)   KeyString::x
+
+
+enum KeyString {
+  //@{
+  /// ==========================================================================
+  /// This CStringTable Control Constants
+  /// ==========================================================================
+  UNDEFINED_STRING,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Application Information
+  /// ==========================================================================
+  NGASP_APP_NAME,
+  NGASP_APP_EXECUTABLE_NAME,
+  NGASP_APP_VERSION,
+  NGASP_SHORT_DESC,
+  NGASP_COPYRIGHT,
+  NGASP_COPYRIGHT_DESC,
+  //@{  
+  //@{
+  /// ==========================================================================
+  /// List of Authors
+  /// ==========================================================================
+  NGASP_AUTHORS,
+  GVCF2TFASTA_AUTHORS,
+  MSTATSPOP_AUTHOR,
+  GENERIC_COPYRIGHT,
+  GENERIC_CITATIONS,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// EXTERNAL TOOLS
+  /// ==========================================================================
+  BINARY_PATH_INSIDE_DOCKER,
+  SNP_CALLER_BINARY,
+  FASTA_CONVERTER_BINARY,
+  COLLECT_DATA_COLUMNS_BINARY,
+  CONCATENATE_FILES_BINARY,
+  NPSTAT_BINARY,
+  VCF2GFASTA_BINARY,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// MSTATSPOP Information
+  /// ==========================================================================
+  MSTATSPOP_APP_NAME,
+  MSTATSPOP_BRIEF_DESC,
+  MSTATSPOP_SYNOPSIS,
+  MSTATSPOP_DESC,
+  MSTATSPOP_COPYRIGHT,
+  MSTATSPOP_SEE_ALSO,
+
+  MSTATSPOP_OUTPUT_TITLE,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Presentation messages when executed in STDIN mode
+  /// ==========================================================================
+  INTERACTIVE_MODE_CHAR,
+  PRESENTS_WELCOME,
+  PRESENTS_CONNECTED_TO,
+  PRESENTS_CONNECTION_TO,
+  PRESENTS_CONNECTION_CLOSED,
+  PROMPT,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// General Options
+  /// ==========================================================================
+  GOS_HELP_SHORT,
+  GOS_HELP_LONG,
+  GOS_HELP_DESC,
+
+  GOS_VERSION_SHORT,
+  GOS_VERSION_LONG,
+  GOS_VERSION_DESC,
+
+  GOS_VERBOSE_SHORT,
+  GOS_VERBOSE_LONG,
+  GOS_VERBOSE_DESC,
+
+  GOS_DRYRUN_SHORT,
+  GOS_DRYRUN_LONG,
+  GOS_DRYRUN_DESC,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Datas
+  /// ==========================================================================
+  _DATA_FIRST,
+
+  DATA_BOOLEAN,
+  DATA_BOOLEAN_VECTOR,
+  DATA_BOOLEAN_MATRIX,
+  DATA_BOOLEAN_CUBE,
+
+  DATA_CHAR,
+  DATA_CHAR_VECTOR,
+  DATA_CHAR_MATRIX,
+  DATA_CHAR_CUBE,
+
+  DATA_INT,
+  DATA_INT_VECTOR,
+  DATA_INT_MATRIX,
+  DATA_INT_CUBE,
+
+  DATA_INT64,
+  DATA_INT64_VECTOR,
+  DATA_INT64_MATRIX,
+  DATA_INT64_CUBE,
+
+  DATA_DOUBLE,
+  DATA_DOUBLE_VECTOR,
+  DATA_DOUBLE_MATRIX,
+  DATA_DOUBLE_CUBE,
+
+  DATA_FLOAT,
+  DATA_FLOAT_VECTOR,
+  DATA_FLOAT_MATRIX,
+  DATA_FLOAT_CUBE,
+
+  DATA_STD_STRING,
+  DATA_STD_STRING_VECTOR,
+  DATA_STD_STRING_MATRIX,
+
+  DATA_STRING_SET,
+
+  DATA_SAM,
+  DATA_BAM,
+  DATA_BAM_INDEX,
+  DATA_BCF,
+  DATA_VCF,
+  DATA_MPILEUP,
+  DATA_FASTA,
+  DATA_TEXT_FILE,
+  DATA_TFASTA,
+  DATA_GTF,
+  DATA_BED,
+  DATA_GFF,
+  DATA_SNP,
+  DATA_GFASTA,
+  DATA_WEIGHTS,
+
+  _DATA_LAST,
+
+  // Datas for describing commands inputs:
+
+  DATA_MENU,       // -x 0  menu 0/1
+  DATA_FILE,       // -x /home/user/file
+  DATA_VALUES,     // -x 2 20 10 coding 
+  DATA_ONE_VALUE,  // -x 35
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Data Manager
+  /// ==========================================================================
+  /// Variable naming
+
+  RESERVED_DATA_NAME_PREFIX,
+  READ_ONLY_PREFIX,
+  CHILD_SEPARATOR,
+  VARIABLE_ID,
+  VARIABLE_SEPARATOR,
+  VARIABLE_POS_START,
+  VARIABLE_POS_END,
+  VARIABLE_NAME_VALID_1ST,
+  VARIABLE_NAME_VALID_CHARS,
+
+ // Variable parts
+
+  VARIABLE_DATA,
+  VARIABLE_VALUE,
+  VARIABLE_TABLES,
+  VARIABLE_REGS,
+  VARIABLE_LENGTH,
+
+  /// Data Values
+
+  DEFAULT_CHAR,
+  TRUE_STRING_VALUE,
+  FALSE_STRING_VALUE,
+
+  /// Fixed Data Names
+
+  SEED,
+  IDUM,
+  ALL_COMMAND_LINE,
+  RANDOMIZE_VALUE,
+  OUTPUT_FILE,
+  OUTPUT,
+  PRECISION,
+  TABLE_COL_WIDTH,
+  ENCODING,
+  RESULT,
+  ITERATION_NUMBER,
+  ITERATION_VALUE,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Generic Errors
+  /// ==========================================================================
+
+  /// Related with variables
+
+  VARIABLE_NOT_FOUND,
+  OUT_OF_RANGE,
+  CAST_ERROR,
+  INT_TO_INT64,
+  END_STRING,
+  END_ERROR,
+  MEMORY_ALLOCATION_ERROR,
+  MEMORY_COPY_ERROR,
+
+
+  /// Related with data
+
+  DATA_NAME,
+  DATA_EXPECTED,
+  BUT_FOUND,
+
+  /// Related with commands
+
+  COMMAND_NOT_FOUND,
+  MISSING_OPTIONS,
+  MISSING_OPTION_ARGUMENTS,
+  UNKNOWN_OPTION,
+
+  /// Related with calculations
+
+  INPUTS_PARAM,
+  OUTPUTS_PARAM,
+  NULL_INPUT,
+  CALCULATION_NOT_FOUND,
+  TOO_MANY_VALUES,
+  TOO_FEW_VALUES,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Special characters that user can use when entering data
+  /// ==========================================================================
+  SEPARATORS,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Special characters that developer can use when coding their functions
+  /// ==========================================================================
+  SPACE,
+  EOL,
+  TAB,
+  TAB3,
+  TAB6,
+  BLOCK,
+  IDENTATION,
+  PARAM,
+  LINE_COMMENT_TAG,
+  QUOTE,
+  DOUBLE_QUOTE,
+  COMA,
+  SEMI_COLON,
+  CONTINUE_LINE,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Pipes
+  /// ==========================================================================
+  /// Communication Control Characters
+
+  COMMAND_SEPARATOR,
+  PARAM_SEPARATOR,
+
+  /// File
+
+  PRE_PIPE_NAME_TO_NGASP,
+  PRE_PIPE_NAME_FROM_NGASP,
+  PRE_OUTPUT_NAME,
+  PIPE_EXTENSION,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Application Files Configuration
+  /// ==========================================================================
+  TEMP_FOLDER,
+
+  /// Mask Name
+
+  DEFAULT_MASK_FILE_NAME_START,
+  DEFAULT_MASK_FILE_NAME_END,
+  MASK_POPS_MARK,
+  MASK_EXCLUDE_MIS_VARIANTS_MARK,
+  MASK_INCLUDE_MIS_VARIANTS_MARK,
+  MASK_NO_OUTGROUP_PRESENCE_MARK,
+  MASK_OUTGROUP_PRESENCE_MARK,
+  MASK_PLOIDY_1_MARK,
+  MASK_PLOIDY_2_MARK,
+
+  /// Extensions
+
+  OUTPUT_EXTENSION,
+  SCRIPT_FILES_EXTENSION,
+  DM_EXPORT_EXTENSION,
+
+  /// Application State File
+
+  DM_PRE_FILE_NAME,
+  DM_FILE_NAME,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Object status (To Be Reviewed)
+  /// ==========================================================================
+  STATUS_BUSY,
+  STATUS_READY,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Object Types (To Be Reviewed)
+  /// ==========================================================================
+  OBJECT_DATA,
+  OBJECT_CALC,
+  OBJECT_SYS,
+  OBJECT_DAO,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Lost+Found
+  /// ==========================================================================
+  /// instructions
+
+  INSTRUCTION_COMMAND_LINE,
+  INSTRUCTION_YAML,
+
+  /// Experiments
+
+  EXPERIMENT_DEFAULT_NAME,
+
+
+  CALC_DATAS_SEPARATOR,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// Obsolete???
+  /// ==========================================================================
+  /// Objects SYS
+
+  SYS_RANDOMIZE_NAME,
+  SYS_RANDOMIZE,
+  SYS_OUTPUT_NAME,
+  SYS_OUTPUT,
+
+  /// Objects DAO
+
+  DAO_FASTA,
+  DAO_FASTA_DESC,
+  DAO_FASTA_NAME,
+  DAO_MS,
+  DAO_MS_DESC,
+  DAO_MS_NAME,
+  //@}
+  //@{
+  /// ==========================================================================
+  /// General Menu Options
+  /// ==========================================================================
+  /// Numeric options
+  VALUE_0,
+  VALUE_1,
+  VALUE_2,
+  VALUE_3,
+  VALUE_4,
+  VALUE_5,
+  VALUE_6,
+  VALUE_7,
+  VALUE_8,
+  VALUE_9,
+  VALUE_10,
+
+  /// Boolean options
+  VALUE_NO,
+  VALUE_YES,
+  //@}
+
+
+
+  /// ==========================================================================
+  /// Commands (CMD)
+  /// ==========================================================================
+  _COMMAND_FIRST,
+
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_MSTATSPOP,
+  CMD_MSTATSPOP_ABB,
+  CMD_MSTATSPOP_DESC,
+
+  STANDARD_GROUP_FLAGS, // Mandatory flags
+  MSTATSPOP_GROUP_GENERAL,
+  MSTATSPOP_GROUP_GENERAL_OPTIONAL,
+  MSTATSPOP_GROUP_FA_TFA,
+  MSTATSPOP_GROUP_TFA,
+  MSTATSPOP_GROUP_MS,
+  MSTATSPOP_GROUP_FA,
+  STANDARD_GROUP_HELP, // Group with only the help option
+
+/// Command options:
+
+  MSTATSPOP_FORMAT_SHORT,
+  MSTATSPOP_FORMAT_LONG,
+  MSTATSPOP_FORMAT_DESC,
+
+  MSTATSPOP_INPUT_SHORT,
+  MSTATSPOP_INPUT_LONG,
+  MSTATSPOP_INPUT_DESC,
+
+  MSTATSPOP_OUTPUT_SHORT,
+  MSTATSPOP_OUTPUT_LONG,
+  MSTATSPOP_OUTPUT_DESC,
+  MSTATSPOP_OUTPUT_0_DESC,
+  MSTATSPOP_OUTPUT_1_DESC,
+  MSTATSPOP_OUTPUT_3_DESC,
+  MSTATSPOP_OUTPUT_4_DESC,
+  MSTATSPOP_OUTPUT_5_DESC,
+  MSTATSPOP_OUTPUT_6_DESC,
+  MSTATSPOP_OUTPUT_10_DESC,
+  MSTATSPOP_OUTPUT_CALC_DESCRIPTION,
+    
+
+  MSTATSPOP_POP_SHORT,
+  MSTATSPOP_POP_LONG,
+  MSTATSPOP_POP_DESC,
+  MSTATSPOP_POP_EXAMPLE,
+  MSTATSPOP_POP_CALC_EXAMPLE,
+
+/// Command options: General
+
+  MSTATSPOP_OUTGROUP_SHORT,
+  MSTATSPOP_OUTGROUP_LONG,
+  MSTATSPOP_OUTGROUP_DESC,
+
+  MSTATSPOP_INCL_UNKNO_SHORT,
+  MSTATSPOP_INCL_UNKNO_LONG,
+  MSTATSPOP_INCL_UNKNO_DESC,
+
+  MSTATSPOP_PATHNAME_OUTPUT_FILE_SHORT,
+  MSTATSPOP_PATHNAME_OUTPUT_FILE_LONG,
+  MSTATSPOP_PATHNAME_OUTPUT_FILE_DESC,
+  MSTATSPOP_PATHNAME_OUTPUT_FILE_DEF_VAL,
+
+  MSTATSPOP_ALT_SFILE_SHORT,
+  MSTATSPOP_ALT_SFILE_LONG,
+  MSTATSPOP_ALT_SFILE_DESC,
+  MSTATSPOP_ALT_SFILE_EXAMPLE,
+  MSTATSPOP_ALT_SFILE_ONLY,
+
+  MSTATSPOP_NULL_SFILE_SHORT,
+  MSTATSPOP_NULL_SFILE_LONG,
+  MSTATSPOP_NULL_SFILE_DESC,
+  MSTATSPOP_NULL_SFILE_EXAMPLE,
+  MSTATSPOP_NULL_SFILE_ONLY,
+  MSTATSPOP_NULL_SFILE_DEF_VAL,
+
+  MSTATSPOP_R2P_SHORT,
+  MSTATSPOP_R2P_LONG,
+  MSTATSPOP_R2P_DESC,
+  MSTATSPOP_R2P_EXAMPLE,
+  MSTATSPOP_R2P_ONLY,
+
+  MSTATSPOP_ORDER_SHORT,
+  MSTATSPOP_ORDER_LONG,
+  MSTATSPOP_ORDER_DESC,
+  MSTATSPOP_ORDER_EXAMPLE,
+  MSTATSPOP_ORDER_DEF_VAL,
+
+  MSTATSPOP_PERM_ITE_SHORT,
+  MSTATSPOP_PERM_ITE_LONG,
+  MSTATSPOP_PERM_ITE_DESC,
+
+  MSTATSPOP_SEED_SHORT,
+  MSTATSPOP_SEED_LONG,
+  MSTATSPOP_SEED_DESC,
+  MSTATSPOP_SEED_DEF_VAL,
+
+/// Command options: For TFASTA Input
+
+  MSTATSPOP_WINDOW_SIZE_SHORT,
+  MSTATSPOP_WINDOW_SIZE_LONG,
+  MSTATSPOP_WINDOW_SIZE_DESC,
+
+  MSTATSPOP_SLIDE_SIZE_SHORT,
+  MSTATSPOP_SLIDE_SIZE_LONG,
+  MSTATSPOP_SLIDE_SIZE_DESC,
+  MSTATSPOP_SLIDE_SIZE_DEF_VAL,
+
+  MSTATSPOP_WINDOW_LENGTHS_SHORT,
+  MSTATSPOP_WINDOW_LENGTHS_LONG,
+  MSTATSPOP_WINDOW_LENGTHS_DESC,
+  MSTATSPOP_WINDOW_LENGTHS_VAL_0,
+  MSTATSPOP_WINDOW_LENGTHS_VAL_1,
+  MSTATSPOP_WINDOW_LENGTHS_CALC_DESC,
+
+  MSTATSPOP_COORDS_FILE_SHORT,
+  MSTATSPOP_COORDS_FILE_LONG,
+  MSTATSPOP_COORDS_FILE_DESC,
+  MSTATSPOP_COORDS_FILE_DEF_VAL,
+
+  MSTATSPOP_HEIGHTS_FILE_SHORT,
+  MSTATSPOP_HEIGHTS_FILE_LONG,
+  MSTATSPOP_HEIGHTS_FILE_DESC,
+  MSTATSPOP_HEIGHTS_FILE_EXAMPLE,
+  MSTATSPOP_HEIGHTS_FILE_DEF_VAL,
+
+/// Command options: For MS Input
+
+  MSTATSPOP_LENGTH_SHORT,
+  MSTATSPOP_LENGTH_LONG,
+  MSTATSPOP_LENGTH_DESC,
+
+  MSTATSPOP_MS_ITERATIONS_SHORT,
+  MSTATSPOP_MS_ITERATIONS_LONG,
+  MSTATSPOP_MS_ITERATIONS_DESC,
+
+  MSTATSPOP_MASK_SHORT,
+  MSTATSPOP_MASK_LONG,
+  MSTATSPOP_MASK_DESC,
+  MSTATSPOP_MASK_EXAMPLE,
+  MSTATSPOP_MASK_DEF_VAL,
+
+  MSTATSPOP_RATIOTRANS_SHORT,
+  MSTATSPOP_RATIOTRANS_LONG,
+  MSTATSPOP_RATIOTRANS_DESC,
+  MSTATSPOP_RATIOTRANS_DEF_VAL,
+
+  MSTATSPOP_INCL_OUTGR_SHORT,
+  MSTATSPOP_INCL_OUTGR_LONG,
+  MSTATSPOP_INCL_OUTGR_DESC,
+  MSTATSPOP_INCL_OUTGR_VALUE_0,
+
+  MSTATSPOP_FREQREVMUT_SHORT,
+  MSTATSPOP_FREQREVMUT_LONG,
+  MSTATSPOP_FREQREVMUT_DESC,
+  MSTATSPOP_FREQREVMUT_ONLY,
+  MSTATSPOP_FREQREVMUT_DEF_VAL,
+
+
+/// Command options: For FASTA Input
+
+  MSTATSPOP_PLOIDY_SHORT,
+  MSTATSPOP_PLOIDY_LONG,
+  MSTATSPOP_PLOIDY_DESC,
+  MSTATSPOP_PLOIDY_OPTION_HAPLOID,
+  MSTATSPOP_PLOIDY_OPTION_DIPLOID,
+  MSTATSPOP_PLOIDY_CALC_DESC,
+
+  MSTATSPOP_GFF_FILE_SHORT,
+  MSTATSPOP_GFF_FILE_LONG,
+  MSTATSPOP_GFF_FILE_DESC,
+  MSTATSPOP_GFF_FILE_DEF_VAL,
+  MSTATSPOP_GFF_FILE_EXAMPLE,
+
+  MSTATSPOP_CRITERIA_SHORT,
+  MSTATSPOP_CRITERIA_LONG,
+  MSTATSPOP_CRITERIA_DESC,
+  MSTATSPOP_CRITERIA_ONLY,
+
+  MSTATSPOP_MASK_PRINT_SHORT,
+  MSTATSPOP_MASK_PRINT_LONG,
+  MSTATSPOP_MASK_PRINT_DESC,
+  MSTATSPOP_MASK_PRINT_DEF_VAL,
+                    
+/// Command options: Help
+
+  MSTATSPOP_HELP_SHORT,
+  MSTATSPOP_HELP_LONG,
+  MSTATSPOP_HELP_DESC,
+
+/// Command options: New & Not done
+
+  MSTATSPOP_WEIGHTS_VARIANTS_FILE_SHORT,
+  MSTATSPOP_WEIGHTS_VARIANTS_FILE_LONG,
+  MSTATSPOP_WEIGHTS_VARIANTS_FILE_DESC,
+
+  MSTATSPOP_COUNT_TRANSITIONS_SHORT,
+  MSTATSPOP_COUNT_TRANSITIONS_LONG,
+  MSTATSPOP_COUNT_TRANSITIONS_DESC,
+
+  MSTATSPOP_COUNT_TRANSVERSION_SHORT,
+  MSTATSPOP_COUNT_TRANSVERSION_LONG,
+  MSTATSPOP_COUNT_TRANSVERSION_DESC,
+
+  MSTATSPOP_COUNT_GC_MUTATIONS_SHORT,
+  MSTATSPOP_COUNT_GC_MUTATIONS_LONG,
+  MSTATSPOP_COUNT_GC_MUTATIONS_DESC,
+
+  MSTATSPOP_COUNT_AT_MUTATIONS_SHORT,
+  MSTATSPOP_COUNT_AT_MUTATIONS_LONG,
+  MSTATSPOP_COUNT_AT_MUTATIONS_DESC,
+
+
+  /// Format File Options
+
+  FORMAT_FILE_FASTA,
+  FORMAT_FILE_MS,
+  FORMAT_FILE_MS_EXTENDED,
+  FORMAT_FILE_NBRF,
+  FORMAT_FILE_TFASTA,
+
+  /// Subset Positions Options
+
+  SUBSET_POS_SYNONYMOUS,
+  SUBSET_POS_NONSYNONYMOUS,
+  SUBSET_POS_0_FOLD,
+  SUBSET_POS_2_FOLD,
+  SUBSET_POS_3_FOLD,
+  SUBSET_POS_4_FOLD,
+  SUBSET_POS_SILENT,
+  CODE_NAME_OTHER,
+
+  /// Criteria Transcript Options
+
+  CRITERIA_TRANSCRIPT_MAX,
+  CRITERIA_TRANSCRIPT_MIN,
+  CRITERIA_TRANSCRIPT_FIRST,
+  CRITERIA_TRANSCRIPT_LONG,
+
+  /// Validation Errors
+
+  POPULATIONS_NOT_DEF,
+  FORCE_AND_OUTGROUP_ERROR,
+  OUTGROUP_PRESENCE_ERROR,
+  FORCE_OUTGROUP_ERROR,
+  FORMATFILE_FORCE_OUTGROUP_ERROR,
+  SORT_NSAM_ERROR,
+  OUTPUT_ERROR,
+  FILE_OPEN_ERROR,
+  FILE_CREATION_ERROR,
+  MORE_POPS_EXPECTED,
+  MATRIX_POL_EMPTY_ROWS,
+  PHYSICAL_LENGTH_ERROR,    
+  NPOPS_ERROR,
+  WINDOW_ERROR,
+  SLIDE_ERROR,
+  LENGTH_ERROR,
+  FORMATFILE_AND_NITERDATA_ERROR,
+  ERROR_POSITION_LENGTHS,
+
+  /// Mstatspop Status Messages
+
+  CALCULATING_PERMUTATION_TESTS,
+  PERMUTATION_TESTS_DONE,
+  CALCULATING_PERMUTATION_TESTS_PAIR,
+
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_LOAD_FILE,
+  CMD_LOAD_FILE_ABB,
+  CMD_LOAD_FILE_DESC,
+
+  /// Command options
+
+  FORMAT_YAML,
+  FORMAT_NGASP,
+
+  LOAD_OPE_FILE_SHORT,
+  LOAD_OPE_FILE_LONG,
+  LOAD_OPE_FILE_DESC,
+
+  LOAD_OPE_FILE_INPUTS_SHORT,
+  LOAD_OPE_FILE_INPUTS_LONG,
+  LOAD_OPE_FILE_INPUTS_DESC,
+
+  LOAD_OPE_FILE_FORMAT_SHORT,
+  LOAD_OPE_FILE_FORMAT_LONG,
+  LOAD_OPE_FILE_FORMAT_DESC,
+
+  LOAD_OPE_FILE_NOT_FOUND,
+
+  INCLUDE_VALUES,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_APP_VERSION,
+  CMD_APP_VERSION_ABB,
+  CMD_APP_VERSION_DESC,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_VERBOSE,
+  CMD_VERBOSE_ABB,
+  CMD_VERBOSE_DESC,
+
+  /// Command options
+
+  VERBOSE_LEVEL_SHORT,
+  VERBOSE_LEVEL_LONG,
+  VERBOSE_LEVEL_DESC,
+
+  VERBOSE_LEVEL_MISSING,
+  VERBOSE_LEVEL_UNKNOWN,
+  VERBOSE_LEVEL_SILENT,
+  VERBOSE_LEVEL_NORMAL,
+  VERBOSE_LEVEL_DEBUG,
+
+  VERBOSE_TITLE,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_APP_HELP,
+  CMD_APP_HELP_ABB,
+  CMD_APP_HELP_DESC,
+
+  /// Command options
+
+  CMD_APP_HELP_CMD_SHORT,
+  CMD_APP_HELP_CMD_LONG,
+  CMD_APP_HELP_CMD_DESC,
+
+  CMD_APP_HELP_FORMAT_SHORT,
+  CMD_APP_HELP_FORMAT_LONG,
+  CMD_APP_HELP_FORMAT_DESC,
+
+  /// Man texts
+
+  MAN_NAME,
+  MAN_SYNOPSIS,
+  MAN_DESCRIPTION,
+  MAN_AUTHOR,
+  MAN_COPYRIGHT,
+  MAN_SEE_ALSO,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_DRY_RUN,
+  CMD_DRY_RUN_ABB,
+  CMD_DRY_RUN_DESC,
+
+  /// Command options
+
+  DRY_RUN_SET_SHORT,
+  DRY_RUN_SET_LONG,
+  DRY_RUN_SET_DESC,
+  DRY_RUN_SET_MISSING,
+  DRY_RUN_SET_UNKNOWN,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_RUN,
+  CMD_RUN_ABB,
+  CMD_RUN_DESC,
+
+  /// Command options
+
+  RUN_NAME_SHORT,
+  RUN_NAME_LONG,
+  RUN_NAME_DESC,
+
+  RUN_PREPARE_SHORT,
+  RUN_PREPARE_LONG,
+  RUN_PREPARE_DESC,
+
+  RUN_CALCULATE_SHORT,
+  RUN_CALCULATE_LONG,
+  RUN_CALCULATE_DESC,
+
+  RUN_FINALIZE_SHORT,
+  RUN_FINALIZE_LONG,
+  RUN_FINALIZE_DESC,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_OPEN_DATA_FILE,
+  CMD_OPEN_DATA_FILE_ABB,
+  CMD_OPEN_DATA_FILE_DESC,
+
+  /// Command options
+
+  OPEN_DATA_FILE_IN_SHORT,
+  OPEN_DATA_FILE_IN_LONG,
+  OPEN_DATA_FILE_IN_DESC,
+
+  OPEN_DATA_FILE_TYPE_SHORT,
+  OPEN_DATA_FILE_TYPE_LONG,
+  OPEN_DATA_FILE_TYPE_DESC,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_DELETE,
+  CMD_DELETE_ABB,
+  CMD_DELETE_DESC,
+
+  /// Command options
+
+  DELETE_DATA_VNAME_SHORT,
+  DELETE_DATA_VNAME_LONG,
+  DELETE_DATA_VNAME_DESC,
+  DELETE_DATA_RESERVED_NAME,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_HISTORY,
+  CMD_HISTORY_ABB,
+  CMD_HISTORY_DESC,
+
+  /// Command options
+
+  HISTORY_CLEAR_SHORT,
+  HISTORY_CLEAR_LONG,
+  HISTORY_CLEAR_DESC,
+
+  HISTORY_RUN_SHORT,
+  HISTORY_RUN_LONG,
+  HISTORY_RUN_DESC,
+
+  /// Output strings
+
+  HELP_NAME,
+  HELP_SYNOPSIS,
+  HELP_DESCRIPTION,
+  HELP_COMMAND_LINE,
+  HELP_COMMAND_LINE_FORMAT_1,
+  HELP_COMMAND_LINE_FORMAT_2,
+
+  /// File
+
+  INSTRUCTIONS_HISTORY_FILE,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_LOG,
+  CMD_LOG_ABB,
+  CMD_LOG_DESC,
+
+  /// Command options
+
+  LOG_CLEAR_SHORT,
+  LOG_CLEAR_LONG,
+  LOG_CLEAR_DESC,
+
+  /// Output strings
+
+  WARNING_ID,
+  ERROR_ID,
+  DEBUG_ID,
+  NORMAL_ID,
+
+  /// File
+
+  LOG_FILE,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_DIM,
+  CMD_DIM_ABB,
+  CMD_DIM_DESC,
+
+  /// Command options
+
+  DIM_NAME_SHORT,
+  DIM_NAME_LONG,
+  DIM_NAME_DESC,
+
+  DIM_AS_SHORT,
+  DIM_AS_LONG,
+  DIM_AS_DESC,
+
+  DIM_RESERVED_NAME,
+  DIM_TYPE_UNKNOWN,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_CALC,
+  CMD_CALC_ABB,
+  CMD_CALC_DESC,
+
+  /// Command options
+
+  CALC_NAME_SHORT,
+  CALC_NAME_LONG,
+  CALC_NAME_DESC,
+
+  CALC_AS_SHORT,
+  CALC_AS_LONG,
+  CALC_AS_DESC,
+
+  CALC_RESERVED_NAME,
+  CALC_TYPE_UNKNOWN,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_SET_VALUE,
+  CMD_SET_VALUE_ABB,
+  CMD_SET_VALUE_DESC,
+  
+  /// Command options
+
+  SET_TO_SHORT,
+  SET_TO_LONG,
+  SET_TO_DESC,
+
+  SET_EQ_SHORT,
+  SET_EQ_LONG,
+  SET_EQ_DESC,
+
+  SET_INC_SHORT,
+  SET_INC_LONG,
+  SET_INC_DESC,
+
+  SET_SUB_SHORT,
+  SET_SUB_LONG,
+  SET_SUB_DESC,
+
+  SET_MUL_SHORT,
+  SET_MUL_LONG,
+  SET_MUL_DESC,
+
+  SET_DIV_SHORT,
+  SET_DIV_LONG,
+  SET_DIV_DESC,
+
+  SET_VARIABLE_NOT_FOUND,
+  CAST_NOT_DEVELOPED,
+  SET_BAD_VALUE,
+
+  GET_DISABLED,
+  //@}
+  
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_APPEND,
+  CMD_APPEND_ABB,
+  CMD_APPEND_DESC,
+  
+  /// Command options
+
+  APPEND_TO_SHORT,
+  APPEND_TO_LONG,
+  APPEND_TO_DESC,
+
+  APPEND_ADD_SHORT,
+  APPEND_ADD_LONG,
+  APPEND_ADD_DESC,
+ 
+  APPEND_INDEX_SHORT,
+  APPEND_INDEX_LONG,
+  APPEND_INDEX_DESC,
+  
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_WITH,
+  CMD_WITH_ABB,
+  CMD_WITH_DESC,
+
+  /// Command options
+
+  WITH_NAME_SHORT,
+  WITH_NAME_LONG,
+  WITH_NAME_DESC,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_END_WITH,
+  CMD_END_WITH_ABB,
+  CMD_END_WITH_DESC,
+
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_FOREACH,
+  CMD_FOREACH_ABB,
+  CMD_FOREACH_DESC,
+
+  /// Command options
+
+  FOREACH_DATA_SHORT,
+  FOREACH_DATA_LONG,
+  FOREACH_DATA_DESC,
+
+  FOREACH_NODE_SHORT,
+  FOREACH_NODE_LONG,
+  FOREACH_NODE_DESC,
+
+  FOREACH_FROM_SHORT,
+  FOREACH_FROM_LONG,
+  FOREACH_FROM_DESC,
+
+  FOREACH_TO_SHORT,
+  FOREACH_TO_LONG,
+  FOREACH_TO_DESC,
+
+  FOREACH_INCREMENT_SHORT,
+  FOREACH_INCREMENT_LONG,
+  FOREACH_INCREMENT_DESC,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_END_FOREACH,
+  CMD_END_FOREACH_ABB,
+  CMD_END_FOREACH_DESC,
+
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_PRINT,
+  CMD_PRINT_ABB,
+  CMD_PRINT_DESC,
+
+  /// Command options
+
+  PRINT_NAME_SHORT,
+  PRINT_NAME_LONG,
+  PRINT_NAME_DESC,
+
+  PRINT_TEXT_SHORT,
+  PRINT_TEXT_LONG,
+  PRINT_TEXT_DESC,
+  PRINT_COLUMN_1,
+  PRINT_COLUMN_2,
+  PRINT_COLUMN_3,
+
+  PRINT_MODE_NORMAL,
+  PRINT_MODE_JSON,
+  PRINT_MODE_NGASP,
+  PRINT_MODE_VALUE,
+  PRINT_MODE_HTML,
+
+  PRINT_MODE_SHORT,
+  PRINT_MODE_LONG,
+  PRINT_MODE_DESC,
+
+  PRINT_EOL_SHORT,
+  PRINT_EOL_LONG,
+  PRINT_EOL_DESC,
+
+  /// Output strings
+
+  TABLE_LINE_SEPARATOR,
+  TABLE_COL_MARGIN,
+  TABLE_COL_SEPARATOR,
+
+  TABLE_TEXT_CUT,
+  TABLE_FIELD_SELECTED,
+  TABLE_UNIT_BYTES,
+  TABLE_UNIT_KB,
+  TABLE_ARRAY_SEPARATOR,
+  TABLE_EMPTY_FIELD,
+
+  BOLD_START,
+  BOLD_END,
+  RED_START,
+  RED_END,
+  YELLOW_START,
+  YELLOW_END,
+  BLUE_START,
+  BLUE_END,
+  GREEN_START,
+  GREEN_END,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_MEMORY_INFO,
+  CMD_MEMORY_INFO_ABB,
+  CMD_MEMORY_INFO_DESC,
+
+  /// Command options
+  MEMORY_INFO_PRINT_MODE_SHORT,
+  MEMORY_INFO_PRINT_MODE_LONG,
+  MEMORY_INFO_PRINT_MODE_DESC,
+
+  MEMINFO_HEADER,
+  MEMINFO_FOOTER,
+  MEMINFO_COL_1,
+  MEMINFO_COL_2,
+  MEMINFO_COL_3,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_STOP,
+  CMD_STOP_ABB,
+  CMD_STOP_DESC,
+
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_ADD,
+  CMD_ADD_ABB,
+  CMD_ADD_DESC,
+
+  /// Command options
+
+  ADD_FILE_NAME_SHORT,
+  ADD_FILE_NAME_LONG,
+  ADD_FILE_NAME_DESC,
+
+  ADD_NAME_SHORT,
+  ADD_NAME_LONG,
+  ADD_NAME_DESC,
+
+  ADD_NUM_REGS_SHORT,
+  ADD_NUM_REGS_LONG,
+  ADD_NUM_REGS_DESC,
+
+  SYNTAX_EDITOR_SHORT,
+  SYNTAX_EDITOR_LONG,
+  SYNTAX_EDITOR_DESC,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_IF,
+  CMD_IF_ABB,
+  CMD_IF_DESC,
+
+  /// Command options
+
+  IF_REF_SHORT,
+  IF_REF_LONG,
+  IF_REF_DESC,
+
+  IF_EQ_SHORT,
+  IF_EQ_LONG,
+  IF_EQ_DESC,
+
+  IF_NE_SHORT,
+  IF_NE_LONG,
+  IF_NE_DESC,
+
+  IF_LT_SHORT,
+  IF_LT_LONG,
+  IF_LT_DESC,
+
+  IF_GT_SHORT,
+  IF_GT_LONG,
+  IF_GT_DESC,
+
+  IF_AND_SHORT,
+  IF_AND_LONG,
+  IF_AND_DESC,
+
+  IF_OR_SHORT,
+  IF_OR_LONG,
+  IF_OR_DESC,
+
+  IF_ERROR_1,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_ELSE,
+  CMD_ELSE_ABB,
+  CMD_ELSE_DESC,
+
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_END_IF,
+  CMD_END_IF_ABB,
+  CMD_END_IF_DESC,
+
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_CONSTANT,
+  CMD_CONSTANT_ABB,
+  CMD_CONSTANT_DESC,
+
+  /// Command options
+
+  CONSTANT_NAME_SHORT,
+  CONSTANT_NAME_LONG,
+  CONSTANT_NAME_DESC,
+
+  CONSTANT_BY_SHORT,
+  CONSTANT_BY_LONG,
+  CONSTANT_BY_DESC,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_RESERVE,
+  CMD_RESERVE_ABB,
+  CMD_RESERVE_DESC,
+
+  /// Command options
+
+  RESERVE_NAME_SHORT,
+  RESERVE_NAME_LONG,
+  RESERVE_NAME_DESC,
+
+  RESERVE_TABLES_SHORT,
+  RESERVE_TABLES_LONG,
+  RESERVE_TABLES_DESC,
+
+  RESERVE_REGS_SHORT,
+  RESERVE_REGS_LONG,
+  RESERVE_REGS_DESC,
+
+  RESERVE_LEN_SHORT,
+  RESERVE_LEN_LONG,
+  RESERVE_LEN_DESC,
+
+  RESERVE_DEFAULT_SHORT,
+  RESERVE_DEFAULT_LONG,
+  RESERVE_DEFAULT_DESC,
+  //@}
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_SYNTAX,
+  CMD_SYNTAX_ABB,
+  CMD_SYNTAX_DESC,
+  //@}
+
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_SOCKET,
+  CMD_SOCKET_ABB,
+  CMD_SOCKET_DESC,
+
+  /// Command options
+
+  TCP_ADDRESS_SHORT,
+  TCP_ADDRESS_LONG,
+  TCP_ADDRESS_DESC,
+
+  TCP_PORT_SHORT,
+  TCP_PORT_LONG,
+  TCP_PORT_DESC,
+  //@}
+
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_PIPE,
+  CMD_PIPE_ABB,
+  CMD_PIPE_DESC,
+
+  /// Command options
+
+  PIPE_NAME_SHORT,
+  PIPE_NAME_LONG,
+  PIPE_NAME_DESC,
+  //@}
+
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_OUTPUT,
+  CMD_OUTPUT_ABB,
+  CMD_OUTPUT_DESC,
+
+  /// Command options
+
+  OUTPUT_FILE_NAME_SHORT,
+  OUTPUT_FILE_NAME_LONG,
+  OUTPUT_FILE_NAME_DESC,
+
+  OUTPUT_SCREEN_SHORT,
+  OUTPUT_SCREEN_LONG,
+  OUTPUT_SCREEN_DESC,
+  //@}
+
+  //@{
+  /// --------------------------------------------------------------------------
+  CMD_EXEC,
+  CMD_EXEC_ABB,
+  CMD_EXEC_DESC,
+
+  /// Command options
+
+  EXEC_APP_SHORT,
+  EXEC_APP_LONG,
+  EXEC_APP_DESC,
+
+  EXEC_WORKING_DIR_SHORT,
+  EXEC_WORKING_DIR_LONG,
+  EXEC_WORKING_DIR_DESC,
+
+  EXEC_TYPE_APP,
+  EXEC_TYPE_SYS,
+
+  EXEC_TYPE_SHORT,
+  EXEC_TYPE_LONG,
+  EXEC_TYPE_DESC,
+
+  CMD_SAVE_STATE,
+  CMD_SAVE_STATE_ABB,
+  CMD_SAVE_STATE_DESC,
+
+  /// Command options
+
+  SAVE_STATE_TO_FILE_SHORT,
+  SAVE_STATE_TO_FILE_LONG,
+  SAVE_STATE_TO_FILE_DESC,
+  
+  CMD_RESET,
+  CMD_RESET_ABB,
+  CMD_RESET_DESC,
+  //@}
+  _COMMAND_LAST,
+
+  //@{
+  /// ==========================================================================
+  /// Calculations
+  /// ==========================================================================
+  _CALC_FIRST,
+
+  CALC_MSTATSPOP,
+  CALC_MSTATSPOP_BRIEF_DESC,
+  CALC_MSTATSPOP_DESC,
+
+  CALC_OPTIMAL_TESTS,
+  CALC_OPTIMAL_TESTS_BRIEF_DESC,
+  CALC_OPTIMAL_TESTS_DESC,
+
+  CALC_R2,
+  CALC_R2_BRIEF_DESC,
+  CALC_R2_DESC,
+  CALC_R2_IPARAM_1_NAME,
+  CALC_R2_IPARAM_2_NAME,
+  CALC_R2_IPARAM_3_NAME,
+  CALC_R2_IPARAM_4_NAME,
+  CALC_R2_IPARAM_5_NAME,
+  CALC_R2_IPARAM_6_NAME,
+  CALC_R2_IPARAM_7_NAME,
+  CALC_R2_OPARAM_1_NAME,
+
+  CALC_R2P,
+  CALC_R2P_BRIEF_DESC,
+  CALC_R2P_DESC,
+
+  CALC_FREQ_STATS,
+  CALC_FREQ_STATS_BRIEF_DESC,
+  CALC_FREQ_STATS_DESC,
+
+  CALC_FILE_STATS,
+  CALC_FILE_STATS_BRIEF_DESC,
+  CALC_FILE_STATS_DESC,
+
+  CALC_MISMATCH,
+  CALC_MISMATCH_BRIEF_DESC,
+  CALC_MISMATCH_DESC,
+
+  CALC_SXSFSS,
+  CALC_SXSFSS_BRIEF_DESC,
+  CALC_SXSFSS_DESC,
+
+  CALC_JOINT_FREQ_DIST,
+  CALC_JOINT_FREQ_DIST_BRIEF_DESC,
+  CALC_JOINT_FREQ_DIST_DESC,
+
+  CALC_PIWPIAFST,
+  CALC_PIWPIAFST_BRIEF_DESC,
+  CALC_PIWPIAFST_DESC,
+
+  CALC_HWHAFSTH,
+  CALC_HWHAFSTH_BRIEF_DESC,
+  CALC_HWHAFSTH_DESC,
+
+  CALC_FS,
+  CALC_FS_BRIEF_DESC,
+  CALC_FS_DESC,
+
+  CALC_PERMUTE,
+  CALC_PERMUTE_BRIEF_DESC,
+  CALC_PERMUTE_DESC,
+
+  CALC_DNAMATRIX2MATRIXPOL,
+  CALC_DNAMATRIX2MATRIXPOL_BRIEF_DESC,
+  CALC_DNAMATRIX2MATRIXPOL_DESC,
+
+  CALC_FASTA2DNAMATRIX,
+  CALC_FASTA2DNAMATRIX_BRIEF_DESC,
+  CALC_FASTA2DNAMATRIX_DESC,
+
+  CALC_FASTA2TFASTA,
+  CALC_FASTA2TFASTA_BRIEF_DESC,
+  CALC_FASTA2TFASTA_DESC,
+
+  CALC_CREATETFASTAANNOTATION,
+  CALC_CREATETFASTAANNOTATION_BRIEF_DESC,
+  CALC_CREATETFASTAANNOTATION_DESC,
+
+  CALC_OPEN_FASTA,
+  CALC_OPEN_FASTA_BRIEF_DESC,
+  CALC_OPEN_FASTA_DESC,
+
+  CALC_OPEN_TFASTA,
+  CALC_OPEN_TFASTA_BRIEF_DESC,
+  CALC_OPEN_TFASTA_DESC,
+
+  CALC_GFF,
+  CALC_GFF_BRIEF_DESC,
+  CALC_GFF_DESC,
+
+  CALC_MSTATSPOP_OPEN_FASTA,
+  CALC_MSTATSPOP_OPEN_FASTA_BRIEF_DESC,
+  CALC_MSTATSPOP_OPEN_FASTA_DESC,
+
+  CALC_MSTATSPOP_OPEN_MS,
+  CALC_MSTATSPOP_OPEN_MS_BRIEF_DESC,
+  CALC_MSTATSPOP_OPEN_MS_DESC,
+
+  CALC_OPEN_FREQ_SPECTRUM,
+  CALC_OPEN_FREQ_SPECTRUM_BRIEF_DESC,
+  CALC_OPEN_FREQ_SPECTRUM_DESC,
+
+  CALC_MASK_FILE_MS,
+  CALC_MASK_FILE_MS_BRIEF_DESC,
+  CALC_MASK_FILE_MS_DESC,
+
+  CALC_EFFEC_NUC_TCGA_FREQS,
+  CALC_EFFEC_NUC_TCGA_FREQS_BRIEF_DESC,
+  CALC_EFFEC_NUC_TCGA_FREQS_DESC,
+
+  CALC_X,
+  CALC_X_BRIEF_DESC,
+  CALC_X_DESC,
+
+  CALC_Y,
+  CALC_Y_BRIEF_DESC,
+  CALC_Y_DESC,
+
+  CALC_Z,
+  CALC_Z_BRIEF_DESC,
+  CALC_Z_DESC,
+         
+  CALC_LENGTHAMNG,
+  CALC_LENGTHAMNG_BRIEF_DESC,
+  CALC_LENGTHAMNG_DESC,
+
+  CALC_ARRAY_OPE_X,
+  CALC_ARRAY_OPE_X_BRIEF_DESC,
+  CALC_ARRAY_OPE_X_DESC,
+
+  CALC_MSTATSPOP_OUTPUT,
+  CALC_MSTATSPOP_OUTPUT_BRIEF_DESC,
+  CALC_MSTATSPOP_OUTPUT_DESC,
+
+  CALC_ARRAY_SUM_ALL,
+  CALC_ARRAY_SUM_ALL_BRIEF_DESC,
+  CALC_ARRAY_SUM_ALL_DESC,
+
+  CALC_DUPLICATE_POPULATIONS,
+  CALC_DUPLICATE_POPULATIONS_BRIEF_DESC,
+  CALC_DUPLICATE_POPULATIONS_DESC,
+
+  CALC_RANDOMIZE,
+  CALC_RANDOMIZE_BRIEF_DESC,
+  CALC_RANDOMIZE_DESC,
+
+  CALC_GCCONTENT,
+  CALC_GCCONTENT_BRIEF_DESC,
+  CALC_GCCONTENT_DESC,
+
+  CALC_OPEN_EFFECTSIZES,
+  CALC_OPEN_EFFECTSIZES_BRIEF_DESC,
+  CALC_OPEN_EFFECTSIZES_DESC,
+
+  CALC_OPEN_COORDINATES,
+  CALC_OPEN_COORDINATES_BRIEF_DESC,
+  CALC_OPEN_COORDINATES_DESC,
+
+  CALC_OPEN_WEIGHTPOSITIONS,
+  CALC_OPEN_WEIGHTPOSITIONS_BRIEF_DESC,
+  CALC_OPEN_WEIGHTPOSITIONS_DESC,
+
+  CALC_EXEC,
+  CALC_EXEC_BRIEF_DESC,
+  CALC_EXEC_DESC,
+
+  CALC_BCF2VCF,
+  CALC_BCF2VCF_BRIEF_DESC,
+  CALC_BCF2VCF_DESC,
+
+  CALC_BAM2BAI,
+  CALC_BAM2BAI_BRIEF_DESC,
+  CALC_BAM2BAI_DESC,
+
+  CALC_BAM_CHROMOSOMES,
+  CALC_BAM_CHROMOSOMES_BRIEF_DESC,
+  CALC_BAM_CHROMOSOMES_DESC,
+
+  CALC_BAM2MPILEUP,
+  CALC_BAM2MPILEUP_BRIEF_DESC,
+  CALC_BAM2MPILEUP_DESC,
+
+  CALC_SAM2MPILEUP,
+  CALC_SAM2MPILEUP_BRIEF_DESC,
+  CALC_SAM2MPILEUP_DESC,
+
+  CALC_SNIPCALLER,
+  CALC_SNIPCALLER_BRIEF_DESC,
+  CALC_SNIPCALLER_DESC,
+
+  CALC_CONCAT_FILES,
+  CALC_CONCAT_FILES_BRIEF_DESC,
+  CALC_CONCAT_FILES_DESC,
+  
+   CALC_CONCAT_STRINGS,
+  CALC_CONCAT_STRINGS_BRIEF_DESC,
+  CALC_CONCAT_STRINGS_DESC,
+  
+  CALC_COLLECT_DATA_COLUMNS,
+  CALC_COLLECT_DATA_COLUMNS_BRIEF_DESC,
+  CALC_COLLECT_DATA_COLUMNS_DESC,
+
+  CALC_BOX_PLOT_VALUES,
+  CALC_BOX_PLOT_VALUES_BRIEF_DESC,
+  CALC_BOX_PLOT_VALUES_DESC,
+  
+  CALC_VCF2GFASTA,
+  CALC_VCF2GFASTA_BRIEF_DESC,
+  CALC_VCF2GFASTA_DESC,
+
+  CALC_NPSTAT,
+  CALC_NPSTAT_BRIEF_DESC,
+  CALC_NPSTAT_DESC,
+ 
+  CALC_CUT_BED,
+  CALC_CUT_BED_BRIEF_DESC,
+  CALC_CUT_BED_DESC,
+
+  CALC_CUT_GTF,
+  CALC_CUT_GTF_BRIEF_DESC,
+  CALC_CUT_GTF_DESC,
+  
+  CALC_GET_CHROM,
+  CALC_GET_CHROM_BRIEF_DESC,
+  CALC_GET_CHROM_DESC,
+  
+  CALC_EXAMPLE,
+  CALC_EXAMPLE_BRIEF_DESC,
+  CALC_EXAMPLE_DESC,
+
+  CALC_LIST_FILES,
+  CALC_LIST_FILES_BRIEF_DESC,
+  CALC_LIST_FILES_DESC,
+    
+  CALC_MATRIX2VECTOR,
+  CALC_MATRIX2VECTOR_BRIEF_DESC,
+  CALC_MATRIX2VECTOR_DESC,
+        
+
+  CALC_SPLIT_BAM,
+  CALC_SPLIT_BAM_BRIEF_DESC,
+  CALC_SPLIT_BAM_DESC,  
+
+
+  _CALC_LAST,
+  //@}
+  
+    CCALCCUT_BED_INPUT_BED_FILE,
+    CCALCCUT_BED_INPUT_BED_FILE_DESC,
+    CCALCCUT_BED_SELECTION,
+    CCALCCUT_BED_SELECTION_DESC,
+    CCALCCUT_BED_INPUT_SORTED,
+    CCALCCUT_BED_INPUT_SORTED_DESC,   
+    CCALCCUT_BED_INPUT_SORTED_DEFV,
+    CCALCCUT_BED_OUTPUT_BED_FILE,
+    CCALCCUT_BED_OUTPUT_BED_FILE_DESC,
+
+    CCALCCUT_GTF_INPUT_GTF_FILE,
+    CCALCCUT_GTF_INPUT_GTF_FILE_DESC,
+    CCALCCUT_GTF_SELECTION,
+    CCALCCUT_GTF_SELECTION_DESC,
+    CCALCCUT_GTF_INPUT_SORTED,
+    CCALCCUT_GTF_INPUT_SORTED_DESC,
+    CCALCCUT_GTF_INPUT_SORTED_DEFV,
+    CCALCCUT_GTF_OUTPUT_GTF_FILE,
+    CCALCCUT_GTF_OUTPUT_GTF_FILE_DESC,    
+    
+    CCALCGET_CHROM_INPUT_BAM,
+    CCALCGET_CHROM_INPUT_BAM_DESC,
+    CCALCGET_CHROM_INPUT_BAI,
+    CCALCGET_CHROM_INPUT_BAI_DESC,
+    CCALCGET_CHROM_CRHOM_NAMES,
+    CCALCGET_CHROM_CRHOM_NAMES_DESC,
+          
+    CCALCEXAMPLE_INPUT,
+    CCALCEXAMPLE_INPUT_DESC,
+          
+    CCALCBOXPLOTVALUES_ARRAY,
+    CCALCBOXPLOTVALUES_Q1,
+    CCALCBOXPLOTVALUES_MEDIAN,
+    CCALCBOXPLOTVALUES_Q3,
+    CCALCBOXPLOTVALUES_MIN,
+    CCALCBOXPLOTVALUES_MAX,
+    CCALCBOXPLOTVALUES_OUTLIERS,
+
+    
+    CCALCBAM2MPILEUP_BAM_FILES,
+    CCALCBAM2MPILEUP_BAM_FILES_LONG,
+    CCALCBAM2MPILEUP_BAM_FILES_DESC,
+    CCALCBAM2MPILEUP_BAM_FILES_SAMP,
+    CCALCBAM2MPILEUP_BAM_FILES_ONLY,
+    CCALCBAM2MPILEUP_BAM_FILES_DEFV,
+    
+    CCALCBAM2MPILEUP_FASTA_REF,
+    CCALCBAM2MPILEUP_FASTA_REF_LONG,
+    CCALCBAM2MPILEUP_FASTA_REF_DESC,
+    CCALCBAM2MPILEUP_FASTA_REF_SAMP,
+    CCALCBAM2MPILEUP_FASTA_REF_ONLY,
+    CCALCBAM2MPILEUP_FASTA_REF_DEFV,
+    
+    CCALCBAM2MPILEUP_FILTER,
+    CCALCBAM2MPILEUP_FILTER_LONG,
+    CCALCBAM2MPILEUP_FILTER_DESC,
+    CCALCBAM2MPILEUP_FILTER_SAMP,
+    CCALCBAM2MPILEUP_FILTER_ONLY,
+    CCALCBAM2MPILEUP_FILTER_DEFV,
+          
+    CCALCBAM2MPILEUP_MPILEUP_FILE,
+    CCALCBAM2MPILEUP_MPILEUP_FILE_LONG,
+    CCALCBAM2MPILEUP_MPILEUP_FILE_DESC,
+    CCALCBAM2MPILEUP_MPILEUP_FILE_SAMP,
+    CCALCBAM2MPILEUP_MPILEUP_FILE_ONLY,
+    CCALCBAM2MPILEUP_MPILEUP_FILE_DEFV,
+                    
+    
+    CALC_CONCAT_FILES_FILE_1,
+    CALC_CONCAT_FILES_FILE_1_LONG,
+    CALC_CONCAT_FILES_FILE_1_DESC,
+    CALC_CONCAT_FILES_FILE_1_SAMP,
+    CALC_CONCAT_FILES_FILE_1_ONLY,
+    CALC_CONCAT_FILES_FILE_1_DEFV,
+
+    CALC_CONCAT_FILES_FILE_2,
+    CALC_CONCAT_FILES_FILE_2_LONG,
+    CALC_CONCAT_FILES_FILE_2_DESC,
+    CALC_CONCAT_FILES_FILE_2_SAMP,
+    CALC_CONCAT_FILES_FILE_2_ONLY,
+    CALC_CONCAT_FILES_FILE_2_DEFV,
+
+    CALC_CONCAT_FILES_OUTPUT,
+    CALC_CONCAT_FILES_OUTPUT_LONG,
+    CALC_CONCAT_FILES_OUTPUT_DESC,
+    CALC_CONCAT_FILES_OUTPUT_SAMP,
+    CALC_CONCAT_FILES_OUTPUT_ONLY,
+    CALC_CONCAT_FILES_OUTPUT_DEFV,
+
+    
+    CALC_CONCAT_STRINGS_1,
+    CALC_CONCAT_STRINGS_1_LONG,
+    CALC_CONCAT_STRINGS_1_DESC,
+    CALC_CONCAT_STRINGS_1_SAMP,
+    CALC_CONCAT_STRINGS_1_ONLY,
+    CALC_CONCAT_STRINGS_1_DEFV,
+
+    CALC_CONCAT_STRINGS_2,
+    CALC_CONCAT_STRINGS_2_LONG,
+    CALC_CONCAT_STRINGS_2_DESC,
+    CALC_CONCAT_STRINGS_2_SAMP,
+    CALC_CONCAT_STRINGS_2_ONLY,
+    CALC_CONCAT_STRINGS_2_DEFV,
+
+    CALC_CONCAT_STRINGS_OUTPUT,
+    CALC_CONCAT_STRINGS_OUTPUT_LONG,
+    CALC_CONCAT_STRINGS_OUTPUT_DESC,
+    CALC_CONCAT_STRINGS_OUTPUT_SAMP,
+    CALC_CONCAT_STRINGS_OUTPUT_ONLY,
+    CALC_CONCAT_STRINGS_OUTPUT_DEFV,
+    
+
+    CALC_COLLECT_DATA_COLUMNS_STATS_FILE,
+    CALC_COLLECT_DATA_COLUMNS_STATS_FILE_LONG,
+    CALC_COLLECT_DATA_COLUMNS_STATS_FILE_DESC,
+    CALC_COLLECT_DATA_COLUMNS_STATS_FILE_SAMP,
+    CALC_COLLECT_DATA_COLUMNS_STATS_FILE_ONLY,
+    CALC_COLLECT_DATA_COLUMNS_STATS_FILE_DEFV,
+
+    CALC_COLLECT_DATA_COLUMNS_REQ_COLUMNS_FILE,
+    CALC_COLLECT_DATA_COLUMNS_REQ_COLUMNS_FILE_LONG,
+    CALC_COLLECT_DATA_COLUMNS_REQ_COLUMNS_FILE_DESC,
+    CALC_COLLECT_DATA_COLUMNS_REQ_COLUMNS_FILE_SAMP,
+    CALC_COLLECT_DATA_COLUMNS_REQ_COLUMNS_FILE_ONLY,
+    CALC_COLLECT_DATA_COLUMNS_REQ_COLUMNS_FILE_DEFV,
+
+    CALC_COLLECT_DATA_COLUMNS_FIL_STATS_FILE,
+    CALC_COLLECT_DATA_COLUMNS_FIL_STATS_FILE_LONG,
+    CALC_COLLECT_DATA_COLUMNS_FIL_STATS_FILE_DESC,
+    CALC_COLLECT_DATA_COLUMNS_FIL_STATS_FILE_SAMP,
+    CALC_COLLECT_DATA_COLUMNS_FIL_STATS_FILE_ONLY,
+    CALC_COLLECT_DATA_COLUMNS_FIL_STATS_FILE_DEFV,
+
+    CALC_FASTA2TFASTA_INPUT,
+    CALC_FASTA2TFASTA_INPUT_LONG,
+    CALC_FASTA2TFASTA_INPUT_DESC,
+    CALC_FASTA2TFASTA_INPUT_SAMP,
+    CALC_FASTA2TFASTA_INPUT_ONLY,
+    CALC_FASTA2TFASTA_INPUT_DEFV,
+
+    CALC_FASTA2TFASTA_GTF,
+    CALC_FASTA2TFASTA_GTF_LONG,
+    CALC_FASTA2TFASTA_GTF_DESC,
+    CALC_FASTA2TFASTA_GTF_SAMP,
+    CALC_FASTA2TFASTA_GTF_ONLY,
+    CALC_FASTA2TFASTA_GTF_DEFV,
+
+    CALC_FASTA2TFASTA_BED,
+    CALC_FASTA2TFASTA_BED_LONG,
+    CALC_FASTA2TFASTA_BED_DESC,
+    CALC_FASTA2TFASTA_BED_SAMP,
+    CALC_FASTA2TFASTA_BED_ONLY,
+    CALC_FASTA2TFASTA_BED_DEFV,
+
+    
+    CALC_FASTA2TFASTA_OUTPUT,
+    CALC_FASTA2TFASTA_OUTPUT_LONG,
+    CALC_FASTA2TFASTA_OUTPUT_DESC,
+    CALC_FASTA2TFASTA_OUTPUT_SAMP,
+    CALC_FASTA2TFASTA_OUTPUT_ONLY,
+    CALC_FASTA2TFASTA_OUTPUT_DEFV,
+
+    CALC_FASTA2TFASTA_WEIGHTS,
+    CALC_FASTA2TFASTA_WEIGHTS_LONG,
+    CALC_FASTA2TFASTA_WEIGHTS_DESC,
+    CALC_FASTA2TFASTA_WEIGHTS_SAMP,
+    CALC_FASTA2TFASTA_WEIGHTS_ONLY,
+    CALC_FASTA2TFASTA_WEIGHTS_DEFV,
+          
+    CALC_SNP_CALLER_MPILEUP,
+    CALC_SNP_CALLER_MPILEUP_LONG,
+    CALC_SNP_CALLER_MPILEUP_DESC,
+    CALC_SNP_CALLER_MPILEUP_SAMP,
+    CALC_SNP_CALLER_MPILEUP_ONLY,
+    CALC_SNP_CALLER_MPILEUP_DEFV,
+
+    CALC_SNP_CALLER_FASTA,
+    CALC_SNP_CALLER_FASTA_LONG,
+    CALC_SNP_CALLER_FASTA_DESC,
+    CALC_SNP_CALLER_FASTA_SAMP,
+    CALC_SNP_CALLER_FASTA_ONLY,
+    CALC_SNP_CALLER_FASTA_DEFV,
+
+    CALC_GCCONTENT_VECTOR,
+    CALC_GCCONTENT_VECTOR_LONG,
+    CALC_GCCONTENT_VECTOR_DESC,
+    CALC_GCCONTENT_VECTOR_SAMP,
+    CALC_GCCONTENT_VECTOR_ONLY,
+    CALC_GCCONTENT_VECTOR_DEFV,
+
+    CALC_GCCONTENT_PERCENTAGE,
+    CALC_GCCONTENT_PERCENTAGE_LONG,
+    CALC_GCCONTENT_PERCENTAGE_DESC,
+    CALC_GCCONTENT_PERCENTAGE_SAMP,
+    CALC_GCCONTENT_PERCENTAGE_ONLY,
+    CALC_GCCONTENT_PERCENTAGE_DEFV,
+
+    CALC_GCCONTENT_TOTAL,
+    CALC_GCCONTENT_TOTAL_LONG,
+    CALC_GCCONTENT_TOTAL_DESC,
+    CALC_GCCONTENT_TOTAL_SAMP,
+    CALC_GCCONTENT_TOTAL_ONLY,
+    CALC_GCCONTENT_TOTAL_DEFV,
+
+
+    CALC_NPSTAT_MPILEUP,
+    CALC_NPSTAT_MPILEUP_LONG,
+    CALC_NPSTAT_MPILEUP_DESC,
+    CALC_NPSTAT_MPILEUP_SAMP,
+    CALC_NPSTAT_MPILEUP_ONLY,
+    CALC_NPSTAT_MPILEUP_DEFV,
+    CALC_NPSTAT_SAMPLESIZE,
+    CALC_NPSTAT_SAMPLESIZE_LONG,
+    CALC_NPSTAT_SAMPLESIZE_DESC,
+    CALC_NPSTAT_SAMPLESIZE_SAMP,
+    CALC_NPSTAT_SAMPLESIZE_ONLY,
+    CALC_NPSTAT_SAMPLESIZE_DEFV,
+    CALC_NPSTAT_WINDOWLEN,
+    CALC_NPSTAT_WINDOWLEN_LONG,
+    CALC_NPSTAT_WINDOWLEN_DESC,
+    CALC_NPSTAT_WINDOWLEN_SAMP,
+    CALC_NPSTAT_WINDOWLEN_ONLY,
+    CALC_NPSTAT_WINDOWLEN_DEFV,
+    CALC_NPSTAT_MINCOV,
+    CALC_NPSTAT_MINCOV_LONG,
+    CALC_NPSTAT_MINCOV_DESC,
+    CALC_NPSTAT_MINCOV_SAMP,
+    CALC_NPSTAT_MINCOV_ONLY,
+    CALC_NPSTAT_MINCOV_DEFV,
+    CALC_NPSTAT_MAXCOV,
+    CALC_NPSTAT_MAXCOV_LONG,
+    CALC_NPSTAT_MAXCOV_DESC,
+    CALC_NPSTAT_MAXCOV_SAMP,
+    CALC_NPSTAT_MAXCOV_ONLY,
+    CALC_NPSTAT_MAXCOV_DEFV,
+    CALC_NPSTAT_MINQUAL,
+    CALC_NPSTAT_MINQUAL_LONG,
+    CALC_NPSTAT_MINQUAL_DESC,
+    CALC_NPSTAT_MINQUAL_SAMP,
+    CALC_NPSTAT_MINQUAL_ONLY,
+    CALC_NPSTAT_MINQUAL_DEFV,
+    CALC_NPSTAT_NOLOWFREQ,
+    CALC_NPSTAT_NOLOWFREQ_LONG,
+    CALC_NPSTAT_NOLOWFREQ_DESC,
+    CALC_NPSTAT_NOLOWFREQ_SAMP,
+    CALC_NPSTAT_NOLOWFREQ_ONLY,
+    CALC_NPSTAT_NOLOWFREQ_DEFV,
+    CALC_NPSTAT_OUTGROUP,
+    CALC_NPSTAT_OUTGROUP_LONG,
+    CALC_NPSTAT_OUTGROUP_DESC,
+    CALC_NPSTAT_OUTGROUP_SAMP,
+    CALC_NPSTAT_OUTGROUP_ONLY,
+    CALC_NPSTAT_OUTGROUP_DEFV,
+    CALC_NPSTAT_ANNOT,
+    CALC_NPSTAT_ANNOT_LONG,
+    CALC_NPSTAT_ANNOT_DESC,
+    CALC_NPSTAT_ANNOT_SAMP,
+    CALC_NPSTAT_ANNOT_ONLY,
+    CALC_NPSTAT_ANNOT_DEFV,
+    CALC_NPSTAT_SNPFILE,
+    CALC_NPSTAT_SNPFILE_LONG,
+    CALC_NPSTAT_SNPFILE_DESC,
+    CALC_NPSTAT_SNPFILE_SAMP,
+    CALC_NPSTAT_SNPFILE_ONLY,
+    CALC_NPSTAT_SNPFILE_DEFV,
+    CALC_NPSTAT_OUTFILE,
+    CALC_NPSTAT_OUTFILE_LONG,
+    CALC_NPSTAT_OUTFILE_DESC,
+    CALC_NPSTAT_OUTFILE_SAMP,
+    CALC_NPSTAT_OUTFILE_ONLY,
+    CALC_NPSTAT_OUTFILE_DEFV,
+    
+    CALC_VCF2GFASTA_VCF,
+    CALC_VCF2GFASTA_VCF_LONG,
+    CALC_VCF2GFASTA_VCF_DESC,
+    CALC_VCF2GFASTA_VCF_SAMP,
+    CALC_VCF2GFASTA_VCF_ONLY,
+    CALC_VCF2GFASTA_VCF_DEFV,
+    CALC_VCF2GFASTA_FASTAREF,
+    CALC_VCF2GFASTA_FASTAREF_LONG,
+    CALC_VCF2GFASTA_FASTAREF_DESC,
+    CALC_VCF2GFASTA_FASTAREF_SAMP,
+    CALC_VCF2GFASTA_FASTAREF_ONLY,
+    CALC_VCF2GFASTA_FASTAREF_DEFV,
+    CALC_VCF2GFASTA_NUMSAMPS,
+    CALC_VCF2GFASTA_NUMSAMPS_LONG,
+    CALC_VCF2GFASTA_NUMSAMPS_DESC,
+    CALC_VCF2GFASTA_NUMSAMPS_SAMP,
+    CALC_VCF2GFASTA_NUMSAMPS_ONLY,
+    CALC_VCF2GFASTA_NUMSAMPS_DEFV,
+    CALC_VCF2GFASTA_GFASTA,
+    CALC_VCF2GFASTA_GFASTA_LONG,
+    CALC_VCF2GFASTA_GFASTA_DESC,
+    CALC_VCF2GFASTA_GFASTA_SAMP,
+    CALC_VCF2GFASTA_GFASTA_ONLY,
+    CALC_VCF2GFASTA_GFASTA_DEFV,
+    
+// ===
+    
+    CCALCARRAYOPEX_PLOIDY,
+    CCALCARRAYOPEX_INCLUDE_UNKNOWN,
+    CCALCARRAYOPEX_FORCE_OUTGROUP,
+    CCALCARRAYOPEX_OUTGROUP_PRESENCE,
+    CCALCARRAYOPEX_VINT_PERPOP_NSAM,
+    CCALCARRAYOPEX_NPOPS,
+    CCALCARRAYOPEX_INT_TOTAL_NSAM,
+    CCALCARRAYOPEX_MDW_REG_LENGTHS,
+    CCALCARRAYSUMALL_VECTOR,
+    CCALCARRAYSUMALL_ITEMS,
+    CCALCARRAYSUMALL_TOTAL,
+    CCALCBAM2BAI_BAM_FILE_,
+    CCALCBAM2BAI_BAI_FILE_,
+    
+    CCALCBAMCHROMOSOMES_BAI_FILE_,
+    CCALCBAMCHROMOSOMES_CHROMOSOMES_,
+    CCALCBCF2VCF_BCF,
+    CCALCBCF2VCF_VCF,
+    CCALCCREATETFASTAANNOTATION_INPUT_TFASTA_FILE_NAME,
+    CCALCCREATETFASTAANNOTATION_INPUT_GFF_FILE_NAME,
+    CCALCCREATETFASTAANNOTATION_ANNOTATION,
+    CCALCCREATETFASTAANNOTATION_GENETIC_CODE,
+    CCALCCREATETFASTAANNOTATION_OUTPUT_TFA_FILE_NAME,
+    CCALCDNAMATRIX2MATRIXPOL_DNA_MATRIX,
+    CCALCDNAMATRIX2MATRIXPOL_PLOIDY,
+    CCALCDNAMATRIX2MATRIXPOL_INCLUDE_UNKNOWN,
+    CCALCDNAMATRIX2MATRIXPOL_FORCE_OUTGROUP,
+    CCALCDNAMATRIX2MATRIXPOL_OUTGROUP_PRESENCE,
+    CCALCDNAMATRIX2MATRIXPOL_VINT_PERPOP_NSAM,
+    CCALCDNAMATRIX2MATRIXPOL_NPOPS,
+    CCALCDNAMATRIX2MATRIXPOL_INT_TOTAL_NSAM,
+    CCALCDNAMATRIX2MATRIXPOL_MATRIX_SIZEPOS,
+    CCALCDNAMATRIX2MATRIXPOL_MATRIX_SEGRPOS,
+    CCALCDNAMATRIX2MATRIXPOL_MATRIX_POL,
+    CCALCDNAMATRIX2MATRIXPOL_POSITIONS,
+    CCALCDNAMATRIX2MATRIXPOL_FREQUENCIES,
+    CCALCDUPLICATEPOPULATIONS_NPOPS,
+    CCALCDUPLICATEPOPULATIONS_PLOIDY,
+    CCALCDUPLICATEPOPULATIONS_OUTGROUP_PRESENCE,
+    CCALCDUPLICATEPOPULATIONS_FORMATFILE,
+    CCALCDUPLICATEPOPULATIONS_VINT_PERPOP_NSAM,
+    CCALCDUPLICATEPOPULATIONS_INT_TOTAL_NSAM,
+    CCALCEFFECNUCANDTCGAFREQS_VINT_PERPOP_NSAM,
+    CCALCEFFECNUCANDTCGAFREQS_NPOPS,
+    CCALCEFFECNUCANDTCGAFREQS_NSITES2_POP,
+    CCALCEFFECNUCANDTCGAFREQS_SUM_SAM,
+    CCALCEFFECNUCANDTCGAFREQS_ANX,
+    CCALCEFFECNUCANDTCGAFREQS_BNX,
+    CCALCEFFECNUCANDTCGAFREQS_ANXO,
+    CCALCEFFECNUCANDTCGAFREQS_BNXO,
+    CCALCEFFECNUCANDTCGAFREQS_TCGA,
+    CCALCEFFECNUCANDTCGAFREQS_STATS_LENGTH,
+    CCALCEFFECNUCANDTCGAFREQS_STATS_LENGTH2,
+    CCALCEFFECNUCANDTCGAFREQS_STATS_ANX,
+    CCALCEFFECNUCANDTCGAFREQS_STATS_BNX,
+    CCALCEFFECNUCANDTCGAFREQS_STATS_ANXO,
+    CCALCEFFECNUCANDTCGAFREQS_STATS_BNXO,
+    CCALCEFFECNUCANDTCGAFREQS_STATS_TCGA,
+    CCALCEFFECNUCANDTCGAFREQS_STATS_TOTAL_TCGA,
+    CCALCEXEC_COMMAND,
+    CCALCEXEC_WORKING_DIRECTORY,
+    CCALCEXEC_TYPE,
+    CCALCEXEC_RESULT,
+    CCALCFASTA2DNAMATRIX_FASTA,
+    CCALCFASTA2DNAMATRIX_PLOIDY,
+    CCALCFASTA2DNAMATRIX_INCLUDE_UNKNOWN,
+    CCALCFASTA2DNAMATRIX_FORCE_OUTGROUP,
+    CCALCFASTA2DNAMATRIX_OUTGROUP_PRESENCE,
+    CCALCFASTA2DNAMATRIX_VINT_PERPOP_NSAM,
+    CCALCFASTA2DNAMATRIX_NPOPS,
+    CCALCFASTA2DNAMATRIX_INT_TOTAL_NSAM,
+    CCALCFASTA2DNAMATRIX_DNA_MATRIX,
+    CCALCFASTA2TFASTA_INPUT_FILE_NAME,
+    CCALCFASTA2TFASTA_OUTPUT_FILE_NAME,
+    CCALCFILESTATS_PLOIDY,
+    CCALCFILESTATS_INCLUDE_UNKNOWN,
+    CCALCFILESTATS_OUTGROUP_PRESENCE,
+    CCALCFILESTATS_VINT_PERPOP_NSAM,
+    CCALCFILESTATS_NPOPS,
+    CCALCFILESTATS_NAMES,
+    CCALCFILESTATS_N_SITE,
+    CCALCFILESTATS_DNA_MATR,
+    CCALCFILESTATS_MATRIX_SEGRPOS,
+    CCALCFILESTATS_FILE_IN,
+    CCALCFILESTATS_FILE_MAS,
+    CCALCFILESTATS_OUTPUT,
+    CCALCFILESTATS_FORMATFILE,
+    CCALCFILESTATS_MATRIX_POL,
+    CCALCFILESTATS_MATRIX_POL_TCGA,
+    CCALCFILESTATS_LENGTHAMNG,
+    CCALCFILESTATS_TCGA,
+    CCALCFILESTATS_ANX,
+    CCALCFILESTATS_BNX,
+    CCALCFILESTATS_ANXO,
+    CCALCFILESTATS_BNXO,
+    CCALCFILESTATS_LENGTH_AL,
+    CCALCFILESTATS_LENGTH_SEG,
+    CCALCFILESTATS_MISSRATIO,
+    CCALCFILESTATS_NSITES1_POP,
+    CCALCFILESTATS_NSITES1_POP_OUTG,
+    CCALCFILESTATS_NSITES2_POP,
+    CCALCFILESTATS_NSITES2_POP_OUTG,
+    CCALCFILESTATS_NSITES3_POP,
+    CCALCFILESTATS_NSITES3_POP_OUTG,
+    CCALCFILESTATS_SUM_SAM,
+    CCALCFILESTATS_SVRATIO,
+    CCALCFILESTATS_MATRIX_FREQ,
+    CCALCFILESTATS_MATRIX_POS,
+    CCALCFILESTATS_MATRIX_SV,
+    CCALCFILESTATS_MHITBP,
+    CCALCFILESTATS_N_REALSITE,
+    CCALCFILESTATS_NMHITS,
+    CCALCFILESTATS_MATRIX_SIZEPOS,
+    CCALCFILESTATS_N_SAMP,
+    CCALCFREQSTATS_INCLUDE_UNKNOWN_,
+    CCALCFREQSTATS_FORCE_OUTGROUP_,
+    CCALCFREQSTATS_OUTGROUP_PRESENCE_,
+    CCALCFREQSTATS_VINT_PERPOP_NSAM_,
+    CCALCFREQSTATS_NPOPS_,
+    CCALCFREQSTATS_MATRIX_POL_,
+    CCALCFREQSTATS_N_CCOV_,
+    CCALCFREQSTATS_H1FRQ_,
+    CCALCFREQSTATS_STATS_H1FREQ_,
+    CCALCFREQSTATS_LENGTH_,
+    CCALCFREQSTATS_STATS_DFL_,
+    CCALCFREQSTATS_STATS_DTAJ_,
+    CCALCFREQSTATS_STATS_EZ_,
+    CCALCFREQSTATS_STATS_FFL_,
+    CCALCFREQSTATS_STATS_HNFW_,
+    CCALCFREQSTATS_STATS_S_,
+    CCALCFREQSTATS_STATS_SO_,
+    CCALCFREQSTATS_STATS_THETAFL_,
+    CCALCFREQSTATS_STATS_THETAFW_,
+    CCALCFREQSTATS_STATS_THETAL_,
+    CCALCFREQSTATS_STATS_THETAS_,
+    CCALCFREQSTATS_STATS_THETASA_,
+    CCALCFREQSTATS_STATS_THETASO_,
+    CCALCFREQSTATS_STATS_THETAT_,
+    CCALCFREQSTATS_STATS_THETATA_,
+    CCALCFREQSTATS_STATS_THETATO_,
+    CCALCFREQSTATS_STATS_TO_00_,
+    CCALCFREQSTATS_STATS_TO_I0_,
+    CCALCFREQSTATS_STATS_TO_II_,
+    CCALCFREQSTATS_STATS_TOH0_00_,
+    CCALCFREQSTATS_STATS_TOH0_II_,
+    CCALCFREQSTATS_STATS_YACH_,
+    CCALCFREQSTATS_STATS_FREQ_,
+    CCALCFS_VINT_PERPOP_NSAM,
+    CCALCFS_NPOPS,
+    CCALCFS_STATS_THETAT,
+    CCALCFS_STATS_NHPOP,
+    CCALCFS_STATS_FS,
+    CCALCGCCONTENT_VECTOR,
+    CCALCGCCONTENT_PERCENTAGE,
+    CCALCGCCONTENT_TOTAL,
+    CCALCGFF_INCLUDE_UNKNOWN_,
+    CCALCGFF_OUTGROUP_PRESENCE_,
+    CCALCGFF_VINT_PERPOP_NSAM_,
+    CCALCGFF_NPOPS_,
+    CCALCGFF_DNA_MATRIX_,
+    CCALCGFF_NAME_FILEINPUTGFF_,
+    CCALCGFF_SUBSET_POSITIONS_,
+    CCALCGFF_GENETIC_CODE_,
+    CCALCGFF_CRITERIA_TRANSCRIPTS_,
+    CCALCGFF_NSAMUSER_EFF_,
+    CCALCGFF_N_SITE_,
+    CCALCGFF_MATRIX_SIZEPOS_,
+    CCALCGFF_MATRIX_SEGRPOS_,
+    CCALCGFF_MHITBP_,
+    CCALCGFF_NMHITS_,
+    CCALCHWHAFSTH_VINT_PERPOP_NSAM,
+    CCALCHWHAFSTH_NPOPS,
+    CCALCHWHAFSTH_MATRIX_POL,
+    CCALCHWHAFSTH_LENGTH,
+    CCALCHWHAFSTH_STATS_NHPOP,
+    CCALCHWHAFSTH_STATS_HAPW,
+    CCALCHWHAFSTH_STATS_HAPA,
+    CCALCHWHAFSTH_STATS_HAPT,
+    CCALCHWHAFSTH_STATS_FSTH,
+    CCALCHWHAFSTH_STATS_FSTH1ALL,
+    CCALCHWHAFSTH_STATS_FREQH,
+    CCALCHWHAFSTH_STATS_NH,
+    CCALCHWHAFSTH_STATS_GST,
+    CCALCHWHAFSTH_STATS_FSTHALL,
+    CCALCHWHAFSTH_STATS_GSTALL,
+    CCALCJOINTFREQDIST_FORCE_OUTGROUP,
+    CCALCJOINTFREQDIST_OUTGROUP_PRESENCE,
+    CCALCJOINTFREQDIST_NSAM,
+    CCALCJOINTFREQDIST_NPOPS,
+    CCALCJOINTFREQDIST_MATRIX_POL,
+    CCALCJOINTFREQDIST_LENGTH,
+    CCALCJOINTFREQDIST_JFD,
+    CCALCJOINTFREQDIST_STATS_LINEFREQ,
+    CCALCJOINTFREQDIST_NFD,
+    CCALCLENGTHAMNGANDCALCS_OUTGROUP_PRESENCE,
+    CCALCLENGTHAMNGANDCALCS_NPOPS,
+    CCALCLENGTHAMNGANDCALCS_LENGTH_SEG,
+    CCALCLENGTHAMNGANDCALCS_LENGTHAMNG,
+    CCALCLENGTHAMNGANDCALCS_LENGTH_AL,
+    CCALCLENGTHAMNGANDCALCS_LENGTH_AL_REAL,
+    CCALCLENGTHAMNGANDCALCS_SVRATIO,
+    CCALCLENGTHAMNGANDCALCS_NMHITS,
+    CCALCLENGTHAMNGANDCALCS_VINT_PERPOP_NSAM,
+    CCALCLENGTHAMNGANDCALCS_INT_TOTAL_NSAM,
+    CCALCLENGTHAMNGANDCALCS_STATS_LENGTHAMNG,
+    CCALCLENGTHAMNGANDCALCS_STATS_TOTAL_LENGTH,
+    CCALCLENGTHAMNGANDCALCS_STATS_TOTAL_REAL_LENGTH,
+    CCALCLENGTHAMNGANDCALCS_STATS_TOTAL_SVRATIO,
+    CCALCLENGTHAMNGANDCALCS_STATS_NMHITS,
+    CCALCLENGTHAMNGANDCALCS_JFD,
+    CCALCLENGTHAMNGANDCALCS_NFD,
+    CCALCLENGTHAMNGANDCALCS_STATS_LINEFREQ,
+    CCALCLENGTHAMNGANDCALCS_STATS_FREQ,
+    CCALCLENGTHAMNGANDCALCS_STATS_MDSD,
+    CCALCMASKFILEMS_INCLUDE_UNKNOWN,
+    CCALCMASKFILEMS_OUTGROUP_PRESENCE,
+    CCALCMASKFILEMS_VINT_PERPOP_NSAM,
+    CCALCMASKFILEMS_NPOPS,
+    CCALCMASKFILEMS_INT_TOTAL_NSAM,
+    CCALCMASKFILEMS_FILE_MAS,
+    CCALCMASKFILEMS_LENGTH,
+    CCALCMASKFILEMS_NITER,
+    CCALCMASKFILEMS_LENGTH_AL_REAL,
+    CCALCMASKFILEMS_VECTOR_MASK,
+    CCALCMASKFILEMS_MATRIX_MASK,
+    CCALCMASKFILEMS_SUM_SAM_MASK,
+    CCALCMASKFILEMS_LENGTH_MASK,
+    CCALCMASKFILEMS_MISSRATIO,
+    CCALCMASKFILEMS_LENGTH_AL,
+    CCALCMISMATCH_PLOIDY,
+    CCALCMISMATCH_NSAM,
+    CCALCMISMATCH_NPOPS,
+    CCALCMISMATCH_MATRIX_POL,
+    CCALCMISMATCH_STATS_THETAT,
+    CCALCMISMATCH_LENGTH,
+    CCALCMISMATCH_STATS_MDG1,
+    CCALCMISMATCH_STATS_MDG2,
+    CCALCMISMATCH_STATS_MDSD,
+    CCALCMISMATCH_STATS_MDW,
+    CCALCMSTATSPOP_POPULATIONS_INITIAL_,
+    CCALCMSTATSPOP_PLOIDY_,
+    CCALCMSTATSPOP_INCLUDE_UNKNOWN_,
+    CCALCMSTATSPOP_FILE_OUT_,
+    CCALCMSTATSPOP_FORCE_OUTGROUP_,
+    CCALCMSTATSPOP_OUTGROUP_PRESENCE_,
+    CCALCMSTATSPOP_VINT_PERPOP_NSAM_,
+    CCALCMSTATSPOP_NPOPS_,
+    CCALCMSTATSPOP_FORMATFILE_,
+    CCALCMSTATSPOP_R2I_PLOIDIES_,
+    CCALCMSTATSPOP_FILE_MAS_,
+    CCALCMSTATSPOP_NITER_,
+    CCALCMSTATSPOP_NITERDATA_,
+    CCALCMSTATSPOP_H0FRQ_,
+    CCALCMSTATSPOP_H1FRQ_,
+    CCALCMSTATSPOP_NUMPLOIDIES_,
+    CCALCMSTATSPOP_MS_SVRATIO_,
+    CCALCMSTATSPOP_LENGTH_,
+    CCALCMSTATSPOP_LENGTH_AL_,
+    CCALCMSTATSPOP_FREQ_REVERT_,
+    CCALCMSTATSPOP_GFFFILES_,
+    CCALCMSTATSPOP_FILE_GFF_,
+    CCALCMSTATSPOP_SUBSET_POSITIONS_,
+    CCALCMSTATSPOP_CODE_NAME_,
+    CCALCMSTATSPOP_GENETIC_CODE_,
+    CCALCMSTATSPOP_FILE_H0F_,
+    CCALCMSTATSPOP_FILE_H1F_,
+    CCALCMSTATSPOP_CRITERIA_TRANSCRIPT_,
+    CCALCMSTATSPOP_ALL_COMMAND_LINE_,
+    CCALCMSTATSPOP_FILE_IN_,
+    CCALCMSTATSPOP_SORT_NSAM_,
+    CCALCMSTATSPOP_OUTPUT_,
+    CCALCMSTATSPOP_SEED_,
+    CCALCMSTATSPOP_FILE_WPS_,
+    CCALCMSTATSPOP_FILE_WCOORD_,
+    CCALCMSTATSPOP_WINDOW_,
+    CCALCMSTATSPOP_SLIDE_,
+    CCALCMSTATSPOP_PHYSICAL_LENGTH_,
+    CCALCMSTATSPOP_FILE_EFFSZ_,
+    CCALCMSTATSPOP_INT_TOTAL_NSAM_ORDER_,
+    CCALCMSTATSPOP_MAKE_MASK_,
+    CCALCMSTATSPOP_MASK_PRINT_,
+    
+    //!mstatspop_outputs
+    CCALCMSTATSPOP_CALC_OUTPUT_,
+    
+    CCALCMSTATSPOP_CALC_STATS_SO_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_NT_TAJ_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_NT_FULI_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_NT_FAYWU_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_NT_ZENG_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_NT_ACHAZ_WAT_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_NT_ACHAZ_TAJ_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_DIVERGENCE_NT_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_NT_TAJ_HKY_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_KHKY_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_S_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_THETA_T_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_HAPW_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_NHPOP_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_DTAJ_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_DFL_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_FFL_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_NHFW_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_EZ_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_YACH_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_FH_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_FS_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_MDSD_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_MDG1_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_MDG2_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_FST1ALL_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_FSTH_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_FSTHKY_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_PIWHKY_OUTPUT_,
+    CCALCMSTATSPOP_CALC_STATS_PIAHKY_OUTPUT_,
+  
+    
+    CCALCMSTATSPOPOPENFASTAFILE_FILE_IN_,
+    CCALCMSTATSPOPOPENFASTAFILE_PLOIDY_,
+    CCALCMSTATSPOPOPENFASTAFILE_OUTGROUP_PRESENCE_,
+    CCALCMSTATSPOPOPENFASTAFILE_NSAMUSER_,
+    CCALCMSTATSPOPOPENFASTAFILE_NPOPS_,
+    CCALCMSTATSPOPOPENFASTAFILE_SORT_NSAM_,
+    CCALCMSTATSPOPOPENFASTAFILE_LENGTH_,
+    CCALCMSTATSPOPOPENFASTAFILE_NAMES2_,
+    CCALCMSTATSPOPOPENFASTAFILE_N_SITE_,
+    CCALCMSTATSPOPOPENFASTAFILE_DNA_MATR2_,
+    CCALCMSTATSPOPOPENFASTAFILE_N_SAMP_,
+    CCALCMSTATSPOPOPENFASTAFILE_MATRIX_SEGRPOS_,
+    CCALCMSTATSPOPOPENFASTAFILE_MATRIX_SIZEPOS_,
+    CCALCMSTATSPOPOPENFASTAFILE_NSAMUSER_EFF_,
+    CCALCMSTATSPOPOPENMSFILE_FILE_IN,
+    CCALCMSTATSPOPOPENMSFILE_INCLUDE_UNKNOWN,
+    CCALCMSTATSPOPOPENMSFILE_OUTGROUP_PRESENCE,
+    CCALCMSTATSPOPOPENMSFILE_FORCE_OUTGROUP,
+    CCALCMSTATSPOPOPENMSFILE_NSAMUSER,
+    CCALCMSTATSPOPOPENMSFILE_NPOPS,
+    CCALCMSTATSPOPOPENMSFILE_NSAMTOT,
+    CCALCMSTATSPOPOPENMSFILE_LENGTH,
+    CCALCMSTATSPOPOPENMSFILE_KIND_LENGTH,
+    CCALCMSTATSPOPOPENMSFILE_VECTOR_MASK,
+    CCALCMSTATSPOPOPENMSFILE_SVRATIO,
+    CCALCMSTATSPOPOPENMSFILE_FREQ_REVERT,
+    CCALCMSTATSPOPOPENMSFILE_FILE_MAS,
+    CCALCMSTATSPOPOPENMSFILE_FREQ_MISSING_MS,
+    CCALCMSTATSPOPOPENMSFILE_LOCATION_MISSING_MS,
+    CCALCMSTATSPOPOPENMSFILE_FORMATFILE,
+    CCALCMSTATSPOPOPENMSFILE_MATRIX_POL,
+    CCALCMSTATSPOPOPENMSFILE_MATRIX_FREQ,
+    CCALCMSTATSPOPOPENMSFILE_MATRIX_POS,
+    CCALCMSTATSPOPOPENMSFILE_LENGTH_SEG,
+    CCALCMSTATSPOPOPENMSFILE_MATRIX_SV,
+    CCALCMSTATSPOPOPENMSFILE_LENGTH_MASK,
+    CCALCMSTATSPOPOPENMSFILE_LENGTHAMNG,
+    CCALCMSTATSPOPOPENMSFILE_NMHITS,
+    CCALCMSTATSPOPOPENMSFILE_MATRIX_MASK,
+    CCALCMSTATSPOPOPENMSFILE_VECTOR_PRIORS,
+    CCALCMSTATSPOPOPENMSFILE_NPRIORS,
+    CCALCMSTATSPOPOPENMSFILE_SUM_SAM,
+    CCALCMSTATSPOPOPENMSFILE_SUM_SAM_MASK,
+    CCALCMSTATSPOPOPENMSFILE_NSITES1_POP,
+    CCALCMSTATSPOPOPENMSFILE_NSITES1_POP_OUTG,
+    CCALCMSTATSPOPOPENMSFILE_NSITES2_POP,
+    CCALCMSTATSPOPOPENMSFILE_NSITES2_POP_OUTG,
+    CCALCMSTATSPOPOPENMSFILE_NSITES3_POP,
+    CCALCMSTATSPOPOPENMSFILE_NSITES3_POP_OUTG,
+    CCALCMSTATSPOPOPENMSFILE_ANX,
+    CCALCMSTATSPOPOPENMSFILE_BNX,
+    CCALCMSTATSPOPOPENMSFILE_ANXO,
+    CCALCMSTATSPOPOPENMSFILE_BNXO,
+    CCALCMSTATSPOPOPENMSFILE_MISSRATIO,
+    CCALCMSTATSPOPOPENMSFILE_SORT_NSAM,
+    CCALCMSTATSPOPOUTPUT_MATRIX_POL,
+    CCALCMSTATSPOPOUTPUT_MATRIX_POL_TCGA,
+    CCALCMSTATSPOPOUTPUT_POSITIONS,
+    CCALCMSTATSPOPOUTPUT_SITES,
+    CCALCMSTATSPOPOUTPUT_SANC,
+    CCALCMSTATSPOPOUTPUT_MAINARGC,
+    CCALCMSTATSPOPOUTPUT_FILE_INPUT,
+    CCALCMSTATSPOPOUTPUT_FILE_OUTPUT,
+    CCALCMSTATSPOPOUTPUT_GFFFILES,
+    CCALCMSTATSPOPOUTPUT_FILE_GFF,
+    CCALCMSTATSPOPOUTPUT_SUBSET_POSITIONS,
+    CCALCMSTATSPOPOUTPUT_CODE_NAME,
+    CCALCMSTATSPOPOUTPUT_GENETIC_CODE,
+    CCALCMSTATSPOPOUTPUT_LENGTH,
+    CCALCMSTATSPOPOUTPUT_LENGTH_AL,
+    CCALCMSTATSPOPOUTPUT_LENGTH_AL_REAL,
+    CCALCMSTATSPOPOUTPUT_NITER,
+    CCALCMSTATSPOPOUTPUT_PLOIDY,
+    CCALCMSTATSPOPOUTPUT_INCLUDE_UNKNOWN,
+    CCALCMSTATSPOPOUTPUT_FORCE_OUTGROUP,
+    CCALCMSTATSPOPOUTPUT_THE_OUTGROUP_PRESENCE,
+    CCALCMSTATSPOPOUTPUT_VINT_PERPOP_NSAM,
+    CCALCMSTATSPOPOUTPUT_NPOPS,
+    CCALCMSTATSPOPOUTPUT_INT_TOTAL_NSAM,
+    CCALCMSTATSPOPOUTPUT_SVRATIO,
+    CCALCMSTATSPOPOUTPUT_MISSRATIO,
+    CCALCMSTATSPOPOUTPUT_JFD,
+    CCALCMSTATSPOPOUTPUT_NFD,
+    CCALCMSTATSPOPOUTPUT_H1FRQ,
+    CCALCMSTATSPOPOUTPUT_H0FRQ,
+    CCALCMSTATSPOPOUTPUT_FILE_H1F,
+    CCALCMSTATSPOPOUTPUT_FILE_H0F,
+    CCALCMSTATSPOPOUTPUT_VECTOR_PRIORS,
+    CCALCMSTATSPOPOUTPUT_NPRIORS,
+    CCALCMSTATSPOPOUTPUT_FORMATFILE,
+    CCALCMSTATSPOPOUTPUT_FREQ_MISSING_MS,
+    CCALCMSTATSPOPOUTPUT_NSITES1_POP,
+    CCALCMSTATSPOPOUTPUT_NSITES1_POP_OUTG,
+    CCALCMSTATSPOPOUTPUT_NSITES2_POP,
+    CCALCMSTATSPOPOUTPUT_NSITES2_POP_OUTG,
+    CCALCMSTATSPOPOUTPUT_NSITES3_POP,
+    CCALCMSTATSPOPOUTPUT_NSITES3_POP_OUTG,
+    CCALCMSTATSPOPOUTPUT_LI,
+    CCALCMSTATSPOPOUTPUT_R2I_PLOIDIES,
+    CCALCMSTATSPOPOUTPUT_STATS_PIW,
+    CCALCMSTATSPOPOUTPUT_STATS_PIA,
+    CCALCMSTATSPOPOUTPUT_STATS_PIT,
+    CCALCMSTATSPOPOUTPUT_STATS_PIANT,
+    CCALCMSTATSPOPOUTPUT_STATS_PITNT,
+    CCALCMSTATSPOPOUTPUT_STATS_FST,
+    CCALCMSTATSPOPOUTPUT_STATS_PIWHKY,
+    CCALCMSTATSPOPOUTPUT_STATS_PIAHKY,
+    CCALCMSTATSPOPOUTPUT_STATS_PITHKY,
+    CCALCMSTATSPOPOUTPUT_STATS_FSTHKY,
+    CCALCMSTATSPOPOUTPUT_STATS_FST1ALL,
+    CCALCMSTATSPOPOUTPUT_STATS_GST,
+    CCALCMSTATSPOPOUTPUT_STATS_HAPW,
+    CCALCMSTATSPOPOUTPUT_STATS_HAPA,
+    CCALCMSTATSPOPOUTPUT_STATS_HAPT,
+    CCALCMSTATSPOPOUTPUT_STATS_FSTH,
+    CCALCMSTATSPOPOUTPUT_STATS_FSTH1ALL,
+    CCALCMSTATSPOPOUTPUT_STATS_FSTALL,
+    CCALCMSTATSPOPOUTPUT_STATS_FSTHALL,
+    CCALCMSTATSPOPOUTPUT_STATS_GSTALL,
+    CCALCMSTATSPOPOUTPUT_STATS_S,
+    CCALCMSTATSPOPOUTPUT_STATS_SO,
+    CCALCMSTATSPOPOUTPUT_STATS_THETAS,
+    CCALCMSTATSPOPOUTPUT_STATS_THETASO,
+    CCALCMSTATSPOPOUTPUT_STATS_THETAT,
+    CCALCMSTATSPOPOUTPUT_STATS_THETATO,
+    CCALCMSTATSPOPOUTPUT_STATS_THETATHKY,
+    CCALCMSTATSPOPOUTPUT_STATS_THETAFL,
+    CCALCMSTATSPOPOUTPUT_STATS_THETAFW,
+    CCALCMSTATSPOPOUTPUT_STATS_THETAL,
+    CCALCMSTATSPOPOUTPUT_STATS_THETASA,
+    CCALCMSTATSPOPOUTPUT_STATS_THETATA,
+    CCALCMSTATSPOPOUTPUT_STATS_K,
+    CCALCMSTATSPOPOUTPUT_STATS_KHKY,
+    CCALCMSTATSPOPOUTPUT_STATS_DTAJ,
+    CCALCMSTATSPOPOUTPUT_STATS_DFL,
+    CCALCMSTATSPOPOUTPUT_STATS_FFL,
+    CCALCMSTATSPOPOUTPUT_STATS_HNFW,
+    CCALCMSTATSPOPOUTPUT_STATS_EZ,
+    CCALCMSTATSPOPOUTPUT_STATS_YACH,
+    CCALCMSTATSPOPOUTPUT_STATS_R2,
+    CCALCMSTATSPOPOUTPUT_STATS_FS,
+    CCALCMSTATSPOPOUTPUT_STATS_RM,
+    CCALCMSTATSPOPOUTPUT_STATS_ZNA,
+    CCALCMSTATSPOPOUTPUT_STATS_FREQ,
+    CCALCMSTATSPOPOUTPUT_STATS_NH,
+    CCALCMSTATSPOPOUTPUT_STATS_NHPOP,
+    CCALCMSTATSPOPOUTPUT_STATS_FREQH,
+    CCALCMSTATSPOPOUTPUT_STATS_LENGTH,
+    CCALCMSTATSPOPOUTPUT_STATS_LENGTH2,
+    CCALCMSTATSPOPOUTPUT_STATS_LENGTHAMNG,
+    CCALCMSTATSPOPOUTPUT_STATS_TOTAL_LENGTH,
+    CCALCMSTATSPOPOUTPUT_STATS_TOTAL_REAL_LENGTH,
+    CCALCMSTATSPOPOUTPUT_STATS_TOTAL_SVRATIO,
+    CCALCMSTATSPOPOUTPUT_STATS_TOTAL_TCGA,
+    CCALCMSTATSPOPOUTPUT_STATS_TCGA,
+    CCALCMSTATSPOPOUTPUT_STATS_SV,
+    CCALCMSTATSPOPOUTPUT_STATS_SVT,
+    CCALCMSTATSPOPOUTPUT_STATS_NMHITS,
+    CCALCMSTATSPOPOUTPUT_STATS_H1FREQ,
+    CCALCMSTATSPOPOUTPUT_STATS_THETAH1,
+    CCALCMSTATSPOPOUTPUT_STATS_H0FREQ,
+    CCALCMSTATSPOPOUTPUT_STATS_THETAH0,
+    CCALCMSTATSPOPOUTPUT_STATS_TOH0_II,
+    CCALCMSTATSPOPOUTPUT_STATS_TOH0_00,
+    CCALCMSTATSPOPOUTPUT_STATS_TO_II,
+    CCALCMSTATSPOPOUTPUT_STATS_TO_00,
+    CCALCMSTATSPOPOUTPUT_STATS_TO_I0,
+    CCALCMSTATSPOPOUTPUT_STATS_TO_QC_II,
+    CCALCMSTATSPOPOUTPUT_STATS_TO_QW_II,
+    CCALCMSTATSPOPOUTPUT_STATS_TO_LC_II,
+    CCALCMSTATSPOPOUTPUT_STATS_MDSD,
+    CCALCMSTATSPOPOUTPUT_STATS_MDG1,
+    CCALCMSTATSPOPOUTPUT_STATS_MDG2,
+    CCALCMSTATSPOPOUTPUT_STATS_MDW,
+    CCALCMSTATSPOPOUTPUT_STATS_LINEFREQ,
+    CCALCMSTATSPOPOUTPUT_STATS_ANX,
+    CCALCMSTATSPOPOUTPUT_STATS_BNX,
+    CCALCMSTATSPOPOUTPUT_STATS_ANXO,
+    CCALCMSTATSPOPOUTPUT_STATS_BNXO,
+    CCALCMSTATSPOPOUTPUT_STATS_R2P,
+    CCALCMSTATSPOPOUTPUT_PITER_I,
+    CCALCMSTATSPOPOUTPUT_PITER_IH,
+    CCALCMSTATSPOPOUTPUT_PITER_IGH,
+    CCALCMSTATSPOPOUTPUT_PITER_I1,
+    CCALCMSTATSPOPOUTPUT_PITER_IH1,
+    CCALCMSTATSPOPOUTPUT_PITER_NITERI,
+    CCALCMSTATSPOPOUTPUT_PITER_NITERIH,
+    CCALCMSTATSPOPOUTPUT_PITER_NITERIGH,
+    CCALCMSTATSPOPOUTPUT_PITER_NITERI1,
+    CCALCMSTATSPOPOUTPUT_PITER_NITERIH1,
+    CCALCMSTATSPOPOUTPUT_PITER_IALL,
+    CCALCMSTATSPOPOUTPUT_PITER_IHALL,
+    CCALCMSTATSPOPOUTPUT_PITER_IGHALL,
+    CCALCMSTATSPOPOUTPUT_PITER_NITERIALL,
+    CCALCMSTATSPOPOUTPUT_PITER_NITERIHALL,
+    CCALCMSTATSPOPOUTPUT_PITER_NITERIGHALL,
+    CCALCMSTATSPOPOUTPUT_OUTPUT,
+    CCALCMSTATSPOPOUTPUT_NSEED,
+    CCALCMSTATSPOPOUTPUT_LENGTH_SEG,
+    CCALCOPENCOORDINATESFILE_FILE_WCOORD,
+    CCALCOPENCOORDINATESFILE_WGENES,
+    CCALCOPENCOORDINATESFILE_NWINDOWS,
+    CCALCOPENEFFECTSIZESFILE_FILE_EFFSZ,
+    CCALCOPENEFFECTSIZESFILE_WV,
+    CCALCOPENEFFECTSIZESFILE_PP,
+    CCALCOPENEFFECTSIZESFILE_NV,
+    CCALCOPENEFFECTSIZESFILE_WELIMIT_END,
+    CCALCOPENFASTAFILE_FILE_NAME,
+    CCALCOPENFASTAFILE_PLOIDY,
+    CCALCOPENFASTAFILE_INCLUDE_UNKNOWN,
+    CCALCOPENFASTAFILE_FORCE_OUTGROUP,
+    CCALCOPENFASTAFILE_OUTGROUP_PRESENCE,
+    CCALCOPENFASTAFILE_VINT_PERPOP_NSAM,
+    CCALCOPENFASTAFILE_NPOPS,
+    CCALCOPENFASTAFILE_INT_TOTAL_NSAM,
+    CCALCOPENFASTAFILE_FASTA,
+    CCALCOPENFREQSPECFILE_PLOIDY,
+    CCALCOPENFREQSPECFILE_VINT_PERPOP_NSAM,
+    CCALCOPENFREQSPECFILE_NPOPS,
+    CCALCOPENFREQSPECFILE_FILE_H1F,
+    CCALCOPENFREQSPECFILE_FILE_H0F,
+    CCALCOPENFREQSPECFILE_STATS_H1FREQ,
+    CCALCOPENFREQSPECFILE_STATS_THETAH1,
+    CCALCOPENFREQSPECFILE_STATS_H0FREQ,
+    CCALCOPENFREQSPECFILE_STATS_THETAH0,
+    CCALCOPENFREQSPECFILE_H1FRQ,
+    CCALCOPENFREQSPECFILE_H0FRQ,
+    CCALCOPENTFASTAFILE_FILE_IN,
+    CCALCOPENTFASTAFILE_NWINDOWS,
+    CCALCOPENTFASTAFILE_WGENES,
+    CCALCOPENTFASTAFILE_WLIMIT_END,
+    CCALCOPENTFASTAFILE_WP,
+    CCALCOPENTFASTAFILE_WPV,
+    CCALCOPENTFASTAFILE_PLOIDY,
+    CCALCOPENTFASTAFILE_NPOPS,
+    CCALCOPENTFASTAFILE_OUTGROUP_PRESENCE,
+    CCALCOPENTFASTAFILE_NSAMUSER,
+    CCALCOPENTFASTAFILE_PHYSICAL_LENGTH,
+    CCALCOPENTFASTAFILE_WINDOW,
+    CCALCOPENTFASTAFILE_SLIDE,
+    CCALCOPENTFASTAFILE_SORT_NSAM ,
+    CCALCOPENTFASTAFILE_N_SITE,
+    CCALCOPENTFASTAFILE_NAMES,
+    CCALCOPENTFASTAFILE_DNA_MATR,
+    CCALCOPENTFASTAFILE_VECTOR_PRIORS,
+    CCALCOPENTFASTAFILE_MHITBP,
+    CCALCOPENTFASTAFILE_MATRIX_SIZEPOS,
+    CCALCOPENTFASTAFILE_MATRIX_SEGRPOS,
+    CCALCOPENTFASTAFILE_N_SAMP,
+    CCALCOPENTFASTAFILE_LI,
+    CCALCOPENTFASTAFILE_LENGTH,
+    CCALCOPENTFASTAFILE_NPRIORS,
+    CCALCOPENTFASTAFILE_NSAMUSER_EFF,
+    CCALCOPENTFASTAFILE_BEG,
+    CCALCOPENTFASTAFILE_THE_RESULT,
+    CCALCOPENWEIGHTPOSITIONSFILE_FILE_WS,
+    CCALCOPENWEIGHTPOSITIONSFILE_WP,
+    CCALCOPENWEIGHTPOSITIONSFILE_WPV,
+    CCALCOPENWEIGHTPOSITIONSFILE_WV,
+    CCALCOPENWEIGHTPOSITIONSFILE_WLIMIT_END,
+    CCALCPERMUTE_INT_TOTAL_NSAM,
+    CCALCPERMUTE_MATRIX_POL,
+    CCALCPERMUTE_NSAM2,
+    CCALCPERMUTE_PSAM2,
+    CCALCPERMUTE_LENGTH,
+    CCALCPERMUTE_MATRIX_PERM,
+    CCALCPIWPIAFST_VINT_PERPOP_NSAM,
+    CCALCPIWPIAFST_NPOPS,
+    CCALCPIWPIAFST_MATRIX_POL,
+    CCALCPIWPIAFST_MATRIX_SV,
+    CCALCPIWPIAFST_STATS_TCGA,
+    CCALCPIWPIAFST_STATS_LENGTHAMNG,
+    CCALCPIWPIAFST_FLAGHKY,
+    CCALCPIWPIAFST_STATS_LENGTH2,
+    CCALCPIWPIAFST_FORMATFILE,
+    CCALCPIWPIAFST_LENGTH,
+    CCALCPIWPIAFST_STATS_SV,
+    CCALCPIWPIAFST_STATS_SVT,
+    CCALCPIWPIAFST_STATS_FST,
+    CCALCPIWPIAFST_STATS_FST1ALL,
+    CCALCPIWPIAFST_STATS_FSTHKY,
+    CCALCPIWPIAFST_STATS_K,
+    CCALCPIWPIAFST_STATS_KHKY,
+    CCALCPIWPIAFST_STATS_PIA,
+    CCALCPIWPIAFST_STATS_PIAHKY,
+    CCALCPIWPIAFST_STATS_PIT,
+    CCALCPIWPIAFST_STATS_PITHKY,
+    CCALCPIWPIAFST_STATS_PIWHKY,
+    CCALCPIWPIAFST_STATS_PIW,
+    CCALCPIWPIAFST_STATS_THETATHKY,
+    CCALCPIWPIAFST_STATS_PIANT,
+    CCALCPIWPIAFST_STATS_PITNT,
+    CCALCPIWPIAFST_STATS_FSTALL,
+    CCALCR2_PLOIDY,
+    CCALCR2_VINT_PERPOP_NSAM,
+    CCALCR2_NPOPS,
+    CCALCR2_MATRIX_POL,
+    CCALCR2_STATS_S,
+    CCALCR2_STATS_THETAT,
+    CCALCR2_LENGTH,
+    CCALCR2_STATS_R2,
+    CCALCR2P_PLOIDY,
+    CCALCR2P_VINT_PERPOP_NSAM,
+    CCALCR2P_NPOPS,
+    CCALCR2P_MATRIX_POL,
+    CCALCR2P_SUM_SAM,
+    CCALCR2P_STATS_S,
+    CCALCR2P_STATS_THETAT,
+    CCALCR2P_R2I_PLOIDIES,
+    CCALCR2P_LENGTH,
+    CCALCR2P_STATS_R2,
+    CCALCR2P_STATS_R2P,
+    CCALCRANDOMIZE_RAN,
+    CCALCSAM2MPILEUP_SAM,
+    CCALCSAM2MPILEUP_MPILEUP,
+    CCALCSNIPCALLER_CHROMOSOME_REGION,
+    CCALCSNIPCALLER_OUTPUT_FASTA,
+    CCALCSXSFSS_FORCE_OUTGROUP,
+    CCALCSXSFSS_OUTGROUP_PRESENCE,
+    CCALCSXSFSS_NSAM,
+    CCALCSXSFSS_NPOPS,
+    CCALCSXSFSS_MATRIX_POL,
+    CCALCSXSFSS_MATRIX_POS,
+    CCALCSXSFSS_LENGTH,
+    CCALCSXSFSS_SITES_MATRIX,
+    CCALCSXSFSS_STATS_SANC,
+    CCALCTOPTIMALTESTS_VINT_PERPOP_NSAM,
+    CCALCTOPTIMALTESTS_NPOPS,
+    CCALCTOPTIMALTESTS_STATS_FREQ,
+    CCALCTOPTIMALTESTS_STATS_TOTAL_LENGTH,
+    CCALCTOPTIMALTESTS_STATS_H1FREQ,
+    CCALCTOPTIMALTESTS_STATS_THETAH1,
+    CCALCTOPTIMALTESTS_STATS_H0FREQ,
+    CCALCTOPTIMALTESTS_STATS_THETAH0,
+    CCALCTOPTIMALTESTS_STATS_TOH0_II,
+    CCALCTOPTIMALTESTS_STATS_TO_II,
+    CCALCTOPTIMALTESTS_STATS_TO_00,
+    CCALCTOPTIMALTESTS_STATS_TO_I0,
+    CCALCTOPTIMALTESTS_STATS_TOH0_00,
+    CCALCTOPTIMALTESTS_STATS_TO_QC_II,
+    CCALCTOPTIMALTESTS_STATS_TO_QW_II,
+    CCALCTOPTIMALTESTS_STATS_TO_LC_II,
+    CCALCX_INCLUDE_UNKNOWN,
+    CCALCX_VINT_PERPOP_NSAM,
+    CCALCX_NPOPS,
+    CCALCX_INT_TOTAL_NSAM,
+    CCALCX_VECTOR_MASK,
+    CCALCX_LENGTH,
+    CCALCX_LENGTH_MASK,
+    CCALCX_SUM_SAM_MASK,
+    CCALCX_NMHITS,
+    CCALCX_FILE_MAS,
+    CCALCX_LENGTH_AL,
+    CCALCX_FLAGHKY,
+    CCALCX_SUM_SAM,
+    CCALCX_STATS_LENGTH,
+    CCALCX_STATS_LINEFREQ,
+    CCALCX_STATS_TOTAL_TCGA,
+    CCALCX_STATS_TCGA,
+    CCALCY_PLOIDY,
+    CCALCY_NPOPS,
+    CCALCY_STATS_FST1ALL_0,
+    CCALCY_STATS_FST1ALL_1,
+    CCALCY_STATS_FSTH1ALL_0,
+    CCALCY_STATS_FSTH1ALL_1,
+    CCALCY_STATS_FSTALL_0,
+    CCALCY_STATS_FSTALL_1,
+    CCALCY_STATS_FSTHALL_0,
+    CCALCY_STATS_FSTHALL_1,
+    CCALCY_STATS_GSTALL_0,
+    CCALCY_STATS_GSTALL_1,
+    CCALCY_PITER_I1,
+    CCALCY_PITER_NITERI1,
+    CCALCY_PITER_IH1,
+    CCALCY_PITER_NITERIH1,
+    CCALCY_PITER_IALL,
+    CCALCY_PITER_NITERIALL,
+    CCALCY_PITER_IHALL,
+    CCALCY_PITER_NITERIHALL,
+    CCALCY_PITER_IGHALL,
+    CCALCY_PITER_NITERIGHALL,
+    CCALCZ_PLOIDY,
+    CCALCZ_Z,
+    CCALCZ_STATS_FST_0,
+    CCALCZ_STATS_FST_1,
+    CCALCZ_STATS_FSTH_0,
+    CCALCZ_STATS_FSTH_1,
+    CCALCZ_STATS_GST_0,
+    CCALCZ_STATS_GST_1,
+    CCALCZ_PITER_I,
+    CCALCZ_PITER_NITERI,
+    CCALCZ_PITER_IH,
+    CCALCZ_PITER_NITERIH,
+    CCALCZ_PITER_IGH,
+    CCALCZ_PITER_NITERIGH,
+    
+    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS,
+    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_LONG,
+    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_DESC,
+    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_SAMP,
+    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_ONLY,
+    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_DEFV,
+    
+            
+    CCALCLIST_FILES_PATH,
+    CCALCLIST_FILES_PATH_DESC,
+    CCALCLIST_FILES_INCLUDE,
+    CCALCLIST_FILES_INCLUDE_DESC,
+    CCALCLIST_FILES_EXCLUDE,
+    CCALCLIST_FILES_EXCLUDE_DESC,
+    CCALCLIST_FILES_FILES,
+    CCALCLIST_FILES_FILES_DESC ,
+    
+    CCALCMATRIX2VECTOR_STRING_MATRIX,
+    CCALCMATRIX2VECTOR_STRING_MATRIX_DESC,
+    CCALCMATRIX2VECTOR_STRING_POS,
+    CCALCMATRIX2VECTOR_STRING_POS_DESC,
+    CCALCMATRIX2VECTOR_STRING_POS_DEFV,
+    CCALCMATRIX2VECTOR_STRING_COLUMN,
+    CCALCMATRIX2VECTOR_STRING_COLUMN_DESC,
+    CCALCMATRIX2VECTOR_STRING_COLUMN_DEFV,
+    CCALCMATRIX2VECTOR_STRING_REMOVE_INDEX,
+    CCALCMATRIX2VECTOR_STRING_REMOVE_INDEX_DESC,
+    CCALCMATRIX2VECTOR_STRING_REMOVE_INDEX_DEFV,
+    CCALCMATRIX2VECTOR_STRING_FLAT_UNIQUE,
+    CCALCMATRIX2VECTOR_STRING_FLAT_UNIQUE_DESC,
+    CCALCMATRIX2VECTOR_STRING_FLAT_UNIQUE_DEFV,
+    CCALCMATRIX2VECTOR_STRING_SORT_ITEMS,
+    CCALCMATRIX2VECTOR_STRING_SORT_ITEMS_DESC,
+    CCALCMATRIX2VECTOR_STRING_SORT_ITEMS_DEFV,
+    CCALCMATRIX2VECTOR_STRING_VECTOR,
+    CCALCMATRIX2VECTOR_STRING_VECTOR_DESC,
+    
+    CCALCSPLIT_BAM_INPUT,
+    CCALCSPLIT_BAM_INPUT_DESC,
+    CCALCSPLIT_BAM_CHROMS,
+    CCALCSPLIT_BAM_CHROMS_DESC,
+    CCALCSPLIT_BAM_EXCLUDE,
+    CCALCSPLIT_BAM_EXCLUDE_DESC,
+    CCALCSPLIT_BAM_OUTPUT,
+    CCALCSPLIT_BAM_OUTPUT_DESC
+};
+
+  
+class CStringTable : public IStringTable<KeyString> {
+ private:
+  static CStringTable* m_pInstance;
+
+ public:
+  static CStringTable* Instance();
+
+  /**
+   * This function deletes the instance pointer.
+   * It must be called outside the class.
+   */
+  static void ResetInstance();
+
+  virtual ~CStringTable();
+
+ private:
+  CStringTable();
+  CStringTable(CStringTable const &);
+};
+
+#endif  // BACKEND_SRC_LANGUAGE_CSTRINGTABLE_H_

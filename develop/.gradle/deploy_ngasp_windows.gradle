@@ -1,0 +1,56 @@
+/**
+ * ============================================================================
+ *  \brief     windows_deploy.gradle
+ *  \details   This file defines deploy constants for WINDOWS.
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Feb 10, 2016
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+*/
+
+/*
+================================================================================
+CONSTANTS
+================================================================================
+*/
+
+project.ext.set("BINARY_NAME",                 "ngasp")
+project.ext.set("PROJECT_REPOSITORY",          "gitlab.bio.crag.local/gvera/ngasp.git")
+project.ext.set("LOCAL_BINARY_PATH",           "build\\exe\\ngasp")
+project.ext.set("LOCAL_BINARY_FILE_NAME",      "ngasp.exe")
+project.ext.set("LICENSE_FILE_NAME",           ".\\LICENSE.txt")
+project.ext.set("CODE_STYLE_APP",              ".\\cpplint\\cpplint.py")
+project.ext.set("STYLE_SOURCE_CODE_PATH",      ".\\backend\\src\\*.cpp")
+project.ext.set("DOCUMENTATION_APP",           "doxygen")
+project.ext.set("DOCUMENTATION_PATH",          ".\\Doxygen")
+project.ext.set("DOCUMENTATION_LOG_FILE",      ".\\Doxygen\\doxygen_log.txt")
+project.ext.set("COMPRESSION_APP",             "zip")
+project.ext.set("COMPRESSION_EXTENSION",       ".zip")
+project.ext.set("PUBLISH_APP",                 "sshpass")
+project.ext.set("TMP_FOLDER",                  "F:\\tmp\\")
+
+project.ext.set("GET_PROJECT_VERSION_APP",     "get_project_version.bat")
+project.ext.set("GET_PROJECT_VERSION_SCRIPT",  "")
+
+project.ext.set("UNPACK_EXAMPLES_APP",         "unpack_examples.bat")
+project.ext.set("UNPACK_EXAMPLES_SCRIPT",      "")
+
+project.ext.set("PUBLISH_APP",                 "F:\\ci_ngasp\\putty\\pscp")
+project.ext.set("PUBLISH_DESTINATION",         "ci_ngasp@10.200.15.15:/projects/035-ngaSP/public_web/downloads/binaries")
+project.ext.set("USE_PK_PARAM",                "-i")
+project.ext.set("USE_PK_ARG",                  "C:\\Users\\ci_ngasp\\.ssh\\ci_publish-id_rsa.ppk")
+
+
+/*
+================================================================================
+FINALIZE (Post Build Task). Customized this by platform
+================================================================================
+*/
+task finalize << {
+    println('finally Windows!')
+}
+

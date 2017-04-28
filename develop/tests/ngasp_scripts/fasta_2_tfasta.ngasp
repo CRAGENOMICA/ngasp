@@ -1,0 +1,21 @@
+# build/binaries/mainExecutable/main load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/fasta_2_tfasta.ngasp -f ngasp
+
+verbose --level debug
+
+dim -n input_file     --as string
+dim -n output_file    --as string
+
+# set --to input_file   --eq "/home/jjene/Desktop/data1.10.2015-02-02192510.fasta"
+# set --to input_file   --eq "/home/jjene/Desktop/input.txt"
+# set --to input_file   --eq "/home/jjene/Desktop/input_well.txt"
+# set --to input_file   --eq "/home/jjene/Desktop/input_modified.txt"
+set --to input_file   --eq "/home/jjene/Desktop/gff_files/MC1R_PigsOutg_aligned.fas"
+
+# set --to output_file  --eq "/home/jjene/Desktop/output.tfasta"
+set --to output_file  --eq "/home/jjene/Desktop/gff_files/MC1R_PigsOutg_aligned.tfasta"
+
+calc -n f2tf --as fasta-to-tfasta
+set --to f2tf.inputs  --eq "input_file,output_file"
+set --to f2tf.outputs --eq ""
+run -n f2tf
+

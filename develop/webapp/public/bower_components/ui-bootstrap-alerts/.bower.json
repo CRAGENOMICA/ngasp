@@ -1,0 +1,28 @@
+{
+  "name": "ui-bootstrap-alerts",
+  "version": "0.1.5",
+  "main": "ui-bootstrap-alerts.min.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec"
+  ],
+  "dependencies": {
+    "angular": ">=1.0.7"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.0.7"
+  },
+  "homepage": "https://github.com/tandibar/ui-bootstrap-alerts",
+  "_release": "0.1.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.5",
+    "commit": "045ebcbc0b4558b13fc543a203dd17ee6db00f1c"
+  },
+  "_source": "git://github.com/tandibar/ui-bootstrap-alerts.git",
+  "_target": "~0.1.5",
+  "_originalSource": "ui-bootstrap-alerts",
+  "_direct": true
+}

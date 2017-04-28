@@ -1,0 +1,1951 @@
+# ==============================================================================
+# PIPELINE NAME: MSTATSPOP
+# CREATION DATE: AUG 6, 2015.
+# AUTHOR:        CRAG
+# ==============================================================================
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/mstatspop.ngasp -v /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/mstatspop_test_n.ngasp
+
+# verbose --level debug
+
+# ==============================================================================
+# NGASP COMMON CONSTANTS
+# ==============================================================================
+
+const --name FASTA_FILE         --by 0
+const --name MS_FILE            --by 1
+const --name MS_EXTENDED_FILE   --by 2
+const --name YES                --by 1
+const --name NO                 --by 0
+const --name TRUE               --by 1
+const --name FALSE              --by 0
+const --name HAPLOID            --by 1
+const --name DIPLOID            --by 2
+const --name FIRST_ITERATION    --by 0
+const --name EMPTY_STRING       --by ""
+const --name NGASP_PATH         --by /home/jjene/NetBeansProjects/ngaSP
+
+# ==============================================================================
+# INPUT DATAS
+# ==============================================================================
+
+# Parameter    : -i
+# Description  : Input file name.
+# Values       : "path/filename.ext"
+
+dim -n file_in --as string
+
+# Parameter    : -f
+# Description  : Input file format.
+# Values       : FASTA_FILE / MS_FILE
+
+dim -n formatfile --as int
+
+# Parameter    : -o
+# Description  : Output format.
+# Values       : 0  - extended
+#                1  - single line statistics
+#                2  - single line freq spectrum
+#                3  - single line joint freq distrib (dadi format)
+#                4  - single line pairwise distribution
+#                5  - single line frequency variant per line
+#                6  - SNP gentotypes file
+#                10 - complete extended
+
+dim -n output --as int
+
+# Parameter    : -N
+# Description  : Population samples.
+# Values       : "x,x,x,x"
+
+dim -n populations_initial --as string
+
+# Parameter    : -O
+# Description  : Number of order of each sample.
+# Values       : "x,x,x,x"
+# Type         : OPTIONAL.
+# Requirements : FASTA_FILE.
+
+dim -n sort_nsam --as int_vector
+
+# Parameter    : -G
+# Description  : Outgroup presence in input file. If outgroup, it must be the 
+#                last population.
+# Values       : YES / NO
+
+dim -n outgroup_presence --as int
+
+# Parameter    : -F
+# Description  : Force analysis to include outgroup.
+# Values       : YES / NO
+# Type         : OPTIONAL.
+# Requirements : MS_FILE
+# Notes        : NO (0) is ancestral.
+
+dim -n force_outgroup --as int
+
+# Parameter    : -q
+# Description  : Frequency of reverted mutation.
+# Requirements : MS_FILE and force_outgroup YES.
+
+dim -n freq_revert --as float
+
+# Parameter    : -p
+# Description  : Number of lineages per sequence.
+# Values       : HAPLOID
+#                DIPLOID
+
+dim -n ploidy --as char_vector
+
+# Parameter    : -P
+# Description  : 
+
+dim -n r2i_ploidies --as int_vector
+
+# Parameter    : -u
+# Description  : Include unknown positions
+# Values       : YES / NO
+
+dim -n include_unknown --as int
+
+# Parameter    : -y
+# Description  : In case missing: number of comparisons for approximate 
+#                calculation of covariance.
+# Notes        : 0 if rough approach.
+
+dim -n n_ccov --as int
+
+# Parameter    : -x
+# Description  : Frequency of missing positions.
+# Requirements : MS_FILE and include_unknown YES
+
+dim -n freq_missing_ms --as double
+
+# Parameter    : -g (1st value)
+# Description  : GFF file name.
+# Values       : "path/filename.ext"
+# Type         : OPTIONAL.
+
+dim -n file_GFF --as string
+
+# Parameter    : -g (2nd value)
+# Description  : Subset positions.
+# Values       : "coding"
+#                "noncoding"
+#                "synonymous"
+#                "nonsynonymous"
+#                "silent"
+#                others(whatever annotated)
+
+dim -n subset_positions --as char_vector
+
+# Parameter    : -g (3rd value)
+# Description  : Code name.
+# Values       : "Nuclear_Universal"
+#                "mtDNA_Drosophila"
+#                "mtDNA_Mammals"
+#                "Other"
+# Requirements : subset_positions is "synonymous" or "nonsynonymous"
+
+dim -n code_name --as char_vector
+
+# Parameter    : -g (4th value)
+# Description  : Genetic code.
+# Values       : Introduce the code for the 64 triplets in the order UUU UUC UUA
+#                UUG ... etc.
+# Requirements : code_name is "Other"
+
+dim -n genetic_code --as char_vector
+
+# Parameter    : -c
+# Description  : Criteria to consider transcripts.
+# Values       : "max"
+#                "min"
+#                "first"
+#                "long"
+# Requirements : Use of coding regions.
+
+dim -n criteria_transcript         --as char_vector
+
+# Parameter    : -t
+# Description  : Permutations (FASTA_FILE) / Iterations (MS_FILE).
+# Values       : Number.
+
+dim -n niter --as int64
+
+# Parameter    : -m
+# Description  : Mask file name
+# Values       : "path/filename.ext"
+# Type         : OPTIONAL.
+# Requirements : MS_FILE
+# Notes        : The mask file format is: 1st row with 'length' weights, next 
+#                sample rows x lengths: missing 0, ok 1.
+
+dim -n file_mas             --as string
+
+# Parameter    : -s
+# Description  : Seed.
+# Values       : Number.
+
+dim -n seed --as int64
+
+# Parameter    : -v
+# Description  : Ratio transitions / transversions.
+# Values       : Number.
+# Requirements : MS_FILE.
+
+dim -n ms_svratio --as float
+
+# Parameter    : -l
+# Description  : Length.
+# Values       : Number.
+# Requirements : MS_FILE.
+
+dim -n length --as int64
+
+# Parameter    : -k
+# Description  : Kind of length.
+# Values       : 0 - All accepted positions even regions with all Ns (default).
+#                1 - Only positions with at least one valid nt.
+#                2 - At least two valid nt.
+#                n - At least n valid nt.
+# Requirements : MS_FILE.
+# Notes        : Except outgroup.
+
+dim -n kind_length --as int
+
+# Parameter    : -M
+# Description  : Column location of the Ratio of missing values.
+# Requirements : MS_FILE
+# Notes        : Starting from 1.
+
+dim -n location_missing_ms --as int
+
+# Parameter    : -a
+# Description  : Alternative Spectrum File name.
+# Values       : Alternative_spectrum for each population (except outg).
+# Type         : OPTIONAL.
+# Notes        : The file format is: (average absolute values) header plus
+#                fr(0,1)  fr(0,2) ... fr(0,n-1) theta(0)/nt, fr(1,1) fr(1,2) ... 
+#                fr(1,n-1) theta(1)/nt...]
+
+dim -n file_H1f --as string
+
+# Parameter    : -n
+# Description  : Null Spectrum File name.
+# Values       : Null_spectrum for each population (except outg)
+# Type         : OPTIONAL.
+# Notes        : The file format is: (average absolute values) header plus
+#                fr(0,1) fr(0,2) ... fr(0,n-1) theta(0)/nt, fr(1,1) fr(1,2) ...
+#                fr(1,n-1) theta(1)/nt...]
+# Requirements : file_H1f is defined.
+
+dim -n file_H0f --as string
+
+# Only for mstatspop compatibility:
+# Description  : This is the mstatspop's command line.
+# Values       : Example: "mstatspop -f fasta -i examples/input.fa -N 1 48"
+
+dim -n command_line --as string
+
+
+# ==============================================================================
+# INPUT DATAS - Set Values
+# ==============================================================================
+
+@LOAD_VALUES
+
+# ==============================================================================
+# INPUT DATAS - Validations
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Validate that populations is defined
+# ------------------------------------------------------------------------------
+
+if --ref populations_initial --eq EMPTY_STRING
+  print --text "Populations not defined..."
+  exit
+endif
+
+
+
+# ------------------------------------------------------------------------------
+# Validate that force_outgroup and outgroup_presence are not equal to 1 at the
+# same time
+# ------------------------------------------------------------------------------
+
+if --ref force_outgroup    --eq 1 --and _
+   --ref outgroup_presence --eq 1
+     print --text "force_outgroup and outgroup_presence cannot be 1 at the same _
+                 time..."
+     exit
+endif
+
+# ------------------------------------------------------------------------------
+# Validate outgroup_presence
+# ------------------------------------------------------------------------------
+
+if --ref outgroup_presence --ne 0 --and _
+   --ref outgroup_presence --ne 1
+  print --text "Error in -G argument: only the values 0 or 1 are allowed."
+  exit
+endif
+  
+# ------------------------------------------------------------------------------
+# Validate force_outgroup
+# ------------------------------------------------------------------------------
+
+if --ref force_outgroup --ne 0 --and _
+   --ref force_outgroup --ne 1
+  print --text "The option -f fasta and -F 1 are incompatibles"
+  exit
+endif
+  
+# ------------------------------------------------------------------------------
+# Validate formatfile with force_outgroup
+# ------------------------------------------------------------------------------
+
+if --ref formatfile     --eq 0 --and _
+   --ref force_outgroup --eq 1
+  print --text "The option -f fasta and -F 1 are incompatibles"
+  exit
+endif
+
+# ------------------------------------------------------------------------------
+# Validate output
+# ------------------------------------------------------------------------------
+
+if --ref output --lt 0 --or _
+   --ref output --gt 10
+  print --text "Output must be a number from 0 to 10..."
+  exit
+endif
+
+# ==============================================================================
+# CALCS
+# ==============================================================================
+
+calc -n calc_mstatspop_open_fasta     --as mstatspop-open-fasta
+calc -n calc_mstatspop_open_ms       --as mstatspop-open-ms
+calc -n calc_optimal_tests         --as optimal-tests
+calc -n calc_r2             --as r2
+calc -n calc_r2p             --as r2p
+calc -n calc_freq_stats         --as freq-stats
+calc -n calc_mismatch           --as mismatch
+calc -n calc_sxsfss           --as sxsfss
+calc -n calc_joint_freq_dist       --as joint-freq-dist
+calc -n calc_piwpiafst           --as piwpiafst
+calc -n calc_hwhafsth           --as hwhafsth
+calc -n calc_fs             --as fs
+calc -n calc_permute           --as permute
+calc -n calc_gff             --as gff
+calc -n calc_file_stats         --as file-stats
+calc -n calc_open_freq_spec_file     --as spectrum-file
+calc -n calc_mask_file_ms         --as mask-file-ms
+calc -n calc_effec_nuc_TCGA_freqs     --as effec-nuc-tcga-freqs
+calc -n calc_lengthamng_and_calcs     --as lengthamng
+calc -n calc_x               --as calc-x
+calc -n calc_y               --as calc-y
+calc -n calc_z               --as calc-z
+calc -n calc_array_ope_x         --as array-ope-x
+calc -n calc_mstatspop_output       --as mstatspop-output
+calc -n calc_array_sum_all         --as array-sum-all
+calc -n calc_duplicate_populations     --as duplicate-populations
+
+# ==============================================================================
+# DATAS
+# ==============================================================================
+
+dim -n vint_perpop_nsam           --as int_vector
+dim -n npops               --as int64
+dim -n total_nsam_initial         --as int
+dim -n int_total_nsam           --as int64
+dim -n H0frq               --as int
+dim -n H1frq               --as int
+dim -n length_al             --as double
+dim -n gfffiles             --as int
+dim -n niterdata             --as int64
+dim -n numPloidies             --as int
+dim -n fasta               --as string_set
+dim -n vint_perpop_nsam_iter       --as int_vector
+dim -n npops_iter             --as int64
+dim -n int_total_nsam_iter         --as int64
+dim -n dna_matrix             --as char_vector
+dim -n matrix_sizepos           --as double_vector
+dim -n matrix_segrpos           --as double_vector
+dim -n matrix_pol             --as char_vector
+dim -n frequencies             --as int64_vector
+dim -n positions             --as int64_vector
+dim -n sites               --as int64_vector
+dim -n sanc               --as int64_vector
+dim -n matrix_perm             --as char_vector
+dim -n nsam2               --as int_vector
+dim -n psam2               --as int_vector
+dim -n argc               --as int
+dim -n vector_mask             --as float_vector
+dim -n length_mask             --as double
+dim -n matrix_mask             --as int_vector
+dim -n vector_priors           --as float_vector
+dim -n npriors               --as int
+dim -n sum_sam_mask           --as double_vector
+dim -n file_out             --as string
+dim -n length_seg             --as int64
+dim -n mhitbp               --as int64_vector
+dim -n names2               --as char_matrix
+dim -n n_site               --as int64
+dim -n DNA_matr2             --as char_vector
+dim -n n_samp               --as int
+dim -n flaghky               --as int
+dim -n jfd                 --as double_matrix
+dim -n nfd                 --as int_matrix
+dim -n li                 --as int64
+dim -n anx                 --as double_vector
+dim -n bnx                 --as double_vector
+dim -n anxo               --as double_vector
+dim -n bnxo               --as double_vector
+dim -n lengthamng             --as double_matrix
+dim -n missratio             --as double
+dim -n nsites1_pop             --as double_vector
+dim -n nsites2_pop             --as double_vector
+dim -n nsites3_pop             --as double_vector
+dim -n nsites1_pop_outg         --as double_vector
+dim -n nsites2_pop_outg         --as double_vector
+dim -n nsites3_pop_outg         --as double_vector
+dim -n sum_sam               --as double_vector
+dim -n svratio               --as double
+dim -n tcga               --as double_matrix
+dim -n length_al_real           --as int64
+dim -n nmhits               --as int64
+dim -n matrix_sv             --as int64_vector
+dim -n z_pos               --as int
+dim -n mdw_reg_lengths           --as int64_vector
+
+# ==============================================================================
+# STATS
+# ==============================================================================
+
+dim -n stats_piw_c0           --as double_vector
+dim -n stats_pia_c0           --as double_vector
+dim -n stats_piT_c0           --as double_vector
+dim -n stats_piant_c0           --as double_vector
+dim -n stats_piTnt_c0           --as double_vector
+dim -n stats_fst_c0           --as double_vector
+dim -n stats_piwHKY_c0           --as double_vector
+dim -n stats_piaHKY_c0           --as double_vector
+dim -n stats_piTHKY_c0           --as double_vector
+dim -n stats_fstHKY_c0           --as double_vector
+dim -n stats_fst1all_c0         --as double_vector
+dim -n stats_Gst_c0           --as double_vector
+dim -n stats_hapw_c0           --as double_vector
+dim -n stats_hapa_c0           --as double_vector
+dim -n stats_hapT_c0           --as double_vector
+dim -n stats_fsth_c0           --as double_vector
+dim -n stats_fsth1all_c0         --as double_vector
+dim -n stats_fstALL_c0           --as double
+dim -n stats_fsthALL_c0         --as double
+dim -n stats_GstALL_c0           --as double
+dim -n stats_S_c0             --as double_vector
+dim -n stats_So_c0             --as double_vector
+dim -n stats_thetaS_c0           --as double_vector
+dim -n stats_thetaSo_c0         --as double_vector
+dim -n stats_thetaT_c0           --as double_vector
+dim -n stats_thetaTo_c0         --as double_vector
+dim -n stats_thetaTHKY_c0         --as double_vector
+dim -n stats_thetaFL_c0         --as double_vector
+dim -n stats_thetaFW_c0         --as double_vector
+dim -n stats_thetaL_c0           --as double_vector
+dim -n stats_thetaSA_c0         --as double_vector
+dim -n stats_thetaTA_c0         --as double_vector
+dim -n stats_K_c0             --as double_vector
+dim -n stats_KHKY_c0           --as double_vector
+dim -n stats_Dtaj_c0           --as double_vector
+dim -n stats_Dfl_c0           --as double_vector
+dim -n stats_Ffl_c0           --as double_vector
+dim -n stats_Hnfw_c0           --as double_vector
+dim -n stats_Ez_c0             --as double_vector
+dim -n stats_Yach_c0           --as double_vector
+dim -n stats_R2_c0             --as double_vector
+dim -n stats_Fs_c0             --as double_vector
+dim -n stats_Rm_c0             --as int64_vector
+dim -n stats_ZnA_c0           --as double_vector
+dim -n stats_freq_c0           --as int64_matrix
+dim -n stats_nh_c0             --as int
+dim -n stats_nhpop_c0           --as int_vector
+dim -n stats_freqh_c0           --as int64_matrix
+dim -n stats_length_c0           --as double_vector
+dim -n stats_length2_c0         --as double_vector
+dim -n stats_lengthamng_c0         --as double_matrix
+dim -n stats_total_length_c0       --as double
+dim -n stats_total_real_length_c0     --as double
+dim -n stats_total_svratio_c0       --as double
+dim -n stats_total_tcga_c0         --as double_vector
+dim -n stats_tcga_c0           --as double_matrix
+dim -n stats_sv_c0             --as double_cube
+dim -n stats_svT_c0           --as double_cube
+dim -n stats_nmhits_c0           --as int64
+dim -n stats_H0freq_c0           --as double_matrix
+dim -n stats_H1freq_c0           --as double_matrix
+dim -n stats_thetaH0_c0         --as double_vector
+dim -n stats_thetaH1_c0         --as double_vector
+dim -n stats_ToH0_ii_c0         --as double_vector
+dim -n stats_ToH0_00_c0         --as double_vector
+dim -n stats_To_ii_c0           --as double_vector
+dim -n stats_To_00_c0           --as double_vector
+dim -n stats_To_i0_c0           --as double_vector
+dim -n stats_To_Qc_ii_c0         --as double_vector
+dim -n stats_To_Qw_ii_c0         --as double_vector
+dim -n stats_To_Lc_ii_c0         --as double_vector
+dim -n stats_mdsd_c0           --as double_vector
+dim -n stats_mdg1_c0           --as double_vector
+dim -n stats_mdg2_c0           --as double_vector
+dim -n stats_mdw_c0           --as double_matrix
+dim -n stats_linefreq_c0         --as double_matrix
+dim -n stats_anx_c0           --as double_vector
+dim -n stats_bnx_c0           --as double_vector
+dim -n stats_anxo_c0           --as double_vector
+dim -n stats_bnxo_c0           --as double_vector
+dim -n stats_R2p_c0           --as double_matrix
+
+dim -n stats_piw_c1           --as double_vector
+dim -n stats_pia_c1           --as double_vector
+dim -n stats_piT_c1           --as double_vector
+dim -n stats_piant_c1           --as double_vector
+dim -n stats_piTnt_c1           --as double_vector
+dim -n stats_fst_c1           --as double_vector
+dim -n stats_piwHKY_c1           --as double_vector
+dim -n stats_piaHKY_c1           --as double_vector
+dim -n stats_piTHKY_c1           --as double_vector
+dim -n stats_fstHKY_c1           --as double_vector
+dim -n stats_fst1all_c1         --as double_vector
+dim -n stats_Gst_c1           --as double_vector
+dim -n stats_hapw_c1           --as double_vector
+dim -n stats_hapa_c1           --as double_vector
+dim -n stats_hapT_c1           --as double_vector
+dim -n stats_fsth_c1           --as double_vector
+dim -n stats_fsth1all_c1         --as double_vector
+dim -n stats_fstALL_c1           --as double
+dim -n stats_fsthALL_c1         --as double
+dim -n stats_GstALL_c1           --as double
+dim -n stats_S_c1             --as double_vector
+dim -n stats_So_c1             --as double_vector
+dim -n stats_thetaS_c1           --as double_vector
+dim -n stats_thetaSo_c1         --as double_vector
+dim -n stats_thetaT_c1           --as double_vector
+dim -n stats_thetaTo_c1         --as double_vector
+dim -n stats_thetaTHKY_c1         --as double_vector
+dim -n stats_thetaFL_c1         --as double_vector
+dim -n stats_thetaFW_c1         --as double_vector
+dim -n stats_thetaL_c1           --as double_vector
+dim -n stats_thetaSA_c1         --as double_vector
+dim -n stats_thetaTA_c1         --as double_vector
+dim -n stats_K_c1             --as double_vector
+dim -n stats_KHKY_c1           --as double_vector
+dim -n stats_Dtaj_c1           --as double_vector
+dim -n stats_Dfl_c1           --as double_vector
+dim -n stats_Ffl_c1           --as double_vector
+dim -n stats_Hnfw_c1           --as double_vector
+dim -n stats_Ez_c1             --as double_vector
+dim -n stats_Yach_c1           --as double_vector
+dim -n stats_R2_c1             --as double_vector
+dim -n stats_Fs_c1             --as double_vector
+dim -n stats_Rm_c1             --as int64_vector
+dim -n stats_ZnA_c1           --as double_vector
+dim -n stats_freq_c1           --as int64_matrix
+dim -n stats_nh_c1             --as int
+dim -n stats_nhpop_c1           --as int_vector
+dim -n stats_freqh_c1           --as int64_matrix
+dim -n stats_length_c1           --as double_vector
+dim -n stats_length2_c1         --as double_vector
+dim -n stats_lengthamng_c1         --as double_matrix
+dim -n stats_total_length_c1       --as double
+dim -n stats_total_real_length_c1     --as double
+dim -n stats_total_svratio_c1       --as double
+dim -n stats_total_tcga_c1         --as double_vector
+dim -n stats_tcga_c1           --as double_matrix
+dim -n stats_sv_c1             --as double_cube
+dim -n stats_svT_c1           --as double_cube
+dim -n stats_nmhits_c1           --as int64
+dim -n stats_H0freq_c1           --as double_matrix
+dim -n stats_H1freq_c1           --as double_matrix
+dim -n stats_thetaH0_c1         --as double_vector
+dim -n stats_thetaH1_c1         --as double_vector
+dim -n stats_ToH0_ii_c1         --as double_vector
+dim -n stats_ToH0_00_c1         --as double_vector
+dim -n stats_To_ii_c1           --as double_vector
+dim -n stats_To_00_c1           --as double_vector
+dim -n stats_To_i0_c1           --as double_vector
+dim -n stats_To_Qc_ii_c1         --as double_vector
+dim -n stats_To_Qw_ii_c1         --as double_vector
+dim -n stats_To_Lc_ii_c1         --as double_vector
+dim -n stats_mdsd_c1           --as double_vector
+dim -n stats_mdg1_c1           --as double_vector
+dim -n stats_mdg2_c1           --as double_vector
+dim -n stats_mdw_c1           --as double_matrix
+dim -n stats_linefreq_c1         --as double_matrix
+dim -n stats_anx_c1           --as double_vector
+dim -n stats_bnx_c1           --as double_vector
+dim -n stats_anxo_c1           --as double_vector
+dim -n stats_bnxo_c1           --as double_vector
+dim -n stats_R2p_c1           --as double_matrix
+
+# ==============================================================================
+# PROBS
+# ==============================================================================
+
+dim -n piter_i               --as int64_vector
+dim -n piter_ih             --as int64_vector
+dim -n piter_igh             --as int64_vector
+dim -n piter_i1             --as int64_vector
+dim -n piter_ih1             --as int64_vector
+dim -n piter_niteri           --as int64_vector
+dim -n piter_niterih           --as int64_vector
+dim -n piter_niterigh           --as int64_vector
+dim -n piter_niteri1           --as int64_vector
+dim -n piter_niterih1           --as int64_vector
+dim -n piter_iall             --as int64
+dim -n piter_ihall             --as int64
+dim -n piter_ighall           --as int64
+dim -n piter_niteriall           --as int64
+dim -n piter_niterihall         --as int64
+dim -n piter_niterighall         --as int64
+
+# ==============================================================================
+# NGASP - Default Values
+# ==============================================================================
+
+set --to $table_col_width --eq 1
+
+# ==============================================================================
+# MAIN
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Change user inputs if it is necessary:
+# ------------------------------------------------------------------------------
+
+if --ref include_unknown --eq YES --and _
+   --ref ploidy[0]       --eq DIPLOID --and _
+   --ref n_ccov          --lt 0
+  set --to n_ccov --eq 0
+endif
+
+if --ref formatfile --eq FASTA_FILE
+  set --to file_mas --eq file_in
+endif
+
+if --ref formatfile --eq MS_FILE --and _
+   --ref output     --eq 0       --and _
+   --ref niter      --lt 1
+  set --to output --eq 1
+endif
+
+if --ref file_H0f --eq EMPTY_STRING
+  set --to H0frq --eq 0
+else
+  set --to H0frq --eq 1
+endif
+
+if --ref file_H1f --eq EMPTY_STRING
+  set --to H1frq --eq 0
+else
+  set --to H1frq --eq 1
+endif
+
+if --ref file_GFF --eq EMPTY_STRING
+  set --to gfffiles --eq 0
+else
+  set --to gfffiles --eq 1
+
+  if --ref subset_positions --eq "s,y,n,o,n,y,m,o,u,s," --or _
+     --ref subset_positions --eq "n,o,n,s,y,n,o,n,y,m,o,u,s," --or _
+     --ref subset_positions --eq "s,i,l,e,n,t,"
+    if --ref code_name --eq "N,u,c,l,e,a,r,_,U,n,i,v,e,r,s,a,l,"
+      set --to genetic_code --eq "FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG"
+    endif
+    if --ref code_name --eq "m,t,D,N,A,_,D,r,o,s,o,p,h,i,l,a,"
+      set --to genetic_code --eq "FFLLSSSSYY**CCWWLLLLPPPPHHQQRRRRIIMMTTTTNNKKSSSSVVVVAAAADDEEGGGG"
+    endif
+    if --ref code_name --eq "m,t,D,N,A,_,M,a,m,m,a,l,s,"
+      set --to genetic_code --eq "FFLLSSSSYY**CCWWLLLLPPPPHHQQRRRRIIMMTTTTNNKKSS**VVVVAAAADDEEGGGG"
+    endif
+  endif
+endif
+
+set --to niterdata --eq niter
+
+set --to length_al --eq length
+
+set --to numPloidies --eq r2i_ploidies.reg_length
+
+set --to $idum --eq seed --mul "-1"
+
+# ------------------------------------------------------------------------------
+# Add one outgroup if it is not present
+# ------------------------------------------------------------------------------
+
+if --ref outgroup_presence --eq NO
+  set --to populations_initial --eq populations_initial --add ",1"
+endif
+
+# ------------------------------------------------------------------------------
+# Create the populations vector
+# ------------------------------------------------------------------------------
+
+set --to vint_perpop_nsam --eq populations_initial
+set --to npops --eq vint_perpop_nsam.reg_length
+
+# ------------------------------------------------------------------------------
+# Multiply populations depending on ploidy (by 2 if it is diploid) except the 
+# outgroup pop
+# ------------------------------------------------------------------------------
+
+set --to calc_duplicate_populations.inputs --eq _
+                        "npops, _
+                        ploidy, _
+                        outgroup_presence"
+set --to calc_duplicate_populations.outputs --eq _
+                        "vint_perpop_nsam"
+run -n calc_duplicate_populations
+
+# ------------------------------------------------------------------------------
+# Get sum of populations
+# ------------------------------------------------------------------------------
+
+set --to calc_array_sum_all.inputs --eq "vint_perpop_nsam,npops"
+set --to calc_array_sum_all.outputs --eq "int_total_nsam"
+run -n calc_array_sum_all
+
+if --ref ploidy[0] --eq HAPLOID
+  set --to total_nsam_initial --eq int_total_nsam
+endif
+
+if --ref ploidy[0] --eq DIPLOID
+  set --to total_nsam_initial --eq int_total_nsam --div 2
+endif
+
+# ------------------------------------------------------------------------------
+# Validate sort_nsam with total_nsam_initial_:
+# ------------------------------------------------------------------------------
+
+if --ref sort_nsam.reg_length --gt 0 --and _
+   --ref sort_nsam.reg_length --ne total_nsam_initial
+  print --text "Error: the number of samples defined i n -N and -O are _
+                different"
+endif
+
+# ------------------------------------------------------------------------------
+# Calc mdw reg lengths. 
+# input:  [x][x]...[x]]
+# output: [(x*x-1)/2][(x*x-1)/2]...[(x*x-1)/2]
+# ------------------------------------------------------------------------------
+set --to calc_array_ope_x.inputs   --eq     "ploidy, _
+                        include_unknown, _
+                        force_outgroup, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops,int_total_nsam"
+set --to calc_array_ope_x.outputs   --eq     "mdw_reg_lengths"
+run -n calc_array_ope_x
+
+# ------------------------------------------------------------------------------
+# Data Memory Allocation
+# ------------------------------------------------------------------------------
+
+dim -n npops_aux --as int64
+set --to npops_aux --eq npops --sub 1
+set --to npops_aux --eq npops_aux --mul npops
+set --to npops_aux --eq npops_aux --div 2
+
+dim -n inttotnsam --as int64
+if --ref outgroup_presence --eq TRUE
+  set --to inttotnsam --eq int_total_nsam
+else
+  set --to inttotnsam --eq int_total_nsam --add 1
+endif
+
+dim -n inttotnsam_add1 --as int64
+set --to inttotnsam_add1 --eq int_total_nsam --add 1
+
+reserve -n nsam2           --len 2         --default 0
+reserve -n psam2           --len 2         --default 0
+reserve -n nsites1_pop         --len npops       --default 0
+reserve -n nsites2_pop         --len npops       --default 0
+reserve -n nsites3_pop         --len npops       --default 0
+reserve -n nsites1_pop_outg     --len npops       --default 0
+reserve -n nsites2_pop_outg     --len npops       --default 0
+reserve -n nsites3_pop_outg     --len npops       --default 0
+reserve -n anx             --len npops       --default 0
+reserve -n bnx             --len npops       --default 0
+reserve -n anxo           --len npops       --default 0
+reserve -n bnxo           --len npops       --default 0
+reserve -n lengthamng         --len npops        --default 0.0 _
+                   --regs npops
+reserve -n sum_sam           --len inttotnsam     --default 0
+reserve -n tcga           --len 4         --default 0 _
+                  --regs inttotnsam
+reserve -n stats_piw_c0       --len npops       --default 0.0
+reserve -n stats_pia_c0       --len npops_aux     --default 0.0
+reserve -n stats_piT_c0       --len npops_aux     --default 0.0
+reserve -n stats_piant_c0       --len npops_aux     --default 0.0
+reserve -n stats_piTnt_c0       --len npops_aux     --default 0.0
+reserve -n stats_fst_c0       --len npops_aux     --default 0.0
+reserve -n stats_piwHKY_c0       --len npops       --default 0.0
+reserve -n stats_piaHKY_c0       --len npops_aux     --default 0.0
+reserve -n stats_piTHKY_c0       --len npops_aux     --default 0.0
+reserve -n stats_fstHKY_c0       --len npops_aux     --default 0.0
+reserve -n stats_fst1all_c0     --len npops_aux     --default 0.0
+reserve -n stats_Gst_c0       --len npops_aux     --default 0.0
+reserve -n stats_hapw_c0       --len npops       --default 0.0
+reserve -n stats_hapa_c0       --len npops_aux     --default 0.0
+reserve -n stats_hapT_c0       --len npops_aux     --default 0.0
+reserve -n stats_fsth_c0       --len npops_aux     --default 0.0
+reserve -n stats_fsth1all_c0     --len npops_aux     --default 0.0
+reserve -n stats_S_c0         --len npops       --default 0.0
+reserve -n stats_So_c0         --len npops       --default 0.0
+reserve -n stats_thetaS_c0       --len npops       --default 0.0
+reserve -n stats_thetaSo_c0     --len npops       --default 0.0
+reserve -n stats_thetaT_c0       --len npops       --default 0.0
+reserve -n stats_thetaTo_c0     --len npops       --default 0.0
+reserve -n stats_thetaTHKY_c0     --len npops       --default 0.0
+reserve -n stats_thetaFL_c0     --len npops       --default 0.0
+reserve -n stats_thetaFW_c0     --len npops       --default 0.0
+reserve -n stats_thetaL_c0       --len npops       --default 0.0
+reserve -n stats_thetaSA_c0     --len npops       --default 0.0
+reserve -n stats_thetaTA_c0     --len npops       --default 0.0
+reserve -n stats_K_c0         --len npops       --default 0.0
+reserve -n stats_KHKY_c0       --len npops       --default 0.0
+reserve -n stats_Dtaj_c0       --len npops       --default 0.0
+reserve -n stats_Dfl_c0       --len npops       --default 0.0
+reserve -n stats_Ffl_c0       --len npops       --default 0.0
+reserve -n stats_Hnfw_c0       --len npops       --default 0.0
+reserve -n stats_Ez_c0         --len npops       --default 0.0
+reserve -n stats_Yach_c0       --len npops       --default 0.0
+reserve -n stats_R2_c0         --len npops       --default 0.0
+reserve -n stats_Fs_c0         --len npops       --default 0.0
+reserve -n stats_Rm_c0         --len npops       --default 0
+reserve -n stats_ZnA_c0       --len npops       --default 0.0
+reserve -n stats_freq_c0       --len vint_perpop_nsam.data _
+                   --default 0.0       --regs npops
+reserve -n stats_freqh_c0       --len int_total_nsam   --default 0 _
+                   --regs npops
+reserve -n stats_nhpop_c0       --len npops       --default 0
+reserve -n stats_length_c0       --len npops       --default 0.0
+reserve -n stats_length2_c0     --len npops       --default 0.0
+reserve -n stats_lengthamng_c0     --len npops       --default 0.0 _
+                  --regs npops
+reserve -n stats_total_tcga_c0     --len 4         --default 0.0
+reserve -n stats_tcga_c0       --len 4         --default 0.0 _
+                   --regs npops
+reserve -n stats_sv_c0         --len 2          --default 0.0 _
+                   --regs npops      --tables npops
+reserve -n stats_svT_c0       --len 2          --default 0.0 _
+                   --regs npops      --tables npops
+reserve -n stats_ToH0_ii_c0     --len npops       --default 0.0
+reserve -n stats_ToH0_00_c0     --len npops       --default 0.0
+reserve -n stats_To_ii_c0       --len npops       --default 0.0
+reserve -n stats_To_00_c0       --len npops       --default 0.0
+reserve -n stats_To_i0_c0       --len npops       --default 0.0
+reserve -n stats_To_Qc_ii_c0     --len npops       --default 0.0
+reserve -n stats_To_Qw_ii_c0     --len npops       --default 0.0
+reserve -n stats_To_Lc_ii_c0     --len npops       --default 0.0
+reserve -n stats_mdsd_c0       --len npops       --default 0.0
+reserve -n stats_mdg1_c0       --len npops       --default 0.0
+reserve -n stats_mdg2_c0       --len npops       --default 0.0
+reserve -n stats_linefreq_c0     --len inttotnsam_add1   --default 0.0 _
+                   --regs int_total_nsam
+reserve -n stats_anx_c0       --len npops       --default 0.0
+reserve -n stats_bnx_c0       --len npops       --default 0.0
+reserve -n stats_anxo_c0       --len npops       --default 0.0
+reserve -n stats_bnxo_c0       --len npops       --default 0.0
+reserve -n stats_mdw_c0       --len mdw_reg_lengths.data _
+                   --default 0.0       --regs npops
+reserve -n stats_piw_c1       --len npops       --default 0.0
+reserve -n stats_pia_c1       --len npops_aux     --default 0.0
+reserve -n stats_piT_c1       --len npops_aux     --default 0.0
+reserve -n stats_fst_c1       --len npops_aux     --default 0.0
+reserve -n stats_piwHKY_c1       --len npops       --default 0.0
+reserve -n stats_piaHKY_c1       --len npops_aux     --default 0.0
+reserve -n stats_piTHKY_c1       --len npops_aux     --default 0.0
+reserve -n stats_fstHKY_c1       --len npops_aux     --default 0.0
+reserve -n stats_fst1all_c1     --len npops_aux     --default 0.0
+reserve -n stats_hapw_c1       --len npops       --default 0.0
+reserve -n stats_hapa_c1       --len npops_aux     --default 0.0
+reserve -n stats_hapT_c1       --len npops_aux     --default 0.0
+reserve -n stats_fsth_c1       --len npops_aux     --default 0.0
+reserve -n stats_fsth1all_c1     --len npops_aux     --default 0.0
+reserve -n stats_Gst_c1       --len npops_aux     --default 0.0
+reserve -n stats_K_c1         --len npops       --default 0.0
+reserve -n stats_KHKY_c1       --len npops       --default 0.0
+reserve -n stats_sv_c1         --len 2          --default 0.0 _
+                  --regs npops       --tables npops
+reserve -n stats_svT_c1       --len 2         --default 0.0 _
+                   --regs npops       --tables npops
+reserve -n stats_nhpop_c1       --len npops       --default 0.0
+reserve -n stats_freqh_c1       --len int_total_nsam   --default 0.0 _
+                  --regs npops
+reserve -n stats_tcga_c1       --len 4         --default 0.0 _
+                  --regs npops
+reserve -n piter_i1         --len npops       --default 0
+reserve -n piter_ih1         --len npops       --default 0
+reserve -n piter_i           --len npops_aux     --default 0
+reserve -n piter_ih         --len npops_aux     --default 0
+reserve -n piter_igh         --len npops_aux     --default 0
+reserve -n piter_niteri1       --len npops       --default 0
+reserve -n piter_niterih1       --len npops       --default 0
+reserve -n piter_niteri       --len npops_aux     --default 0
+reserve -n piter_niterih       --len npops_aux     --default 0
+reserve -n piter_niterigh       --len npops_aux     --default 0
+
+set --to stats_total_length_c1     --eq length_al
+set --to stats_total_svratio_c1   --eq svratio
+set --to stats_nmhits_c1       --eq nmhits
+set --to piter_iall         --eq 0
+set --to piter_ihall         --eq 0
+set --to piter_ighall         --eq 0
+set --to piter_niteriall       --eq 0
+set --to piter_niterihall       --eq 0
+set --to piter_niterighall       --eq 0
+
+# ------------------------------------------------------------------------------
+# ordering data: in case O is not a flag included
+# ------------------------------------------------------------------------------
+
+if --ref sort_nsam.reg_length --eq 0
+
+  reserve -n sort_nsam --len int_total_nsam --default 0
+
+   dim -n sort_index --as int
+  for --ite sort_index --from 0 --to int_total_nsam --inc 1
+      set --to sort_nsam[sort_index] --eq sort_index
+   end-for
+   del -n sort_index
+endif
+
+# ------------------------------------------------------------------------------
+# Show mstatspop information
+# ------------------------------------------------------------------------------
+
+if --ref output --eq 0 --or _
+   --ref output --eq 10
+  print --text ""
+  print --text "mstatspop v.0.1beta (20150707)"
+  print --text "Sebastian E. Ramos-Onsins, Luca Ferretti, Emanuele Raineri, Giacomo Marmorini, William Burgos and Gonzalo Vera"
+  print --text "Variability Analyses of multiple populations: Calculation and estimation of statistics and neutrality tests."
+  print --text ""
+  print -n command_line --mode value
+  print --eol
+  print --text ""
+  print --text ""
+  print --text "****************************************************************************"
+  print --text "*  NUCLEOTIDE VARIABILITY, NEUTRALITY TEST AND POPULATION DIFFERENTIATION  *"
+  print --text "****************************************************************************"
+endif
+
+# ------------------------------------------------------------------------------
+# Open alternative and null frequency spectrum file
+# ------------------------------------------------------------------------------
+
+set --to calc_open_freq_spec_file.inputs --eq _
+                        "ploidy, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        file_H1f, _
+                        file_H0f"
+set --to calc_open_freq_spec_file.outputs --eq _
+                        "stats_H1freq_c0, _
+                        stats_thetaH1_c0, _
+                        stats_H0freq_c0, _
+                        stats_thetaH1_c0, _
+                        H1frq, _
+                        H0frq"
+run -n calc_open_freq_spec_file
+
+# ------------------------------------------------------------------------------
+
+if --ref formatfile --eq FASTA_FILE
+  
+  # --------------------------------------------------------------------------
+  # Read FASTA File
+  # --------------------------------------------------------------------------
+  set --to calc_mstatspop_open_fasta.inputs --eq _
+                        "file_in, _
+                        ploidy, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        matrix_sizepos, _
+                        sort_nsam"
+  set --to calc_mstatspop_open_fasta.outputs --eq _
+                        "length, _
+                        nmhits, _
+                        mhitbp, _
+                        names2, _
+                        n_site, _
+                        DNA_matr2, _
+                        n_samp, _
+                        matrix_segrpos"
+    run -n calc_mstatspop_open_fasta
+
+
+  # --------------------------------------------------------------------------
+  if --ref gfffiles --eq YES
+
+    # ----------------------------------------------------------------------
+    # Filter Dna Matrix with GFF file
+    # ----------------------------------------------------------------------
+
+      set --to calc_gff.inputs --eq _
+                        "include_unknown, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        DNA_matr2, _
+                        file_GFF, _
+                        subset_positions, _
+                        genetic_code, _
+                        criteria_transcript, _
+                        n_samp, _
+                        n_site"
+      set --to calc_gff.outputs --eq _
+                       "matrix_sizepos, _
+                        matrix_segrpos, _
+                        mhitbp, _
+                        nmhits"
+      run -n calc_gff
+
+  endif
+
+  # --------------------------------------------------------------------------
+  # Calculate stats
+  # --------------------------------------------------------------------------
+
+  set --to calc_file_stats.inputs --eq     "ploidy, _
+                        include_unknown, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        int_total_nsam, _
+                        names2, _
+                        n_site, _
+                        DNA_matr2, _
+                        matrix_segrpos, _
+                        n_samp, _
+                        file_in, _
+                        file_mas, _
+                        subset_positions, _
+                        output"
+  set --to calc_file_stats.outputs --eq _
+                        "matrix_pol, _
+                        lengthamng, _
+                        tcga, _
+                        anx, _
+                        bnx, _
+                        anxo, _
+                        bnxo, _
+                        length_al, _
+                        length_seg, _
+                        missratio, _
+                        nsites1_pop, _
+                        nsites1_pop_outg, _
+                        nsites2_pop, _
+                        nsites2_pop_outg, _
+                        nsites3_pop, _
+                        nsites3_pop_outg, _
+                        sum_sam, _
+                        svratio, _
+                        frequencies, _
+                        positions, _
+                        matrix_sv, _
+                        mhitbp, _
+                        length_al_real, _
+                        nmhits, _
+                        matrix_sizepos"
+  run -n calc_file_stats
+
+  set --to niterdata --eq 1
+
+endif
+
+# ------------------------------------------------------------------------------
+
+if --ref formatfile --eq MS_FILE
+
+  # --------------------------------------------------------------------------
+  # MS Mask File
+  # --------------------------------------------------------------------------
+
+  set --to calc_mask_file_ms.inputs --eq _
+                        "include_unknown, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        int_total_nsam, _
+                        file_mas, _
+                        length"
+  set --to calc_mask_file_ms.outputs --eq _
+                        "niter, _
+                        svratio, _
+                        length_al_real, _
+                        vector_mask, _
+                        matrix_mask, _
+                        sum_sam_mask, _
+                        length_mask, _
+                        missratio, _
+                        length_al"
+    run -n calc_mask_file_ms
+
+endif
+
+# ------------------------------------------------------------------------------
+
+for --ite li --from 0 --to niterdata --inc 1
+
+  set --to flaghky --eq TRUE
+   
+    if --ref formatfile --eq MS_FILE
+
+    # ----------------------------------------------------------------------
+      # Read MS File
+      # ----------------------------------------------------------------------
+
+    set --to calc_mstatspop_open_ms.inputs --eq _
+                        "file_in, _
+                        include_unknown, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        int_total_nsam, _
+                        length, _
+                        kind_length, _
+                        vector_mask, _
+                        ms_svratio, _
+                        freq_revert, _
+                        file_mas, _
+                        freq_missing_ms, _
+                        location_missing_ms"
+    set --to calc_mstatspop_open_ms.outputs --eq _
+                        "matrix_pol, _
+                        frequencies, _
+                        positions, _
+                        matrix_sv, _
+                        length_mask, _
+                        lengthamng, _
+                        nmhits, _
+                        matrix_mask, _
+                        vector_priors, _
+                        npriors, _
+                        sum_sam, _
+                        sum_sam_mask, _
+                        nsites1_pop, _
+                        nsites1_pop_outg, _
+                        nsites2_pop, _
+                        nsites2_pop_outg, _
+                        nsites3_pop, _
+                        nsites3_pop_outg, _
+                        anx, _
+                        bnx, _
+                        anxo, _
+                        bnxo, _
+                        missratio"
+
+        if --ref li --eq FIRST_ITERATION
+      run -n calc_mstatspop_open_ms --prepare
+    endif
+
+    run -n calc_mstatspop_open_ms --calculate
+
+# if --ref li --eq 32
+#   set --to $precision --eq 11
+#   print -n file_in
+#   print -n include_unknown
+#   print -n outgroup_presence
+#   print -n vint_perpop_nsam
+#   print -n npops
+#   print -n int_total_nsam
+#   print -n length
+#   print -n kind_length
+#   print -n vector_mask
+#   print -n ms_svratio
+#   print -n freq_revert
+#   print -n file_mas
+#   print -n freq_missing_ms
+#   print -n location_missing_ms
+#   print -n nmhits
+#   exit
+# endif
+
+    # ----------------------------------------------------------------------
+
+    set --to flaghky --eq TRUE
+
+    # ----------------------------------------------------------------------
+
+    set --to calc_x.inputs --eq _
+                        "include_unknown, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        int_total_nsam, _
+                        vector_mask, _
+                        length, _
+                        length_mask, _
+                        sum_sam_mask, _
+                        nmhits, _
+                        file_mas"
+
+    set --to calc_x.outputs --eq _
+                        "length_al, _
+                        flaghky, _
+                        sum_sam, _
+                        stats_length_c0, _
+                        stats_linefreq_c0, _
+                        stats_total_tcga_c0, _
+                        stats_tcga_c0"    
+    run -n calc_x
+
+    endif
+
+  # --------------------------------------------------------------------------  
+    # Calulate effective nucleotides and TCGA frequencies
+    # --------------------------------------------------------------------------
+
+  set --to calc_effec_nuc_TCGA_freqs.inputs --eq _
+                        "vint_perpop_nsam, _
+                        npops, _
+                        nsites2_pop, _
+                        sum_sam, _
+                        anx, _
+                        bnx, _
+                        anxo, _
+                        bnxo, _
+                        tcga"
+  set --to calc_effec_nuc_TCGA_freqs.outputs --eq _
+                        "stats_length_c0, _
+                        stats_length2_c0, _
+                        stats_anx_c0, _
+                        stats_bnx_c0, _
+                        stats_anxo_c0, _
+                        stats_bnxo_c0, _
+                        stats_tcga_c0, _
+                        stats_total_tcga_c0"
+   run -n calc_effec_nuc_TCGA_freqs
+
+  # --------------------------------------------------------------------------
+    # Include lengthMng and calculations
+    # --------------------------------------------------------------------------
+
+  set --to calc_lengthamng_and_calcs.inputs --eq _
+                        "outgroup_presence, _
+                        npops, _
+                        matrix_pol, _
+                        lengthamng, _
+                        length_al, _
+                        length_al_real, _
+                        svratio, _
+                        nmhits"
+  set --to calc_lengthamng_and_calcs.outputs --eq _
+                        "stats_lengthamng_c0, _
+                        stats_total_length_c0, _
+                        stats_total_real_length_c0, _
+                        stats_total_svratio_c0, _
+                        stats_nmhits_c0, _
+                        jfd, _
+                        nfd"
+  run -n calc_lengthamng_and_calcs
+
+  # --------------------------------------------------------------------------
+    # Calculate Sxsfss
+    # --------------------------------------------------------------------------
+
+  set --to calc_sxsfss.inputs --eq _
+                        "force_outgroup, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        matrix_pol, _
+                        positions"
+  set --to calc_sxsfss.outputs --eq _
+                        "sites, _
+                        sanc"
+  run -n calc_sxsfss
+
+  # --------------------------------------------------------------------------
+    # Calculate joint frequency distribution
+    # --------------------------------------------------------------------------
+
+  set --to calc_joint_freq_dist.inputs --eq _
+                        "force_outgroup, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        matrix_pol"
+  set --to calc_joint_freq_dist.outputs --eq _
+                        "jfd, _
+                        stats_linefreq_c0, _
+                        nfd"
+  run -n calc_joint_freq_dist
+
+  # --------------------------------------------------------------------------
+    # Calculate Piwpiafst (1)
+    # --------------------------------------------------------------------------
+
+  set --to calc_piwpiafst.inputs --eq _
+                        "vint_perpop_nsam, _
+                        npops, _
+                        matrix_pol, _
+                        matrix_sv, _
+                        stats_tcga_c0, _
+                        stats_lengthamng_c0, _
+                        flaghky, _
+                        stats_length_c0, _
+                        formatfile"
+  set --to calc_piwpiafst.outputs --eq _
+                        "stats_sv_c0, _
+                        stats_svT_c0, _
+                        stats_fst_c0, _
+                        stats_fst1all_c0, _
+                        stats_fstHKY_c0, _
+                        stats_K_c0, _
+                        stats_KHKY_c0, _
+                        stats_pia_c0, _
+                        stats_piaHKY_c0, _
+                        stats_piT_c0, _
+                        stats_piTHKY_c0, _
+                        stats_piwHKY_c0, _
+                        stats_piw_c0, _
+                        stats_thetaTHKY_c0, _
+                        stats_piant_c0, _
+                        stats_piTnt_c0, _
+                        stats_fstALL_c0"
+  run -n calc_piwpiafst
+
+  # --------------------------------------------------------------------------  
+    # Calculate frequency stats
+    # --------------------------------------------------------------------------
+
+  set --to calc_freq_stats.inputs --eq _
+                        "include_unknown, _
+                        force_outgroup, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        matrix_pol, _
+                        n_ccov, _
+                        H1frq, _
+                        stats_H1freq_c0"
+  set --to calc_freq_stats.outputs --eq _
+                        "stats_Dfl_c0, _
+                        stats_Dtaj_c0, _
+                        stats_Ez_c0, _
+                        stats_Ffl_c0, _
+                        stats_Hnfw_c0, _
+                        stats_S_c0, _
+                        stats_So_c0, _
+                        stats_thetaFL_c0, _
+                        stats_thetaFW_c0, _
+                        stats_thetaL_c0, _
+                        stats_thetaS_c0, _
+                        stats_thetaSA_c0, _
+                        stats_thetaSo_c0, _
+                        stats_thetaT_c0, _
+                        stats_thetaTA_c0, _
+                        stats_thetaTo_c0, _
+                        stats_To_00_c0, _
+                        stats_To_i0_c0, _
+                        stats_To_ii_c0, _
+                        stats_ToH0_00_c0, _
+                        stats_ToH0_ii_c0, _
+                        stats_Yach_c0, _
+                        stats_freq_c0"
+  run -n calc_freq_stats
+
+  if --ref H1frq --eq TRUE --and --ref include_unknown --eq NO
+    
+      # ----------------------------------------------------------------------
+      # Calculate optimal tests
+      # ----------------------------------------------------------------------
+
+    set --to calc_optimal_tests.inputs --eq _
+                        "vint_perpop_nsam, _
+                        npops, _
+                        stats_freq_c0, _
+                        stats_total_length_c0, _
+                        stats_H1freq_c0, _
+                        stats_thetaH1_c0, _
+                        stats_H0freq_c0, _
+                        stats_thetaH0_c0"
+    set --to calc_optimal_tests.outputs --eq _
+                        "stats_ToH0_ii_c0, _
+                        stats_To_ii_c0, _
+                        stats_To_00_c0, _
+                        stats_To_i0_c0, _
+                        stats_ToH0_00_c0, _
+                        stats_To_Qc_ii_c0, _
+                        stats_To_Qw_ii_c0, _
+                        stats_To_Lc_ii_c0"
+    run -n calc_optimal_tests
+
+    endif
+
+  # --------------------------------------------------------------------------
+    # Calculate R2
+    # --------------------------------------------------------------------------
+
+  set --to calc_r2.inputs --eq _
+                        "ploidy, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        matrix_pol, _
+                        stats_S_c0, _
+                        stats_thetaT_c0"
+  set --to calc_r2.outputs --eq _
+                        "stats_R2_c0"  
+  run -n calc_r2
+
+  # --------------------------------------------------------------------------
+    # Calculate R2p
+    # --------------------------------------------------------------------------
+
+  set --to calc_r2p.inputs --eq _
+                        "ploidy, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        matrix_pol, _
+                        sum_sam, _
+                        stats_S_c0, _
+                        stats_thetaT_c0, _
+                        r2i_ploidies"
+  set --to calc_r2p.outputs --eq _
+                        "stats_R2_c0, _
+                        stats_R2p_c0"
+  run -n calc_r2p
+
+  # --------------------------------------------------------------------------
+    # Calculate Mismatch
+    # --------------------------------------------------------------------------
+
+  set --to calc_mismatch.inputs --eq _
+                        "ploidy, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        matrix_pol, _
+                        stats_thetaT_c0"
+  set --to calc_mismatch.outputs --eq _
+                        "stats_mdg1_c0, _
+                        stats_mdg2_c0, _
+                        stats_mdsd_c0, _
+                        stats_mdw_c0"
+  run -n calc_mismatch
+
+  # --------------------------------------------------------------------------
+
+    if --ref ploidy[0] --eq HAPLOID
+
+    # ----------------------------------------------------------------------
+    # Calculate Hwhafsth (1)
+    # ----------------------------------------------------------------------
+
+    set --to calc_hwhafsth.inputs --eq _
+                        "vint_perpop_nsam, _
+                        npops, _
+                        matrix_pol"
+    set --to calc_hwhafsth.outputs --eq _
+                        "stats_nhpop_c0, _
+                        stats_hapw_c0, _
+                        stats_hapa_c0, _
+                        stats_hapT_c0, _
+                        stats_fsth_c0, _
+                        stats_fsth1all_c0, _
+                        stats_freqh_c0, _
+                        stats_nh_c0, _
+                        stats_Gst_c0, _
+                        stats_fsthALL_c0, _
+                        stats_GstALL_c0"
+    run -n calc_hwhafsth
+
+    # ----------------------------------------------------------------------
+    # Calculate Fs
+    # ----------------------------------------------------------------------
+
+    set --to calc_fs.inputs --eq _
+                        "vint_perpop_nsam, _
+                        npops, _
+                        stats_thetaT_c0, _
+                        stats_nhpop_c0"
+    set --to calc_fs.outputs --eq _
+                        "stats_Fs_c0"
+    run -n calc_fs
+
+    endif
+
+    if --ref formatfile --eq FASTA_FILE
+
+      if --ref niter --gt 0 --and --ref npops --gt 2
+
+      if --ref output --eq 0 --or _
+         --ref output --eq 10
+           print --text "Calculating permutation test..."
+        # mstatspop compatibility: duplicate this line:
+        print --text "Calculating permutation test..."
+      endif
+
+      # ------------------------------------------------------------------
+          # Permute 1 pop against rest pops (1 vs all rest (or 2 vs all rest), 
+          # that means ALL mixed). Do once is enough
+          # ------------------------------------------------------------------
+          
+          if --ref npops --gt 2
+
+        dim -n i1 --as int64
+            for --ite i1 --from 0 --to niter --inc 1
+
+                dim -n npops_less_one --as int64
+                set --to npops_less_one --eq npops --sub 1
+
+
+                set --to nsam2[0] --eq vint_perpop_nsam[0]
+                set --to nsam2[1] --eq int_total_nsam _
+                                  --sub vint_perpop_nsam[npops_less_one]
+          set --to nsam2[1] --eq nsam2[1] --sub vint_perpop_nsam[0]
+                set --to psam2[0] --eq 0
+                set --to psam2[1] --eq vint_perpop_nsam[0]
+
+                del -n npops_less_one
+
+          # ----------------------------------------------------------
+                # Permute (2)
+                # ----------------------------------------------------------
+
+          set --to calc_permute.inputs --eq _
+                        "int_total_nsam, _
+                        matrix_pol, _
+                        nsam2, _
+                        psam2"
+          set --to calc_permute.outputs --eq _
+                        "matrix_perm"
+          run -n calc_permute
+
+          set --to flaghky --eq FALSE
+
+          # ----------------------------------------------------------
+                # Calculate Piwpiafst (2)
+                # ----------------------------------------------------------
+
+          set --to calc_piwpiafst.inputs --eq _
+                        "vint_perpop_nsam, _
+                        npops, _
+                        matrix_perm, _
+                        matrix_sv, _
+                        stats_tcga_c1, _
+                        stats_lengthamng_c1, _
+                        flaghky, _
+                        stats_length_c1, _
+                        formatfile"
+          set --to calc_piwpiafst.outputs --eq _
+                        "stats_sv_c1, _
+                        stats_svT_c1, _
+                        stats_fst_c1, _
+                        stats_fst1all_c1, _
+                        stats_fstHKY_c1, _
+                        stats_K_c1, _
+                        stats_KHKY_c1, _
+                        stats_pia_c1, _
+                        stats_piaHKY_c1, _
+                        stats_piT_c1, _
+                        stats_piTHKY_c1, _
+                        stats_piwHKY_c1, _
+                        stats_piw_c1, _
+                        stats_thetaTHKY_c1, _
+                        stats_piant_c1, _
+                        stats_piTnt_c1, _
+                        stats_fstALL_c1"
+          run -n calc_piwpiafst
+
+                if --ref ploidy[0] --eq HAPLOID
+
+            # ------------------------------------------------------
+            # Calculate Hwhafsth (2)
+            # ------------------------------------------------------
+
+            set --to calc_hwhafsth.inputs --eq _
+                        "vint_perpop_nsam, _
+                        npops, _
+                        matrix_perm"
+            set --to calc_hwhafsth.outputs --eq _
+                        "stats_nhpop_c1, _
+                        stats_hapw_c1, _
+                        stats_hapa_c1, _
+                        stats_hapT_c1, _
+                        stats_fsth_c1, _
+                        stats_fsth1all_c1, _
+                        stats_freqh_c1, _
+                        stats_nh_c1, _
+                        stats_Gst_c1, _
+                        stats_fsthALL_c1, _
+                        stats_GstALL_c1"
+            run -n calc_hwhafsth
+
+                endif
+
+          # ----------------------------------------------------------
+                # Calculate Y
+                # ----------------------------------------------------------
+
+          set --to calc_y.inputs --eq _
+                        "ploidy, _
+                        npops, _
+                        stats_fst1all_c0, _
+                        stats_fst1all_c1, _
+                        stats_fsth1all_c0, _
+                        stats_fsth1all_c1, _
+                        stats_fstALL_c0, _
+                        stats_fstALL_c1, _
+                        stats_fsthALL_c0, _
+                        stats_fsthALL_c1, _
+                        stats_GstALL_c0, _
+                        stats_GstALL_c1"
+          set --to calc_y.outputs --eq _
+                         "piter_i1, _
+                        piter_niteri1, _
+                        piter_ih1, _
+                        piter_niterih1, _
+                        piter_iall, _
+                        piter_niteriall, _
+                        piter_ihall, _
+                        piter_niterihall, _
+                        piter_ighall, _
+                        piter_niterighall"
+          run -n calc_y
+
+            end-for
+            del -n i1
+
+        if --ref output --eq 0 --or _
+           --ref output --eq 10
+          print --text "Permutation test one vs all Done."
+          # mstatspop compatibility: duplicate this line:
+          print --text "Permutation test one vs all Done."
+        endif
+
+          endif
+
+      # ------------------------------------------------------------------
+
+      if --ref output --eq 0 --or _
+         --ref output --eq 10
+          print --text "Calculating permutation test for all pair-pair _
+                        comparisons..."
+        # mstatspop compatibility: duplicate this line:
+          print --text "Calculating permutation test for all pair-pair _
+                        comparisons..."
+      endif
+
+      # ------------------------------------------------------------------
+          # Permute pairs of pops
+          # ------------------------------------------------------------------
+
+          dim -n i2 --as int64
+      for --ite i2 --from 0 --to niter --inc 1
+          
+            set --to z_pos --eq 0
+
+            set --to psam2[0] --eq 0
+            set --to psam2[1] --eq 0
+
+              dim -n npops_less_one --as int64
+              set --to npops_less_one --eq npops --sub 1
+              dim -n x --as int64
+        for --ite x --from 0 --to npops_less_one --inc 1
+            
+                set --to nsam2[0] --eq vint_perpop_nsam[x]
+                set --to psam2[1] --eq psam2[0] --add vint_perpop_nsam[x]
+
+                set --to vint_perpop_nsam_iter --eq vint_perpop_nsam
+                
+                set --to npops_iter --eq npops
+
+          dim -n next_x --as int64
+          set --to next_x --eq x --add 1
+                dim -n y --as int64
+          for --ite y --from next_x --to npops --inc 1
+
+            set --to nsam2[1] --eq vint_perpop_nsam[y]
+
+            # ------------------------------------------------------
+            # Permute (3)
+            # ------------------------------------------------------
+
+            set --to calc_permute.inputs --eq _
+                        "int_total_nsam, _
+                        matrix_pol, _
+                        nsam2, _
+                        psam2"
+            set --to calc_permute.outputs --eq _
+                        "matrix_perm"
+            run -n calc_permute
+
+            set --to flaghky --eq FALSE
+
+            # ------------------------------------------------------
+            # Calculate Piwpiafst (3)
+            # ------------------------------------------------------
+
+            set --to calc_piwpiafst.inputs --eq _
+                        "vint_perpop_nsam_iter, _
+                        npops_iter, _
+                        matrix_perm, _
+                        matrix_sv, _
+                        stats_tcga_c1, _
+                        stats_lengthamng_c1, _
+                        flaghky, _
+                        stats_length_c1, _
+                        formatfile"
+            set --to calc_piwpiafst.outputs --eq _
+                        "stats_sv_c1, _
+                        stats_svT_c1, _
+                        stats_fst_c1, _
+                        stats_fst1all_c1, _
+                        stats_fstHKY_c1, _
+                        stats_K_c1, _
+                        stats_KHKY_c1, _
+                        stats_pia_c1, _
+                        stats_piaHKY_c1, _
+                        stats_piT_c1, _
+                        stats_piTHKY_c1, _
+                        stats_piwHKY_c1, _
+                        stats_piw_c1, _
+                        stats_thetaTHKY_c1, _
+                        stats_piant_c1, _
+                        stats_piTnt_c1, _
+                        stats_fstALL_c1"
+            run -n calc_piwpiafst
+
+            if --ref ploidy[0] --eq HAPLOID
+
+              # --------------------------------------------------
+              # Calculate Hwhafsth (3)
+              # --------------------------------------------------
+
+              set --to calc_hwhafsth.inputs --eq _
+                        "vint_perpop_nsam_iter, _
+                        npops_iter, _
+                        matrix_perm"
+              set --to calc_hwhafsth.outputs --eq _
+                        "stats_nhpop_c1, _
+                        stats_hapw_c1, _
+                        stats_hapa_c1, _
+                        stats_hapT_c1, _
+                        stats_fsth_c1, _
+                        stats_fsth1all_c1, _
+                        stats_freqh_c1, _
+                        stats_nh_c1, _
+                        stats_Gst_c1, _
+                        stats_fsthALL_c1, _
+                        stats_GstALL_c1"
+              run -n calc_hwhafsth
+
+            endif
+
+            # ------------------------------------------------------
+            # Calculate Z
+            # ------------------------------------------------------
+
+            set --to calc_z.inputs --eq _
+                        "ploidy, _
+                        z_pos, _
+                        stats_fst_c0, _
+                        stats_fst_c1, _
+                        stats_fsth_c0, _
+                        stats_fsth_c1, _
+                        stats_Gst_c0, _
+                        stats_Gst_c1"
+            set --to calc_z.outputs --eq _
+                        "piter_i, _
+                        piter_niteri, _
+                        piter_ih, _
+                        piter_niterih, _
+                        piter_igh, _
+                        piter_niterigh"
+            run -n calc_z
+
+            set --to psam2[1] --eq psam2[1] _
+                                      --add vint_perpop_nsam[y]
+            set --to z_pos --eq z_pos --add 1 
+
+                end-for
+                del -n y
+          del -n next_x
+
+                set --to psam2[0] --eq psam2[0] --add vint_perpop_nsam[x]
+
+            end-for
+              del -n x
+              del -n npops_less_one
+
+          end-for
+          del -n i2
+
+        endif   # if --ref niter --gt 0 --and --ref npops --gt 2
+    endif       # if --ref formatfile --eq FASTA_FILE
+
+  # --------------------------------------------------------------------------
+    # Print Output
+    # --------------------------------------------------------------------------
+
+  set --to calc_mstatspop_output.inputs --eq _
+                        "matrix_pol, _
+                        positions, _
+                        sites, _
+                        sanc, _
+                        argc, _
+                        file_in, _
+                        file_out, _
+                        gfffiles, _
+                        file_GFF, _
+                        subset_positions, _
+                        code_name, _
+                        genetic_code, _
+                        length, _
+                        length_al, _
+                        length_al_real, _
+                        niter, _
+                        ploidy, _
+                        include_unknown, _
+                        force_outgroup, _
+                        outgroup_presence, _
+                        vint_perpop_nsam, _
+                        npops, _
+                        int_total_nsam, _
+                        svratio, _
+                        missratio, _
+                        jfd, _
+                        nfd, _
+                        H1frq, _
+                        H0frq, _
+                        file_H1f, _
+                        file_H0f, _
+                        vector_priors, _
+                        npriors, _
+                        formatfile, _
+                        freq_missing_ms, _
+                        nsites1_pop, _
+                        nsites1_pop_outg, _
+                        nsites2_pop, _
+                        nsites2_pop_outg, _
+                        nsites3_pop, _
+                        nsites3_pop_outg, _
+                        li, _
+                        r2i_ploidies, _
+                        stats_piw_c0, _
+                        stats_pia_c0, _
+                        stats_piT_c0, _
+                        stats_piant_c0, _
+                        stats_piTnt_c0, _
+                        stats_fst_c0, _
+                        stats_piwHKY_c0, _
+                        stats_piaHKY_c0, _
+                        stats_piTHKY_c0, _
+                        stats_fstHKY_c0, _
+                        stats_fst1all_c0, _
+                        stats_Gst_c0, _
+                        stats_hapw_c0, _
+                        stats_hapa_c0, _
+                        stats_hapT_c0, _
+                        stats_fsth_c0, _
+                        stats_fsth1all_c0, _
+                        stats_fstALL_c0, _
+                        stats_fsthALL_c0, _
+                        stats_GstALL_c0, _
+                        stats_S_c0, _
+                        stats_So_c0, _
+                        stats_thetaS_c0, _
+                        stats_thetaSo_c0, _
+                        stats_thetaT_c0, _
+                        stats_thetaTo_c0, _
+                        stats_thetaTHKY_c0, _
+                        stats_thetaFL_c0, _
+                        stats_thetaFW_c0, _
+                        stats_thetaL_c0, _
+                        stats_thetaSA_c0, _
+                        stats_thetaTA_c0, _
+                        stats_K_c0, _
+                        stats_KHKY_c0, _
+                        stats_Dtaj_c0, _
+                        stats_Dfl_c0, _
+                        stats_Ffl_c0, _
+                        stats_Hnfw_c0, _
+                        stats_Ez_c0, _
+                        stats_Yach_c0, _
+                        stats_R2_c0, _
+                        stats_Fs_c0, _
+                        stats_Rm_c0, _
+                        stats_ZnA_c0, _
+                        stats_freq_c0, _
+                        stats_nh_c0, _
+                        stats_nhpop_c0, _
+                        stats_freqh_c0, _
+                        stats_length_c0, _
+                        stats_length2_c0, _
+                        stats_lengthamng_c0, _
+                        stats_total_length_c0, _
+                        stats_total_real_length_c0, _
+                        stats_total_svratio_c0, _
+                        stats_total_tcga_c0, _
+                        stats_tcga_c0, _
+                        stats_sv_c0, _
+                        stats_svT_c0, _
+                        stats_nmhits_c0, _
+                        stats_H1freq_c0, _
+                        stats_thetaH1_c0, _
+                        stats_H0freq_c0, _
+                        stats_thetaH0_c0, _
+                        stats_ToH0_ii_c0, _
+                        stats_ToH0_00_c0, _
+                        stats_To_ii_c0, _
+                        stats_To_00_c0, _
+                        stats_To_i0_c0, _
+                        stats_To_Qc_ii_c0, _
+                        stats_To_Qw_ii_c0, _
+                        stats_To_Lc_ii_c0, _
+                        stats_mdsd_c0, _
+                        stats_mdg1_c0, _
+                        stats_mdg2_c0, _
+                        stats_mdw_c0, _
+                        stats_linefreq_c0, _
+                        stats_anx_c0, _
+                        stats_bnx_c0, _
+                        stats_anxo_c0, _
+                        stats_bnxo_c0, _
+                        stats_R2p_c0, _
+                        piter_i, _
+                        piter_ih, _
+                        piter_igh, _
+                        piter_i1, _
+                        piter_ih1, _
+                        piter_niteri, _
+                        piter_niterih, _
+                        piter_niterigh, _
+                        piter_niteri1, _
+                        piter_niterih1, _
+                        piter_iall, _
+                        piter_ihall, _
+                        piter_ighall, _
+                        piter_niteriall, _
+                        piter_niterihall, _
+                        piter_niterighall, _
+                        output, _
+                        seed"
+  run -n calc_mstatspop_output
+
+end-for
+
+if --ref formatfile --eq MS_FILE
+  run -n calc_mstatspop_open_ms --finalize
+endif
+
+
+# ============================================================================
+# END
+# ============================================================================
+
+
+

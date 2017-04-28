@@ -1,0 +1,12 @@
+{
+  "//" : "Must also install jspp",
+  "devDependencies": {
+    "jison": "0.4.6",
+    "jshint": "~2.0.x",
+    "uglify-js": "~2.3.x",
+    "qunit": "0.7.x"
+  },
+  "scripts": {
+    "test": "make test"
+  }
+}

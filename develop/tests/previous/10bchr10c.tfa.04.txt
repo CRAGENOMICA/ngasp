@@ -1,0 +1,22 @@
+#Run: 0
+#SNP chr ind000000 ind000001 ind000002 ind000003 ind000004 ind000005 ind000006 ind000007 ind000008 ind000009 ind000010 ind000011 ind000012 ind000013 ind000014 ind000015 ind000016 ind000017 ind000018 ind000019 ind000020 ind000021 ind000022 ind000023 ind000024 ind000025 ind000026 ind000027 ind000028 ind000029 ind000030 ind000031 ind000032 ind000033 ind000034 ind000035 ind000036 ind000037 ind000038 ind000039 ind001000 ind001001
+1         0         A A A A A A A A A A A A A N N N N N N T T T T T A A A A A A A A T T T A A A A N A A
+1         0         A A A A A A A A A A A A A G G G G G G N N N N N A A A A A A A A N N N A A A A N A A
+1         0         A A A A A A A A A A A A A N N N N N N N N N N N A A A A A A A A N N N A A A A C A A
+2         0         A A A A A A A A A A A A A T T T T T T T T T T T A A A A A A A A T T T A A A A N A A
+2         0         A A A A A A A A A A A A A N N N N N N N N N N N A A A A A A A A N N N A A A A C A A
+3         0         A A A A A A A A A A A A A T T T T T T T T T T T A A A A A A A A T T T A A A A N A A
+3         0         A A A A A A A A A A A A A N N N N N N N N N N N A A A A A A A A N N N A A A A C A A
+4         0         A A A A A A A A A A A A A N N N N N N T T T T T A A A A A A A A T T T A A A A N A A
+4         0         A A A A A A A A A A A A A G G G G G G N N N N N A A A A A A A A N N N A A A A N A A
+4         0         A A A A A A A A A A A A A N N N N N N N N N N N A A A A A A A A N N N A A A A C A A
+5         0         A A A A A A A A A A A A A T T T T T T T T T T T A A A A A A A A T T T A A A A N A A
+5         0         A A A A A A A A A A A A A N N N N N N N N N N N A A A A A A A A N N N A A A A C A A
+6         0         A A A A A A A A A A A A A T T T T T T T T T T T A A A A A A A A T T T A A A A N A A
+6         0         A A A A A A A A A A A A A N N N N N N N N N N N A A A A A A A A N N N A A A A C A A
+8         0         A A A A A A A A A A A A A T T T T T T T T T T T A A A A A A A A T T T A A A A N A A
+8         0         A A A A A A A A A A A A A N N N N N N N N N N N A A A A A A A A N N N A A A A C A A
+9         0         A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A
+10        0         A A A A A A A A A A A A A N N N N N N T T T T T A A A A A A A A T T T A A A A N A A
+10        0         A A A A A A A A A A A A A G G G G G G N N N N N A A A A A A A A N N N A A A A N A A
+10        0         A A A A A A A A A A A A A N N N N N N N N N N N A A A A A A A A N N N A A A A C A A

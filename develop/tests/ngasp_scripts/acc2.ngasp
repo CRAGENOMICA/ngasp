@@ -1,0 +1,33 @@
+
+dim -n x --as int
+dim -n v --as int_vector
+dim -n m --as int_matrix
+
+set-value --to x --eq 7
+set-value --to v --eq "1,2,3"
+set-value --to m  --eq "55,66,77;88,99,44"
+
+
+dim -n mx --as int_matrix
+dim -n mv --as int_matrix
+dim -n mm --as int_matrix
+
+
+
+# Append at the end but with the index number
+
+dim -n ite --as int
+set-value --to ite --eq 0
+
+for --ite ite --from 0 --to 3 --inc 1
+    matappend --to mx --add x --index ite
+    matappend --to mv --add v --index ite
+    matappend --to mm --add m --index ite
+end-for
+
+print -n mx --mode value --eol --text "mx:"
+print -n mv --mode value --eol --text "mv:"
+print -n mm --mode value --eol --text "mm:"
+
+
+

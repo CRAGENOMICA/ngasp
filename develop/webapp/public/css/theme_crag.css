@@ -1,0 +1,441 @@
+/*
+-------------------------------------------------------------------------------
+Company Colors
+-------------------------------------------------------------------------------
+*/
+
+/*
+--------------------------------------------------------------------------------
+Font Styles
+--------------------------------------------------------------------------------
+*/
+.theme_crag .default_font
+{
+    color: #5e5e5e;
+}
+
+/* z-index: 1 to be over graphs */
+.theme_crag .company_title_1_font
+{
+    font-family: 'robotoregular';
+    font-size: 15px;
+
+	color: white; /*taronja #da8d0a;*/
+    background-color: #7f984b;
+
+	text-transform: uppercase;
+
+	z-index: 1;
+
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	margin: 0px;
+}
+
+.theme_crag .company_title_2_font
+{
+	/* Font Detector */
+    font-family: 'robotoregular';
+    font-size: 17px;
+
+	color: #445f2e;
+
+    text-transform: uppercase;
+
+	z-index: 1;
+
+	padding: 0px;
+	margin: 0px;
+}
+
+.theme_crag .company_title_3_font
+{
+	/* Font Detector */
+    font-family: 'robotoregular';
+    font-size: 12px;
+
+	color: #828282;
+
+	z-index: 1;
+
+	padding: 0px;
+	margin: 0px;
+}
+
+/*
+-------------------------------------------------------------------------------
+Company Colors - CRAG
+-------------------------------------------------------------------------------
+*/
+.theme_crag
+{
+	margin: 0px;
+	padding: 0px;
+	height: 100%;	/* menu height 100% */
+    background-color: white;
+}
+
+
+/*
+.tooltip-arrow,
+.red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+*/
+
+.theme_crag .company_background_titlebar_color
+{
+    border-bottom: 5px solid white;
+    background-color: rgb(68,95,46); /*#445f2e;*/
+
+    color: white;
+}
+
+/* this must be the same as company_background_titlebar_color but for "color"
+instead of "background" */
+.theme_crag .company_text_color 
+{
+    color: rgb(68,95,46); /*#445f2e;*/
+}
+
+.theme_crag .company_sub_text_color 
+{
+    color: white; /*color: #99d651;*/
+}
+
+
+.theme_crag .default_button_color
+{
+    background-color: rgb(68,95,46); /*#445f2e;*/
+    color: white;
+}
+
+.theme_crag .company_background_window_color
+{
+    background-color: white;
+}
+
+.theme_crag .company_background_menu_color
+{
+    background-color: rgb(68,95,46); /*#445f2e;*/
+}
+
+.theme_crag .company_background_color_extra_1
+{
+	background-color: #da8d0a;
+}
+
+.theme_crag .company_background_color_extra_2
+{
+	background-color: #9a311b;
+}
+
+.theme_crag .company_background_color_extra_3
+{
+	background-color: #87592b;
+}
+
+.theme_crag .company_background_color_extra_4
+{
+	background-color: #293d25;
+}
+
+
+
+/* Popup menu options */
+.theme_crag .dropdown-menu>li>a
+{
+    color: white;
+    font-weight: 500;
+}
+
+/*
+--------------------------------------------------------------------------------
+Context Menu
+--------------------------------------------------------------------------------
+*/
+.theme_crag .dropdown-menu {
+    background: rgb(68,95,46);
+    padding: 5px;
+}
+.theme_crag .dropdown-menu li a {
+    color: white;
+}
+/*
+--------------------------------------------------------------------------------
+*/
+
+
+/* Popup menu options */
+.theme_crag .dropdown-menu>li>a:hover
+{
+    color: white;
+    background:rgba(0,0,0,0.2);
+    font-weight: 500;
+}
+
+
+/* Menu */
+
+/* Cursor is hover the menu item */
+.theme_crag .menu .menu_item:hover
+{
+	background:rgba(255,255,255,0.2);
+}
+
+/* Row selected on the menu */
+.theme_crag .row_selected
+{
+	background:rgba(255,255,255,0.2);
+}
+
+.theme_crag .menu_item_font
+{
+	margin-left: 0px;
+	color: white;
+}
+
+.theme_crag .menu_item a
+{
+	text-decoration: none;
+    color: white;
+}
+
+.theme_crag .menu_subitem
+{
+	color: white;
+}
+
+.theme_crag .menu_subitem:hover
+{
+    color: white;
+    background:rgba(255,255,255,0.2);
+    font-weight: 500;
+}
+
+.theme_crag .subitem_selected
+{
+    color: white;
+    background:rgba(255,255,255,0.2);
+    font-weight: 500;
+}
+
+/*
+-------------------------------------------------------------------------------
+Popup Messages
+-------------------------------------------------------------------------------
+*/
+.theme_crag .modal-header
+{
+    background-color: rgb(68,95,46); /*#445f2e;*/
+	color: #fff;
+}
+
+.theme_crag .modal-footer
+{
+    background-color: #edecec;
+	color: #fff;
+}
+
+.theme_crag .alert-footer
+{
+    background-color: #edecec;
+	color: #fff;
+}
+
+
+/*
+-------------------------------------------------------------------------------
+Windows
+-------------------------------------------------------------------------------
+*/
+
+.theme_crag .graph_box
+{
+    border: 1px #bdcf5b solid;
+}
+
+.theme_crag #graph_little_box_1
+{
+    border: 1px #bdcf5b solid;
+}
+
+.theme_crag #graph_little_box_2
+{
+    border: 1px #bdcf5b solid;
+}
+
+.theme_crag #graph_little_box_3
+{
+    border: 1px #bdcf5b solid;
+}
+
+.theme_crag #graph_little_box_4
+{
+    border: 1px #bdcf5b solid;
+}
+
+/*
+-------------------------------------------------------------------------------
+Tables
+-------------------------------------------------------------------------------
+*/
+
+.theme_crag .selected_row
+{
+  color: gray;
+	background-color: rgba(68,95,46,0.1);
+}
+
+.theme_crag .table_row:hover
+{
+    color: #666;
+    background: rgba(68,95,46,0.1);
+}
+
+/*
+-------------------------------------------------------------------------------
+Tool Buttons
+-------------------------------------------------------------------------------
+*/
+
+.theme_crag #experiment_tools
+{
+/* background-color: transparent;*/
+    box-shadow: 0px 1px 5px #444;
+}
+
+.theme_crag #button_calculations
+{
+	background-image: url(../images/fx_icon.svg);
+}
+
+
+.theme_crag #button_dms
+{
+	background-image: url(../images/dm_icon.svg); 
+}
+
+.theme_crag #button_inputs
+{
+	background-image: url(../images/input_icon.svg); 
+}
+
+.theme_crag #button_outputs
+{
+	background-image: url(../images/output_icon.svg); 
+}
+
+.theme_crag #button_datas
+{
+	background-image: url(../images/data_icon.svg); 
+}
+
+.theme_crag #button_graphs
+{
+	background-image: url(../images/graph_icon.svg); 
+}
+
+.theme_crag #button_pipelines
+{
+	background-image: url(../images/pipeline_icon.svg); 
+}
+
+/*
+-------------------------------------------------------------------------------
+Nav Tab Bar
+-------------------------------------------------------------------------------
+*/
+
+/* Not selected document tab */
+.theme_crag .nav-tabs>li,
+.theme_crag .nav-tabs>li>a
+{
+    color: #e6e6e6;
+    background-color: transparent;
+}
+
+/* Selected document tab */
+.theme_crag .nav-tabs>li.active,
+.theme_crag .nav-tabs>li.active>a,
+.theme_crag .nav-tabs>li.active>a:focus
+{
+    color: #445f2e;
+    background-color: #eee;
+}
+
+/* Over document tab */
+.theme_crag .nav-tabs>li:hover,
+.theme_crag .nav-tabs>li>a:hover
+{
+    color: #445f2e;
+    background-color: #eee;
+}
+
+
+.theme_crag .nav_tab_bar_bottom_line
+{
+    padding: 0px;
+    margin: 0px;
+    border-bottom: 1px solid #444;
+}
+
+.theme_crag .nav-tabs
+{
+    border: 0px;
+    border-right:  1px solid #eee;
+}
+
+.theme_crag .document_tab
+{
+    border-right: 1px solid #888;
+    border-left:  1px solid #eee;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+.theme_crag .graph_menu,
+.theme_crag .graph_refresh,
+.theme_crag .graph_close
+{
+	color: darkgray;
+}
+
+/*
+-------------------------------------------------------------------------------
+Scrollbars
+-------------------------------------------------------------------------------
+*/
+
+.theme_crag::-webkit-scrollbar,
+.theme_crag .menu_auto_scroll::-webkit-scrollbar,
+.theme_crag .menu_node::-webkit-scrollbar,
+.theme_crag .console::-webkit-scrollbar
+{
+    width: 1em;
+}
+
+.theme_crag::-webkit-scrollbar-track, 
+.theme_crag .menu_auto_scroll::-webkit-scrollbar-track,
+.theme_crag .menu_node::-webkit-scrollbar-track,
+.theme_crag .console::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 20px #8ba23a;
+}
+
+.theme_crag::-webkit-scrollbar-thumb, 
+.theme_crag .menu_auto_scroll::-webkit-scrollbar-thumb,
+.theme_crag .menu_node::-webkit-scrollbar-thumb,
+.theme_crag .console::-webkit-scrollbar-thumb
+{
+  background-color: #8ba23a;
+  /*outline: 3px solid #99d651;*/
+}
+
+.theme_crag .output_panel
+{
+  background-color: white;
+}
+

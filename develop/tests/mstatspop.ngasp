@@ -1,0 +1,19 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/mstatspop.ngasp
+
+verbose --level debug
+
+# mstatspop -f fasta -i examples/input.fa -N 1 48 -T "/home/jjene/NetBeansProjects/ngaSP/tests/test1/ngasp.txt"
+
+# print --text "out of the file 1" --eol
+# mstatspop -f fasta -i examples/input.fa -N 1 48 -T "/home/jjene/NetBeansProjects/ngaSP/tests/test1/ngasp.txt"
+# print --text "out of the file 2" --eol
+
+
+# print --text "out of the file 1" --eol
+# output --name "/home/jjene/NetBeansProjects/ngaSP/tests/test1/ngasp.txt"
+# mstatspop -f fasta -i examples/input.fa -N 1 48
+# output --screen
+# print --text "out of the file 2" --eol
+
+mstatspop -f fasta -i examples/input.fa -N 1 48
+

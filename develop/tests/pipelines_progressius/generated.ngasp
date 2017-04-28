@@ -1,0 +1,127 @@
+verbose --level debug
+set --to $encoding --eq "english_bn"
+dry-run -x true
+
+dim -n experiment_1_15_15_56_gtf-file_5_0 --as gtf-file
+set --to experiment_1_15_15_56_gtf-file_5_0 --eq ""
+dim -n experiment_1_15_15_56_bed-file_6_0 --as bed-file
+set --to experiment_1_15_15_56_bed-file_6_0 --eq ""
+dim -n experiment_1_15_15_56_string_7_0 --as string
+set --to experiment_1_15_15_56_string_7_0 --eq ""
+dim -n experiment_1_15_15_56_string_1_0 --as string
+set --to experiment_1_15_15_56_string_1_0 --eq "./output/statistics.txt"
+dim -n experiment_1_15_15_56_string_vector_2_0 --as string_vector
+set --to experiment_1_15_15_56_string_vector_2_0 --eq "./data/Banjo.chr12.20X.sorted.realigned.bam,./data/Mimi.chr12.20X.sorted.realigned.bam"
+dim -n experiment_1_15_15_56_string_3_0 --as string
+set --to experiment_1_15_15_56_string_3_0 --eq "./data/reference.fas"
+dim -n experiment_1_15_15_56_text-file_4_0 --as text-file
+set --to experiment_1_15_15_56_text-file_4_0 --eq "./data/reference.fas"
+dim -n experiment_1_15_15_56_text-file_8_0 --as text-file
+set --to experiment_1_15_15_56_text-file_8_0 --eq "./data/required_columns1.txt"
+dim -n experiment_1_15_15_56_text-file_9_0 --as text-file
+set --to experiment_1_15_15_56_text-file_9_0 --eq "./output/filtered_statistics.txt"
+dim -n experiment_1_15_15_56_pipeline1_int_13_0 --as int
+set --to experiment_1_15_15_56_pipeline1_int_13_0 --eq "1"
+dim -n experiment_1_15_15_56_pipeline1_string_11_0 --as string
+set --to experiment_1_15_15_56_pipeline1_string_11_0 --eq "1 4"
+dim -n experiment_1_15_15_56_pipeline1_char_vector_21_0 --as char_vector
+set --to experiment_1_15_15_56_pipeline1_char_vector_21_0 --eq "max"
+dim -n experiment_1_15_15_56_pipeline1_float_20_0 --as float
+set --to experiment_1_15_15_56_pipeline1_float_20_0 --eq "0.5"
+dim -n experiment_1_15_15_56_pipeline1_int64_19_0 --as int64
+set --to experiment_1_15_15_56_pipeline1_int64_19_0 --eq "1"
+dim -n experiment_1_15_15_56_pipeline1_string_23_0 --as string
+set --to experiment_1_15_15_56_pipeline1_string_23_0 --eq "-1"
+dim -n experiment_1_15_15_56_pipeline1_int_12_0 --as int
+set --to experiment_1_15_15_56_pipeline1_int_12_0 --eq "0"
+dim -n experiment_1_15_15_56_pipeline1_int_14_0 --as int
+set --to experiment_1_15_15_56_pipeline1_int_14_0 --eq "1"
+dim -n experiment_1_15_15_56_pipeline1_int_22_0 --as int
+set --to experiment_1_15_15_56_pipeline1_int_22_0 --eq "1"
+dim -n experiment_1_15_15_56_pipeline1_int_10_0 --as int
+set --to experiment_1_15_15_56_pipeline1_int_10_0 --eq "1"
+dim -n experiment_1_15_15_56_pipeline1_int64_15_0 --as int64
+set --to experiment_1_15_15_56_pipeline1_int64_15_0 --eq "1000"
+dim -n experiment_1_15_15_56_pipeline1_calc-bam-to-mpileup_0_0 --as mpileup-file
+calc -n experiment_1_15_15_56_pipeline1_calc-bam-to-mpileup_0 --as calc-bam-to-mpileup
+set --to experiment_1_15_15_56_pipeline1_calc-bam-to-mpileup_0.inputs --eq "experiment_1_15_15_56_string_vector_2_0,experiment_1_15_15_56_string_3_0"
+set --to experiment_1_15_15_56_pipeline1_calc-bam-to-mpileup_0.outputs --eq "experiment_1_15_15_56_pipeline1_calc-bam-to-mpileup_0_0"
+dry-run -x true
+run -n experiment_1_15_15_56_pipeline1_calc-bam-to-mpileup_0
+dry-run -x false
+if --ref $result --ne 0
+  exit
+endif
+dim -n experiment_1_15_15_56_pipeline1_mpileup-file_in_3_0 --as mpileup-file
+set-value --to experiment_1_15_15_56_pipeline1_mpileup-file_in_3_0 --eq experiment_1_15_15_56_pipeline1_calc-bam-to-mpileup_0_0
+dim -n experiment_1_15_15_56_pipeline1_calc-snp-caller_3_0 --as fasta-file
+calc -n experiment_1_15_15_56_pipeline1_calc-snp-caller_3 --as calc-snp-caller
+set --to experiment_1_15_15_56_pipeline1_calc-snp-caller_3.inputs --eq "experiment_1_15_15_56_pipeline1_mpileup-file_in_3_0"
+set --to experiment_1_15_15_56_pipeline1_calc-snp-caller_3.outputs --eq "experiment_1_15_15_56_pipeline1_calc-snp-caller_3_0"
+run -n experiment_1_15_15_56_pipeline1_calc-snp-caller_3
+del -n experiment_1_15_15_56_pipeline1_mpileup-file_in_3_0
+if --ref $result --ne 0
+  exit
+endif
+dim -n experiment_1_15_15_56_pipeline1_text-file_in_4_0 --as text-file
+set-value --to experiment_1_15_15_56_pipeline1_text-file_in_4_0 --eq experiment_1_15_15_56_pipeline1_calc-snp-caller_3_0
+dim -n experiment_1_15_15_56_pipeline1_calc-concat-files_4_0 --as text-file
+calc -n experiment_1_15_15_56_pipeline1_calc-concat-files_4 --as calc-concat-files
+set --to experiment_1_15_15_56_pipeline1_calc-concat-files_4.inputs --eq "experiment_1_15_15_56_pipeline1_text-file_in_4_0,experiment_1_15_15_56_text-file_4_0"
+set --to experiment_1_15_15_56_pipeline1_calc-concat-files_4.outputs --eq "experiment_1_15_15_56_pipeline1_calc-concat-files_4_0"
+run -n experiment_1_15_15_56_pipeline1_calc-concat-files_4
+del -n experiment_1_15_15_56_pipeline1_text-file_in_4_0
+if --ref $result --ne 0
+  exit
+endif
+dim -n experiment_1_15_15_56_pipeline1_fasta-file_in_6_0 --as fasta-file
+set-value --to experiment_1_15_15_56_pipeline1_fasta-file_in_6_0 --eq experiment_1_15_15_56_pipeline1_calc-concat-files_4_0
+dim -n experiment_1_15_15_56_pipeline1_calc-fasta-to-tfasta_6_0 --as t-fasta-file
+calc -n experiment_1_15_15_56_pipeline1_calc-fasta-to-tfasta_6 --as calc-fasta-to-tfasta
+set --to experiment_1_15_15_56_pipeline1_calc-fasta-to-tfasta_6.inputs --eq "experiment_1_15_15_56_pipeline1_fasta-file_in_6_0,experiment_1_15_15_56_gtf-file_5_0,experiment_1_15_15_56_bed-file_6_0"
+set --to experiment_1_15_15_56_pipeline1_calc-fasta-to-tfasta_6.outputs --eq "experiment_1_15_15_56_pipeline1_calc-fasta-to-tfasta_6_0"
+run -n experiment_1_15_15_56_pipeline1_calc-fasta-to-tfasta_6
+del -n experiment_1_15_15_56_pipeline1_fasta-file_in_6_0
+if --ref $result --ne 0
+  exit
+endif
+dim -n experiment_1_15_15_56_pipeline1_string_in_7_29 --as string
+set-value --to experiment_1_15_15_56_pipeline1_string_in_7_29 --eq experiment_1_15_15_56_pipeline1_calc-fasta-to-tfasta_6_0
+dim -n experiment_1_15_15_56_pipeline1_calc-mstatspop_7_0 --as string
+calc -n experiment_1_15_15_56_pipeline1_calc-mstatspop_7 --as calc-mstatspop
+set --to experiment_1_15_15_56_pipeline1_calc-mstatspop_7.inputs --eq "experiment_1_15_15_56_pipeline1_string_11_0,experiment_1_15_15_56_pipeline1_int_13_0,experiment_1_15_15_56_pipeline1_int_14_0,experiment_1_15_15_56_string_1_0,null,experiment_1_15_15_56_pipeline1_int_12_0,null,null,null,null,experiment_1_15_15_56_pipeline1_string_23_0,null,experiment_1_15_15_56_pipeline1_int64_19_0,null,null,null,experiment_1_15_15_56_pipeline1_float_20_0,null,null,null,null,null,null,null,null,null,null,experiment_1_15_15_56_pipeline1_char_vector_21_0,null,experiment_1_15_15_56_pipeline1_string_in_7_29,null,experiment_1_15_15_56_pipeline1_int_10_0,null,null,experiment_1_15_15_56_string_7_0,experiment_1_15_15_56_pipeline1_int64_15_0,null,experiment_1_15_15_56_pipeline1_int_22_0,null,null"
+set --to experiment_1_15_15_56_pipeline1_calc-mstatspop_7.outputs --eq "experiment_1_15_15_56_pipeline1_calc-mstatspop_7_0"
+run -n experiment_1_15_15_56_pipeline1_calc-mstatspop_7
+del -n experiment_1_15_15_56_pipeline1_string_in_7_29
+if --ref $result --ne 0
+  exit
+endif
+dim -n experiment_1_15_15_56_pipeline1_text-file_in_9_0 --as text-file
+set-value --to experiment_1_15_15_56_pipeline1_text-file_in_9_0 --eq experiment_1_15_15_56_pipeline1_calc-mstatspop_7_0
+dim -n experiment_1_15_15_56_pipeline1_calc-collect-data-columns_9_0 --as text-file
+calc -n experiment_1_15_15_56_pipeline1_calc-collect-data-columns_9 --as calc-collect-data-columns
+set --to experiment_1_15_15_56_pipeline1_calc-collect-data-columns_9.inputs --eq "experiment_1_15_15_56_pipeline1_text-file_in_9_0,experiment_1_15_15_56_text-file_8_0"
+set --to experiment_1_15_15_56_pipeline1_calc-collect-data-columns_9.outputs --eq "experiment_1_15_15_56_pipeline1_calc-collect-data-columns_9_0"
+run -n experiment_1_15_15_56_pipeline1_calc-collect-data-columns_9
+del -n experiment_1_15_15_56_pipeline1_text-file_in_9_0
+if --ref $result --ne 0
+  exit
+endif
+del -n experiment_1_15_15_56_pipeline1_calc-bam-to-mpileup_0_0
+del -n experiment_1_15_15_56_pipeline1_calc-snp-caller_3_0
+del -n experiment_1_15_15_56_pipeline1_calc-concat-files_4_0
+del -n experiment_1_15_15_56_pipeline1_calc-fasta-to-tfasta_6_0
+del -n experiment_1_15_15_56_pipeline1_calc-mstatspop_7_0
+del -n experiment_1_15_15_56_pipeline1_calc-collect-data-columns_9_0
+del -n experiment_1_15_15_56_pipeline1_int_13_0
+del -n experiment_1_15_15_56_pipeline1_string_11_0
+del -n experiment_1_15_15_56_pipeline1_char_vector_21_0
+del -n experiment_1_15_15_56_pipeline1_float_20_0
+del -n experiment_1_15_15_56_pipeline1_int64_19_0
+del -n experiment_1_15_15_56_pipeline1_string_23_0
+del -n experiment_1_15_15_56_pipeline1_int_12_0
+del -n experiment_1_15_15_56_pipeline1_int_14_0
+del -n experiment_1_15_15_56_pipeline1_int_22_0
+del -n experiment_1_15_15_56_pipeline1_int_10_0
+del -n experiment_1_15_15_56_pipeline1_int64_15_0
+

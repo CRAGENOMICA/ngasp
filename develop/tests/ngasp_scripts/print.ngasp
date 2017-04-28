@@ -1,0 +1,19 @@
+verbose --level normal
+print --eol
+
+dim -n vector --as float_vector
+set --to vector.data --eq "1.14827 2.14827 3.14827"
+set --to $precision --eq 2
+
+
+
+print --text "*** print --mode normal ***" --mode normal -n vector
+print --eol
+print --text "*** print --mode json ***" --mode json -n vector --eol
+print --eol
+print --text "*** print --mode ngasp ***" --mode ngasp -n vector
+print --eol
+print --text "*** print --mode value ***" --mode value -n vector --eol
+print --eol
+
+

@@ -1,0 +1,615 @@
+  <style>
+    .error_message {
+      color: white;
+      background-color: red;
+    }
+    .warning_message {
+      color: black;
+      background-color: yellow;
+    }
+    .ok_result {
+      color: black;
+      background-color: white;
+    }
+    .ko_result {
+      color: red;
+      background-color: white;
+    }
+  </style>
+
+<div style="padding:0px;margin:0px" ng-class="{'sidebar_left_and_right':GetEditorType()==FileType.EXPERIMENT,'sidebar_only_left':GetEditorType()==FileType.PIPELINE}">
+	<!-- do not set the controller here because it is in the $stateProvider -->
+
+<!--
+    <menu type="context" id="MenuNode">
+      on mouse down do: $scope.$apply(); for updating ng-if condition
+      <menuitem label="Show Grid" type="checkbox" checked="ShowGrid" ng-click="OnShowHideGrid()" ng-if="!SelectedNodes()"></menuitem>
+      <menuitem label="Add Variable" ng-click="OnAddVariable()" ng-if="ConnectorSelected()"></menuitem>
+      <menuitem label="Add Input" ng-click="OnAddInput()" ng-if="InputConnectorSelected()"></menuitem>
+      <menuitem label="Add Output" ng-click="OnAddOutput()" ng-if="OutputConnectorSelected()"></menuitem>
+      <menuitem label="Remove" ng-click="OnRemoveNode()" ng-if="SelectedNodes()"></menuitem>
+      <menuitem label="Dry Run" type="checkbox" ng-checked="!node_selected.enabled" ng-click="OnSetDryRun()" ng-if="SelectedNodes()"></menuitem>
+    </menu>
+-->
+    <!-- INPUT -->
+    <input id="input" style="position:absolute; left:0; top:0px; z-index:9999; border:0px; text-align:center; color:black" type="text" ng-enter="" ng-show="InputVisible()" >
+
+  	<div id="sidebar">
+        <!-- CANVAS -->
+  		<canvas id="myCanvas" droppable drop="handleDrop" ng-show="true" context-menu="canvasMenuOptions()" context-menu-class="custom_context_menu_class" model="MenuType"></canvas>  <!-- contextmenu="MenuNode" -->
+
+        <!-- NAV TABS -->
+        <div class="nav_tab_bar company_background_menu_color company_sub_text_color nav_tab_bar_bottom_line">
+            <span  ng-show="GetEditorType()=={{FileType.EXPERIMENT}}" class="nav_tab_title horizontal_aligment nav_tab_title_font">Experiment Editor</span>
+            <span  ng-show="GetEditorType()=={{FileType.PIPELINE}}" class="nav_tab_title horizontal_aligment nav_tab_title_font">Pipeline Editor</span>
+            <button ng-click="OnNew()" class="nav_tab_button horizontal_aligment" data-toggle="tooltip" data-placement="top" title="New"><span class="glyphicon glyphicon-plus"></span></button>
+            <button ng-click="OnLoad()" class="nav_tab_button horizontal_aligment" data-toggle="tooltip" data-placement="top" title="Load"><span class="glyphicon glyphicon-folder-open"></span></button>
+            <button ng-click="OnSave()" class="nav_tab_button horizontal_aligment"  data-toggle="tooltip" data-placement="top" title="Save"><span class="glyphicon glyphicon-save"></span></button>
+            <!-- big_nav_tab_button -->
+            <!-- <button ng-show="GetEditorType()=={{FileType.EXPERIMENT}}" ng-click="OnPlay()" class="nav_tab_button horizontal_aligment" data-toggle="tooltip" data-placement="top" title="Save & Run"><span class="glyphicon glyphicon-play"></span></button> -->
+
+            <button ng-click="OnNavTabsLeftArrowPressed(DocsNavTabs)" class="horizontal_aligment" id="tab_left_arrow" ng-show="ShowNavTabsLeftArrow(DocsNavTabs)"><span class="glyphicon glyphicon-chevron-left"></span></button>
+            <ul class="nav nav-tabs horizontal_aligment">
+              <li ng-repeat="tab in DocsNavTabs.list | filter:{visible: true}" class="tab_font document_tab horizontal_aligment" ng-class="{'active':tab.id==DocsNavTabs.selected_tab.id}">
+
+                <a href="#" ng-click="OnTabPress(DocsNavTabs, tab.id)"  style="padding:10px 0px 0px 10px;background-color: transparent;" data-toggle="tooltip" data-placement="top" title="Name: {{tab.properties.name}}">
+                    <span ng-show="!tab.saved">*</span>{{tab.properties.name | limitTo: 13}}{{tab.properties.name.length > 13 ? '...' : ''}}
+                    <small><span ng-click="OnCloseDocument(tab.id)" class="glyphicon glyphicon-remove tab_close_button" data-toggle="tooltip" data-placement="top" title="Close Document"></span></small>
+                </a>
+              </li>
+            </ul>
+            <button ng-click="OnNavTabsRightArrowPressed(DocsNavTabs)" class="horizontal_aligment" id="tab_right_arrow" ng-show="ShowNavTabsRightArrow(DocsNavTabs)"><span class="glyphicon glyphicon-chevron-right"></span></button>
+        </div>
+
+        <!-- TOOLS -->
+        <div id="pipeline_tools" class="company_background_menu_color company_sub_text_color">
+            <div class="btn-group"> <!-- ng-show="current_editor_mode==EditorMode.PIPELINE_EDITOR"> -->
+                <button id="button_inputs" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Inputs">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.INPUT_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group"> <!-- ng-show="current_editor_mode==EditorMode.PIPELINE_EDITOR"> -->
+                <button id="button_outputs" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Outputs">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.OUTPUT_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group"> <!-- ng-show="current_editor_mode==EditorMode.PIPELINE_EDITOR" -->
+                <button id="button_datas" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="New Variables">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.DATA_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div ng-show="false" id="experiment_tools" class="company_background_menu_color company_sub_text_color">
+
+            <div class="btn-group"> <!-- ng-show="current_editor_mode==EditorMode.PIPELINE_EDITOR"> -->
+                <button id="button_calculations" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Calculations">
+                    <span class="caret right_alignment"></span>
+                </button>
+                  <ul class="dropdown-menu dropdown-animation dropdown_animation_from_left company_background_menu_color menu_node open_transition auto_scroll_vertical pull-left"> <!-- pull-right -->
+                      <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.CALCULATION_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                          {{node.id}}
+                      </li>
+                  </ul>
+
+            </div>
+<!--
+            <div class="btn-group"> ng-show="current_editor_mode==EditorMode.EXPERIMENT_EDITOR"> 
+                <button id="button_dms" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Data Manager Variables">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation dropdown_animation_from_left company_background_menu_color menu_node open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{type: 1}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+-->
+
+            <div class="btn-group">
+                <button id="button_pipelines" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Pipelines">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.PIPELINE_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group"> <!-- ng-show="current_editor_mode==EditorMode.EXPERIMENT_EDITOR"> -->
+                <button id="button_graphs" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Data Representation">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.GRAPH_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+<!--
+        <div class="tools_menu_nodes company_background_menu_color company_sub_text_color" ng-class="{'tools_menu_nodes_experiments':current_editor_mode==EditorMode.EXPERIMENT_EDITOR,'tools_menu_nodes_pipeline':current_editor_mode==EditorMode.PIPELINE_EDITOR}">
+            <div class="btn-group"> 
+                <button id="button_inputs" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Inputs">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.INPUT_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group"> 
+                <button id="button_calculations" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Calculations">
+                    <span class="caret right_alignment"></span>
+                </button>
+                  <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition auto_scroll_vertical">
+                      <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.CALCULATION_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                          {{node.id}}
+                      </li>
+                  </ul>
+
+            </div>
+
+            <div class="btn-group"> 
+                <button id="button_outputs" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Outputs">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.OUTPUT_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group"> 
+                <button id="button_dms" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Data Manager Variables">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{type: 1}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group"> 
+                <button id="button_datas" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="New Variables">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.DATA_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group">
+                <button id="button_pipelines" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Pipelines">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.PIPELINE_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group"> 
+                <button id="button_graphs" type="button" class="company_sub_text_color btn btn-default dropdown-toggle tool_button tool_button_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" data-placement="top" title="Data Representation">
+                    <span class="caret right_alignment"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-animation company_background_menu_color menu_node pull-right open_transition">
+                    <li id="{{node.id}}" draggable item="item" class="cursor_hand company_background_menu_color menu_node_font" ng-repeat="node in node_types | filter:{style: NodeStyle.GRAPH_NODE}" style="display: block; border-style" ng-click="get_pos(event)">
+                        {{node.id}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+-->
+        <!-- ZOOM MENU -->
+        <div class="zoom_menu default_button_color">
+            <input ng-model="DocsNavTabs.selected_tab.page.zoom.current" id="zoom_slider" type="range" min="20" max="200" step="10" tabIndex="-1" ng-click="RemoveBlurFromZoomSlider()" 
+            data-toggle="tooltip" data-placement="left" title="Zoom"
+            />
+            <span id="zoom_input"/>&nbsp;{{DocsNavTabs.selected_tab.page.zoom.current}}%</span>
+        </div>
+
+        <button id="PlayButton"
+                ng-show="GetEditorType()=={{FileType.EXPERIMENT}}"
+                ng-click="OnPlay()"
+                class="play_button_font company_background_menu_color company_sub_text_color"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Save & Run">
+                <span class="glyphicon glyphicon-play"></span>
+        </button>
+
+  	</div>
+
+
+  	<div id="content" style="background-color:whitesmoke">
+
+    <div style="margin:0px;padding:0px" ng-show="GetEditorType()=={{FileType.PIPELINE}}">
+      abc
+    </div>
+
+    <div style="margin:0px;padding:0px" ng-show="GetEditorType()=={{FileType.EXPERIMENT}}">
+<!-- ============================================================================ -->
+<!-- ============================================================================ -->
+<!-- ============================================================================ -->
+
+<!-- ************ -->
+        <!- - RIGHT TOP PANEL -->
+
+  		  <div id="top-content" style="top:30px;color:#5e5e5e">
+          <div style="width:100%;height:100%" class="output_panel">
+
+            <!-- RIGHT TOP PANEL HEADER -->
+            <div id="right_bottom_top_panel_title" class="company_background_menu_color company_sub_text_color">
+              <div class="nav_tab_title_font" style="padding:10px 0px 0px 20px;">Experiment Sessions List</div>
+                <!--
+                <div class="graph_title_bar" style="position:relative;top:-45px">
+                  <div class="graph_title_bar_buttons">
+                    <span class="glyphicon glyphicon-refresh graph_refresh cursor_hand" ng-click="OnRefreshExperimentsList()"></span>
+                    <div class="dropdown graph_menu cursor_hand">
+	                    <span data-toggle="dropdown" class="dropdown-toggle glyphicon glyphicon-option-vertical"></span>
+	                    <ul class="dropdown-menu dropdown-animation dropdown-menu-right company_background_menu_color" role="menu">
+		                    <li role="menuitem"><a href="#" class="menu_item_font" ng-click="OnRequestNewExperimentName()">New Experiment</a></li>
+		                    <li role="menuitem"><a href="#" class="menu_item_font" ng-click="OnQueryExperiment()" ng-show="IsExperimentSelected()==true">Query Selected Experiment</a></li>
+	                    </ul>
+                    </div>
+                  </div>
+                </div>
+                -->
+            </div>
+
+            <!-- RIGHT TOP PANEL CONTENT -->
+
+          <!-- EXPERIMENTS LIST -->
+          <div class="container-fluid" style="margin:0px;padding:0px">
+            <div class="row"> <!-- Experiments Row --> 
+              <div class="col-md-12" style="margin:0px;padding:0px"> <!--  graph_box company_background_window_color -->
+                <div class="table-responsive">
+                  <table class="table col-sm-12">
+                    <thead>
+                    <tr class="caption_font" style="background-color:#ddd">
+                      <!-- <th>ID</th> -->
+                      <td width="100px">Actions</td>
+                      <td>Experiment Name</td>
+                      <!-- <td>Time</td> -->
+                      <td>Experiment Progress</td>
+                      <td width="25px"></td>
+                      <!-- <th>LOCAL MANAGER</th> -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="experiment in experiments_list" class="table_row" ng-class="{'selected_row cursor_hand':experiment.experiment_id==GetSelectedExperiment().experiment_id,'cursor_hand':experiment.experiment_id!=GetSelectedExperiment().experiment_id}" ng-click="OnSelectExperiment(experiment)">
+	                      <!-- <td>{{ experiment.experiment_id }}</td> -->
+	                      <td>
+                          <ul class="horiz_list">
+                            <li>
+                              <span ng-show="experiment.experiment_id!=0" ng-click="OnOutputTabPress(GetOutputsNavTabs(), experiment.experiment_id)" class="glyphicon glyphicon-refresh outputab_button" data-toggle="tooltip" data-placement="top" title="Refresh"></span>
+                              <span ng-show="experiment.experiment_id!=0" ng-click="OnRemoveExperiment(experiment.experiment_id)" class="glyphicon glyphicon-trash outputab_button" data-toggle="tooltip" data-placement="top" title="Remove Experiment"></span>
+                            </li>
+                            <!-- <li>
+                              <span ng-click="OnClearExperiment(experiment.experiment_id)" class="glyphicon glyphicon-trash outputab_button" data-toggle="tooltip" data-placement="top" title="Clear"></span> 
+                            </li>
+                            -->
+                          </ul>
+                        </td>
+                        <td>
+<span ng-show="selected_experiment_id == experiment.experiment_id" class="glyphicon glyphicon-arrow-right"></span>
+                          {{ experiment.name }}
+                        </td>
+<!--
+	                      <td>
+                          {{ experiment.status }}
+                        </td>
+-->
+	                      <td>
+                          <div ng-show="{{experiment.exec_data.job_done}} == 0 || {{experiment.exec_data.job_done}} == 100">{{InformExperimentFinished(experiment.experiment_id)}}</div>
+                          <div class="progress" ng-show="{{experiment.exec_data.job_done}} > 0 && {{experiment.exec_data.job_done}} < 100" >
+                            <div class="my_progress" style="width:{{experiment.exec_data.job_done}}%" ></div>
+<!-- progress-bar-info progress-bar-striped active -->
+<!--                            <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{experiment.exec_data.job_done}}%;">
+                            </div>
+-->
+                          </div>
+                        </td>
+                        <td>
+                        </td>
+	                      <!-- <td>{{ experiment.lm_id }}</td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div ng-show="show_new_experiment">
+                  <p>
+                    <ul>
+	                    <li><label>New Experiment (Id):</label></li>
+                             	<li><input type="text" ng-model="new_experiment_name"></li>
+                       	<li><button type="button" class="btn btn-default" ng-click="OnCreateExperiment()">Create</button></li>
+                       	<li><button type="button" class="btn btn-default" ng-click="OnCancelExperimentCreation()">Cancel</button></li>
+	                    <li>{{new_experiment_message}}</li>
+                     	</ul>
+                  </p>
+                </div>
+              </div> <!-- End col-md-12 -->
+            </div> <!-- End Experiments Row --> 
+          </div> <!-- container-fluid -->
+
+
+
+          </div> <!-- expanded div inside top-content -->
+        </div> <!-- top-content -->
+
+        <!-- OUTPUT PANEL -->
+
+  		  <div id="bottom-content">
+          <div style="width:100%;height:100%" class="output_panel">
+
+            <!-- RIGHT BOTTOM PANEL HEADER -->
+            <!--
+            <div style="position:relative;top:0px;left:0px; height:40px;" class="company_background_menu_color company_sub_text_color">
+              <div style="padding:10px 0px 0px 20px;">Plots</div>
+                <div class="graph_title_bar" style="position:relative;top:-45px">
+                  <div class="graph_title_bar_buttons">
+                    <span class="glyphicon glyphicon-refresh graph_refresh cursor_hand" ng-click="OnRefreshExperimentsList()"></span>
+                    <div class="dropdown graph_menu cursor_hand">
+	                    <span data-toggle="dropdown" class="dropdown-toggle glyphicon glyphicon-option-vertical"></span>
+	                    <ul class="dropdown-menu dropdown-animation dropdown-menu-right company_background_menu_color" role="menu">
+		                    <li role="menuitem"><a href="#" class="menu_item_font" ng-click="OnRequestNewExperimentName()">New Experiment</a></li>
+		                    <li role="menuitem"><a href="#" class="menu_item_font" ng-click="OnQueryExperiment()" ng-show="IsExperimentSelected()==true">Query Selected Experiment</a></li>
+	                    </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            -->
+
+            <!-- RIGHT BOTTOM PANEL CONTENT -->
+
+            <!- - OUTPUTS NAV TAB - ->
+            <div id="right_bottom_bottom_panel_title" class="nav_tab_bar company_background_menu_color company_sub_text_color nav_tab_bar_bottom_line">
+              <span class="nav_tab_title horizontal_aligment nav_tab_title_font">Experiment Results</span>
+              <button ng-click="OnNavTabsLeftArrowPressed(GetOutputsNavTabs())" class="horizontal_aligment" id="tab_left_arrow" ng-show="ShowNavTabsLeftArrow(GetOutputsNavTabs())"><span class="glyphicon glyphicon-chevron-left"></span></button>
+              <ul class="nav nav-tabs horizontal_aligment">
+<!--  | filter:{visible: true} -->
+                <li ng-repeat="tab in GetOutputsNavTabs().list" class="tab_font document_tab horizontal_aligment" ng-class="{'active':tab.id==GetOutputsNavTabs().selected_tab.id}">
+                  <a href="#" ng-click="OnOutputTabPress(GetOutputsNavTabs(), tab.id)"  style="padding:10px 0px 0px 10px;background-color: transparent;" data-toggle="tooltip" data-placement="top" title="Name: {{tab.name}}">
+                      {{tab.name | limitTo: 13}}{{tab.name.length > 13 ? '...' : ''}}
+                        <span class="outputab_button_group">
+
+<!--                          <span ng-show="((tab.node == null) || ((tab.node != null) && (tab.node.type=='R Export')))"   ng-click="OnSaveOutputCSV((tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save"></span> -->
+
+                          <span ng-show="(tab.node == null)"                                    ng-click="OnSaveOutput('LOG',          (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as Log File"></span> <!-- this is the Console Tab -->
+                          <span ng-show="(tab.node == null)"                                    ng-click="OnSaveOutput('NGASP_SCRIPT', (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as ngasp Script File"></span> <!-- this is the Console Tab -->
+                          <span ng-show="((tab.node != null) && (tab.node.type=='R Export'))"   ng-click="OnSaveOutput('CSV',          (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as CSV File"></span>
+                          <span ng-show="((tab.node != null) && (tab.node.type=='Print Data'))" ng-click="OnSaveOutput('TXT',          (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as Text File"></span>
+                          <!-- <span ng-show="tab.id!=0" ng-click="OnOutputTabPress(GetOutputsNavTabs(), tab.id)" class="glyphicon glyphicon-refresh outputab_button" data-toggle="tooltip" data-placement="top" title="Refresh"></span> -->
+                        </span>
+                  </a>
+                </li>
+              </ul>
+              <button ng-click="OnNavTabsRightArrowPressed(GetOutputsNavTabs())" class="horizontal_aligment" id="tab_right_arrow" ng-show="ShowNavTabsRightArrow(GetOutputsNavTabs())"><span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+
+            <div id="right_bottom_bottom_panel_content" class="output_panel">
+
+
+              <!-- CONSOLE -->
+
+<!-- ShowIfOutputSelectedIs('{{GetFirstConsoleGraph().id}}')" -->
+<!-- id="graph_{{GetFirstConsoleGraph().id}}" -->
+
+              <div id="console_output"
+                   ng-show="ShowIfOutputConsoleIsSelected()" 
+                   style="padding:0px; margin:0px; background-color:transparent;width:100%;height:100%">
+                <div id="console_history"
+                     data-ng-bind-html="trustAsHtml(stdout)"
+                     class="console_font"
+                     auto-scroll
+                     scroll-glue>
+                </div>
+
+                <div id="right_bottom_bottom_panel_title" class="nav_tab_bar company_background_menu_color company_sub_text_color nav_tab_bar_bottom_line">
+                  <span class="nav_tab_title horizontal_aligment nav_tab_title_font" style="position:relative;top:10px; width:100%">Experiment Interactive Mode</span>
+                </div>
+
+                <input focus-me id="console_input"
+                       type="text"
+                       class="console_font"
+                       ng-model="cmd"
+                       style="width:100%"
+                       ng-enter="OnExecuteCommand()" />
+                <span id="console_input_background">&gt;</span>
+              </div>
+
+
+              <!-- CHART -->
+<!--
+              <div ng-repeat="chart in charts | chart" ng-show="ShowIfOutputSelectedIs('{{chart.id}}')" style="padding:0px; margin:0px; background-color:transparent;width:100%;height:100%;color:black">
+                <canvas 
+                        id="graph_{{chart.id}}"
+                        ng-show="ShowIfOutputSelectedIs('{{chart.id}}')"
+                        class="chart chart-line ng-isolate-scope"
+                        chart-data="chart.data"
+                        chart-labels="chart.labels"
+                        chart-legend="true"
+                        chart-series="chart.series"
+                        chart-click=""
+                        chart-hover="">
+                </canvas>
+              </div>
+chart-line
+chart-bar
+  chart-doughnut
+chart-radar
+  chart-pie
+  chart-polar-area
+  chart-bubble
+  chart-horizontal-bar
+-->
+
+              <div ng-repeat="chart in charts | chart" ng-show="ShowIfOutputSelectedIs('{{chart.id}}')" style="padding:0px; margin:0px; background-color:transparent;width:100%;height:100%;color:black;overflow-y:scroll" >
+                <canvas 
+                        id="graph_{{chart.id}}"
+                        ng-show="ShowIfOutputSelectedIs('{{chart.id}}')"
+                        class="chart chart-line ng-isolate-scope"
+                        chart-data="chart.data"
+                        chart-labels="chart.labels"
+                        chart-legend="true"
+                        chart-series="chart.series"
+                        chart-click=""
+                        chart-hover="">
+                </canvas>
+                <canvas 
+                        id="graph_{{chart.id}}"
+                        ng-show="ShowIfOutputSelectedIs('{{chart.id}}')"
+                        class="chart chart-bar ng-isolate-scope"
+                        chart-data="chart.data"
+                        chart-labels="chart.labels"
+                        chart-legend="true"
+                        chart-series="chart.series"
+                        chart-click=""
+                        chart-hover="">
+                </canvas>
+                <canvas 
+                        id="graph_{{chart.id}}"
+                        ng-show="ShowIfOutputSelectedIs('{{chart.id}}')"
+                        class="chart chart-radar ng-isolate-scope"
+                        chart-data="chart.data"
+                        chart-labels="chart.labels"
+                        chart-legend="true"
+                        chart-series="chart.series"
+                        chart-click=""
+                        chart-hover="">
+                </canvas>
+              </div>
+
+              <!-- BOXPLOT -->
+              <div ng-repeat="boxplot in charts | boxplot" ng-show="ShowIfOutputSelectedIs('{{boxplot.id}}')" style="padding:0px; margin:0px; background-color:transparent;width:100%;height:100%;color:black">
+                <nvd3 
+                      id="graph_{{boxplot.id}}"
+                      ng-show="ShowIfOutputSelectedIs('{{boxplot.id}}')"
+                      options="boxplot.options"
+                      data="boxplot.data"
+                      config="config"
+                      events="events"
+                      api="boxplot.api_content.api"
+                      class="with-3d-shadow with-transitions">
+                </nvd3>
+              </div>
+
+              <!-- DONUTCHART is nvd3 -->
+
+              <!-- R EXPORT -->
+              <div ng-repeat="cons in consoles"
+                   ng-show="ShowIfOutputSelectedIs('{{cons.id}}')"
+                   style="padding:0px; margin:0px; background-color:transparent;width:100%;height:100%;color:black">
+                <div data-ng-bind-html="trustAsHtml(cons.data)"
+                     class="console_font"
+                     auto-scroll
+                     scroll-glue>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div> <!-- expanded div inside bottom-content -->
+        </div> <!-- bottom-content -->
+
+<!-- ************ -->
+
+
+<!-- ============================================================================ -->
+<!-- ============================================================================ -->
+<!-- ============================================================================ -->
+
+
+
+  		<div id="content-resizer" 
+  			resizer="horizontal" 
+  			resizer-height="6" 
+  			resizer-top="#top-content" 
+  			resizer-bottom="#bottom-content">
+  		</div> 
+
+    </div>
+  	</div> <!-- id="content" -->
+  
+  	<div id="sidebar-resizer"
+  		resizer="vertical" 
+  		resizer-width="6" 
+  		resizer-left="#sidebar" 
+  		resizer-right="#content"
+  		resizer-max="600">
+  	</div>
+  
+            
+
+    <img ng-show="false" class="hidden_image" id="fx_icon" src="./images/fx_icon.svg" alt="fx_icon" imageonload="ImageLoad()" >
+    <img ng-show="false" class="hidden_image" id="output_icon" src="./images/output_icon.svg" alt="output_icon" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="input_icon" src="./images/input_icon.svg" alt="input_icon" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="graph_icon" src="./images/graph_icon.svg" alt="graph_icon" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="data_icon" src="./images/data_icon.svg" alt="data_icon" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="null_connection" src="./images/null_connection.svg" alt="null_connection" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="dm_icon" src="./images/dm_icon.svg" alt="dm_icon" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="pipeline_icon" src="./images/pipeline_icon.svg" alt="pipeline_icon" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="background_icon" src="./images/background_icon.svg" alt="background_icon" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="bool_on" src="./images/bool_on.svg" alt="bool_on" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="bool_off" src="./images/bool_off.svg" alt="bool_off" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="node_console" src="./images/node_console.svg" alt="node_console" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="node_chart" src="./images/node_chart.svg" alt="node_chart" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="node_boxplot" src="./images/node_boxplot.svg" alt="node_boxplot" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="node_donutchart" src="./images/node_donutchart.svg" alt="node_donutchart" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="node_export" src="./images/node_export.svg" alt="node_export" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="node_print_data" src="./images/node_print_data.svg" alt="node_print_data" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="loop" src="./images/loop.svg" alt="loop" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="loop_black" src="./images/loop_black.svg" alt="loop_black" imageonload="ImageLoad()">
+
+    
+    <div style="z-index:200; position:absolute; left:1000px; top:155px; width:200px; height:200px" ng-show="debug_mode==true">
+        ({{mouse_x | setDecimal:0}}, {{mouse_y | setDecimal:0}})<br />
+    </div>
+</div>
+

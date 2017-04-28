@@ -1,0 +1,245 @@
+
+mstatspop v.0.1beta (20160922)
+Sebastian E. Ramos-Onsins, Luca Ferretti, Emanuele Raineri, Giacomo Marmorini, William Burgos and Gonzalo Vera
+Variability Analyses of multiple populations: Calculation and estimation of statistics and neutrality tests.
+
+mstatspop -f ms -i ../examples/100Kchr10_tfa2ms_03.ms.txt -o 0 -N 2 40 2 -T ../tests/previous/100chr10.ms.02.txt -l 100000 -m ../examples/100Kchr10_npop2_nsam42_ExcludeMissingVariantsmhits_NOoutg_MASK.txt 
+
+
+****************************************************************************
+*  NUCLEOTIDE VARIABILITY, NEUTRALITY TEST AND POPULATION DIFFERENTIATION  *
+****************************************************************************
+
+Input file: ../examples/100Kchr10_tfa2ms_03.ms.txt
+Priors:
+prior00: 1.000000	prior01: 100000.000000	prior02: 5547.000000	
+
+Include Unknown positions [1/0]: 0
+Lenght of the Total alignment (including gaps): 100000
+Lenght of the Total alignment (excluding fixed gaps but counting all positions as 1, eg. Syn positions < 1 count as 1): 5549
+multiple hits: 0
+Lenght of the Selected alignment (including unknown bp if selected): 100000.00
+Number of Variant (biallelic) sites (including unknown bp if selected and excluding codons with more than two variants, if selected): 111
+Ratio_S/V: 0.500
+Ratio_Missing: NA
+
+Number of populations: 2
+Number of samples for each population:
+nsam[0]: 40
+nsam[1]: 2
+
+Effective length for each population (with at least one sequence, two or three sequences per pop) and excluding or including outgroup (if defined):
+Eff_length1_pop[0]: 5549.00	Eff_length2_pop[0]: 5549.00	Eff_length3_pop[0]: 5549.00	Eff_length1_pop_outg[0]: NA	Eff_length2_pop_outg[0]: NA	Eff_length3_pop_outg[0]: NA
+Eff_length1_pop[1]: 5549.00	Eff_length2_pop[1]: 5549.00	Eff_length3_pop[1]: 0.00	Eff_length1_pop_outg[1]: NA	Eff_length2_pop_outg[1]: NA	Eff_length3_pop_outg[1]: NA
+
+STATISTICS:
+
+Estimates of variability for each population (an and bn for the variant positions):
+S[0]: 103	Theta(Wat)[0]: 24.215107	Theta(Taj)[0]: 19.210256	Theta(Fu&Li)[0]: 25.350000	Theta(Achaz,Wat)[0]: 23.854504	Theta(Achaz,Taj)[0]: 18.878378	an_x[0]: 4.253543	bn_x[0]: 1.619619	an_xo[0]: 0.000000	bn_xo[0]: 0.000000	
+S[1]: 0	Theta(Wat)[1]: 0.000000	Theta(Taj)[1]: 0.000000	Theta(Fu&Li)[1]: 0.000000	Theta(Achaz,Wat)[1]: 0.000000	Theta(Achaz,Taj)[1]: 0.000000	an_x[1]: NA	bn_x[1]: NA	an_xo[1]: NA	bn_xo[1]: NA	
+
+Estimates of NUCLEOTIDE variability for each population (if missing, corrected by the averaged effective positions):
+S[0]: 103	Theta/nt(Wat)[0]: NA	Theta/nt(Taj)[0]: NA	Theta/nt(Fu&Li)[0]: NA	Theta/nt(Achaz,Wat)[0]: NA	Theta/nt(Taj)HKY[0]: NA
+Theta/nt(Taj)HKY[0]: NA	
+S[1]: 0	Theta/nt(Wat)[1]: NA	Theta/nt(Taj)[1]: NA	Theta/nt(Fu&Li)[1]: NA	Theta/nt(Achaz,Wat)[1]: NA	Theta/nt(Taj)HKY[1]: NA
+Theta/nt(Taj)HKY[1]: NA	
+
+Haplotype diversity and number of haplotypes for each population:
+HapW[0]: 0.988462	nHap[0]: 34
+HapW[1]: 0.000000	nHap[1]: 1
+
+Neutrality tests for each population:
+Tajima D[0]: -0.757294	Fu&Li D*[0]: -0.094939	Fu&Li F*[0]: -0.367856	Achaz Y*[0]: -0.904657	Fs[0]: -10.787724	R2[0]: 0.065719	
+Tajima D[1]: NA	Fu&Li D*[1]: NA	Fu&Li F*[1]: NA	Achaz Y*[1]: NA	Fs[1]: NA	R2[1]: NA	
+
+Variants assigned to exclusive, fixed, polymorphic but fixed in rest of pops, and shared.
+Ss[rest] are shared variants between populations but fixed within:
+Sx[0]: 103	Sf[0]: 8	Ss[0]: 0
+Sx[1]: 0	Sf[1]: 8	Ss[1]: 0
+Ss[rest]: 0
+
+mismatch distribution statistics:
+SDev[0]: 7.978591	Skewness[0]: -0.189167	Kurtosis[0]: -0.536435	
+SDev[1]: NA	Skewness[1]: NA	Kurtosis[1]: NA	
+
+Fst (calculated as 1-piw/pia): OUTGROUP NOT CONSIDERED (results may be different from above)
+
+seed: 123456
+Fst(nucleotide), FstH(haplotype)
+Fst[0,1]: 0.694591	 P-value: NA	
+
+FstH[0,1]: 0.505769	 P-value: NA	
+
+Fst corrected with HKY (Hasegawa, Kishino, and Yano. 1985): 
+FstHKY[0,1]: NA	PiWHKY[0]: NA	PiWHKY[1]: NA	PiAHKY[0,1]: NA	PiTHKY[0,1]: NA	
+
+Nucleotide and haplotype diversity WITHIN populations:
+PiW[0]: 19.210256	HapW[0]: 0.988462	
+PiW[1]: 0.000000	HapW[1]: 0.000000	
+
+Nucleotide and haplotype diversity BETWEEN populations and TOTAL:
+PiA[0,1]: 31.450000	PiA/nt[0,1]: NA	PiT[0,1]: 20.325203	PiT/nt[0,1]: NA	
+
+HapA[0,1]: 1.000000	HapT[0,1]: 0.988386	
+
+Frequency of variants for each population:
+fr[0,1]: 26	fr[0,2]: 31	fr[0,3]: 4	fr[0,4]: 5	fr[0,5]: 5	fr[0,6]: 5	fr[0,7]: 3	fr[0,8]: 3	fr[0,9]: 4	fr[0,10]: 4	fr[0,11]: 1	fr[0,12]: 3	fr[0,13]: 1	fr[0,14]: 0	fr[0,15]: 1	fr[0,16]: 3	fr[0,17]: 3	fr[0,18]: 0	fr[0,19]: 0	fr[0,20]: 1	
+fr[1,1]: 0	
+
+Frequency of each haplotype in the populations:
+frH[0,hap00]: 1	frH[0,hap01]: 1	frH[0,hap02]: 1	frH[0,hap03]: 1	frH[0,hap04]: 1	frH[0,hap05]: 1	frH[0,hap06]: 1	frH[0,hap07]: 1	frH[0,hap08]: 1	frH[0,hap09]: 1	frH[0,hap10]: 1	frH[0,hap11]: 1	frH[0,hap12]: 1	frH[0,hap13]: 4	frH[0,hap14]: 1	frH[0,hap15]: 1	frH[0,hap16]: 1	frH[0,hap17]: 1	frH[0,hap18]: 1	frH[0,hap19]: 2	frH[0,hap20]: 2	frH[0,hap21]: 1	frH[0,hap22]: 1	frH[0,hap23]: 2	frH[0,hap24]: 1	frH[0,hap25]: 1	frH[0,hap26]: 1	frH[0,hap27]: 1	frH[0,hap28]: 1	frH[0,hap29]: 1	frH[0,hap30]: 1	frH[0,hap31]: 1	frH[0,hap32]: 1	frH[0,hap33]: 1	frH[0,hap34]: 0	
+frH[1,hap00]: 0	frH[1,hap01]: 0	frH[1,hap02]: 0	frH[1,hap03]: 0	frH[1,hap04]: 0	frH[1,hap05]: 0	frH[1,hap06]: 0	frH[1,hap07]: 0	frH[1,hap08]: 0	frH[1,hap09]: 0	frH[1,hap10]: 0	frH[1,hap11]: 0	frH[1,hap12]: 0	frH[1,hap13]: 0	frH[1,hap14]: 0	frH[1,hap15]: 0	frH[1,hap16]: 0	frH[1,hap17]: 0	frH[1,hap18]: 0	frH[1,hap19]: 0	frH[1,hap20]: 0	frH[1,hap21]: 0	frH[1,hap22]: 0	frH[1,hap23]: 0	frH[1,hap24]: 0	frH[1,hap25]: 0	frH[1,hap26]: 0	frH[1,hap27]: 0	frH[1,hap28]: 0	frH[1,hap29]: 0	frH[1,hap30]: 0	frH[1,hap31]: 0	frH[1,hap32]: 0	frH[1,hap33]: 0	frH[1,hap34]: 2	
+
+Positions of each variant (negative indicates it contains any missing 'N' values):
+Sx[0]: 1115 3722 4112 4135 4206 4299 4327 4337 4863 4878 4906 5588 5813 6507 7955 8163 8348 8715 8977 9045 9051 10368 12149 12163 12268 15310 15330 15500 16407 18514 18792 18804 19039 19332 23478 24471 24485 24736 26665 27581 31117 32306 32361 32381 32403 33008 33012 33089 34290 34430 34479 34529 34542 38703 40087 40308 41044 41048 43709 43719 43851 45636 45684 46252 48684 49245 49841 51675 53235 53242 53312 53575 54735 56690 57950 57966 58033 58098 59182 59665 59693 59788 59950 62327 62333 63272 63306 65363 68844 71207 74585 84838 85080 85089 88884 88887 88888 89242 89365 89442 89838 94486 94594 
+Sf[0]: 7972 18786 23476 39935 40094 43707 45889 59657 
+Ss[0]: 
+Sx[1]: 
+Sf[1]: 7972 18786 23476 39935 40094 43707 45889 59657 
+Ss[1]: 
+Ss[rest]: 
+
+Joint frequency distribution for each variant and population (No included variants that are missing or polymorphic in the outgroup):
+	pop[0]	pop[1]
+SNP[1115]	0.175	0.000
+SNP[3722]	0.425	0.000
+SNP[4112]	0.025	0.000
+SNP[4135]	0.250	0.000
+SNP[4206]	0.100	0.000
+SNP[4299]	0.025	0.000
+SNP[4327]	0.050	0.000
+SNP[4337]	0.050	0.000
+SNP[4863]	0.150	0.000
+SNP[4878]	0.325	0.000
+SNP[4906]	0.050	0.000
+SNP[5588]	0.025	0.000
+SNP[5813]	0.050	0.000
+SNP[6507]	0.025	0.000
+SNP[7955]	0.025	0.000
+SNP[7972]	0.000	0.000
+SNP[8163]	0.425	0.000
+SNP[8348]	0.425	0.000
+SNP[8715]	0.050	0.000
+SNP[8977]	0.025	0.000
+SNP[9045]	0.050	0.000
+SNP[9051]	0.200	0.000
+SNP[10368]	0.025	0.000
+SNP[12149]	0.125	0.000
+SNP[12163]	0.025	0.000
+SNP[12268]	0.150	0.000
+SNP[15310]	0.150	0.000
+SNP[15330]	0.500	0.000
+SNP[15500]	0.400	0.000
+SNP[16407]	0.050	0.000
+SNP[18514]	0.025	0.000
+SNP[18786]	0.000	0.000
+SNP[18792]	0.175	0.000
+SNP[18804]	0.200	0.000
+SNP[19039]	0.025	0.000
+SNP[19332]	0.200	0.000
+SNP[23476]	0.000	0.000
+SNP[23478]	0.125	0.000
+SNP[24471]	0.025	0.000
+SNP[24485]	0.025	0.000
+SNP[24736]	0.100	0.000
+SNP[26665]	0.100	0.000
+SNP[27581]	0.075	0.000
+SNP[31117]	0.225	0.000
+SNP[32306]	0.225	0.000
+SNP[32361]	0.050	0.000
+SNP[32381]	0.275	0.000
+SNP[32403]	0.050	0.000
+SNP[33008]	0.075	0.000
+SNP[33012]	0.175	0.000
+SNP[33089]	0.050	0.000
+SNP[34290]	0.250	0.000
+SNP[34430]	0.050	0.000
+SNP[34479]	0.250	0.000
+SNP[34529]	0.225	0.000
+SNP[34542]	0.025	0.000
+SNP[38703]	0.250	0.000
+SNP[39935]	0.000	0.000
+SNP[40087]	0.050	0.000
+SNP[40094]	0.000	0.000
+SNP[40308]	0.025	0.000
+SNP[41044]	0.050	0.000
+SNP[41048]	0.300	0.000
+SNP[43707]	0.000	0.000
+SNP[43709]	0.125	0.000
+SNP[43719]	0.125	0.000
+SNP[43851]	0.025	0.000
+SNP[45636]	0.150	0.000
+SNP[45684]	0.050	0.000
+SNP[45889]	0.000	0.000
+SNP[46252]	0.225	0.000
+SNP[48684]	0.125	0.000
+SNP[49245]	0.050	0.000
+SNP[49841]	0.400	0.000
+SNP[51675]	0.025	0.000
+SNP[53235]	0.050	0.000
+SNP[53242]	0.025	0.000
+SNP[53312]	0.050	0.000
+SNP[53575]	0.050	0.000
+SNP[54735]	0.050	0.000
+SNP[56690]	0.050	0.000
+SNP[57950]	0.025	0.000
+SNP[57966]	0.025	0.000
+SNP[58033]	0.100	0.000
+SNP[58098]	0.025	0.000
+SNP[59182]	0.050	0.000
+SNP[59657]	0.000	0.000
+SNP[59665]	0.025	0.000
+SNP[59693]	0.050	0.000
+SNP[59788]	0.050	0.000
+SNP[59950]	0.300	0.000
+SNP[62327]	0.050	0.000
+SNP[62333]	0.050	0.000
+SNP[63272]	0.050	0.000
+SNP[63306]	0.050	0.000
+SNP[65363]	0.050	0.000
+SNP[68844]	0.300	0.000
+SNP[71207]	0.100	0.000
+SNP[74585]	0.375	0.000
+SNP[84838]	0.075	0.000
+SNP[85080]	0.050	0.000
+SNP[85089]	0.400	0.000
+SNP[88884]	0.050	0.000
+SNP[88887]	0.025	0.000
+SNP[88888]	0.025	0.000
+SNP[89242]	0.050	0.000
+SNP[89365]	0.025	0.000
+SNP[89442]	0.025	0.000
+SNP[89838]	0.075	0.000
+SNP[94486]	0.150	0.000
+SNP[94594]	0.025	0.000
+
+
+
+Frequency of variants for each line and population:
+Pop[0]
+	line[0]	line[1]	line[2]	line[3]	line[4]	line[5]	line[6]	line[7]	line[8]	line[9]	line[10]	line[11]	line[12]	line[13]	line[14]	line[15]	line[16]	line[17]	line[18]	line[19]	line[20]	line[21]	line[22]	line[23]	line[24]	line[25]	line[26]	line[27]	line[28]	line[29]	line[30]	line[31]	line[32]	line[33]	line[34]	line[35]	line[36]	line[37]	line[38]	line[39]	
+freq[1]:	0	2	3	5	5	4	4	4	3	5	2	3	2	2	2	2	2	2	2	2	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	3	4	4	
+freq[2]:	0	0	4	3	0	0	0	0	1	0	0	0	1	0	6	3	0	0	0	0	0	0	0	0	2	0	2	0	0	0	0	0	0	0	0	0	9	9	11	11	
+freq[3]:	0	1	0	1	0	0	1	0	1	0	0	0	0	0	1	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1	0	0	1	1	0	0	
+freq[4]:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	2	2	0	2	0	0	0	0	0	0	0	0	0	3	3	3	3	
+freq[5]:	0	2	3	2	0	0	0	2	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	4	4	4	4	4	2	2	2	3	3	3	3	
+freq[6]:	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1	1	1	1	3	1	1	1	0	1	0	1	3	3	3	3	3	0	0	1	0	0	0	0	
+freq[7]:	0	0	1	1	0	0	0	0	1	0	1	1	1	1	1	1	1	1	1	1	2	1	1	1	1	2	1	2	3	3	3	3	2	3	1	1	1	1	1	1	
+freq[8]:	0	0	0	0	0	0	0	0	1	2	0	0	3	3	1	2	3	3	3	3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
+freq[9]:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	3	1	3	1	3	3	3	3	3	1	1	1	3	3	0	0	
+freq[10]:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	2	1	1	1	2	1	2	3	3	3	3	1	2	1	1	3	3	3	3	
+freq[11]:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	0	1	0	0	0	0	0	1	0	1	1	0	0	1	1	
+freq[12]:	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	3	3	1	1	2	2	2	1	2	2	2	2	3	2	3	3	0	0	0	0	
+freq[13]:	0	0	1	1	0	0	0	0	1	0	1	1	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
+freq[14]:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
+freq[15]:	0	0	0	1	0	0	0	0	0	1	1	1	0	0	0	1	0	0	0	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	
+freq[16]:	0	1	1	2	1	1	1	1	2	2	1	1	1	1	2	2	1	1	1	1	1	2	2	2	1	2	1	2	2	2	2	1	1	1	1	1	0	0	0	0	
+freq[17]:	0	0	2	3	0	0	0	0	2	1	3	3	3	3	3	3	3	3	2	3	2	1	0	0	0	0	0	0	3	3	3	3	2	1	0	0	2	2	2	2	
+freq[18]:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
+freq[19]:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
+freq[20]:	1	1	0	0	1	1	1	1	1	0	1	1	0	0	0	0	0	0	0	0	1	0	1	1	1	1	1	1	0	0	0	0	1	1	1	1	0	0	0	0	
+
+Pop[1]
+	line[0]	line[1]	
+freq[1]:	0	0	
+

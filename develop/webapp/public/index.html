@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta charset="utf-8"> <!-- it's important for d3.js -->
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	    <link rel="icon" href="./css/icons/favicon.ico">
+
+		<title>ngaSP</title>
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bower_components/angular-chart.js/dist/angular-chart.css"> <!-- 1: basic charts -->
+    <link rel="stylesheet" href="./bower_components/nvd3/build/nv.d3.css"> <!-- 2: more charts -->
+
+		<!-- Custom styles for this template -->
+        <!-- http://www.fontsquirrel.com/fonts/roboto -->
+		<link href="./css/fonts/Roboto/web_fonts/roboto_thin_macroman/stylesheet.css" rel="stylesheet">
+		<link href="./css/fonts/Roboto/web_fonts/roboto_regular_macroman/stylesheet.css" rel="stylesheet">
+		<link href="./css/fonts/Roboto/web_fonts/roboto_medium_macroman/stylesheet.css" rel="stylesheet">
+		<link href="./css/fonts/Roboto/web_fonts/roboto_bold_macroman/stylesheet.css" rel="stylesheet">
+		<link href="./css/fonts/Roboto/web_fonts/roboto_italic_macroman/stylesheet.css" rel="stylesheet">
+
+
+
+	</head>
+
+
+	<body ng-app='CRAG' ng-controller="MainController"> <!-- body class set on angular -->
+
+    <div class="default_font default_body"> 
+		    <!-- ===================================================== -->
+		    <!-- MENU -->
+		    <!-- ===================================================== -->
+	      <div class="menu company_background_menu_color company_sub_text_color hide_on_print" ng-show="ShowMenu()">
+		      <div class="menu_image"></div>
+          <div id="menu" class="menu_auto_scroll">
+
+		        <ul class="items_list" ng-repeat="row in contents">
+			        <li ng-if="row.parents.length==0" class="menu_item cursor_hand glyphicon {{row.icon}}" ng-class="{'row_selected':IsMenuOptionSelected(row.id)==true}" ng-click="OnMenuSelectedItem(row.id)">
+				        <a class="menu_item_font">{{row.name}}</a>
+				        <div ng-if="row.has_children==true" style="float: right;" ng-class="{'glyphicon-plus':IsMenuOpen(row.id)==false,'glyphicon-minus':IsMenuOpen(row.id)==true, '':IsMenuOpen(row.id)=='NO_CHILDREN' }"></div>
+			        </li>
+			        <li ng-if="row.parents.length!=0" class="menu_subitem cursor_hand" ng-class="{'subitem_selected':IsMenuOptionSelected(row.id)==true}" ng-click="OnMenuSelectedItem(row.id)" ng-show="IsMenuOpen(row.parents[row.parents.length-1])">
+				        <span class="menu_item_font" ng-repeat="level in row.parents" style="margin-left:25px;"></span>
+				        {{row.name}}
+				        <div ng-if="row.has_children==true" style="float: right;" ng-class="{'glyphicon-plus':IsMenuOpen(row.id)==false,'glyphicon-minus':IsMenuOpen(row.id)==true, '':IsMenuOpen(row.id)=='NO_CHILDREN' }"></div>
+			        </li>
+		        </ul>
+
+          </div>
+	      </div>
+
+		    <!-- ===================================================== -->
+		    <!-- HEADER -->
+		    <!-- ===================================================== -->
+		    <div class="header company_background_titlebar_color hide_on_print">
+                <div ng-class="{'glyphicon-arrow-right':menu_visible==true,'glyphicon-menu-hamburger':menu_visible==false}" class="open_menu_icon glyphicon cursor_hand hide_on_print" aria-hidden="true" ng-click="OnShowHideMenu()"></div>
+			    <div class="admin_logo cursor_hand" ng-click="OnOpenHome()"></div>
+     
+                <div style="float:right; padding:20px 20px 0px 0px;">
+                    <div class="dropdown header_button cursor_hand">
+                        <span class="dropdown-toggle glyphicon glyphicon-option-vertical hide_on_print" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
+                        <ul class="dropdown-menu dropdown-menu-right company_background_menu_color dropdown-animation" >
+                            <li><a href="#" ng-click="OnFullScreen()" class="menu_item_font">Toggle Fullscreen</a></li>
+                            <li role="presentation" class="divider"></li>
+
+
+                            <li class="menu-item dropdown dropdown-submenu">
+                                <a href="#" class="dropdown-toggle menu_item_font"><span style="float:left">&#9664;</span>Web Themes</a>
+                                <ul class="dropdown-menu company_background_menu_color" style="width:50px; left:-100px">
+                                    <li ng-repeat="stylesheet in stylesheets">
+                                        <a href="#" class="menu_item_font" ng-click="OnChangeTheme(stylesheet.id)">
+                                        <span style="float:left">{{stylesheet.name}}</span>
+                                            <span ng-class="{'glyphicon glyphicon-ok':stylesheet.id==theme_id_selected}">&nbsp;</span> 
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!-- Loading -->
+                <div class="progress hide_on_print" ng-show="ShowLoading()">
+                    <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;">
+                    </div>
+		            <!-- div id="loading" class="centered" ng-show="false"><img src="./images/loading.gif" alt="Loading"></div> -->
+                </div>
+
+		    </div>
+
+
+		    <!-- ===================================================== -->
+		    <!-- SHEET -->
+		    <!-- ===================================================== -->
+
+
+        	<div ui-view='main' id="continguts"></div>
+
+            <!-- company_background_titlebar_color -->
+            <!--
+            <div class="footer">
+                <div style="float:right">
+                    <img src="./images/csic.jpg" alt="csic" > 
+                    <img src="./images/irta.jpg" alt="irta" > 
+                    <img src="./images/uab.jpg" alt="uab" > 
+                    <img src="./images/ub.jpg" alt="ub" > 
+                </div>
+            </div>
+            -->
+
+		    <!-- Placed at the end of the document so the pages load faster -->
+
+		    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+		    <script src="./bower_components/angular/angular.js"></script>
+		    <script src="./bower_components/angular-route/angular-route.min.js"></script>  <!-- Required by "angular-ui-router" -->
+		    <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+		    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		    <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+		    <script src="./bower_components/angular-socket-io/socket.min.js"></script> <!-- dependency: btford.socket-io -->
+		    <script src="./socket.io/socket.io.js"></script> <!-- http://socket.io/download/ -->
+		    <script src="./bower_components/angular-animate/angular-animate.js"></script>
+		    <script src="./bower_components/ui-bootstrap-alerts/ui-bootstrap-alerts.min.js"></script>
+		    <script src="./bower_components/angular-cookies/angular-cookies.min.js"></script>
+		    <script src="./bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+		    <script src="./bower_components/raphael/raphael-min.js"></script> <!-- Required by "js-sequence-diagramsController" -->
+		    <script src="./bower_components/underscore/underscore-min.js"></script> <!-- Required by "js-sequence-diagramsController" -->
+		    <script src="./bower_components/js-sequence-diagrams/build/sequence-diagram-min.js"></script>
+        <script src="./bower_components/Chart.js/Chart.min.js"></script>
+        <script src="./bower_components/angular-chart.js/dist/angular-chart.js"></script> <!-- 1: basic charts -->
+        <script src="./bower_components/d3/d3.js"></script> <!-- 2: more charts -->
+        <script src="./bower_components/nvd3/build/nv.d3.js"></script> <!-- 2: more charts -->
+        <script src="./bower_components/angular-nvd3/dist/angular-nvd3.js"></script> <!-- 2: more charts --><!-- this installs nvd3 and d3 -->
+        <script src="./bower_components/angular-scroll-glue/src/scrollglue.js"></script> <!-- enables text scroll always at the end -->
+        <script src="./bower_components/angular-bootstrap-contextmenu/contextMenu.js"></script>
+        <script src="./bower_components/file-saver/FileSaver.min.js"></script>
+
+		    <!-- App -->
+		    <script src="./js/app.js"></script>
+
+		    <!-- Services -->
+        <script src="./js/services/angular-fullscreen.js"></script>
+		    <script src="./js/services/socket.js"></script>
+		    <script src="./js/services/logs.js"></script>
+		    <script src="./js/services/arrays.js"></script>
+		    <script src="./js/services/messagesFactory.js"></script>
+		    <script src="./js/services/docs.js"></script>
+
+		    <!-- Directives -->
+		    <script src="./js/directives/focusMe.js"></script>
+		    <script src="./js/directives/ngEnter.js"></script>
+		    <script src="./js/directives/draggable.js"></script>
+		    <script src="./js/directives/imageOnLoad.js"></script>
+		    <script src="./js/directives/modal.js"></script>
+		    <script src="./js/directives/resizer.js"></script>
+
+		    <!-- Filters -->
+		    <script src="./js/filters/setDecimal.js"></script>
+		    <script src="./js/filters/boxplot.js"></script>
+		    <script src="./js/filters/chart.js"></script>
+		    <script src="./js/filters/console.js"></script>
+
+		    <!-- Controllers -->
+		    <script src="./js/controllers/adminDashboardController.js"></script>
+		    <script src="./js/controllers/experimentsController.js"></script>
+		    <script src="./js/controllers/diagramsController.js"></script>
+		    <script src="./js/controllers/networkController.js"></script>
+		    <script src="./js/controllers/messageController.js"></script>
+		    <script src="./js/controllers/editorController.js"></script>
+		    <script src="./js/controllers/mainController.js"></script>
+		    <script src="./js/controllers/helpController.js"></script>
+		    <script src="./js/controllers/forms/formPipelinePropertiesController.js"></script>
+		    <script src="./js/controllers/forms/formExperimentPropertiesController.js"></script>
+		    <script src="./js/controllers/forms/formOpenFileController.js"></script>
+		    <script src="./js/controllers/charts/chartController.js"></script>
+		    <script src="./js/controllers/DocsController.js"></script>
+		    <script src="./js/controllers/reports/reportController.js"></script>
+
+		    <!-- Custom styles for this template -->
+		    <link href="./css/resizer.css" rel="stylesheet">
+		    <link href="./css/styles.css" rel="stylesheet">
+        <link ng-repeat="stylesheet in stylesheets" ng-href="./css/{{stylesheet.href}}.css" rel="stylesheet" />
+    </div>
+	</body>
+</html>
+
+

@@ -1,0 +1,48 @@
+/**
+ * ============================================================================
+ *  \brief     mac_deploy.gradle
+ *  \details   This file defines deploy constants for MAC.
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Feb 10, 2016
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+*/
+
+/*
+================================================================================
+CONSTANTS
+================================================================================
+*/
+project.ext.set("BINARY_NAME",                 "ngasp")
+project.ext.set("PROJECT_REPOSITORY",          "gitlab.bio.crag.local/gvera/ngasp.git")
+project.ext.set("RELEASE_FOLDER",              "../release/")
+project.ext.set("CODE_STYLE_APP",              "./tools/cpplint/cpplint.py")
+project.ext.set("STYLE_SOURCE_CODE_PATH",      "./source/backend/*.cpp")
+project.ext.set("DOCUMENTATION_APP",           "doxygen")
+project.ext.set("DOCUMENTATION_PATH",          "./doc/doxygen")
+project.ext.set("DOCUMENTATION_LOG_FILE",      "./doc/doxygen/doxygen_log.txt")
+project.ext.set("PUBLISH_APP",                 "sshpass")
+project.ext.set("TMP_FOLDER",                  "/tmp/")
+project.ext.set("GET_PROJECT_VERSION_APP",     "sh")
+project.ext.set("GET_PROJECT_VERSION_SCRIPT",  "./get_project_version.sh")
+project.ext.set("UNPACK_EXAMPLES_APP",         "sh")
+project.ext.set("UNPACK_EXAMPLES_SCRIPT",      "./unpack_examples.sh")
+project.ext.set("PUBLISH_APP",                 "scp")
+project.ext.set("PUBLISH_DESTINATION",         "ci_ngasp@10.200.15.15:/projects/035-ngaSP/public_web/downloads/binaries")
+project.ext.set("USE_PK_PARAM",                "")
+project.ext.set("USE_PK_ARG",                  "")
+
+
+/*
+================================================================================
+FINALIZE (Post Build Task). Customized this by platform
+================================================================================
+*/
+task finalize << {
+  println('finally Mac!')
+}
+

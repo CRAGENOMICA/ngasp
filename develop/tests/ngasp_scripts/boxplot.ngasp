@@ -1,0 +1,32 @@
+# build/exe/ngasp/ngasp load -i /home/jjene/NetBeansProjects/ngasp/tests/pipelines/boxplot.ngasp
+# ==============================================================================
+
+  verbose --level debug
+
+  set-value --to $encoding --eq "english_bn"
+
+  calc -n calc_boxplot_values --as calc-boxplot-values
+
+  dim -n array    --as double_vector
+  dim -n q1       --as double
+  dim -n median   --as double
+  dim -n q3       --as double
+  dim -n min      --as double
+  dim -n max      --as double
+  dim -n outliers --as double_vector
+
+  set-value --to array                       --eq "14.2,17.1,10.2,14.2,14.1,16.2,10.3,17.2,10.2,0"
+  set-value --to calc_boxplot_values.inputs  --eq "array"
+  set-value --to calc_boxplot_values.outputs --eq "q1,median,q3,min,max,outliers"
+
+  run-calculation -n calc_boxplot_values
+
+  print -n array    --mode json --eol
+  print -n q1       --mode json --eol
+  print -n median   --mode json --eol
+  print -n q3       --mode json --eol
+  print -n min      --mode json --eol
+  print -n max      --mode json --eol
+  print -n outliers --mode json --eol
+
+

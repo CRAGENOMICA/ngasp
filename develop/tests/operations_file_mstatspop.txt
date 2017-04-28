@@ -1,0 +1,4 @@
+mstatspop -f fasta -i ../examples/MC1R_PigsOutg_aligned.fas -N 1 48
+mstatspop -f fasta -i ../examples/MC1R_PigsOutg_aligned.fas -o 0 -p 1 -u 0 -t 1000 -s 123456 -G 0 -N 2 48 46
+mstatspop -f fasta -i ../examples/MC1R_PigsOutg_aligned.fas -o 0 -p 1 -u 0 -t 1000 -s 123456 -G 1 -N 3 48 46 1
+

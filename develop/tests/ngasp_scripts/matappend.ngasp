@@ -1,0 +1,11 @@
+dim -n v --as double_vector
+dim -n m --as double_matrix
+dim -n iterador --as int64
+
+set-value --to v --eq "1,2,3"
+set-value --to iterador --eq 1
+
+matappend --to m --add v --index iterador
+
+print -n m
+

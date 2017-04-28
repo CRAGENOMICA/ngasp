@@ -1,0 +1,64 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/if_levels.ngasp
+
+verbose --level normal
+
+const --name TRUE  --by 1
+const --name FALSE --by 0
+
+dim -n cert --as bool
+set --to cert --eq TRUE
+
+print --text "start Block 1"
+
+if --ref cert --eq TRUE
+	print --text "B1-1"
+	if --ref cert --eq TRUE
+		print --text "B1-1-a"
+	else
+		print --text "B1-1-b"	
+	endif
+	print --text "B1-1-fi"
+else
+	print --text "B1-2"
+	if --ref cert --eq TRUE
+		print --text "B1-2-a"
+	else
+		print --text "B1-2-b"
+	endif
+	print --text "B1-2-fi"
+endif
+
+print --text "start Block 2"
+
+if --ref cert --eq FALSE
+	print --text "B2-1"
+	if --ref cert --eq TRUE
+		print --text "B2-1-a"
+	else
+		print --text "B2-1-b"
+	endif
+	print --text "B2-1-fi"
+else
+	print --text "B2-2"
+	if --ref cert --eq FALSE
+		print --text "B2-2-a"
+	else
+		print --text "B2-2-b"
+	endif
+	print --text "B2-2-fi"
+endif
+
+print --text "end"
+
+
+print --text ""
+print --text "Expected output:"
+print --text "start Block 1"
+print --text "B1-1"
+print --text "B1-1-a"
+print --text "B1-1-f1"
+print --text "start Block 2"
+print --text "B2-2"
+print --text "B2-2-b"
+print --text "B2-2-fi"
+print --text "end"

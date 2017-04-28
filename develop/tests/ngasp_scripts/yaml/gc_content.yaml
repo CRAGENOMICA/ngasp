@@ -1,0 +1,56 @@
+%YAML 1.2
+
+# Do not modify this file because it was generated automatically
+
+# ==============================================================================
+# ngaSP Pipeline Properties 
+# ==============================================================================
+# name        : 
+# description :
+# date        : 17 Nov, 2015.
+# ==============================================================================
+
+# build/binaries/mainExecutable/main load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/yaml/gc_content.yaml -v /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/yaml/gc_content_experiment_1.yaml -f yaml
+
+include: tests/pipelines/yaml/constants.yaml
+
+variables:
+    - name: input_2_0
+      as: char_vector
+      value: 
+
+    - name: bool_3_0
+      as: bool
+      value: TRUE
+
+    - name: bool_4_0
+      as: bool
+      value: FALSE
+
+    - name: total_0_0
+      as: float
+      value: 
+
+    - name: total_1_0
+      as: float
+      value: 
+
+experiment: load
+
+calculations:
+    - name: gc-content_0
+      type: gc-content
+      inputs:
+          - input_2_0
+          - bool_4_0
+      outputs:
+          - total_0_0
+
+    - name: gc-content_1
+      type: gc-content
+      inputs:
+          - input_2_0
+          - bool_3_0
+      outputs:
+          - total_1_0
+

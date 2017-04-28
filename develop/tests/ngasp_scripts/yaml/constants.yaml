@@ -1,0 +1,36 @@
+%YAML 1.2
+
+# This file is part of the standard ngasp yaml library.
+
+constants:
+    - name: FASTA_FILE
+      by: 1
+
+    - name: MS_FILE
+      by: 2
+
+    - name: YES
+      by: 1
+
+    - name: NO
+      by: 0
+
+    - name: TRUE
+      by: 1
+
+    - name: FALSE
+      by: 0
+
+    - name: HAPLOID
+      by: 1
+
+    - name: DIPLOID
+      by: 2
+
+    - name: FIRST_ITERATION
+      by: 0
+
+    - name: NGASP_PATH
+      by: /home/jjene/NetBeansProjects/ngaSP
+
+

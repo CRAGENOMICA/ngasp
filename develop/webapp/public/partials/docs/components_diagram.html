@@ -1,0 +1,246 @@
+<!--
+components físics
+    - archivos
+    - cabeceras
+    - bibliotecas compartidas
+    - módulos
+    - ejecutables
+    - paquetes
+-->
+
+<div class="sheet">
+	<br /><br /><br /><br />
+
+    <style>
+    .component
+    {
+        background-color: #f4efda;
+        border: 1px solid #333;
+
+        font-family: roboto;
+        font-size: 15px;
+        line-height: 19px;
+	    color: #888;
+	    font-weight: 500;
+        line-height: 160%;
+        text-align: center;
+
+        padding: 10px;
+        width: 250px;
+        margin: 10px;
+
+        box-shadow: 2px 2px 5px #888888;
+    }
+
+    .component h1
+    {
+        padding: 0px;
+        margin: 0px;
+        font-family: roboto;
+        font-size: 17px;
+        line-height: 19px;
+	    color: #444;
+	    font-weight: 500;
+        line-height: 160%;
+    }
+
+    #components_diagram
+    {
+        padding: 50px 50px 50px 10px;
+    }
+
+    .align-left
+    {
+        float: left;
+    }
+
+    .align-center
+    {
+        display: inline-block;
+        margin:0 auto;
+        margin-left: 120px;
+    }
+
+    .align-right
+    {
+        float: right;
+    }
+    </style>
+
+	<!-- do not set the controller here because it is in the $stateProvider -->
+
+    <div class="container-fluid">
+	    <div class="row spacer">
+            <div class="company_title_1_font window_padding">Components Diagram</div>
+        </div>
+
+	    <div class="row">
+
+            <div id="components_diagram">
+
+                <div class="component align-left" style=""><h1>USER</h1>
+                    Workstation requirements:<br />
+                    <div class="component" style=""><h1>Chrome</h1>
+                        It is the only browser where the app has been tested in.<br />
+                        It runs HTML5 pages.
+                    </div>
+                </div>
+
+    
+                <div class="component align-center" style=""><h1>CLIENT</h1>
+                    <div class="component" style=""><h1>Web Application</h1>
+                        Configuration file: js/app.json<br />
+                        Contains:
+
+                        <div class="component" style=""><h1>Views</h1>
+                            - index.html
+                        </div>
+
+                        <div class="component" style=""><h1>Partials</h1>
+                            html pages (views)<br />
+                            Uses:
+
+                            <div class="component" style=""><h1>Directives</h1>
+                                To add new features to html elements (most of them from 3rd party):<br />
+                                - set focus on show<br />
+                                - load image event<br />
+                                - set enter key event<br />
+                                - draggable<br />
+                            </div>
+                        </div>
+
+                        <div class="component" style=""><h1>Controllers</h1>
+                            client javascript source code for the views<br />
+                            Uses:
+
+                            <div class="component" style=""><h1>Services</h1>
+                                To encapsulate javascript code into separated classes:
+                                - system logs<br />
+                                - array tools_menu<br />
+                                - alert and question messages to the user<br />
+                                - socket functionalities<br />
+                                - fullscreen: (3erd party source code)<br />
+                            </div>
+                        </div>
+
+
+
+                        <div class="component" style=""><h1>CSS</h1>
+                            Contains:
+
+                            <div class="component" style=""><h1>styles</h1>
+                                - One file with all general styles.<br />
+                                - One file per each theme.
+                            </div>
+                            <div class="component" style=""><h1>fonts</h1>
+                                All fonts are stored here.
+                            </div>
+                            <div class="component" style=""><h1>icons</h1>
+                                ".ico" files.
+                            </div>
+                            <div class="component" style=""><h1>images</h1>
+                                ".svg",".jpg",".gif",... files.
+                            </div>
+                        </div>
+
+                        <div class="component" style=""><h1>Modules</h1>
+                            Contains these vendor javascript libraries:
+
+                            <div class="component" style=""><h1>angular</h1>
+                                Angular JS core.
+                            </div>
+                            <div class="component" style=""><h1>angular-animate</h1>
+                                To be able to use "CSS transition" with ngRepeat, ngSwitch, and ngView. And also, the $animate service.
+                            </div>
+                            <div class="component" style=""><h1>angular-bootstrap</h1>
+                                To be able to use bootstrap components with angular.
+                            </div>
+                            <div class="component" style=""><h1>angular-cookies</h1>
+                                Load / Save state values from and into user cookies.
+                            </div>
+                            <div class="component" style=""><h1>angular-sanitize</h1>
+                                To be able to use ng-bind-html.
+                            </div>
+                            <div class="component" style=""><h1>angular-socket-io</h1>
+                                It enables real-time bidirectional event-based communication.
+                            </div>
+                            <div class="component" style=""><h1>angular-ui-router</h1>
+                                It is a routing framework, which allows you to organize the parts of your interface into a state machine.
+                                <div class="component" style=""><h1>angular-route</h1>
+                                    Required by angular-ui-router.
+                                </div>
+                            </div>
+                            <div class="component" style=""><h1>bootstrap</h1>
+                                Bootstrap components: button,...; and styles like: scaffolding,...
+                            </div>
+                            <div class="component" style=""><h1>jquery</h1>
+                                It is required by Angular JS.
+                            </div>
+                            <div class="component" style=""><h1>js-sequence-diagramsController</h1>
+                                To draw sequence diagrams.
+                                <div class="component" style=""><h1>raphael</h1>
+                                    It is required by the "js-sequence-diagramsController".
+                                </div>
+                                <div class="component" style=""><h1>underscore</h1>
+                                    It is required by the "js-sequence-diagramsController".
+                                </div>
+                            </div>
+
+                            <div class="component" style=""><h1>ui-bootstrap-alerts</h1>
+                                To be able to use "&lt;alert&gt;" for showing alert messages to the user.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="component align-right" style=""><h1>SERVER</h1>
+
+                    <div class="component" style=""><h1>NodeJs</h1>
+                        To build scalable network applications.<br />
+                        Launches this application with ./start_ngasp.sh:
+                        <div class="component" style=""><h1>Server Application</h1>
+                            Configuration file: server.js<br />
+                            It contains:
+                            <div class="component" style=""><h1>Modules</h1>
+                                Contains these vendor javascript libraries:
+
+                                <div class="component" style=""><h1>Express</h1>
+                                    It is the framework to work with NodeJS.
+                                </div>
+                                <div class="component" style=""><h1>Socket.io</h1>
+                                    It enables real-time bidirectional event-based communication.
+                                </div>
+                                <div class="component" style=""><h1>Body-Parser</h1>
+                                    It enables JSON communication between client and server.
+                                </div>
+                            </div>
+                            <div class="component" style=""><h1>Central Manager</h1>
+                                cm.js<br />
+                                Uses:
+
+                                <div class="component" style=""><h1>Models</h1>
+                                    constants.js<br />
+                                    logs.js<br />
+                                    math_tools.js<br />
+                                    string_tools.js<br />
+                                    policies.js<br />
+                                    strings.js
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+            
+                    <div class="component" style=""><h1>ngaSp</h1>
+                        Linux Binary
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

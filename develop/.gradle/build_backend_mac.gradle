@@ -1,0 +1,91 @@
+/**
+ * ============================================================================
+ *  \brief     mac_build.gradle
+ *  \details   This file describes the ngaSP build process for MAC
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Apr 20, 2015
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+ */
+/* If you want to include a library, do it in this way:
+   Do not use "-l:" for the library name.
+   Do not use "-L" for the path.
+   Use: "./relative_path/library_name.a
+   Remember: libboost_iostreams.a (static lib)
+             libboost_iostreams.so (shared lib).
+*/
+
+
+model {
+	toolChains {
+		clang(Clang) {
+			path "/usr/bin"
+			eachPlatform() {
+				cppCompiler.executable "clang"
+			}
+		}
+	}
+
+	components {
+		ngasp(NativeExecutableSpec) {
+			sources {
+				cpp {
+					source {
+						srcDir "../source/backend"
+						include "**/*.cpp"
+					}
+				}
+			}
+
+			binaries.all {
+				if (toolChain in Clang) {
+          cppCompiler.args "-O3",                                               /* Optimizations */
+                           "-g3",
+                           "-pedantic",
+                           "-Wall",
+                           "-ansi",
+                           "-fmessage-length=0",
+                           "-Wno-long-long",
+                           "-Wno-variadic-macros",
+                           "-std=c++11",
+                           "-I../../../../../source/boost/boost_1_60_0",        /* Boost */
+                           "-I../../../../../source/seqan/seqan_2.0.1.0",       /* SeqAn */
+                           "-DSEQAN_ENABLE_DEBUG=1",
+                           "-DSEQAN_HAS_ZLIB=1",
+                           "-DSEQAN_HAS_BZIP2=0",
+                           "-DSEQAN_HAS_EXECINFO=1",
+                           "-DSEQAN_ENABLE_TESTING=0",
+                           "-I../../../../../source/htslib/htslib-1.3.1",       /* HTSLib */
+                           "-I../../../../../source/samtoolslib",               /* Samtools */
+                           "-I/usr/local/opt/ncurses/include",                  /* ncurses <-------------- Only Mac OS */
+                           "-I/usr/local/inlcude",                              /* GSL */
+                           "-DinGSL=1",
+                           ""
+                          
+          linker.args      "../source/boost/boost_1_60_0/stage/lib/libboost_iostreams.a", /* Boost mapped_file. */
+                           "../source/htslib/htslib-1.3.1/libhts.a",            /* HTSLib */
+                           "../source/samtoolslib/lib/libsamtoolslib.a",        /*Samtools compiled with Gradle */
+                           "/usr/local/opt/ncurses/lib/libncurses.a",            
+/*                           "-ltinfo",*/
+                           "../source/boost/boost_1_60_0/stage/lib/libboost_chrono.a",  /* time difference with boost. <----- Mac OS in this way */
+                           "../source/boost/boost_1_60_0/stage/lib/libboost_system.a",  /* <----- Mac OS in this way */
+                           "-lz",                                               /* zlib */
+                           "-lgsl",                                             /* GSL */
+                           "-lgslcblas",
+                           "../source/gsl/gsl-2.2/gsl/.libs/libgsl.a",
+                           "../source/gsl/gsl-2.2/gsl/cblas/.libs/libgslcblas.a",
+
+                           "-o",
+                           "../release/ngasp",
+                           ""
+				}
+			}
+		}
+	}
+}
+
+

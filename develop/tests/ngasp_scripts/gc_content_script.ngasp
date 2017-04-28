@@ -1,0 +1,167 @@
+# ==============================================================================
+# script      : test1
+# date        : Aug 6, 2015.
+# author      : CRAG
+# ==============================================================================
+
+# build/binaries/mainExecutable/main load -i tests/pipelines/gc_content_script.ngasp -f ngasp
+# build/binaries/mainExecutable/main load -i tests/pipelines/gc_content_script.ngasp -f ngasp
+
+verbose --level debug
+
+# -------------------------------------------------
+# Input Vector
+# -------------------------------------------------
+dim -n vector           --as char_vector
+set --to vector         --eq "C,T,T,G,A,A,A,T,G,G,C,C,G,C,G,A,A,T,T"
+
+# ==============================================================================
+# 1st Part:
+# Calculate the GC-Content without using calculations.
+# ==============================================================================
+
+# -------------------------------------------------
+# Constants
+# -------------------------------------------------
+const --name TIMINA     --by "T"
+const --name CITOSINA   --by "C"
+const --name GUANINA    --by "G"
+const --name ADENINA    --by "A"
+const --name FALSE      --by 0
+const --name TRUE       --by 1
+
+# -------------------------------------------------
+# Auxiliar Variables
+# -------------------------------------------------
+dim -n T                --as int64
+dim -n C                --as int64
+dim -n G                --as int64
+dim -n A                --as int64
+dim -n i                --as int
+dim -n numerador        --as int64
+dim -n divisor          --as int64
+dim -n result           --as float
+dim -n total_val        --as float
+dim -n total_per        --as float
+
+# -------------------------------------------------
+# Count every type of base
+# -------------------------------------------------
+for --ite i --from 0 --to vector.reg_length --inc 1
+  if --ref vector[i] --eq TIMINA
+    set --to T --eq T --add 1
+  else
+  if --ref vector[i] --eq CITOSINA
+      set --to C --eq C --add 1
+    else
+      if --ref vector[i] --eq GUANINA
+        set --to G --eq G --add 1
+      else
+        if --ref vector[i] --eq ADENINA
+          set --to A --eq A --add 1
+        else
+        endif
+      endif
+    endif
+  endif
+end-for
+
+# -------------------------------------------------
+# Calculate as Percent
+# -------------------------------------------------
+set --to numerador      --eq G        --add C
+set --to divisor        --eq A        --add T 
+set --to divisor        --eq divisor  --add G
+set --to divisor        --eq divisor  --add C
+
+if --ref divisor --neq 0
+  set --to total_per --eq numerador --div divisor
+endif
+
+
+# -------------------------------------------------
+# Calculate as Value
+# -------------------------------------------------
+set --to numerador      --eq A        --add T
+set --to divisor        --eq G        --add C
+
+if --ref divisor --neq 0
+  set --to total_val --eq numerador --div divisor
+endif
+
+# -------------------------------------------------
+# Print Results
+# -------------------------------------------------
+print --text "Not using calculations"
+print --text "Total as value" -n total_val
+print --text "Total as percentage" -n total_per
+
+# -------------------------------------------------
+# Remove Local Variables
+# -------------------------------------------------
+del -n T
+del -n C
+del -n G
+del -n A
+del -n i
+del -n numerador
+del -n divisor
+del -n result
+del -n total_val
+del -n total_per
+
+
+# ==============================================================================
+# 2nd Part:
+# Calculate the GC-Content using the gc-content calculation.
+# ==============================================================================
+
+# -------------------------------------------------
+# Auxiliar Variables
+# -------------------------------------------------
+dim  -n percent         --as bool
+dim  -n total2_val      --as float
+dim  -n total2_per      --as float
+calc -n gcc             --as gc-content
+
+# -------------------------------------------------
+# Calculate as Value
+# -------------------------------------------------
+set --to percent        --eq FALSE
+set --to gcc.inputs     --eq "vector,percent"
+set --to gcc.outputs    --eq "total2_val"
+run -n gcc
+
+# -------------------------------------------------
+# Calculate as Percent
+# -------------------------------------------------
+set --to percent        --eq TRUE
+set --to gcc.inputs     --eq "vector,percent"
+set --to gcc.outputs    --eq "total2_per"
+run -n gcc
+
+# -------------------------------------------------
+# Print Results
+# -------------------------------------------------
+
+print --text "Using gc-content calculation"
+print -n total2_val
+print -n total2_per
+
+# -------------------------------------------------
+# Remove Local Variables
+# -------------------------------------------------
+del -n percent
+del -n total2_val
+del -n total2_per
+del -n gcc
+
+# ==============================================================================
+# 3rd Part:
+# Remove the input variable and show the memory information
+# ==============================================================================
+
+del -n vector
+mem
+
+

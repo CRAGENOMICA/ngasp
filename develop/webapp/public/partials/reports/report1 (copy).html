@@ -1,0 +1,641 @@
+<div class="sheet">
+	<br /><br /><br /><br />
+
+	<!-- Alerts -->
+	<alerts></alerts>
+
+	<!-- do not set the controller here because it is in the $stateProvider -->
+
+  <div class="container-fluid">
+    <div class="row spacer">
+       	<div class="company_title_1_font window_padding">Report 1. NUCLEOTIDE VARIABILITY, NEUTRALITY TEST AND POPULATION DIFFERENTIATION.</div>
+    </div>
+
+
+
+<style>
+.report .report_container
+{
+  border: 2px solid #e6e6e6;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 3px 3px 5px #aaa;
+}
+
+.container_title_font
+{
+    font-family: 'robotobold';
+    font-size: 13pt;
+
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+.container_content_font
+{
+    font-family: 'robotoregular';
+    font-size: 10pt;
+
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+.report_container .title_container
+{
+  background-color: #f9f9f9;
+  text-align: center;
+  height: 40px;
+  padding-top: 10px;
+}
+
+.report_container_content
+{
+  padding: 10px;
+}
+
+#pop_names
+{
+  width: 350px;
+}
+
+#pop_struct_params
+{
+  width: 600px;
+}
+
+.report_container .report_table
+{
+  border: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.report .report_table th
+{
+  background-color: #f9f9f9;
+}
+
+.td_th
+{
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.bullet
+{
+  width: 7px;
+  height: 7px;
+  -webkit-border-radius: 70px;
+  -moz-border-radius: 70px;
+  border-radius: 70px;
+  background-color: #555;
+  float:left;
+  margin: 0px 10px 0px 15px;
+  position:relative;
+  top: 6px;
+}
+
+.report tr
+{
+  border-bottom: 1px dotted #eee;
+}
+
+
+/*
+.report td + td
+{
+  width: 40%;
+}
+*/
+.data_table
+{
+  margin-top: 3px;
+  border: 1px solid #eee;
+  text-align: left;
+
+  table-layout: fixed;  /* all td's with the same size */
+}
+
+.data_table th
+{
+  text-align: left;
+  padding: 3px;
+  background-color: #f9f9f9;
+
+  overflow: hidden;  /* all td's with the same size */
+}
+
+.data_table td
+{
+  padding: 3px;
+
+  overflow: hidden;  /* all td's with the same size */
+}
+
+.col10 th,
+.col10 td,
+.col2 th,
+.col2 td,
+.col3 th,
+.col3 td,
+.col4 th,
+.col4 td,
+.col5 th,
+.col5 td,
+.col6 th,
+.col6 td,
+.col7 th,
+.col7 td
+{
+  width: 85px;
+  border: 1px solid #eee;
+}
+.coln td
+{
+  width: 30px;
+  border: 1px solid #eee;
+  text-align: center;
+}
+.coln th 
+{
+  text-align: center;
+}
+
+.color_1
+{
+  background-color: #eeeeff;
+}
+
+.color_2
+{
+  background-color: #eeffee;
+}
+
+.color_3
+{
+  background-color: #ffeeee;
+}
+
+</style>
+
+
+<pre class="report">
+mstatspop v.0.1beta (20150707)
+Sebastian E. Ramos-Onsins, Luca Ferretti, Emanuele Raineri, Giacomo Marmorini, William Burgos and Gonzalo Vera
+Variability Analyses of multiple populations: Calculation and estimation of statistics and neutrality tests.
+
+mstatspop -f fasta -i examples/input.fa -N 1 48 
+
+</pre>
+
+<div class="row spacer" ng-show="false">
+  <div class="report">
+    <div id="pop_names" class="report_container">
+      <ul>
+        <li class="title_container container_title_font">Names from sample selected by the user</li> <!--  (the first 48, if diploid is doubled): -->
+        <li class="report_container_content container_content_font">
+          <table class="report_table">
+            <tr>
+              <td>
+                <table class="data_table">
+                  <tr><th>Names</th></tr>
+                  <tr><td>EUROPACOMMERCIALHA</td></tr>
+                  <tr><td>EUROPACOMMERCIALHA2</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR05</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR052</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR09</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR092</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR10</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR102</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR111</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR1112</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR112</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR1122</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR121</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR1212</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR122</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR1222</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR123</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR1232</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR14</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR142</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW05</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW052</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW061</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW0612</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW062</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW0622</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW07</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW072</td></tr>
+                  <tr><td>EUROPACOMMERCIALPI03</td></tr>
+                  <tr><td>EUROPACOMMERCIALPI032</td></tr>
+                  <tr><td>EUROPACOMMERCIALPI04</td></tr>
+                  <tr><td>EUROPACOMMERCIALPI042</td></tr>
+                  <tr><td>EUROPACOMMERCIALDU02</td></tr>
+                  <tr><td>EUROPACOMMERCIALDU022</td></tr>
+                  <tr><td>EUROPACOMMERCIALDU03</td></tr>
+                  <tr><td>EUROPACOMMERCIALDU032</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR04</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR042</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR08</td></tr>
+                  <tr><td>EUROPACOMMERCIALLR082</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW021</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW0212</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW022</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW0222</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW023</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW0232</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW024</td></tr>
+                  <tr><td>EUROPACOMMERCIALLW0242</td></tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+ 
+
+ 
+
+<pre>
+Calculating statistics...
+.
+
+Calculating statistics...
+</pre>
+
+
+    <div class="row spacer">
+
+      <div class="report">
+        <div id="pop_struct_params" class="report_container">
+          <ul>
+            <li class="title_container container_title_font">Population Structure Parameters</li>
+            <li class="report_container_content container_content_font">
+              <table class="report_table">
+                <tr>
+                    <td><div class="bullet" />Input file:</td>
+                    <td>examples/input.fa</td>
+                </tr>
+                <tr>
+                    <td><div class="bullet" />Number of populations:</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td><div class="bullet" />Number of samples for each population:</td>
+                    <td>48</td> <!-- nsam[0] -->
+                </tr>
+                <tr>
+                    <td><div class="bullet" />Include unknown positions:</td>
+                    <td><span class="glyphicon glyphicon-remove" style="color:red" /></td>
+                </tr>
+              </table>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+  </div>
+
+    <div class="row spacer">
+
+      <div class="report">
+        <div id="pop_struct_params" class="report_container">
+          <ul>
+            <li class="title_container container_title_font">Population Structure Information</li>
+            <li class="report_container_content container_content_font">
+              <table class="report_table">
+                <tr>
+                    <td><div class="bullet" />Lenght of the total alignment including gaps:</td>
+                    <td>965</td>
+                </tr>
+                <tr>
+                    <td><div class="bullet" />Lenght of the total alignment excluding gaps:</td> <!--   but counting all positions as 1 eg. Syn positions < 1 count as 1) -->
+                    <td>965</td>
+                </tr>
+                <tr>
+                    <td><div class="bullet" />Multiple hits:</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><div class="bullet" />Lenght of the selected alignment:</td> <!-- (including unknown bp if selected) -->
+                    <td>963.0</td>
+                </tr>
+                <tr>
+                    <td><div class="bullet" />Number of variant (biallelic) sites:</td> <!--  (including unknown bp if selected and excluding codons with more than two variants, if selected) -->
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td><div class="bullet" />S/V ratio:</td>
+                    <td>inf</td>
+                </tr>
+                <tr>
+                    <td><div class="bullet" />Missing ratio:</td>
+                    <td>0.000000</td>
+                </tr>
+                <tr>
+                    <td><div class="bullet" />Effective length for each population:</td> <!--  (with at least one sequence, two or three sequences per pop) and excluding or including outgroup (if defined) -->
+                    <td>
+                      <table class="data_table">
+                        <tr><th>Eff. length</th><th>Eff. length Outgroup</th></tr>
+                        <tr><td>963.00</td><td>NA</td></tr> <!-- Eff_length1_pop[0], Eff_length1_pop_outg[0] -->
+                        <tr><td>963.00</td><td>NA</td></tr> <!-- Eff_length2_pop[0], Eff_length2_pop_outg[0] -->
+                        <tr><td>963.00</td><td>NA</td></tr> <!-- Eff_length3_pop[0], Eff_length3_pop_outg[0] -->
+                      </table>
+                    </td>
+                </tr>
+              </table>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+  </div>
+
+<div class="row spacer">
+  <div class="report">
+    <div style="width:1500px" class="report_container">
+      <ul>
+        <li class="title_container container_title_font">Statistics</li>
+        <li class="report_container_content container_content_font">
+          <table class="report_table">
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Estimates of variability for each population:</td> <!--   (an and bn for the variant positions) -->
+              <td>
+                <table class="data_table col10">
+                  <tr>
+                    <th>S</th> <!-- all will [0] -->
+                    <th>Theta (Wat)</th>
+                    <th>Theta (Taj)</th>
+                    <th>Theta (Fu & Li)</th>
+                    <th>Theta (Achaz, Wat)</th>
+                    <th>Theta (Achaz, Taj)</th>
+                    <th>an_x</th>
+                    <th>bn_x</th>
+                    <th>an_xo</th>
+                    <th>bn_xo</th>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>1.126643</td>
+                    <td>0.707447</td>
+                    <td>0.000000</td>
+                    <td>1.463406</td>
+                    <td>0.738889</td>
+                    <td>4.437964</td>
+                    <td>1.623882</td>
+                    <td>0.000000</td>
+                    <td>0.000000</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Estimates of NUCLEOTIDE variability for each population:</td> <!--   (if missing, corrected by the averaged effective positions) -->
+              <td>
+                <table class="data_table col7">
+                  <tr>
+                    <th>S</th> <!-- all will [0] -->
+                    <th>Theta / nt (Wat)</th>
+                    <th>Theta / nt (Taj)</th>
+                    <th>Theta / nt (Fu & Li)</th>
+                    <th>Theta / nt (Achaz, Wat)</th>
+                    <th>Theta / nt (Achaz, Taj)</th>
+                    <th>Theta / nt (Taj) HKY</th>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>0.001170</td>
+                    <td>0.000735</td>
+                    <td>0.000000</td>
+                    <td>0.001520</td>
+                    <td>0.000767</td>
+                    <td>0.000735</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Haplotype diversity and number of haplotypes for each population:</td>
+              <td>
+                <table class="data_table col2">
+                  <tr>
+                    <th>HapW</th> <!-- all will [0] -->
+                    <th>nHap</th>
+                  </tr>
+                  <tr>
+                    <td>0.366135</td>
+                    <td>4</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Neutrality tests for each population:</td>
+              <td>
+                <table class="data_table col6">
+                  <tr>
+                    <th>Tajima D</th> <!-- all will [0] -->
+                    <th>Fu & Li D*</th>
+                    <th>Fu & Li F*</th>
+                    <th>Achaz Y*</th>
+                    <th>Fs</th>
+                    <th>R2</th>
+                  </tr>
+                  <tr>
+                    <td>-0.909499</td>
+                    <td>1.100431</td>
+                    <td>0.525713</td>
+                    <td>-1.554482</td>
+                    <td>-0.043125</td>
+                    <td>0.010211</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Variants assigned to exclusive, fixed, polymorphic but fixed in rest of pops, and shared.</td> <!-- Ss[rest] are shared variants between populations but fixed within: -->
+              <td>
+                <table class="data_table col4">
+                  <tr>
+                    <th>Sx[0]</th>
+                    <th>Sx[1]</th>
+                    <th>Sf</th>
+                    <th>Ss</th>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />mismatch distribution statistics:</td>
+              <td>
+                <table class="data_table col3">
+                  <tr>
+                    <th>SDev</th> <!-- all will [0] -->
+                    <th>Skewness</th>
+                    <th>Kurtosis</th>
+                  </tr>
+                  <tr>
+                    <td>1.134855</td>
+                    <td>1.496181</td>
+                    <td>0.870915</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Nucleotide and haplotype diversity WITHIN populations:</td>
+              <td>
+                <table class="data_table col2">
+                  <tr>
+                    <th>PiW</th> <!-- all will [0] -->
+                    <th>HapW</th>
+                  </tr>
+                  <tr>
+                    <th>0.707447</th>
+                    <th>0.366135</th>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Frequency of variants for each population:</td>
+              <td>
+                <table class="data_table coln">
+                  <tr>
+                    <td>0</td><td>0</td><td class="color_2">2</td><td class="color_3">3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Frequency of each haplotype in the populations:</td>
+              <td>
+                <table class="data_table col4">
+                  <tr>
+                    <th>frH[0,hap00]</th>
+                    <th>frH[0,hap01]</th>
+                    <th>frH[0,hap02]</th>
+                    <th>frH[0,hap03]</th>
+                  </tr>
+                  <tr>
+                    <td>38</td>
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Positions of each variant (negative indicates it contains any missing 'N' values):</td>
+              <td>
+                <table class="data_table col5"> <!-- Sx[0] -->
+                  <tr>
+                    <td>61</td>
+                    <td>372</td>
+                    <td>493</td>
+                    <td>498</td>
+                    <td>729</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Joint frequency distribution for each variant and population (No included variants that are missing or polymorphic in the outgroup):</td>
+              <td>
+                <table class="data_table col5"> <!-- Sx[0] -->
+                  <!--	pop[0] -->
+                  <tr><td>SNP[51]</td><td>1.000</td></tr>
+                  <tr><td>SNP[61]</td><td>0.062</td></tr>
+                  <tr><td>SNP[285]</td><td>1.000</td></tr>
+                  <tr><td>SNP[307]</td><td>1.000</td></tr>
+                  <tr><td>SNP[365]</td><td>1.000</td></tr>
+                  <tr><td>SNP[372]</td><td>0.917</td></tr>
+                  <tr><td>SNP[493]</td><td>0.083</td></tr>
+                  <tr><td>SNP[498]</td><td>0.062</td></tr>
+                  <tr><td>SNP[729]</td><td>0.083</td></tr>
+                  <tr><td>SNP[731]</td><td>1.000</td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:15%"><div class="bullet" />Frequency of variants for each line and population (frequencies \ lines):</td>
+              <td>
+                <table class="data_table coln"> <!-- Sx[0] -->
+                  <tr><th ng-repeat="i in getNumber(48)">{{$index+1}}</th></tr>
+                  <tr><td class="td_th">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="color_1">1</td><td class="color_1">1</td></tr>
+                  <tr><td class="td_th">3</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_2">2</td><td class="color_2">2</td><td class="color_2">2</td><td class="color_2">2</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td><td class="color_1">1</td></tr>
+                  <tr><td class="td_th">4</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">10</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">11</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">12</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">13</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">14</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">15</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">16</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">17</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">18</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">19</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">20</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">21</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">22</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                  <tr><td class="td_th">23</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                </table>
+              </td>
+            </tr>
+
+          </table>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<pre>
+
+
+
+
+
+
+
+
+
+
+  </div> <!-- container -->
+
+</div>

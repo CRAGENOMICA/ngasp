@@ -1,0 +1,57 @@
+/**
+ * ============================================================================
+ *  \brief     build_samtoolslib.gradle
+ *  \details   This file describes the samtools library build process
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Apr 29, 2016
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+*/
+apply plugin: 'c'
+
+/*
+--------------------------------------------------------------------------------
+Attention:
+
+The current working directory is this file's folder: ".gradle/"
+--------------------------------------------------------------------------------
+*/
+
+/*
+================================================================================
+IMPORTS
+================================================================================
+*/
+
+apply from: './platform.gradle'
+
+/*
+================================================================================
+BUILD
+================================================================================
+*/
+task onwBuild() {
+  if (SOP == "WINDOWS") {
+    apply from: './build_samtoolslib_windows.gradle'
+  } else {
+    if (SOP == "MAC") {
+      apply from: './build_samtoolslib_mac.gradle'
+    } else {
+      if (SOP == "LINUX") {
+        apply from: './build_samtoolslib_linux.gradle'
+      } else {
+      }
+    }
+  }
+}
+
+build.dependsOn onwBuild
+
+clean {
+    delete "./${buildDir}/"
+}
+

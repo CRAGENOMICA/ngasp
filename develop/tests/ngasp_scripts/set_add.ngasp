@@ -1,0 +1,31 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/set_add.ngasp
+
+dim -n x --as float
+set --to x --eq 5 --sub 1
+print -n x
+
+dim -n y --as float
+set --to y --eq 5 --sub x
+print -n y
+
+dim -n v --as float-vector
+set --to v --eq "1,2,3,4,5"
+print -n v
+
+set --to y --eq y --add v[2]
+print -n y
+
+set --to y --eq y --div 2
+print -n y
+
+set --to y --eq y --mul 10
+print -n y
+
+
+dim -n str --as string
+set --to str --eq "1 2 3"
+print -n str
+
+set --to str --eq str --add " 4"
+print -n str
+

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09003"
+   height="1052.36"
+   id="svg2985"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="interior.svg"
+   inkscape:export-filename="/home/jjene/all/Projects/NetBeansProjects/ngasp/doc/TeX/images/interior.png"
+   inkscape:export-xdpi="89.989113"
+   inkscape:export-ydpi="89.989113">
+  <defs
+     id="defs3">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3817">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3819" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0"
+         offset="1"
+         id="stop3821" />
+    </linearGradient>
+    <filter
+       inkscape:collect="always"
+       id="filter3765"
+       x="-0.33465937"
+       width="1.6693187"
+       y="-0.0022882673"
+       height="1.0045765">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.1268558"
+         id="feGaussianBlur3767" />
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3765-0-4"
+       x="-0.33465937"
+       width="1.6693187"
+       y="-0.0022882672"
+       height="1.0045764">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.1268558"
+         id="feGaussianBlur3767-5-8" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3817"
+       id="radialGradient3825"
+       cx="192.82248"
+       cy="1115.7806"
+       fx="192.82248"
+       fy="1115.7806"
+       r="10.390276"
+       gradientTransform="matrix(-6.0456237,2.7137542e-5,-4.5424668e-5,-57.134546,1358.6053,64852.989)"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter3839"
+       x="-0.011961657"
+       width="1.0239233"
+       y="-0.12263658"
+       height="1.2452732">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.5596214"
+         id="feGaussianBlur3841" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     inkscape:document-units="mm"
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="57.379403"
+     inkscape:cy="234.91492"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="2560"
+     inkscape:window-height="1339"
+     inkscape:window-x="0"
+     inkscape:window-y="28"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-global="true"
+     units="px">
+    <sodipodi:guide
+       orientation="1,0"
+       position="0,896.00531"
+       id="guide2986" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="183.84776,1052.579"
+       id="guide2988" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="743.97735,1008.6373"
+       id="guide2990" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="788.92914,0"
+       id="guide2992" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid2994"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata4">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-0.00207745)">
+    <rect
+       style="fill:#dde9af;fill-opacity:1;stroke:none;opacity:0.07307692"
+       id="rect4214"
+       width="743.97736"
+       height="1052.579"
+       x="0"
+       y="-0.21901464"
+       transform="translate(0,0.00207745)" />
+    <rect
+       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none"
+       id="rect4727"
+       width="141.42136"
+       height="1052.579"
+       x="1196.0206"
+       y="-0.21901464"
+       transform="translate(0,0.00207745)" />
+    <rect
+       style="opacity:0.10384617;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3765)"
+       id="rect3759"
+       width="8.081214"
+       height="1181.8785"
+       x="-1404.1121"
+       y="684.6665" />
+    <rect
+       style="opacity:0.10384617;fill:url(#radialGradient3825);fill-opacity:1;stroke:none;filter:url(#filter3839)"
+       id="rect3759-5"
+       width="8.081214"
+       height="1181.8785"
+       x="173.24117"
+       y="525.06238"
+       transform="matrix(0,2.3478563,-0.23873163,0,638.41357,599.6426)" />
+    <rect
+       style="opacity:0.10384617;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3765-0-4)"
+       id="rect3759-5-6"
+       width="8.081214"
+       height="1181.8785"
+       x="173.24117"
+       y="525.06238"
+       transform="matrix(0,1,-1,0,745.8208,1318.0587)" />
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+/**
+ * ============================================================================
+ *  \brief     linux_tests.gradle
+ *  \details   This file defines tests constants for LINUX.
+ *  \author    jjene
+ *  \version   1.0
+ *  \date      Feb 10, 2016
+ *  \pre
+ *  \bug
+ *  \warning
+ *  \copyright CRAG 2015.
+ * ============================================================================
+*/
+
+// Configuration done for comparing previous ngasp with current ngasp. For
+// comparing previous mstatspop with current ngasp, set:
+// NGASP_COMMAND value to "" and
+// replace "PREVIOUS_BINARY, NGASP_COMMAND" by
+// "PREVIOUS_BINARY" in test_backend.gradle.
+
+/*
+================================================================================
+CONSTANTS
+================================================================================
+*/
+project.ext.set("NGASP_BINARY",             "../release/ngasp")
+project.ext.set("NGASP_COMMAND",            "mstatspop")
+project.ext.set("NGASP_TESTS_PATH",         "../tests/current/")
+project.ext.set("PREVIOUS_BINARY",          "../tests/mstatspop_gz")
+// project.ext.set("PREVIOUS_BINARY",          "../tests/mstatspop_20160922_siGSL")
+project.ext.set("PREVIOUS_TESTS_PATH",      "../tests/previous/")
+project.ext.set("EXAMPLES_PATH",            "../examples/")
+project.ext.set("COMPARE_FILES_APP",        "diff")
+project.ext.set("MODIFY_FILES_APP",         "sed")
+

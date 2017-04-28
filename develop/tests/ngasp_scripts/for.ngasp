@@ -1,0 +1,22 @@
+dim -n v1 --as int_vector
+dim -n v2 --as char_vector
+
+set-value --to v1 --eq "1,2,3"
+set-value --to v2 --eq "a,b"
+
+dim -n i --as int
+dim -n j --as int
+
+dim -n val --as int
+dim -n ch --as char
+
+for --data v1 --ite i --from 0 --to v1.reg_length --inc 1
+    for --data v2 --ite j --from 0 --to v2.reg_length --inc 1
+        set-value --to val --eq v1.data[i]
+        set-value --to ch --eq v2.data[j]
+
+     	print -n val --mode value --eol
+     	print -n ch --mode value --eol
+    end-for
+end-for
+

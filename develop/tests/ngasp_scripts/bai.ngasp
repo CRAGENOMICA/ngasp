@@ -1,0 +1,57 @@
+# build/exe/ngasp/ngasp load -i /home/jjene/NetBeansProjects/ngasp/tests/pipelines/bai.ngasp
+# ==============================================================================
+# ngaSP pipelie  : pipeline_01.ngasp
+# Date           : Apr 29, 2016.
+# Author         : CRAG
+# Description    : 
+# ==============================================================================
+
+  verbose --level debug
+
+# ==============================================================================
+# CONSTANTS
+# ==============================================================================
+
+  const --name RESULT_OK               --by 0
+
+# ==============================================================================
+# DATAS
+# ==============================================================================
+
+  dim -n str_bam                       --as string
+  dim -n str_bai                       --as string
+  dim -n vstr_chrom                    --as string_vector
+
+# ==============================================================================
+# CALCS
+# ==============================================================================
+
+  calc -n calc_bam2bai                 --as calc-bam-to-bai
+  calc -n calc_bam_chromosomes         --as calc-bam-chromosomes
+
+# ==============================================================================
+# MAIN
+# ==============================================================================
+
+  set --to str_bam                     --eq "/home/jjene/all/Trash/samtools-1.3.1/test/dat/test_input_1_a.bam"
+  set --to str_bai                     --eq ""
+
+  set --to calc_bam2bai.inputs         --eq "str_bam"
+  set --to calc_bam2bai.outputs        --eq "str_bai"
+  run -n calc_bam2bai
+
+  if --ref $result --ne RESULT_OK
+	  exit
+  endif
+
+
+  set --to calc_bam_chromosomes.inputs  --eq "str_bai"
+  set --to calc_bam_chromosomes.outputs --eq "vstr_chrom"
+  run -n calc_bam_chromosomes
+
+  if --ref $result --ne RESULT_OK
+	  exit
+  endif
+
+  print -n vstr_chrom
+

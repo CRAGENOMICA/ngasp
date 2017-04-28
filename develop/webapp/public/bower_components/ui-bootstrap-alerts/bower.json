@@ -1,0 +1,17 @@
+{
+  "name": "ui-bootstrap-alerts",
+  "version": "0.1.5",
+  "main": "ui-bootstrap-alerts.min.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec"
+  ],
+  "dependencies": {
+    "angular": ">=1.0.7"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.0.7"
+  }
+}

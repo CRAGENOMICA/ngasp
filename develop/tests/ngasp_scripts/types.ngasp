@@ -1,0 +1,17 @@
+# load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/foreach.ngasp
+
+dim -n vec --as int-vector
+dim -n val --as int
+dim -n val2 --as bool
+dim -n val3 --as double
+dim -n val4 --as char
+dim -n val5 --as float
+dim -n val6 --as int64
+dim -n val7 --as string
+
+with -n vec
+	set-value -v data --eq 1 2 3 4 5 6 7 8 9 10
+end-with
+
+mem
+

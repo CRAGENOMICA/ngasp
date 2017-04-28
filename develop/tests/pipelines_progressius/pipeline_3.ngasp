@@ -1,0 +1,86 @@
+# ==============================================================================
+# ngaSP pipelie  : pipeline_01.ngasp
+# Date           : Apr 29, 2016.
+# Author         : CRAG
+# Description    : 
+# ==============================================================================
+
+  verbose --level debug
+  set --to $encoding --eq "english_bn"
+
+  const --name TEST_NUMBER             --by 3
+  const --name PATH_FILES              --by ./data
+  const --name PATH_BINARIES           --by ./bin
+  const --name PATH_OUTPUT             --by ./output_TEST_NUMBER
+  const --name RESULT_OK               --by 0
+
+# ==============================================================================
+# INPUT FILES
+# ==============================================================================
+
+  const --name BAM_1                   --by PATH_FILES/Banjo.chr12.20X.sorted.realigned.bam
+  const --name BAM_2                   --by PATH_FILES/Mimi.chr12.20X.sorted.realigned.bam
+  const --name BAI_1                   --by PATH_FILES/Banjo.chr12.20X.sorted.realigned.bam.bai
+  const --name BAI_2                   --by PATH_FILES/Mimi.chr12.20X.sorted.realigned.bam.bai
+  const --name FASTA_REFERENCE         --by PATH_FILES/reference.fas
+  const --name INPUT_REQUIRED_COLS     --by PATH_FILES/required_columns1.txt
+
+# ==============================================================================
+# OUTPUT FILES
+# ==============================================================================
+
+  const --name MPILEUP                 --by PATH_OUTPUT/data_paper001-2I20X.mpileup
+  const --name FASTA_SEQUENCES         --by PATH_OUTPUT/data_paper001-2I20X.mpileup.fasta
+  const --name TRANSPOSED_FASTA        --by PATH_OUTPUT/data_paper001-2I20X.mpileup.tfasta
+  const --name SEQUENCES_WITH_OUTGROUP --by PATH_OUTPUT/data_paper001-2I20X_outgroup.mpileup.fasta
+  const --name STATISTICS              --by PATH_OUTPUT/statistics.txt
+  const --name FILTERED_STATISTICS     --by PATH_OUTPUT/filtered_statistics.txt
+  const --name FASTA_CONVERTER_LOG     --by PATH_OUTPUT/fastaconvtr.log
+
+# ==============================================================================
+# EXTERNAL TOOLS
+# ==============================================================================
+
+  const --name SAMTOOLS                --by PATH_BINARIES/samtools
+  const --name SNIP_CALLER             --by PATH_BINARIES/snip_caller.sh
+  const --name FASTA_CONVERTER         --by PATH_BINARIES/fastaconvtr
+  const --name COLLECT_DATA_COLUMNS    --by perl ./bin/collect_data_columns.pl
+  const --name SYSTEM_CAT              --by cat
+
+# ==============================================================================
+# MAIN
+# ==============================================================================
+
+  execute -c "SAMTOOLS mpileup --fasta-ref FASTA_REFERENCE -o MPILEUP BAM_1 BAM_2"
+
+  if --ref $result --ne RESULT_OK
+	  exit
+  endif
+
+  execute -c "SNIP_CALLER MPILEUP FASTA_SEQUENCES"
+
+  if --ref $result --ne RESULT_OK
+	  exit
+  endif
+
+  execute -c "SYSTEM_CAT FASTA_SEQUENCES FASTA_REFERENCE  > SEQUENCES_WITH_OUTGROUP"
+
+  if --ref $result --ne RESULT_OK
+	  exit
+  endif
+
+  execute -c "FASTA_CONVERTER -F fasta -f tfasta -i FASTA_SEQUENCES -o TRANSPOSED_FASTA > FASTA_CONVERTER_LOG"
+
+  if --ref $result --ne RESULT_OK
+	  exit
+  endif
+
+  mstatspop -f tfa -i TRANSPOSED_FASTA -o 1 -N 1 4 -G 0 -p 1 -u 1 -w 1000 -T STATISTICS
+
+  execute -c "COLLECT_DATA_COLUMNS -in STATISTICS -fc INPUT_REQUIRED_COLS > FILTERED_STATISTICS"
+
+  if --ref $result --ne RESULT_OK
+	  exit
+  endif
+
+

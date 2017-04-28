@@ -1,0 +1,80 @@
+set-value --to $encoding --eq "english_bn"
+dim -n getchrom/16_4_35/bam_file_1_0 --as bam_file
+set-value --to getchrom/16_4_35/bam_file_1_0 --eq "/develop/examples/test_input_1_a.bam"
+dim -n getchrom/16_4_35/int_13_0 --as int
+set-value --to getchrom/16_4_35/int_13_0 --eq "99"
+dim -n getchrom/16_4_35/double_matrix_14_0 --as double_matrix
+set-value --to getchrom/16_4_35/double_matrix_14_0 --eq ""
+dim -n getchrom/16_4_35/double_matrix_15_0 --as double_matrix
+set-value --to getchrom/16_4_35/double_matrix_15_0 --eq ""
+dim -n getchrom/16_4_35/double_matrix_16_0 --as double_matrix
+set-value --to getchrom/16_4_35/double_matrix_16_0 --eq ""
+dim -n getchrom/16_4_35/calc-get-chrom_0_0 --as string_vector
+calc -n getchrom/16_4_35/calc-get-chrom_0 --as calc-get-chrom
+set-value --to getchrom/16_4_35/calc-get-chrom_0.inputs --eq "getchrom/16_4_35/bam_file_1_0"
+set-value --to getchrom/16_4_35/calc-get-chrom_0.outputs --eq "getchrom/16_4_35/calc-get-chrom_0_0"
+run-calculation -n getchrom/16_4_35/calc-get-chrom_0
+delete -n getchrom/16_4_35/calc-get-chrom_0
+if --ref $result --eq 0
+dim -n getchrom/16_4_35/loop/12/foreach_value_1_0 --as string
+set-value --to getchrom/16_4_35/loop/12/foreach_value_1_0 --eq ""
+dim -n getchrom/16_4_35/loop/12/foreach_iteration_2_0 --as int64
+set-value --to getchrom/16_4_35/loop/12/foreach_iteration_2_0 --eq ""
+for --data getchrom/16_4_35/calc-get-chrom_0_0 --ite getchrom/16_4_35/loop/12/foreach_iteration_2_0 --from 0 --to getchrom/16_4_35/calc-get-chrom_0_0.reg_length --inc 1
+set-value --to getchrom/16_4_35/loop/12/foreach_value_1_0 --eq getchrom/16_4_35/calc-get-chrom_0_0[getchrom/16_4_35/loop/12/foreach_iteration_2_0]
+print -n getchrom/16_4_35/loop/12/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+print -n getchrom/16_4_35/loop/12/foreach_value_1_0 --text "value: " --mode value --eol
+dim -n getchrom/16_4_35/loop/12/calc-example_5_0 --as double_vector
+dim -n getchrom/16_4_35/loop/12/calc-example_5_1 --as double_vector
+dim -n getchrom/16_4_35/loop/12/calc-example_5_2 --as double_vector
+calc -n getchrom/16_4_35/loop/12/calc-example_5 --as calc-example
+set-value --to getchrom/16_4_35/loop/12/calc-example_5.inputs --eq "getchrom/16_4_35/int_13_0"
+set-value --to getchrom/16_4_35/loop/12/calc-example_5.outputs --eq "getchrom/16_4_35/loop/12/calc-example_5_0,getchrom/16_4_35/loop/12/calc-example_5_1,getchrom/16_4_35/loop/12/calc-example_5_2"
+run-calculation -n getchrom/16_4_35/loop/12/calc-example_5
+delete -n getchrom/16_4_35/loop/12/calc-example_5
+if --ref $result --eq 0
+endif
+matappend --to getchrom/16_4_35/double_matrix_14_0 --add getchrom/16_4_35/loop/12/calc-example_5_0 --index getchrom/16_4_35/loop/12/foreach_iteration_2_0
+print -n getchrom/16_4_35/double_matrix_14_0 --mode value --eol
+matappend --to getchrom/16_4_35/double_matrix_15_0 --add getchrom/16_4_35/loop/12/calc-example_5_0 --index getchrom/16_4_35/loop/12/foreach_iteration_2_0
+print -n getchrom/16_4_35/double_matrix_15_0 --mode value --eol
+matappend --to getchrom/16_4_35/double_matrix_16_0 --add getchrom/16_4_35/loop/12/calc-example_5_0 --index getchrom/16_4_35/loop/12/foreach_iteration_2_0
+print -n getchrom/16_4_35/double_matrix_16_0 --mode value --eol
+delete -n getchrom/16_4_35/loop/12/calc-example_5_0
+delete -n getchrom/16_4_35/loop/12/calc-example_5_1
+delete -n getchrom/16_4_35/loop/12/calc-example_5_2
+end-for
+for --data getchrom/16_4_35/calc-get-chrom_0_0 --ite getchrom/16_4_35/loop/12/foreach_iteration_2_0 --from 0 --to getchrom/16_4_35/calc-get-chrom_0_0.reg_length --inc 1
+set-value --to getchrom/16_4_35/loop/12/foreach_value_1_0 --eq getchrom/16_4_35/calc-get-chrom_0_0[getchrom/16_4_35/loop/12/foreach_iteration_2_0]
+print -n getchrom/16_4_35/loop/12/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+print -n getchrom/16_4_35/loop/12/foreach_value_1_0 --text "value: " --mode value --eol
+dim -n getchrom/16_4_35/loop/12/calc-example_5_0 --as double_vector
+dim -n getchrom/16_4_35/loop/12/calc-example_5_1 --as double_vector
+dim -n getchrom/16_4_35/loop/12/calc-example_5_2 --as double_vector
+calc -n getchrom/16_4_35/loop/12/calc-example_5 --as calc-example
+set-value --to getchrom/16_4_35/loop/12/calc-example_5.inputs --eq "getchrom/16_4_35/int_13_0"
+set-value --to getchrom/16_4_35/loop/12/calc-example_5.outputs --eq "getchrom/16_4_35/loop/12/calc-example_5_0,getchrom/16_4_35/loop/12/calc-example_5_1,getchrom/16_4_35/loop/12/calc-example_5_2"
+run-calculation -n getchrom/16_4_35/loop/12/calc-example_5
+delete -n getchrom/16_4_35/loop/12/calc-example_5
+if --ref $result --eq 0
+endif
+matappend --to getchrom/16_4_35/double_matrix_14_0 --add getchrom/16_4_35/loop/12/calc-example_5_0 --index getchrom/16_4_35/loop/12/foreach_iteration_2_0
+print -n getchrom/16_4_35/double_matrix_14_0 --mode value --eol
+matappend --to getchrom/16_4_35/double_matrix_15_0 --add getchrom/16_4_35/loop/12/calc-example_5_0 --index getchrom/16_4_35/loop/12/foreach_iteration_2_0
+print -n getchrom/16_4_35/double_matrix_15_0 --mode value --eol
+matappend --to getchrom/16_4_35/double_matrix_16_0 --add getchrom/16_4_35/loop/12/calc-example_5_0 --index getchrom/16_4_35/loop/12/foreach_iteration_2_0
+print -n getchrom/16_4_35/double_matrix_16_0 --mode value --eol
+delete -n getchrom/16_4_35/loop/12/calc-example_5_0
+delete -n getchrom/16_4_35/loop/12/calc-example_5_1
+delete -n getchrom/16_4_35/loop/12/calc-example_5_2
+end-for
+for --data getchrom/16_4_35/calc-get-chrom_0_0 --ite getchrom/16_4_35/loop/12/foreach_iteration_2_0 --from 0 --to getchrom/16_4_35/calc-get-chrom_0_0.reg_length --inc 1
+delete -n getchrom/16_4_35/loop/12/foreach_value_1_0
+delete -n getchrom/16_4_35/loop/12/foreach_iteration_2_0
+print -n getchrom/16_4_35/calc-get-chrom_0_0 --mode json --text "node|23|Print Data|0|Chromosomes||" --eol
+print -n getchrom/16_4_35/double_matrix_16_0 --mode json --text "node|25|Print Data|0|||" --eol
+print -n getchrom/16_4_35/double_matrix_15_0 --mode json --text "node|24|Print Data|0|||" --eol
+print -n getchrom/16_4_35/double_matrix_14_0 --mode json --text "node|22|Print Data|0|||" --eol
+endif
+delete -n getchrom/16_4_35/calc-get-chrom_0_0
+

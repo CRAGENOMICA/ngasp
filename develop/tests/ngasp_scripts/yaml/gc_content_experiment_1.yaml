@@ -1,0 +1,16 @@
+%YAML 1.2
+
+# Do not modify this file because it was generated automatically
+
+# ==============================================================================
+# ngaSP Experiment Properties 
+# ==============================================================================
+# name        : 
+# description :
+# date        : 17 Nov, 2015.
+# ==============================================================================
+
+values:
+    - name: input_2_0
+      value: \"C,T,T,G,A,A,A,T,G,G,C,C,G,C,G,A,A,T,T\"
+

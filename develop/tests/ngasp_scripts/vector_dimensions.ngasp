@@ -1,0 +1,12 @@
+dim -n v1 --as char_vector
+set --to v1 --eq "T,C,G,A,A"
+print -n v1
+
+dim -n m1 --as char_matrix
+set --to m1 --eq "T,C,G,A,A;T,T,T,G,G;G,G,C,C,A"
+print -n m1
+
+dim -n c1 --as char_cube
+set --to c1 --eq "T,C,G,A,A;T,T,T,G,G;G,G,C,C,A|T,C,G,A,A;T,T,T,G,G;G,G,C,C,A|T,C,G,A,A;T,T,T,G,G;G,G,C,C,A"
+print -n c1 --mode json
+

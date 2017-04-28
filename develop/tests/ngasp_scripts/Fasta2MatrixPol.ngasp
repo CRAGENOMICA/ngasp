@@ -1,0 +1,128 @@
+# build/binaries/mainExecutable/main load -i /home/jjene/NetBeansProjects/ngaSP/tests/pipelines/Fasta2MatrixPol.ngasp
+# build/binaries/mainExecutable/main mstatspop ﻿-f fasta -i /home/jjene/NetBeansProjects/ngaSP/examples/input.fa -N 2 48 46
+
+
+###############################################################################
+# Verbose Configuration
+###############################################################################
+
+verbose --level debug
+
+
+###############################################################################
+# Output Configuration
+###############################################################################
+
+with -n out
+	set --to .precision --eq 2
+	set --to .table_col_width --eq 2
+end-with
+
+
+###############################################################################
+# Calculations
+###############################################################################
+
+calc -n c0 --as open-fasta-file
+calc -n c1 --as fasta-to-dna-matrix
+calc -n c4 --as gff
+calc -n c2 --as dna-matrix-to-matrix-pol
+calc -n c3 --as sxsfss
+
+
+###############################################################################
+# Variables
+###############################################################################
+
+dim -n pops --as populations
+dim -n fasta --as string-set
+dim -n dnamat --as char-matrix
+dim -n matrix_sizepos --as double-vector
+dim -n matrix_segrpos --as double-vector
+dim -n matpol --as char-matrix
+dim -n positions --as int64-vector
+dim -n frequencies --as int64-vector
+dim -n matsites --as sites-matrix
+
+
+###############################################################################
+# Define the populations:
+###############################################################################
+
+with -n pops
+	set --to .vint_perpop_nsam --eq "48 46"
+	set --to .force_outgroup --eq 0
+	set --to .outgroup_presence --eq 0
+	set --to .include_unknown --eq 0
+	set --to .ploidy --eq 1
+end-with
+
+
+###############################################################################
+# Open the Fasta file:
+###############################################################################
+
+with -n c0
+	set --to .inputs --eq "/home/jjene/NetBeansProjects/ngaSP/examples/input.fa pops"
+	set --to .outputs --eq "fasta"
+end-with
+
+run -n c0
+
+
+###############################################################################
+# Convert the Fasta into a DnaMatrix:
+###############################################################################
+
+with -n c1
+	set --to .inputs --eq "fasta pops"
+	set --to .outputs --eq "dnamat"
+end-with
+
+run -n c1
+
+
+###############################################################################
+# Filter DnaMatrix using a GFF file:
+###############################################################################
+
+with -n c4
+	set --to .inputs --eq "pops dnamat examples/MC1R.gff nonsynonymous Nuclear_Universal max"
+	set --to .outputs --eq "matrix_sizepos matrix_segrpos"
+end-with
+
+run -n c4
+
+
+###############################################################################
+# Convert the DnaMatrix into a MatrixPol:
+###############################################################################
+
+with -n c2
+	set --to .inputs --eq "dnamat pops matrix_sizepos matrix_segrpos"
+ 	set --to .outputs --eq "matpol positions frequencies"
+end-with
+
+run -n c2
+
+
+###############################################################################
+# Calculate sxsfss:
+###############################################################################
+
+with -n c3
+	set --to .inputs --eq "pops matpol positions"
+	set --to .outputs --eq "matsites"
+end-with
+
+run -n c3
+
+
+###############################################################################
+# Print output
+###############################################################################
+
+# print -n dnamat --text "dnamat"
+print -n matpol --text "matpol"
+mem
+

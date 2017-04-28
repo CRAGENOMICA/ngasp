@@ -1,0 +1,50 @@
+# ==============================================================================
+# PIPELINE NAME: bam2mpileup
+# CREATION DATE: APR 28, 2016.
+# AUTHOR:        CRAG
+# ==============================================================================
+# load -i /home/jjene/NetBeansProjects/ngasp/tests/pipelines/bam2mpileup.ngasp
+# samtools mpileup --fasta-ref c1.fa --output output.mpileup c1#clip.bam
+
+verbose --level debug
+
+# ==============================================================================
+# CONSTANTS
+# ==============================================================================
+
+const --name FILES_PATH           --by "/home/jjene/NetBeansProjects/ngasp/examples"
+
+# ==============================================================================
+# CALCS
+# ==============================================================================
+
+calc -n calc_bam2mpileup          --as bam2mpileup
+
+# ==============================================================================
+# DATAS
+# ==============================================================================
+
+dim -n input_bam                  --as bam
+dim -n fasta_ref                  --as fasta
+dim -n output_mpileup             --as mpileup
+
+# ==============================================================================
+# MAIN
+# ==============================================================================
+
+set --to input_bam.value          --eq "FILES_PATH/c1#clip.bam"
+set --to fasta_ref.value          --eq "FILES_PATH/c1.fa"
+set --to output_mpileup.value     --eq "FILES_PATH/output2.mpileup"
+
+
+set --to calc_bam2mpileup.inputs  --eq "input_bam,fasta_ref"
+set --to calc_bam2mpileup.outputs --eq "output_mpileup"
+run -n calc_bam2mpileup
+
+
+# ============================================================================
+# END
+# ============================================================================
+
+
+

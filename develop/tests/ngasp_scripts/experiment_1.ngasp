@@ -1,0 +1,531 @@
+ verbose --level debug
+ set-value --to $encoding --eq "english_bn"
+ constant --name TRUE  --by 1
+ constant --name FALSE --by 0
+ print --text "[EXPERIMENT_START]" --eol
+ dim -n string_19_0 --as string
+ set-value --to string_19_0 --eq "/develop/examples/exp1/"
+ dim -n fasta_file_26_0 --as fasta_file
+ set-value --to fasta_file_26_0 --eq "/develop/examples/exp1/melon_chr_v3.fasta"
+ dim -n string_12_0 --as string
+ set-value --to string_12_0 --eq "2 7 1"
+ dim -n gtf_file_25_0 --as gtf_file
+ set-value --to gtf_file_25_0 --eq "/develop/examples/exp1/CM3.5.MELO.3C.partial_tagged.NEW_REVERSED_SC.gtf"
+ dim -n bed_file_23_0 --as bed_file
+ set-value --to bed_file_23_0 --eq "/develop/examples/exp1/erase_regions.bed"
+ dim -n string_22_0 --as string
+ set-value --to string_22_0 --eq "/develop/examples/exp1/coord_file.txt"
+ dim -n text_file_24_0 --as text_file
+ set-value --to text_file_24_0 --eq "/develop/examples/exp1/required_columns.txt"
+ dim -n fasta_file_28_0 --as fasta_file
+ set-value --to fasta_file_28_0 --eq "/develop/examples/exp1/melon_chr_v3.fasta"
+ dim -n string_vector_29_0 --as string_vector
+ set-value --to string_vector_29_0 --eq "/develop/examples/exp1/outgroup.bam"
+ dim -n text_file_15_0 --as text_file
+ set-value --to text_file_15_0 --eq "/develop/examples/exp1/output.txt"
+ dim -n pipeline_1/27/foreach_iteration_2_0 --as int64
+ set-value --to pipeline_1/27/foreach_iteration_2_0 --eq ""
+ dim -n pipeline_1/27/foreach_value_1_0 --as string
+ set-value --to pipeline_1/27/foreach_value_1_0 --eq ""
+ dim -n pipeline_1/27/bool_24_0 --as bool
+ set-value --to pipeline_1/27/bool_24_0 --eq "TRUE"
+ dim -n pipeline_1/27/bool_86_0 --as bool
+ set-value --to pipeline_1/27/bool_86_0 --eq "TRUE"
+ dim -n pipeline_1/27/string_matrix_81_0 --as string_matrix
+ set-value --to pipeline_1/27/string_matrix_81_0 --eq ""
+ dim -n pipeline_1/27/bool_79_0 --as bool
+ set-value --to pipeline_1/27/bool_79_0 --eq "TRUE"
+ dim -n pipeline_1/27/string_50_0 --as string
+ set-value --to pipeline_1/27/string_50_0 --eq "(.*).bam"
+ dim -n pipeline_1/27/bool_90_0 --as bool
+ set-value --to pipeline_1/27/bool_90_0 --eq "TRUE"
+ dim -n pipeline_1/27/string_matrix_88_0 --as string_matrix
+ set-value --to pipeline_1/27/string_matrix_88_0 --eq ""
+ dim -n pipeline_1/27/string_matrix_84_0 --as string_matrix
+ set-value --to pipeline_1/27/string_matrix_84_0 --eq ""
+ dim -n pipeline_1/27/text_file_61_0 --as text_file
+ set-value --to pipeline_1/27/text_file_61_0 --eq "/develop/tmp/output_outgroup.fa"
+ dim -n pipeline_1/27/text_file_39_0 --as text_file
+ set-value --to pipeline_1/27/text_file_39_0 --eq "/develop/tmp/output.fa"
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/foreach_iteration_2_0 --as int64
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/foreach_iteration_2_0 --eq ""
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/foreach_value_1_0 --as string
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/foreach_value_1_0 --eq ""
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/bool_10_0 --as bool
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/bool_10_0 --eq "TRUE"
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/bool_11_0 --as bool
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/bool_11_0 --eq "TRUE"
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/string_4_0 --as string
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/string_4_0 --eq "(.*).bam"
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/bool_16_0 --as bool
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/bool_16_0 --eq "TRUE"
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/bam_index_file_19_0 --as bam_index_file
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/bam_index_file_19_0 --eq ""
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/string_matrix_8_0 --as string_matrix
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/string_matrix_8_0 --eq ""
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/string_vector_12_0 --as string_vector
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/string_vector_12_0 --eq ""
+ dim -n pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3_0 --as string_vector
+ set-value --to $iteration_number --eq pipeline_1/27/get_unique_chromosome_names/80/foreach_iteration_2_0
+ set-value --to $iteration_value --eq pipeline_1/27/get_unique_chromosome_names/80/foreach_value_1_0
+ calc -n pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3 --as calc_list_files
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3.inputs --eq "string_19_0,pipeline_1/27/get_unique_chromosome_names/80/string_4_0,null"
+ set-value --to pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3.outputs --eq "pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3_0"
+ run-calculation -n pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3
+ if --ref $result --eq 0
+     dim -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_iteration_2_0 --as int64
+     set-value --to pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_iteration_2_0 --eq ""
+     dim -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_value_1_0 --as string
+     set-value --to pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_value_1_0 --eq "BAM File"
+     for --data pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3_0 --ite pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_iteration_2_0 --from 0 --to pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3_0.reg_length --inc 1
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_value_1_0 --eq pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3_0[pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_iteration_2_0]
+         print -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+         print -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_value_1_0 --text "value: " --mode value  --eol
+         dim -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/bam_file_in_3_0_0 --as bam_file
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/bam_file_in_3_0_0 --eq pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_value_1_0
+         set-value --to $iteration_number --eq pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_iteration_2_0
+         set-value --to $iteration_value --eq pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_value_1_0
+         calc -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/calc_create_bam_index_3 --as calc_create_bam_index
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/calc_create_bam_index_3.inputs --eq "pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/bam_file_in_3_0_0"
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/calc_create_bam_index_3.outputs --eq "pipeline_1/27/get_unique_chromosome_names/80/bam_index_file_19_0"
+         run-calculation -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/calc_create_bam_index_3
+         delete -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/calc_create_bam_index_3
+         delete -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/bam_file_in_3_0_0
+         if --ref $result --eq 0
+         endif
+     end-for
+     delete -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_iteration_2_0
+     delete -n pipeline_1/27/get_unique_chromosome_names/80/create_bam_index/17/foreach_value_1_0
+     dim -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_iteration_2_0 --as int64
+     set-value --to pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_iteration_2_0 --eq ""
+     dim -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_value_1_0 --as string
+     set-value --to pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_value_1_0 --eq "BAM File"
+     for --data pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3_0 --ite pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_iteration_2_0 --from 0 --to pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3_0.reg_length --inc 1
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_value_1_0 --eq pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3_0[pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_iteration_2_0]
+         print -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+         print -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_value_1_0 --text "value: " --mode value  --eol
+         dim -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/string_vector_6_0 --as string_vector
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/string_vector_6_0 --eq ""
+         dim -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/bam_index_file_13_0 --as bam_index_file
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/bam_index_file_13_0 --eq ""
+         dim -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/bam_file_in_3_0_0 --as bam_file
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/bam_file_in_3_0_0 --eq pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_value_1_0
+         set-value --to $iteration_number --eq pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_iteration_2_0
+         set-value --to $iteration_value --eq pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_value_1_0
+         calc -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/calc_get_chrom_3 --as calc_get_chrom
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/calc_get_chrom_3.inputs --eq "pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/bam_file_in_3_0_0"
+         set-value --to pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/calc_get_chrom_3.outputs --eq "pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/string_vector_6_0"
+         run-calculation -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/calc_get_chrom_3
+         delete -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/calc_get_chrom_3
+         delete -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/bam_file_in_3_0_0
+         if --ref $result --eq 0
+         endif
+         matappend --to  pipeline_1/27/get_unique_chromosome_names/80/string_matrix_8_0 --add pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/string_vector_6_0 --index pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_iteration_2_0
+         print -n  pipeline_1/27/get_unique_chromosome_names/80/string_matrix_8_0 --mode value --eol
+         delete -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/string_vector_6_0
+         delete -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/bam_index_file_13_0
+     end-for
+     delete -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_iteration_2_0
+     delete -n pipeline_1/27/get_unique_chromosome_names/80/get_all_chromosome_names/7/foreach_value_1_0
+     set-value --to $iteration_number --eq pipeline_1/27/get_unique_chromosome_names/80/foreach_iteration_2_0
+     set-value --to $iteration_value --eq pipeline_1/27/get_unique_chromosome_names/80/foreach_value_1_0
+     calc -n pipeline_1/27/get_unique_chromosome_names/80/calc_matrix_to_vector_9 --as calc_matrix_to_vector
+     set-value --to pipeline_1/27/get_unique_chromosome_names/80/calc_matrix_to_vector_9.inputs --eq "pipeline_1/27/get_unique_chromosome_names/80/string_matrix_8_0,null,null,pipeline_1/27/get_unique_chromosome_names/80/bool_10_0,pipeline_1/27/get_unique_chromosome_names/80/bool_11_0,pipeline_1/27/get_unique_chromosome_names/80/bool_16_0"
+     set-value --to pipeline_1/27/get_unique_chromosome_names/80/calc_matrix_to_vector_9.outputs --eq "pipeline_1/27/get_unique_chromosome_names/80/string_vector_12_0"
+     run-calculation -n pipeline_1/27/get_unique_chromosome_names/80/calc_matrix_to_vector_9
+     delete -n pipeline_1/27/get_unique_chromosome_names/80/calc_matrix_to_vector_9
+     if --ref $result --eq 0
+     endif
+ endif
+ matappend --to  pipeline_1/27/string_matrix_81_0 --add pipeline_1/27/get_unique_chromosome_names/80/string_vector_12_0 --index pipeline_1/27/get_unique_chromosome_names/80/foreach_iteration_2_0
+ print -n  pipeline_1/27/string_matrix_81_0 --mode value --eol
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/calc_list_files_3_0
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/bool_10_0
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/bool_11_0
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/string_4_0
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/bool_16_0
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/bam_index_file_19_0
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/string_matrix_8_0
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/string_vector_12_0
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/foreach_iteration_2_0
+ delete -n pipeline_1/27/get_unique_chromosome_names/80/foreach_value_1_0
+ dim -n pipeline_1/27/calc_matrix_to_vector_60_0 --as string_vector
+ set-value --to $iteration_number --eq pipeline_1/27/foreach_iteration_2_0
+ set-value --to $iteration_value --eq pipeline_1/27/foreach_value_1_0
+ calc -n pipeline_1/27/calc_matrix_to_vector_60 --as calc_matrix_to_vector
+ set-value --to pipeline_1/27/calc_matrix_to_vector_60.inputs --eq "pipeline_1/27/string_matrix_81_0,null,null,pipeline_1/27/bool_79_0,null,null"
+ set-value --to pipeline_1/27/calc_matrix_to_vector_60.outputs --eq "pipeline_1/27/calc_matrix_to_vector_60_0"
+ run-calculation -n pipeline_1/27/calc_matrix_to_vector_60
+ delete -n pipeline_1/27/calc_matrix_to_vector_60
+ if --ref $result --eq 0
+     dim -n pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_iteration_2_0 --as int64
+     set-value --to pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_iteration_2_0 --eq ""
+     dim -n pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_value_1_0 --as string
+     set-value --to pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_value_1_0 --eq "BAM File"
+     for --data string_vector_29_0 --ite pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_iteration_2_0 --from 0 --to string_vector_29_0.reg_length --inc 1
+         set-value --to pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_value_1_0 --eq string_vector_29_0[pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_iteration_2_0]
+         print -n pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+         print -n pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_value_1_0 --text "value: " --mode value  --eol
+         dim -n pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_8_0 --as string_vector
+         set-value --to pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_8_0 --eq "chrom0,chrom00,chr0,chr00,0"
+         dim -n pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_5_0 --as string_vector
+         set-value --to pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_5_0 --eq ""
+         dim -n pipeline_1/27/split_bam_into_chromosome_bams/87/bam_file_in_6_0_0 --as bam_file
+         set-value --to pipeline_1/27/split_bam_into_chromosome_bams/87/bam_file_in_6_0_0 --eq pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_value_1_0
+         dim -n pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_in_6_1_0 --as string_vector
+         set-value --to pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_in_6_1_0 --eq pipeline_1/27/calc_matrix_to_vector_60_0
+         set-value --to $iteration_number --eq pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_iteration_2_0
+         set-value --to $iteration_value --eq pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_value_1_0
+         calc -n pipeline_1/27/split_bam_into_chromosome_bams/87/calc_split_BAM_6 --as calc_split_BAM
+         set-value --to pipeline_1/27/split_bam_into_chromosome_bams/87/calc_split_BAM_6.inputs --eq "pipeline_1/27/split_bam_into_chromosome_bams/87/bam_file_in_6_0_0,pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_in_6_1_0,pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_8_0"
+         set-value --to pipeline_1/27/split_bam_into_chromosome_bams/87/calc_split_BAM_6.outputs --eq "pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_5_0"
+         run-calculation -n pipeline_1/27/split_bam_into_chromosome_bams/87/calc_split_BAM_6
+         delete -n pipeline_1/27/split_bam_into_chromosome_bams/87/calc_split_BAM_6
+         delete -n pipeline_1/27/split_bam_into_chromosome_bams/87/bam_file_in_6_0_0
+         delete -n pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_in_6_1_0
+         if --ref $result --eq 0
+         endif
+         matappend --to  pipeline_1/27/string_matrix_88_0 --add pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_5_0 --index pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_iteration_2_0
+         print -n  pipeline_1/27/string_matrix_88_0 --mode value --eol
+         delete -n pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_8_0
+         delete -n pipeline_1/27/split_bam_into_chromosome_bams/87/string_vector_5_0
+     end-for
+     delete -n pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_iteration_2_0
+     delete -n pipeline_1/27/split_bam_into_chromosome_bams/87/foreach_value_1_0
+     dim -n pipeline_1/27/calc_list_files_45_0 --as string_vector
+     set-value --to $iteration_number --eq pipeline_1/27/foreach_iteration_2_0
+     set-value --to $iteration_value --eq pipeline_1/27/foreach_value_1_0
+     calc -n pipeline_1/27/calc_list_files_45 --as calc_list_files
+     set-value --to pipeline_1/27/calc_list_files_45.inputs --eq "string_19_0,pipeline_1/27/string_50_0,string_vector_29_0"
+     set-value --to pipeline_1/27/calc_list_files_45.outputs --eq "pipeline_1/27/calc_list_files_45_0"
+     run-calculation -n pipeline_1/27/calc_list_files_45
+     delete -n pipeline_1/27/calc_list_files_45
+     if --ref $result --eq 0
+         dim -n pipeline_1/27/calc_matrix_to_vector_89_0 --as string_vector
+         set-value --to $iteration_number --eq pipeline_1/27/foreach_iteration_2_0
+         set-value --to $iteration_value --eq pipeline_1/27/foreach_value_1_0
+         calc -n pipeline_1/27/calc_matrix_to_vector_89 --as calc_matrix_to_vector
+         set-value --to pipeline_1/27/calc_matrix_to_vector_89.inputs --eq "pipeline_1/27/string_matrix_88_0,null,null,pipeline_1/27/bool_90_0,null,null"
+         set-value --to pipeline_1/27/calc_matrix_to_vector_89.outputs --eq "pipeline_1/27/calc_matrix_to_vector_89_0"
+         run-calculation -n pipeline_1/27/calc_matrix_to_vector_89
+         delete -n pipeline_1/27/calc_matrix_to_vector_89
+         if --ref $result --eq 0
+             dim -n pipeline_1/27/bam_to_fasta/40/foreach_value_1_0 --as string
+             set-value --to pipeline_1/27/bam_to_fasta/40/foreach_value_1_0 --eq "BAM File"
+             dim -n pipeline_1/27/bam_to_fasta/40/foreach_iteration_2_0 --as int64
+             set-value --to pipeline_1/27/bam_to_fasta/40/foreach_iteration_2_0 --eq ""
+             for --data pipeline_1/27/calc_matrix_to_vector_89_0 --ite pipeline_1/27/bam_to_fasta/40/foreach_iteration_2_0 --from 0 --to pipeline_1/27/calc_matrix_to_vector_89_0.reg_length --inc 1
+                 set-value --to pipeline_1/27/bam_to_fasta/40/foreach_value_1_0 --eq pipeline_1/27/calc_matrix_to_vector_89_0[pipeline_1/27/bam_to_fasta/40/foreach_iteration_2_0]
+                 print -n pipeline_1/27/bam_to_fasta/40/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+                 print -n pipeline_1/27/bam_to_fasta/40/foreach_value_1_0 --text "value: " --mode value  --eol
+                 dim -n pipeline_1/27/bam_to_fasta/40/bool_7_0 --as bool
+                 set-value --to pipeline_1/27/bam_to_fasta/40/bool_7_0 --eq "TRUE"
+                 dim -n pipeline_1/27/bam_to_fasta/40/bool_10_0 --as bool
+                 set-value --to pipeline_1/27/bam_to_fasta/40/bool_10_0 --eq "FALSE"
+                 dim -n pipeline_1/27/bam_to_fasta/40/bam_file_in_3_0_0 --as bam_file
+                 set-value --to pipeline_1/27/bam_to_fasta/40/bam_file_in_3_0_0 --eq pipeline_1/27/bam_to_fasta/40/foreach_value_1_0
+                 dim -n pipeline_1/27/bam_to_fasta/40/calc_BAM_to_Mpileup_3_0 --as mpileup_file
+                 set-value --to $iteration_number --eq pipeline_1/27/bam_to_fasta/40/foreach_iteration_2_0
+                 set-value --to $iteration_value --eq pipeline_1/27/bam_to_fasta/40/foreach_value_1_0
+                 calc -n pipeline_1/27/bam_to_fasta/40/calc_BAM_to_Mpileup_3 --as calc_BAM_to_Mpileup
+                 set-value --to pipeline_1/27/bam_to_fasta/40/calc_BAM_to_Mpileup_3.inputs --eq "pipeline_1/27/bam_to_fasta/40/bam_file_in_3_0_0,fasta_file_26_0,null,pipeline_1/27/bam_to_fasta/40/bool_7_0"
+                 set-value --to pipeline_1/27/bam_to_fasta/40/calc_BAM_to_Mpileup_3.outputs --eq "pipeline_1/27/bam_to_fasta/40/calc_BAM_to_Mpileup_3_0"
+                 run-calculation -n pipeline_1/27/bam_to_fasta/40/calc_BAM_to_Mpileup_3
+                 delete -n pipeline_1/27/bam_to_fasta/40/calc_BAM_to_Mpileup_3
+                 delete -n pipeline_1/27/bam_to_fasta/40/bam_file_in_3_0_0
+                 if --ref $result --eq 0
+                     dim -n pipeline_1/27/bam_to_fasta/40/mpileup_file_in_6_0_0 --as mpileup_file
+                     set-value --to pipeline_1/27/bam_to_fasta/40/mpileup_file_in_6_0_0 --eq pipeline_1/27/bam_to_fasta/40/calc_BAM_to_Mpileup_3_0
+                     dim -n pipeline_1/27/bam_to_fasta/40/calc_snp_caller_6_0 --as fasta_file
+                     set-value --to $iteration_number --eq pipeline_1/27/bam_to_fasta/40/foreach_iteration_2_0
+                     set-value --to $iteration_value --eq pipeline_1/27/bam_to_fasta/40/foreach_value_1_0
+                     calc -n pipeline_1/27/bam_to_fasta/40/calc_snp_caller_6 --as calc_snp_caller
+                     set-value --to pipeline_1/27/bam_to_fasta/40/calc_snp_caller_6.inputs --eq "pipeline_1/27/bam_to_fasta/40/mpileup_file_in_6_0_0,pipeline_1/27/bam_to_fasta/40/bool_7_0"
+                     set-value --to pipeline_1/27/bam_to_fasta/40/calc_snp_caller_6.outputs --eq "pipeline_1/27/bam_to_fasta/40/calc_snp_caller_6_0"
+                     run-calculation -n pipeline_1/27/bam_to_fasta/40/calc_snp_caller_6
+                     delete -n pipeline_1/27/bam_to_fasta/40/calc_snp_caller_6
+                     delete -n pipeline_1/27/bam_to_fasta/40/mpileup_file_in_6_0_0
+                     if --ref $result --eq 0
+                         dim -n pipeline_1/27/bam_to_fasta/40/text_file_in_8_0_0 --as text_file
+                         set-value --to pipeline_1/27/bam_to_fasta/40/text_file_in_8_0_0 --eq pipeline_1/27/bam_to_fasta/40/calc_snp_caller_6_0
+                         set-value --to $iteration_number --eq pipeline_1/27/bam_to_fasta/40/foreach_iteration_2_0
+                         set-value --to $iteration_value --eq pipeline_1/27/bam_to_fasta/40/foreach_value_1_0
+                         calc -n pipeline_1/27/bam_to_fasta/40/calc_concat_files_8 --as calc_concat_files
+                         set-value --to pipeline_1/27/bam_to_fasta/40/calc_concat_files_8.inputs --eq "pipeline_1/27/bam_to_fasta/40/text_file_in_8_0_0,null,pipeline_1/27/bam_to_fasta/40/bool_10_0"
+                         set-value --to pipeline_1/27/bam_to_fasta/40/calc_concat_files_8.outputs --eq "pipeline_1/27/text_file_61_0"
+                         run-calculation -n pipeline_1/27/bam_to_fasta/40/calc_concat_files_8
+                         delete -n pipeline_1/27/bam_to_fasta/40/calc_concat_files_8
+                         delete -n pipeline_1/27/bam_to_fasta/40/text_file_in_8_0_0
+                         if --ref $result --eq 0
+                         endif
+                     endif
+                 endif
+                 delete -n pipeline_1/27/bam_to_fasta/40/calc_BAM_to_Mpileup_3_0
+                 delete -n pipeline_1/27/bam_to_fasta/40/calc_snp_caller_6_0
+                 delete -n pipeline_1/27/bam_to_fasta/40/bool_7_0
+                 delete -n pipeline_1/27/bam_to_fasta/40/bool_10_0
+             end-for
+             delete -n pipeline_1/27/bam_to_fasta/40/foreach_value_1_0
+             delete -n pipeline_1/27/bam_to_fasta/40/foreach_iteration_2_0
+             dim -n pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_iteration_2_0 --as int64
+             set-value --to pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_iteration_2_0 --eq ""
+             dim -n pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_value_1_0 --as string
+             set-value --to pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_value_1_0 --eq "BAM File"
+             for --data pipeline_1/27/calc_list_files_45_0 --ite pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_iteration_2_0 --from 0 --to pipeline_1/27/calc_list_files_45_0.reg_length --inc 1
+                 set-value --to pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_value_1_0 --eq pipeline_1/27/calc_list_files_45_0[pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_iteration_2_0]
+                 print -n pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+                 print -n pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_value_1_0 --text "value: " --mode value  --eol
+                 dim -n pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_8_0 --as string_vector
+                 set-value --to pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_8_0 --eq "chrom0,chr0,0"
+                 dim -n pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_5_0 --as string_vector
+                 set-value --to pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_5_0 --eq ""
+                 dim -n pipeline_1/27/split_bam_into_chromosome_bams/83/bam_file_in_6_0_0 --as bam_file
+                 set-value --to pipeline_1/27/split_bam_into_chromosome_bams/83/bam_file_in_6_0_0 --eq pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_value_1_0
+                 dim -n pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_in_6_1_0 --as string_vector
+                 set-value --to pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_in_6_1_0 --eq pipeline_1/27/calc_matrix_to_vector_60_0
+                 set-value --to $iteration_number --eq pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_iteration_2_0
+                 set-value --to $iteration_value --eq pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_value_1_0
+                 calc -n pipeline_1/27/split_bam_into_chromosome_bams/83/calc_split_BAM_6 --as calc_split_BAM
+                 set-value --to pipeline_1/27/split_bam_into_chromosome_bams/83/calc_split_BAM_6.inputs --eq "pipeline_1/27/split_bam_into_chromosome_bams/83/bam_file_in_6_0_0,pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_in_6_1_0,pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_8_0"
+                 set-value --to pipeline_1/27/split_bam_into_chromosome_bams/83/calc_split_BAM_6.outputs --eq "pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_5_0"
+                 run-calculation -n pipeline_1/27/split_bam_into_chromosome_bams/83/calc_split_BAM_6
+                 delete -n pipeline_1/27/split_bam_into_chromosome_bams/83/calc_split_BAM_6
+                 delete -n pipeline_1/27/split_bam_into_chromosome_bams/83/bam_file_in_6_0_0
+                 delete -n pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_in_6_1_0
+                 if --ref $result --eq 0
+                 endif
+                 matappend --to  pipeline_1/27/string_matrix_84_0 --add pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_5_0 --index pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_iteration_2_0
+                 print -n  pipeline_1/27/string_matrix_84_0 --mode value --eol
+                 delete -n pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_8_0
+                 delete -n pipeline_1/27/split_bam_into_chromosome_bams/83/string_vector_5_0
+             end-for
+             delete -n pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_iteration_2_0
+             delete -n pipeline_1/27/split_bam_into_chromosome_bams/83/foreach_value_1_0
+             dim -n pipeline_1/27/calc_matrix_to_vector_85_0 --as string_vector
+             set-value --to $iteration_number --eq pipeline_1/27/foreach_iteration_2_0
+             set-value --to $iteration_value --eq pipeline_1/27/foreach_value_1_0
+             calc -n pipeline_1/27/calc_matrix_to_vector_85 --as calc_matrix_to_vector
+             set-value --to pipeline_1/27/calc_matrix_to_vector_85.inputs --eq "pipeline_1/27/string_matrix_84_0,null,null,pipeline_1/27/bool_86_0,null,null"
+             set-value --to pipeline_1/27/calc_matrix_to_vector_85.outputs --eq "pipeline_1/27/calc_matrix_to_vector_85_0"
+             run-calculation -n pipeline_1/27/calc_matrix_to_vector_85
+             delete -n pipeline_1/27/calc_matrix_to_vector_85
+             if --ref $result --eq 0
+                 dim -n pipeline_1/27/bam_to_fasta/37/foreach_value_1_0 --as string
+                 set-value --to pipeline_1/27/bam_to_fasta/37/foreach_value_1_0 --eq "BAM File"
+                 dim -n pipeline_1/27/bam_to_fasta/37/foreach_iteration_2_0 --as int64
+                 set-value --to pipeline_1/27/bam_to_fasta/37/foreach_iteration_2_0 --eq ""
+                 for --data pipeline_1/27/calc_matrix_to_vector_85_0 --ite pipeline_1/27/bam_to_fasta/37/foreach_iteration_2_0 --from 0 --to pipeline_1/27/calc_matrix_to_vector_85_0.reg_length --inc 1
+                     set-value --to pipeline_1/27/bam_to_fasta/37/foreach_value_1_0 --eq pipeline_1/27/calc_matrix_to_vector_85_0[pipeline_1/27/bam_to_fasta/37/foreach_iteration_2_0]
+                     print -n pipeline_1/27/bam_to_fasta/37/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+                     print -n pipeline_1/27/bam_to_fasta/37/foreach_value_1_0 --text "value: " --mode value  --eol
+                     dim -n pipeline_1/27/bam_to_fasta/37/bool_7_0 --as bool
+                     set-value --to pipeline_1/27/bam_to_fasta/37/bool_7_0 --eq "TRUE"
+                     dim -n pipeline_1/27/bam_to_fasta/37/bool_10_0 --as bool
+                     set-value --to pipeline_1/27/bam_to_fasta/37/bool_10_0 --eq "FALSE"
+                     dim -n pipeline_1/27/bam_to_fasta/37/bam_file_in_3_0_0 --as bam_file
+                     set-value --to pipeline_1/27/bam_to_fasta/37/bam_file_in_3_0_0 --eq pipeline_1/27/bam_to_fasta/37/foreach_value_1_0
+                     dim -n pipeline_1/27/bam_to_fasta/37/calc_BAM_to_Mpileup_3_0 --as mpileup_file
+                     set-value --to $iteration_number --eq pipeline_1/27/bam_to_fasta/37/foreach_iteration_2_0
+                     set-value --to $iteration_value --eq pipeline_1/27/bam_to_fasta/37/foreach_value_1_0
+                     calc -n pipeline_1/27/bam_to_fasta/37/calc_BAM_to_Mpileup_3 --as calc_BAM_to_Mpileup
+                     set-value --to pipeline_1/27/bam_to_fasta/37/calc_BAM_to_Mpileup_3.inputs --eq "pipeline_1/27/bam_to_fasta/37/bam_file_in_3_0_0,fasta_file_28_0,null,pipeline_1/27/bam_to_fasta/37/bool_7_0"
+                     set-value --to pipeline_1/27/bam_to_fasta/37/calc_BAM_to_Mpileup_3.outputs --eq "pipeline_1/27/bam_to_fasta/37/calc_BAM_to_Mpileup_3_0"
+                     run-calculation -n pipeline_1/27/bam_to_fasta/37/calc_BAM_to_Mpileup_3
+                     delete -n pipeline_1/27/bam_to_fasta/37/calc_BAM_to_Mpileup_3
+                     delete -n pipeline_1/27/bam_to_fasta/37/bam_file_in_3_0_0
+                     if --ref $result --eq 0
+                         dim -n pipeline_1/27/bam_to_fasta/37/mpileup_file_in_6_0_0 --as mpileup_file
+                         set-value --to pipeline_1/27/bam_to_fasta/37/mpileup_file_in_6_0_0 --eq pipeline_1/27/bam_to_fasta/37/calc_BAM_to_Mpileup_3_0
+                         dim -n pipeline_1/27/bam_to_fasta/37/calc_snp_caller_6_0 --as fasta_file
+                         set-value --to $iteration_number --eq pipeline_1/27/bam_to_fasta/37/foreach_iteration_2_0
+                         set-value --to $iteration_value --eq pipeline_1/27/bam_to_fasta/37/foreach_value_1_0
+                         calc -n pipeline_1/27/bam_to_fasta/37/calc_snp_caller_6 --as calc_snp_caller
+                         set-value --to pipeline_1/27/bam_to_fasta/37/calc_snp_caller_6.inputs --eq "pipeline_1/27/bam_to_fasta/37/mpileup_file_in_6_0_0,pipeline_1/27/bam_to_fasta/37/bool_7_0"
+                         set-value --to pipeline_1/27/bam_to_fasta/37/calc_snp_caller_6.outputs --eq "pipeline_1/27/bam_to_fasta/37/calc_snp_caller_6_0"
+                         run-calculation -n pipeline_1/27/bam_to_fasta/37/calc_snp_caller_6
+                         delete -n pipeline_1/27/bam_to_fasta/37/calc_snp_caller_6
+                         delete -n pipeline_1/27/bam_to_fasta/37/mpileup_file_in_6_0_0
+                         if --ref $result --eq 0
+                             dim -n pipeline_1/27/bam_to_fasta/37/text_file_in_8_0_0 --as text_file
+                             set-value --to pipeline_1/27/bam_to_fasta/37/text_file_in_8_0_0 --eq pipeline_1/27/bam_to_fasta/37/calc_snp_caller_6_0
+                             set-value --to $iteration_number --eq pipeline_1/27/bam_to_fasta/37/foreach_iteration_2_0
+                             set-value --to $iteration_value --eq pipeline_1/27/bam_to_fasta/37/foreach_value_1_0
+                             calc -n pipeline_1/27/bam_to_fasta/37/calc_concat_files_8 --as calc_concat_files
+                             set-value --to pipeline_1/27/bam_to_fasta/37/calc_concat_files_8.inputs --eq "pipeline_1/27/bam_to_fasta/37/text_file_in_8_0_0,null,pipeline_1/27/bam_to_fasta/37/bool_10_0"
+                             set-value --to pipeline_1/27/bam_to_fasta/37/calc_concat_files_8.outputs --eq "pipeline_1/27/text_file_39_0"
+                             run-calculation -n pipeline_1/27/bam_to_fasta/37/calc_concat_files_8
+                             delete -n pipeline_1/27/bam_to_fasta/37/calc_concat_files_8
+                             delete -n pipeline_1/27/bam_to_fasta/37/text_file_in_8_0_0
+                             if --ref $result --eq 0
+                             endif
+                         endif
+                     endif
+                     delete -n pipeline_1/27/bam_to_fasta/37/calc_BAM_to_Mpileup_3_0
+                     delete -n pipeline_1/27/bam_to_fasta/37/calc_snp_caller_6_0
+                     delete -n pipeline_1/27/bam_to_fasta/37/bool_7_0
+                     delete -n pipeline_1/27/bam_to_fasta/37/bool_10_0
+                 end-for
+                 delete -n pipeline_1/27/bam_to_fasta/37/foreach_value_1_0
+                 delete -n pipeline_1/27/bam_to_fasta/37/foreach_iteration_2_0
+                 dim -n pipeline_1/27/calc_concat_files_7_0 --as text_file
+                 set-value --to $iteration_number --eq pipeline_1/27/foreach_iteration_2_0
+                 set-value --to $iteration_value --eq pipeline_1/27/foreach_value_1_0
+                 calc -n pipeline_1/27/calc_concat_files_7 --as calc_concat_files
+                 set-value --to pipeline_1/27/calc_concat_files_7.inputs --eq "pipeline_1/27/text_file_39_0,pipeline_1/27/text_file_61_0,pipeline_1/27/bool_24_0"
+                 set-value --to pipeline_1/27/calc_concat_files_7.outputs --eq "pipeline_1/27/calc_concat_files_7_0"
+                 run-calculation -n pipeline_1/27/calc_concat_files_7
+                 delete -n pipeline_1/27/calc_concat_files_7
+                 if --ref $result --eq 0
+                     dim -n pipeline_1/27/chromstats/52/foreach_value_1_0 --as string
+                     set-value --to pipeline_1/27/chromstats/52/foreach_value_1_0 --eq "Chromosome Name"
+                     dim -n pipeline_1/27/chromstats/52/foreach_iteration_2_0 --as int64
+                     set-value --to pipeline_1/27/chromstats/52/foreach_iteration_2_0 --eq ""
+                     for --data pipeline_1/27/calc_matrix_to_vector_60_0 --ite pipeline_1/27/chromstats/52/foreach_iteration_2_0 --from 0 --to pipeline_1/27/calc_matrix_to_vector_60_0.reg_length --inc 1
+                         set-value --to pipeline_1/27/chromstats/52/foreach_value_1_0 --eq pipeline_1/27/calc_matrix_to_vector_60_0[pipeline_1/27/chromstats/52/foreach_iteration_2_0]
+                         print -n pipeline_1/27/chromstats/52/foreach_iteration_2_0 --text "iteration: " --mode value --eol
+                         print -n pipeline_1/27/chromstats/52/foreach_value_1_0 --text "value: " --mode value  --eol
+                         dim -n pipeline_1/27/chromstats/52/bool_48_0 --as bool
+                         set-value --to pipeline_1/27/chromstats/52/bool_48_0 --eq "TRUE"
+                         dim -n pipeline_1/27/chromstats/52/string_36_0 --as string
+                         set-value --to pipeline_1/27/chromstats/52/string_36_0 --eq "./statistics_mstatspop.txt"
+                         dim -n pipeline_1/27/chromstats/52/bool_49_0 --as bool
+                         set-value --to pipeline_1/27/chromstats/52/bool_49_0 --eq "TRUE"
+                         dim -n pipeline_1/27/chromstats/52/bool_26_0 --as bool
+                         set-value --to pipeline_1/27/chromstats/52/bool_26_0 --eq "TRUE"
+                         dim -n pipeline_1/27/chromstats/52/bool_50_0 --as bool
+                         set-value --to pipeline_1/27/chromstats/52/bool_50_0 --eq "TRUE"
+                         dim -n pipeline_1/27/chromstats/52/int64_46_0 --as int64
+                         set-value --to pipeline_1/27/chromstats/52/int64_46_0 --eq "1000000"
+                         dim -n pipeline_1/27/chromstats/52/bool_27_0 --as bool
+                         set-value --to pipeline_1/27/chromstats/52/bool_27_0 --eq "TRUE"
+                         dim -n pipeline_1/27/chromstats/52/string_in_34_1_0 --as string
+                         set-value --to pipeline_1/27/chromstats/52/string_in_34_1_0 --eq pipeline_1/27/chromstats/52/foreach_value_1_0
+                         dim -n pipeline_1/27/chromstats/52/calc_filter_GTF_34_0 --as gtf_file
+                         set-value --to $iteration_number --eq pipeline_1/27/chromstats/52/foreach_iteration_2_0
+                         set-value --to $iteration_value --eq pipeline_1/27/chromstats/52/foreach_value_1_0
+                         calc -n pipeline_1/27/chromstats/52/calc_filter_GTF_34 --as calc_filter_GTF
+                         set-value --to pipeline_1/27/chromstats/52/calc_filter_GTF_34.inputs --eq "gtf_file_25_0,pipeline_1/27/chromstats/52/string_in_34_1_0,null"
+                         set-value --to pipeline_1/27/chromstats/52/calc_filter_GTF_34.outputs --eq "pipeline_1/27/chromstats/52/calc_filter_GTF_34_0"
+                         run-calculation -n pipeline_1/27/chromstats/52/calc_filter_GTF_34
+                         delete -n pipeline_1/27/chromstats/52/calc_filter_GTF_34
+                         delete -n pipeline_1/27/chromstats/52/string_in_34_1_0
+                         if --ref $result --eq 0
+                             dim -n pipeline_1/27/chromstats/52/string_in_33_1_0 --as string
+                             set-value --to pipeline_1/27/chromstats/52/string_in_33_1_0 --eq pipeline_1/27/chromstats/52/foreach_value_1_0
+                             dim -n pipeline_1/27/chromstats/52/calc_filter_BED_33_0 --as bed_file
+                             set-value --to $iteration_number --eq pipeline_1/27/chromstats/52/foreach_iteration_2_0
+                             set-value --to $iteration_value --eq pipeline_1/27/chromstats/52/foreach_value_1_0
+                             calc -n pipeline_1/27/chromstats/52/calc_filter_BED_33 --as calc_filter_BED
+                             set-value --to pipeline_1/27/chromstats/52/calc_filter_BED_33.inputs --eq "bed_file_23_0,pipeline_1/27/chromstats/52/string_in_33_1_0,null"
+                             set-value --to pipeline_1/27/chromstats/52/calc_filter_BED_33.outputs --eq "pipeline_1/27/chromstats/52/calc_filter_BED_33_0"
+                             run-calculation -n pipeline_1/27/chromstats/52/calc_filter_BED_33
+                             delete -n pipeline_1/27/chromstats/52/calc_filter_BED_33
+                             delete -n pipeline_1/27/chromstats/52/string_in_33_1_0
+                             if --ref $result --eq 0
+                                 dim -n pipeline_1/27/chromstats/52/fasta_file_in_47_0_0 --as fasta_file
+                                 set-value --to pipeline_1/27/chromstats/52/fasta_file_in_47_0_0 --eq text_file_24_0
+                                 dim -n pipeline_1/27/chromstats/52/gtf_file_in_47_1_0 --as gtf_file
+                                 set-value --to pipeline_1/27/chromstats/52/gtf_file_in_47_1_0 --eq pipeline_1/27/chromstats/52/calc_filter_GTF_34_0
+                                 dim -n pipeline_1/27/chromstats/52/bed_file_in_47_2_0 --as bed_file
+                                 set-value --to pipeline_1/27/chromstats/52/bed_file_in_47_2_0 --eq pipeline_1/27/chromstats/52/calc_filter_BED_33_0
+                                 dim -n pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47_0 --as t-fasta_file
+                                 dim -n pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47_1 --as weights_file
+                                 set-value --to $iteration_number --eq pipeline_1/27/chromstats/52/foreach_iteration_2_0
+                                 set-value --to $iteration_value --eq pipeline_1/27/chromstats/52/foreach_value_1_0
+                                 calc -n pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47 --as calc_fasta_to_tfasta
+                                 set-value --to pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47.inputs --eq "pipeline_1/27/chromstats/52/fasta_file_in_47_0_0,pipeline_1/27/chromstats/52/gtf_file_in_47_1_0,pipeline_1/27/chromstats/52/bed_file_in_47_2_0,pipeline_1/27/chromstats/52/bool_48_0"
+                                 set-value --to pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47.outputs --eq "pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47_0,pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47_1"
+                                 run-calculation -n pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47
+                                 delete -n pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47
+                                 delete -n pipeline_1/27/chromstats/52/fasta_file_in_47_0_0
+                                 delete -n pipeline_1/27/chromstats/52/gtf_file_in_47_1_0
+                                 delete -n pipeline_1/27/chromstats/52/bed_file_in_47_2_0
+                                 if --ref $result --eq 0
+                                     dim -n pipeline_1/27/chromstats/52/string_in_12_1_0 --as string
+                                     set-value --to pipeline_1/27/chromstats/52/string_in_12_1_0 --eq pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47_0
+                                     dim -n pipeline_1/27/chromstats/52/string_in_12_17_0 --as string
+                                     set-value --to pipeline_1/27/chromstats/52/string_in_12_17_0 --eq pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47_1
+                                     dim -n pipeline_1/27/chromstats/52/calc_mstatspop_12_0 --as string
+                                     set-value --to $iteration_number --eq pipeline_1/27/chromstats/52/foreach_iteration_2_0
+                                     set-value --to $iteration_value --eq pipeline_1/27/chromstats/52/foreach_value_1_0
+                                     calc -n pipeline_1/27/chromstats/52/calc_mstatspop_12 --as calc_mstatspop
+                                     set-value --to pipeline_1/27/chromstats/52/calc_mstatspop_12.inputs --eq "null,pipeline_1/27/chromstats/52/string_in_12_1_0,null,string_12_0,pipeline_1/27/chromstats/52/bool_49_0,pipeline_1/27/chromstats/52/bool_26_0,pipeline_1/27/chromstats/52/string_36_0,null,null,null,null,null,null,pipeline_1/27/chromstats/52/int64_46_0,null,null,string_22_0,pipeline_1/27/chromstats/52/string_in_12_17_0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,pipeline_1/27/chromstats/52/bool_50_0"
+                                     set-value --to pipeline_1/27/chromstats/52/calc_mstatspop_12.outputs --eq "pipeline_1/27/chromstats/52/calc_mstatspop_12_0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null"
+                                     run-calculation -n pipeline_1/27/chromstats/52/calc_mstatspop_12
+                                     delete -n pipeline_1/27/chromstats/52/calc_mstatspop_12
+                                     delete -n pipeline_1/27/chromstats/52/string_in_12_1_0
+                                     delete -n pipeline_1/27/chromstats/52/string_in_12_17_0
+                                     if --ref $result --eq 0
+                                         dim -n pipeline_1/27/chromstats/52/text_file_in_15_0_0 --as text_file
+                                         set-value --to pipeline_1/27/chromstats/52/text_file_in_15_0_0 --eq pipeline_1/27/calc_concat_files_7_0
+                                         dim -n pipeline_1/27/chromstats/52/text_file_in_15_1_0 --as text_file
+                                         set-value --to pipeline_1/27/chromstats/52/text_file_in_15_1_0 --eq pipeline_1/27/chromstats/52/calc_mstatspop_12_0
+                                         dim -n pipeline_1/27/chromstats/52/calc_collect_data_columns_15_0 --as text_file
+                                         set-value --to $iteration_number --eq pipeline_1/27/chromstats/52/foreach_iteration_2_0
+                                         set-value --to $iteration_value --eq pipeline_1/27/chromstats/52/foreach_value_1_0
+                                         calc -n pipeline_1/27/chromstats/52/calc_collect_data_columns_15 --as calc_collect_data_columns
+                                         set-value --to pipeline_1/27/chromstats/52/calc_collect_data_columns_15.inputs --eq "pipeline_1/27/chromstats/52/text_file_in_15_0_0,pipeline_1/27/chromstats/52/text_file_in_15_1_0,pipeline_1/27/chromstats/52/bool_27_0"
+                                         set-value --to pipeline_1/27/chromstats/52/calc_collect_data_columns_15.outputs --eq "pipeline_1/27/chromstats/52/calc_collect_data_columns_15_0"
+                                         run-calculation -n pipeline_1/27/chromstats/52/calc_collect_data_columns_15
+                                         delete -n pipeline_1/27/chromstats/52/calc_collect_data_columns_15
+                                         delete -n pipeline_1/27/chromstats/52/text_file_in_15_0_0
+                                         delete -n pipeline_1/27/chromstats/52/text_file_in_15_1_0
+                                         if --ref $result --eq 0
+                                             dim -n pipeline_1/27/chromstats/52/text_file_in_28_0_0 --as text_file
+                                             set-value --to pipeline_1/27/chromstats/52/text_file_in_28_0_0 --eq pipeline_1/27/chromstats/52/calc_collect_data_columns_15_0
+                                             set-value --to $iteration_number --eq pipeline_1/27/chromstats/52/foreach_iteration_2_0
+                                             set-value --to $iteration_value --eq pipeline_1/27/chromstats/52/foreach_value_1_0
+                                             calc -n pipeline_1/27/chromstats/52/calc_concat_files_28 --as calc_concat_files
+                                             set-value --to pipeline_1/27/chromstats/52/calc_concat_files_28.inputs --eq "pipeline_1/27/chromstats/52/text_file_in_28_0_0,null,null"
+                                             set-value --to pipeline_1/27/chromstats/52/calc_concat_files_28.outputs --eq "text_file_15_0"
+                                             run-calculation -n pipeline_1/27/chromstats/52/calc_concat_files_28
+                                             delete -n pipeline_1/27/chromstats/52/calc_concat_files_28
+                                             delete -n pipeline_1/27/chromstats/52/text_file_in_28_0_0
+                                             if --ref $result --eq 0
+                                             endif
+                                         endif
+                                     endif
+                                 endif
+                             endif
+                         endif
+                         delete -n pipeline_1/27/chromstats/52/calc_filter_GTF_34_0
+                         delete -n pipeline_1/27/chromstats/52/calc_filter_BED_33_0
+                         delete -n pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47_0
+                         delete -n pipeline_1/27/chromstats/52/calc_fasta_to_tfasta_47_1
+                         delete -n pipeline_1/27/chromstats/52/calc_mstatspop_12_0
+                         delete -n pipeline_1/27/chromstats/52/calc_collect_data_columns_15_0
+                         delete -n pipeline_1/27/chromstats/52/bool_48_0
+                         delete -n pipeline_1/27/chromstats/52/string_36_0
+                         delete -n pipeline_1/27/chromstats/52/bool_49_0
+                         delete -n pipeline_1/27/chromstats/52/bool_26_0
+                         delete -n pipeline_1/27/chromstats/52/bool_50_0
+                         delete -n pipeline_1/27/chromstats/52/int64_46_0
+                         delete -n pipeline_1/27/chromstats/52/bool_27_0
+                     end-for
+                     delete -n pipeline_1/27/chromstats/52/foreach_value_1_0
+                     delete -n pipeline_1/27/chromstats/52/foreach_iteration_2_0
+                 endif
+             endif
+         endif
+     endif
+ endif
+ delete -n pipeline_1/27/calc_matrix_to_vector_60_0
+ delete -n pipeline_1/27/calc_list_files_45_0
+ delete -n pipeline_1/27/calc_matrix_to_vector_89_0
+ delete -n pipeline_1/27/calc_matrix_to_vector_85_0
+ delete -n pipeline_1/27/calc_concat_files_7_0
+ delete -n pipeline_1/27/bool_24_0
+ delete -n pipeline_1/27/bool_86_0
+ delete -n pipeline_1/27/string_matrix_81_0
+ delete -n pipeline_1/27/bool_79_0
+ delete -n pipeline_1/27/string_50_0
+ delete -n pipeline_1/27/bool_90_0
+ delete -n pipeline_1/27/string_matrix_88_0
+ delete -n pipeline_1/27/string_matrix_84_0
+ delete -n pipeline_1/27/text_file_61_0
+ delete -n pipeline_1/27/text_file_39_0
+ delete -n pipeline_1/27/foreach_iteration_2_0
+ delete -n pipeline_1/27/foreach_value_1_0
+ print --text "[EXPERIMENT_END]" --eol
+

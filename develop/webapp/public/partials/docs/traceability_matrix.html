@@ -1,0 +1,68 @@
+{{ShowLoading()}}
+
+<div class="sheet" style="background-color: white">
+  <!-- do not set the controller here because it is in the $stateProvider -->
+
+  <div class="container-fluid">
+    <div class="hide_on_print" style="margin-bottom:40px;" />
+
+    <div class="row spacer">
+      <!-- HEADER -->
+      <div class="row spacer crag_document_header docs_header_font">
+        <div class="col-md-3 col-xs-3 crag_document_header_cell logo_crag"><img src="images/all_logos.png" width=70%></div>
+        <div class="col-md-3 col-xs-3 crag_document_header_cell">CENTRE DE RECERCA<br />EN AGRIGENÒMICA</div>
+        <div class="col-md-3 col-xs-3 crag_document_header_cell">CENTRO DE INVESTIGACIÓN<br />EN AGRIGENÓMICA</div>
+        <div class="col-md-3 col-xs-3 crag_document_header_cell">CENTRE FOR RESEARCH<br />IN AGRICULTURAL</div>
+      </div>
+      <!-- /HEADER -->
+    </div>
+
+    <div class="row spacer">
+          <div class="company_background_titlebar_color window_padding docs_title_level_1" style="color:white">Use Cases & Traceability Matrix</div>
+    </div>
+
+
+    <div class="row spacer"> <!-- style="overflow: scroll; max-height:800px" -->
+      <table id="traceability_matrix" class="docs_table_font">
+        <tr>
+          <td style="min-width:500px" class="center fixed_column" >Use Cases \ Requirements&nbsp;
+            <span class="glyphicon glyphicon-eye-open cursor_hand hide_on_print" data-toggle="tooltip" data-placement="top" title="Show all cases." ng-show="!ShowAllCases()" ng-click="SetShowAllCases(true)"></span>
+            <span class="glyphicon glyphicon-eye-close cursor_hand hide_on_print" data-toggle="tooltip" data-placement="top" title="Hide not user cases." ng-show="ShowAllCases()" ng-click="SetShowAllCases(false)"></span>
+          </td>
+          <td ng-repeat="th in URS_list" ng-class="{'urs_not_used':!th.used}">
+            {{th.id}}
+          </td>
+        </tr>
+        <tr ng-repeat="row in traceability_matrix | filter:MatrixFilter">
+          <td class="fixed_column">
+
+            <br ng-show="row.id==null" />
+            <span ng-show="row.id==null" class="glyphicon glyphicon-user"></span>
+            <span ng-show="row.id==null">{{row.name}}</span>
+
+
+            <span ng-show="row.id!=null">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-show="(row.id!=null)&&((row.case_type==GetDocsLib().CASE_SYSTEM_PROCESS)||(row.case_type==4))">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-show="((row.id!=null) && (row.case_type==GetDocsLib().CASE_START_PROCESS))" class="glyphicon glyphicon-arrow-right cursor_hand" data-toggle="tooltip" data-placement="top" title="User starts this process. Press this link to access the related documentation." ng-click="OpenSequenceDiagram(row.id, row.name)"></span>
+            <span ng-show="((row.id!=null) && (row.case_type==GetDocsLib().CASE_MANUAL_PROCESS))" class="glyphicon glyphicon-book cursor_hand" data-toggle="tooltip" data-placement="top" title="Manual process. Press this link to access the related documentation." ng-click="OpenDocumentation(row.id)"></span>
+            <span ng-show="((row.id!=null) && (row.case_type==GetDocsLib().CASE_SYSTEM_PROCESS))" class="glyphicon glyphicon-transfer cursor_hand" data-toggle="tooltip" data-placement="top" title="System process. Press this link to access the related documentation." ng-click="OpenSequenceDiagram(row.id, row.name)"></span>
+            <span ng-show="row.id!=null" ng-class="{'case_not_used':!row.has_urs}">{{row.id}} {{row.name}}</span>
+          </td>
+          <td ng-repeat="td in row.list" class="center" style="color:#ddd">
+            <div style="width:18px;height:18px;border:1px solid #ddd;background-color:#efefef" class="center" data-toggle="tooltip" data-placement="top" title="{{row.id}} {{row.name}} - {{td.id}} {{GetURSDescription(td.id)}}" ng-show="!td.value">
+            </div>
+
+            <div style="width:18px;height:18px;border:1px solid #ddd;" class="center" data-toggle="tooltip" data-placement="top" title="{{row.id}} {{row.name}} - {{td.id}} {{GetURSDescription(td.id)}}" ng-show="td.value">
+              <span class="glyphicon glyphicon-ok" style="color:green"></span>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row spacer">
+  </div>
+
+</div>
+

@@ -1,0 +1,824 @@
+<html>
+
+  <head>
+    <title></title>
+    <script language="javascript">
+
+      var id = 0;
+      var objects = [];
+      
+      function FindVariableByName(name) {
+        var ret = null;
+        for(var i = 0; ((i < objects.length) && (ret == null)); i++) {
+          if ((objects[i].obj == 'variable') && (objects[i].name == name)) {
+            ret = objects[i];
+          }
+        }
+        return ret;
+      }
+
+      function FindCalculationByName(name) {
+        var ret = null;
+        for(var i = 0; ((i < objects.length) && (ret == null)); i++) {
+          if ((objects[i].obj == 'calculation') && (objects[i].name == name)) {
+            ret = objects[i];
+          }
+        }
+        return ret;
+      }
+
+      function CreateVariable(name, type) {
+        objects.push({id:id, obj:'variable', name:name, type:type, value:null, inputs:[], outputs:[]});
+        id++;
+      }
+
+      function CreateCalc(name, type) {
+        objects.push({id:id, obj:'calculation', name:name, type:type, value:null, inputs:[], outputs:[]});
+        id++;
+      }
+
+      function CreateEndIf() {
+      }
+
+      function CreateEndFor() {
+      }
+
+      function CreateRemoveVariable() {
+      }
+
+      function AssignValue(name, eq, value) {
+        if (name.indexOf(".inputs") != -1) {
+          document.write("<br />+++++++ INPUTS : " + value + "<br />");        
+        }
+        else {
+          if (name.indexOf(".outputs") != -1) {
+            document.write("<br />+++++++ OUTPUTS : " + value + "<br />");        
+          }
+          else {
+            var obj = FindVariableByName(name);
+            if (obj != null) {
+              obj.value = value;
+            } else {
+              document.write("<br />******* Not found: " + name + "<br />");
+            }
+          }
+        }
+      }
+
+      function CreateIf() {
+      }
+
+      function Execute() {
+      }
+
+      function CreateFor() {
+      }
+
+      function CreateConstant() {
+      }
+
+      function CreateExit() {
+      }
+
+      function CreateElse() {
+      }
+
+      function CreateReserve() {
+      }
+
+
+      function Convert() {
+        var pos_x = 100, pos_y = 100;
+
+        for(var i = 0; i < objects.length; i++) {
+          var o = objects[i];
+          document.write("CreateNode(" + o.id + ", '" + o.name + "', '" + o.type + "', " + pos_x + ", " + pos_y);
+
+          if (o.obj == 'variable') {
+            if (o.value != null) {
+              document.write(", '" + o.value + "'");
+            }
+          }
+          if (o.obj == 'calculation') {
+          }
+
+          document.write(");<br />");
+        }
+
+/*
+                    CreateNode(6, 'output', 1000, 375, 'total', null);
+                    CreateNode(5, 'output', 1000, 675, 'total', null);
+                    CreateNode(3, 'bool', 425, 625, "TRUE", [{"id":0,"to":[{"node_id":1,"input_id":1}]}]);
+                    CreateNode(4, 'bool', 425, 325, "FALSE", [{"id":0,"to":[{"node_id":0,"input_id":1}]}]);
+                    CreateNode(0, 'gc-content', 725, 300, '', [{"id":0,"to":[{"node_id":6,"input_id":0}]}]);
+                    CreateNode(1, 'gc-content', 725, 600, '', [{"id":0,"to":[{"node_id":5,"input_id":0}]}]);
+                    CreateNode(2, 'input', 200, 475, 'vector', [{"id":0,"to":[{"node_id":0,"input_id":0},{"node_id":1,"input_id":0}]}]);
+*/
+        document.write("converted.");
+      }
+CreateConstant("FASTA_FILE","0");
+CreateConstant("MS_FILE","1");
+CreateConstant("MS_EXTENDED_FILE","2");
+CreateConstant("YES","1");
+CreateConstant("NO","0");
+CreateConstant("TRUE","1");
+CreateConstant("FALSE","0");
+CreateConstant("HAPLOID","1");
+CreateConstant("DIPLOID","2");
+CreateConstant("FIRST_ITERATION","0");
+CreateConstant("EMPTY_STRING","");
+CreateConstant("NGASP_PATH","/home/jjene/NetBeansProjects/ngaSP");
+CreateVariable("file_in","string");
+CreateVariable("formatfile","int");
+CreateVariable("output","int");
+CreateVariable("populations_initial","string");
+CreateVariable("sort_nsam","int_vector");
+CreateVariable("outgroup_presence","int");
+CreateVariable("force_outgroup","int");
+CreateVariable("freq_revert","float");
+CreateVariable("ploidy","char_vector");
+CreateVariable("r2i_ploidies","int_vector");
+CreateVariable("include_unknown","int");
+CreateVariable("n_ccov","int");
+CreateVariable("freq_missing_ms","double");
+CreateVariable("file_GFF","string");
+CreateVariable("subset_positions","char_vector");
+CreateVariable("code_name","char_vector");
+CreateVariable("genetic_code","char_vector");
+CreateVariable("criteria_transcript","char_vector");
+CreateVariable("niter","int64");
+CreateVariable("file_mas","string");
+CreateVariable("seed","int64");
+CreateVariable("ms_svratio","float");
+CreateVariable("length","int64");
+CreateVariable("kind_length","int");
+CreateVariable("location_missing_ms","int");
+CreateVariable("file_H1f","string");
+CreateVariable("file_H0f","string");
+CreateVariable("command_line","string");
+CreateIf("populations_initial","EQ","EMPTY_STRING");
+CreateExit();
+CreateEndIf();
+CreateIf("force_outgroup","EQ","1","AND","outgroup_presence","EQ","1");
+CreateExit();
+CreateEndIf();
+CreateIf("outgroup_presence","NE","0","AND","outgroup_presence","NE","1");
+CreateExit();
+CreateEndIf();
+CreateIf("force_outgroup","NE","0","AND","force_outgroup","NE","1");
+CreateExit();
+CreateEndIf();
+CreateIf("formatfile","EQ","0","AND","force_outgroup","EQ","1");
+CreateExit();
+CreateEndIf();
+CreateIf("output","LT","0","OR","output","GT","10");
+CreateExit();
+CreateEndIf();
+CreateCalc("calc_mstatspop_open_fasta","mstatspop-open-fasta");
+CreateCalc("calc_mstatspop_open_ms","mstatspop-open-ms");
+CreateCalc("calc_optimal_tests","optimal-tests");
+CreateCalc("calc_r2","r2");
+CreateCalc("calc_r2p","r2p");
+CreateCalc("calc_freq_stats","freq-stats");
+CreateCalc("calc_mismatch","mismatch");
+CreateCalc("calc_sxsfss","sxsfss");
+CreateCalc("calc_joint_freq_dist","joint-freq-dist");
+CreateCalc("calc_piwpiafst","piwpiafst");
+CreateCalc("calc_hwhafsth","hwhafsth");
+CreateCalc("calc_fs","fs");
+CreateCalc("calc_permute","permute");
+CreateCalc("calc_gff","gff");
+CreateCalc("calc_file_stats","file-stats");
+CreateCalc("calc_open_freq_spec_file","spectrum-file");
+CreateCalc("calc_mask_file_ms","mask-file-ms");
+CreateCalc("calc_effec_nuc_TCGA_freqs","effec-nuc-tcga-freqs");
+CreateCalc("calc_lengthamng_and_calcs","lengthamng");
+CreateCalc("calc_x","calc-x");
+CreateCalc("calc_y","calc-y");
+CreateCalc("calc_z","calc-z");
+CreateCalc("calc_array_ope_x","array-ope-x");
+CreateCalc("calc_mstatspop_output","mstatspop-output");
+CreateCalc("calc_array_sum_all","array-sum-all");
+CreateCalc("calc_duplicate_populations","duplicate-populations");
+CreateVariable("vint_perpop_nsam","int_vector");
+CreateVariable("npops","int64");
+CreateVariable("total_nsam_initial","int");
+CreateVariable("int_total_nsam","int64");
+CreateVariable("H0frq","int");
+CreateVariable("H1frq","int");
+CreateVariable("length_al","double");
+CreateVariable("gfffiles","int");
+CreateVariable("niterdata","int64");
+CreateVariable("numPloidies","int");
+CreateVariable("fasta","string_set");
+CreateVariable("vint_perpop_nsam_iter","int_vector");
+CreateVariable("npops_iter","int64");
+CreateVariable("int_total_nsam_iter","int64");
+CreateVariable("dna_matrix","char_vector");
+CreateVariable("matrix_sizepos","double_vector");
+CreateVariable("matrix_segrpos","double_vector");
+CreateVariable("matrix_pol","char_vector");
+CreateVariable("frequencies","int64_vector");
+CreateVariable("positions","int64_vector");
+CreateVariable("sites","int64_vector");
+CreateVariable("sanc","int64_vector");
+CreateVariable("matrix_perm","char_vector");
+CreateVariable("nsam2","int_vector");
+CreateVariable("psam2","int_vector");
+CreateVariable("argc","int");
+CreateVariable("vector_mask","float_vector");
+CreateVariable("length_mask","double");
+CreateVariable("matrix_mask","int_vector");
+CreateVariable("vector_priors","float_vector");
+CreateVariable("npriors","int");
+CreateVariable("sum_sam_mask","double_vector");
+CreateVariable("file_out","string");
+CreateVariable("length_seg","int64");
+CreateVariable("mhitbp","int64_vector");
+CreateVariable("names2","char_matrix");
+CreateVariable("n_site","int64");
+CreateVariable("DNA_matr2","char_vector");
+CreateVariable("n_samp","int");
+CreateVariable("flaghky","int");
+CreateVariable("jfd","double_matrix");
+CreateVariable("nfd","int_matrix");
+CreateVariable("li","int64");
+CreateVariable("anx","double_vector");
+CreateVariable("bnx","double_vector");
+CreateVariable("anxo","double_vector");
+CreateVariable("bnxo","double_vector");
+CreateVariable("lengthamng","double_matrix");
+CreateVariable("missratio","double");
+CreateVariable("nsites1_pop","double_vector");
+CreateVariable("nsites2_pop","double_vector");
+CreateVariable("nsites3_pop","double_vector");
+CreateVariable("nsites1_pop_outg","double_vector");
+CreateVariable("nsites2_pop_outg","double_vector");
+CreateVariable("nsites3_pop_outg","double_vector");
+CreateVariable("sum_sam","double_vector");
+CreateVariable("svratio","double");
+CreateVariable("tcga","double_matrix");
+CreateVariable("length_al_real","int64");
+CreateVariable("nmhits","int64");
+CreateVariable("matrix_sv","int64_vector");
+CreateVariable("z_pos","int");
+CreateVariable("mdw_reg_lengths","int64_vector");
+CreateVariable("stats_piw_c0","double_vector");
+CreateVariable("stats_pia_c0","double_vector");
+CreateVariable("stats_piT_c0","double_vector");
+CreateVariable("stats_piant_c0","double_vector");
+CreateVariable("stats_piTnt_c0","double_vector");
+CreateVariable("stats_fst_c0","double_vector");
+CreateVariable("stats_piwHKY_c0","double_vector");
+CreateVariable("stats_piaHKY_c0","double_vector");
+CreateVariable("stats_piTHKY_c0","double_vector");
+CreateVariable("stats_fstHKY_c0","double_vector");
+CreateVariable("stats_fst1all_c0","double_vector");
+CreateVariable("stats_Gst_c0","double_vector");
+CreateVariable("stats_hapw_c0","double_vector");
+CreateVariable("stats_hapa_c0","double_vector");
+CreateVariable("stats_hapT_c0","double_vector");
+CreateVariable("stats_fsth_c0","double_vector");
+CreateVariable("stats_fsth1all_c0","double_vector");
+CreateVariable("stats_fstALL_c0","double");
+CreateVariable("stats_fsthALL_c0","double");
+CreateVariable("stats_GstALL_c0","double");
+CreateVariable("stats_S_c0","double_vector");
+CreateVariable("stats_So_c0","double_vector");
+CreateVariable("stats_thetaS_c0","double_vector");
+CreateVariable("stats_thetaSo_c0","double_vector");
+CreateVariable("stats_thetaT_c0","double_vector");
+CreateVariable("stats_thetaTo_c0","double_vector");
+CreateVariable("stats_thetaTHKY_c0","double_vector");
+CreateVariable("stats_thetaFL_c0","double_vector");
+CreateVariable("stats_thetaFW_c0","double_vector");
+CreateVariable("stats_thetaL_c0","double_vector");
+CreateVariable("stats_thetaSA_c0","double_vector");
+CreateVariable("stats_thetaTA_c0","double_vector");
+CreateVariable("stats_K_c0","double_vector");
+CreateVariable("stats_KHKY_c0","double_vector");
+CreateVariable("stats_Dtaj_c0","double_vector");
+CreateVariable("stats_Dfl_c0","double_vector");
+CreateVariable("stats_Ffl_c0","double_vector");
+CreateVariable("stats_Hnfw_c0","double_vector");
+CreateVariable("stats_Ez_c0","double_vector");
+CreateVariable("stats_Yach_c0","double_vector");
+CreateVariable("stats_R2_c0","double_vector");
+CreateVariable("stats_Fs_c0","double_vector");
+CreateVariable("stats_Rm_c0","int64_vector");
+CreateVariable("stats_ZnA_c0","double_vector");
+CreateVariable("stats_freq_c0","int64_matrix");
+CreateVariable("stats_nh_c0","int");
+CreateVariable("stats_nhpop_c0","int_vector");
+CreateVariable("stats_freqh_c0","int64_matrix");
+CreateVariable("stats_length_c0","double_vector");
+CreateVariable("stats_length2_c0","double_vector");
+CreateVariable("stats_lengthamng_c0","double_matrix");
+CreateVariable("stats_total_length_c0","double");
+CreateVariable("stats_total_real_length_c0","double");
+CreateVariable("stats_total_svratio_c0","double");
+CreateVariable("stats_total_tcga_c0","double_vector");
+CreateVariable("stats_tcga_c0","double_matrix");
+CreateVariable("stats_sv_c0","double_cube");
+CreateVariable("stats_svT_c0","double_cube");
+CreateVariable("stats_nmhits_c0","int64");
+CreateVariable("stats_H0freq_c0","double_matrix");
+CreateVariable("stats_H1freq_c0","double_matrix");
+CreateVariable("stats_thetaH0_c0","double_vector");
+CreateVariable("stats_thetaH1_c0","double_vector");
+CreateVariable("stats_ToH0_ii_c0","double_vector");
+CreateVariable("stats_ToH0_00_c0","double_vector");
+CreateVariable("stats_To_ii_c0","double_vector");
+CreateVariable("stats_To_00_c0","double_vector");
+CreateVariable("stats_To_i0_c0","double_vector");
+CreateVariable("stats_To_Qc_ii_c0","double_vector");
+CreateVariable("stats_To_Qw_ii_c0","double_vector");
+CreateVariable("stats_To_Lc_ii_c0","double_vector");
+CreateVariable("stats_mdsd_c0","double_vector");
+CreateVariable("stats_mdg1_c0","double_vector");
+CreateVariable("stats_mdg2_c0","double_vector");
+CreateVariable("stats_mdw_c0","double_matrix");
+CreateVariable("stats_linefreq_c0","double_matrix");
+CreateVariable("stats_anx_c0","double_vector");
+CreateVariable("stats_bnx_c0","double_vector");
+CreateVariable("stats_anxo_c0","double_vector");
+CreateVariable("stats_bnxo_c0","double_vector");
+CreateVariable("stats_R2p_c0","double_matrix");
+CreateVariable("stats_piw_c1","double_vector");
+CreateVariable("stats_pia_c1","double_vector");
+CreateVariable("stats_piT_c1","double_vector");
+CreateVariable("stats_piant_c1","double_vector");
+CreateVariable("stats_piTnt_c1","double_vector");
+CreateVariable("stats_fst_c1","double_vector");
+CreateVariable("stats_piwHKY_c1","double_vector");
+CreateVariable("stats_piaHKY_c1","double_vector");
+CreateVariable("stats_piTHKY_c1","double_vector");
+CreateVariable("stats_fstHKY_c1","double_vector");
+CreateVariable("stats_fst1all_c1","double_vector");
+CreateVariable("stats_Gst_c1","double_vector");
+CreateVariable("stats_hapw_c1","double_vector");
+CreateVariable("stats_hapa_c1","double_vector");
+CreateVariable("stats_hapT_c1","double_vector");
+CreateVariable("stats_fsth_c1","double_vector");
+CreateVariable("stats_fsth1all_c1","double_vector");
+CreateVariable("stats_fstALL_c1","double");
+CreateVariable("stats_fsthALL_c1","double");
+CreateVariable("stats_GstALL_c1","double");
+CreateVariable("stats_S_c1","double_vector");
+CreateVariable("stats_So_c1","double_vector");
+CreateVariable("stats_thetaS_c1","double_vector");
+CreateVariable("stats_thetaSo_c1","double_vector");
+CreateVariable("stats_thetaT_c1","double_vector");
+CreateVariable("stats_thetaTo_c1","double_vector");
+CreateVariable("stats_thetaTHKY_c1","double_vector");
+CreateVariable("stats_thetaFL_c1","double_vector");
+CreateVariable("stats_thetaFW_c1","double_vector");
+CreateVariable("stats_thetaL_c1","double_vector");
+CreateVariable("stats_thetaSA_c1","double_vector");
+CreateVariable("stats_thetaTA_c1","double_vector");
+CreateVariable("stats_K_c1","double_vector");
+CreateVariable("stats_KHKY_c1","double_vector");
+CreateVariable("stats_Dtaj_c1","double_vector");
+CreateVariable("stats_Dfl_c1","double_vector");
+CreateVariable("stats_Ffl_c1","double_vector");
+CreateVariable("stats_Hnfw_c1","double_vector");
+CreateVariable("stats_Ez_c1","double_vector");
+CreateVariable("stats_Yach_c1","double_vector");
+CreateVariable("stats_R2_c1","double_vector");
+CreateVariable("stats_Fs_c1","double_vector");
+CreateVariable("stats_Rm_c1","int64_vector");
+CreateVariable("stats_ZnA_c1","double_vector");
+CreateVariable("stats_freq_c1","int64_matrix");
+CreateVariable("stats_nh_c1","int");
+CreateVariable("stats_nhpop_c1","int_vector");
+CreateVariable("stats_freqh_c1","int64_matrix");
+CreateVariable("stats_length_c1","double_vector");
+CreateVariable("stats_length2_c1","double_vector");
+CreateVariable("stats_lengthamng_c1","double_matrix");
+CreateVariable("stats_total_length_c1","double");
+CreateVariable("stats_total_real_length_c1","double");
+CreateVariable("stats_total_svratio_c1","double");
+CreateVariable("stats_total_tcga_c1","double_vector");
+CreateVariable("stats_tcga_c1","double_matrix");
+CreateVariable("stats_sv_c1","double_cube");
+CreateVariable("stats_svT_c1","double_cube");
+CreateVariable("stats_nmhits_c1","int64");
+CreateVariable("stats_H0freq_c1","double_matrix");
+CreateVariable("stats_H1freq_c1","double_matrix");
+CreateVariable("stats_thetaH0_c1","double_vector");
+CreateVariable("stats_thetaH1_c1","double_vector");
+CreateVariable("stats_ToH0_ii_c1","double_vector");
+CreateVariable("stats_ToH0_00_c1","double_vector");
+CreateVariable("stats_To_ii_c1","double_vector");
+CreateVariable("stats_To_00_c1","double_vector");
+CreateVariable("stats_To_i0_c1","double_vector");
+CreateVariable("stats_To_Qc_ii_c1","double_vector");
+CreateVariable("stats_To_Qw_ii_c1","double_vector");
+CreateVariable("stats_To_Lc_ii_c1","double_vector");
+CreateVariable("stats_mdsd_c1","double_vector");
+CreateVariable("stats_mdg1_c1","double_vector");
+CreateVariable("stats_mdg2_c1","double_vector");
+CreateVariable("stats_mdw_c1","double_matrix");
+CreateVariable("stats_linefreq_c1","double_matrix");
+CreateVariable("stats_anx_c1","double_vector");
+CreateVariable("stats_bnx_c1","double_vector");
+CreateVariable("stats_anxo_c1","double_vector");
+CreateVariable("stats_bnxo_c1","double_vector");
+CreateVariable("stats_R2p_c1","double_matrix");
+CreateVariable("piter_i","int64_vector");
+CreateVariable("piter_ih","int64_vector");
+CreateVariable("piter_igh","int64_vector");
+CreateVariable("piter_i1","int64_vector");
+CreateVariable("piter_ih1","int64_vector");
+CreateVariable("piter_niteri","int64_vector");
+CreateVariable("piter_niterih","int64_vector");
+CreateVariable("piter_niterigh","int64_vector");
+CreateVariable("piter_niteri1","int64_vector");
+CreateVariable("piter_niterih1","int64_vector");
+CreateVariable("piter_iall","int64");
+CreateVariable("piter_ihall","int64");
+CreateVariable("piter_ighall","int64");
+CreateVariable("piter_niteriall","int64");
+CreateVariable("piter_niterihall","int64");
+CreateVariable("piter_niterighall","int64");
+AssignValue("$table_col_width","EQ","1");
+CreateIf("include_unknown","EQ","YES","AND","ploidy[0]","EQ","DIPLOID","AND","n_ccov","LT","0");
+AssignValue("n_ccov","EQ","0");
+CreateEndIf();
+CreateIf("formatfile","EQ","FASTA_FILE");
+AssignValue("file_mas","EQ","file_in");
+CreateEndIf();
+CreateIf("formatfile","EQ","MS_FILE","AND","output","EQ","0","AND","niter","LT","1");
+AssignValue("output","EQ","1");
+CreateEndIf();
+CreateIf("file_H0f","EQ","EMPTY_STRING");
+AssignValue("H0frq","EQ","0");
+CreateElse();
+AssignValue("H0frq","EQ","1");
+CreateEndIf();
+CreateIf("file_H1f","EQ","EMPTY_STRING");
+AssignValue("H1frq","EQ","0");
+CreateElse();
+AssignValue("H1frq","EQ","1");
+CreateEndIf();
+CreateIf("file_GFF","EQ","EMPTY_STRING");
+AssignValue("gfffiles","EQ","0");
+CreateElse();
+AssignValue("gfffiles","EQ","1");
+CreateIf("subset_positions","EQ","s,y,n,o,n,y,m,o,u,s,","OR","subset_positions","EQ","n,o,n,s,y,n,o,n,y,m,o,u,s,","OR","subset_positions","EQ","s,i,l,e,n,t,");
+CreateIf("code_name","EQ","N,u,c,l,e,a,r,_,U,n,i,v,e,r,s,a,l,");
+AssignValue("genetic_code","EQ","FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG");
+CreateEndIf();
+CreateIf("code_name","EQ","m,t,D,N,A,_,D,r,o,s,o,p,h,i,l,a,");
+AssignValue("genetic_code","EQ","FFLLSSSSYY**CCWWLLLLPPPPHHQQRRRRIIMMTTTTNNKKSSSSVVVVAAAADDEEGGGG");
+CreateEndIf();
+CreateIf("code_name","EQ","m,t,D,N,A,_,M,a,m,m,a,l,s,");
+AssignValue("genetic_code","EQ","FFLLSSSSYY**CCWWLLLLPPPPHHQQRRRRIIMMTTTTNNKKSS**VVVVAAAADDEEGGGG");
+CreateEndIf();
+CreateEndIf();
+CreateEndIf();
+AssignValue("niterdata","EQ","niter");
+AssignValue("length_al","EQ","length");
+AssignValue("numPloidies","EQ","r2i_ploidies.reg_length");
+AssignValue("$idum","EQ","seed","MUL","-1");
+CreateIf("outgroup_presence","EQ","NO");
+AssignValue("populations_initial","EQ","populations_initial","ADD",",1");
+CreateEndIf();
+AssignValue("vint_perpop_nsam","EQ","populations_initial");
+AssignValue("npops","EQ","vint_perpop_nsam.reg_length");
+AssignValue("calc_duplicate_populations.inputs","EQ","npops,ploidy,outgroup_presence");
+AssignValue("calc_duplicate_populations.outputs","EQ","vint_perpop_nsam");
+Execute("calc_duplicate_populations");
+AssignValue("calc_array_sum_all.inputs","EQ","vint_perpop_nsam,npops");
+AssignValue("calc_array_sum_all.outputs","EQ","int_total_nsam");
+Execute("calc_array_sum_all");
+CreateIf("ploidy[0]","EQ","HAPLOID");
+AssignValue("total_nsam_initial","EQ","int_total_nsam");
+CreateEndIf();
+CreateIf("ploidy[0]","EQ","DIPLOID");
+AssignValue("total_nsam_initial","EQ","int_total_nsam","DIV","2");
+CreateEndIf();
+CreateIf("sort_nsam.reg_length","GT","0","AND","sort_nsam.reg_length","NE","total_nsam_initial");
+CreateEndIf();
+AssignValue("calc_array_ope_x.inputs","EQ","ploidy,include_unknown,force_outgroup,outgroup_presence,vint_perpop_nsam,npops,int_total_nsam");
+AssignValue("calc_array_ope_x.outputs","EQ","mdw_reg_lengths");
+Execute("calc_array_ope_x");
+CreateVariable("npops_aux","int64");
+AssignValue("npops_aux","EQ","npops","SUB","1");
+AssignValue("npops_aux","EQ","npops_aux","MUL","npops");
+AssignValue("npops_aux","EQ","npops_aux","DIV","2");
+CreateVariable("inttotnsam","int64");
+CreateIf("outgroup_presence","EQ","TRUE");
+AssignValue("inttotnsam","EQ","int_total_nsam");
+CreateElse();
+AssignValue("inttotnsam","EQ","int_total_nsam","ADD","1");
+CreateEndIf();
+CreateVariable("inttotnsam_add1","int64");
+AssignValue("inttotnsam_add1","EQ","int_total_nsam","ADD","1");
+CreateReserve("nsam2","2","0");
+CreateReserve("psam2","2","0");
+CreateReserve("nsites1_pop","npops","0");
+CreateReserve("nsites2_pop","npops","0");
+CreateReserve("nsites3_pop","npops","0");
+CreateReserve("nsites1_pop_outg","npops","0");
+CreateReserve("nsites2_pop_outg","npops","0");
+CreateReserve("nsites3_pop_outg","npops","0");
+CreateReserve("anx","npops","0");
+CreateReserve("bnx","npops","0");
+CreateReserve("anxo","npops","0");
+CreateReserve("bnxo","npops","0");
+CreateReserve("lengthamng","npops","0.0","npops");
+CreateReserve("sum_sam","inttotnsam","0");
+CreateReserve("tcga","4","0","inttotnsam");
+CreateReserve("stats_piw_c0","npops","0.0");
+CreateReserve("stats_pia_c0","npops_aux","0.0");
+CreateReserve("stats_piT_c0","npops_aux","0.0");
+CreateReserve("stats_piant_c0","npops_aux","0.0");
+CreateReserve("stats_piTnt_c0","npops_aux","0.0");
+CreateReserve("stats_fst_c0","npops_aux","0.0");
+CreateReserve("stats_piwHKY_c0","npops","0.0");
+CreateReserve("stats_piaHKY_c0","npops_aux","0.0");
+CreateReserve("stats_piTHKY_c0","npops_aux","0.0");
+CreateReserve("stats_fstHKY_c0","npops_aux","0.0");
+CreateReserve("stats_fst1all_c0","npops_aux","0.0");
+CreateReserve("stats_Gst_c0","npops_aux","0.0");
+CreateReserve("stats_hapw_c0","npops","0.0");
+CreateReserve("stats_hapa_c0","npops_aux","0.0");
+CreateReserve("stats_hapT_c0","npops_aux","0.0");
+CreateReserve("stats_fsth_c0","npops_aux","0.0");
+CreateReserve("stats_fsth1all_c0","npops_aux","0.0");
+CreateReserve("stats_S_c0","npops","0.0");
+CreateReserve("stats_So_c0","npops","0.0");
+CreateReserve("stats_thetaS_c0","npops","0.0");
+CreateReserve("stats_thetaSo_c0","npops","0.0");
+CreateReserve("stats_thetaT_c0","npops","0.0");
+CreateReserve("stats_thetaTo_c0","npops","0.0");
+CreateReserve("stats_thetaTHKY_c0","npops","0.0");
+CreateReserve("stats_thetaFL_c0","npops","0.0");
+CreateReserve("stats_thetaFW_c0","npops","0.0");
+CreateReserve("stats_thetaL_c0","npops","0.0");
+CreateReserve("stats_thetaSA_c0","npops","0.0");
+CreateReserve("stats_thetaTA_c0","npops","0.0");
+CreateReserve("stats_K_c0","npops","0.0");
+CreateReserve("stats_KHKY_c0","npops","0.0");
+CreateReserve("stats_Dtaj_c0","npops","0.0");
+CreateReserve("stats_Dfl_c0","npops","0.0");
+CreateReserve("stats_Ffl_c0","npops","0.0");
+CreateReserve("stats_Hnfw_c0","npops","0.0");
+CreateReserve("stats_Ez_c0","npops","0.0");
+CreateReserve("stats_Yach_c0","npops","0.0");
+CreateReserve("stats_R2_c0","npops","0.0");
+CreateReserve("stats_Fs_c0","npops","0.0");
+CreateReserve("stats_Rm_c0","npops","0");
+CreateReserve("stats_ZnA_c0","npops","0.0");
+CreateReserve("stats_freq_c0","vint_perpop_nsam.data","0.0","npops");
+CreateReserve("stats_freqh_c0","int_total_nsam","0","npops");
+CreateReserve("stats_nhpop_c0","npops","0");
+CreateReserve("stats_length_c0","npops","0.0");
+CreateReserve("stats_length2_c0","npops","0.0");
+CreateReserve("stats_lengthamng_c0","npops","0.0","npops");
+CreateReserve("stats_total_tcga_c0","4","0.0");
+CreateReserve("stats_tcga_c0","4","0.0","npops");
+CreateReserve("stats_sv_c0","2","0.0","npops","npops");
+CreateReserve("stats_svT_c0","2","0.0","npops","npops");
+CreateReserve("stats_ToH0_ii_c0","npops","0.0");
+CreateReserve("stats_ToH0_00_c0","npops","0.0");
+CreateReserve("stats_To_ii_c0","npops","0.0");
+CreateReserve("stats_To_00_c0","npops","0.0");
+CreateReserve("stats_To_i0_c0","npops","0.0");
+CreateReserve("stats_To_Qc_ii_c0","npops","0.0");
+CreateReserve("stats_To_Qw_ii_c0","npops","0.0");
+CreateReserve("stats_To_Lc_ii_c0","npops","0.0");
+CreateReserve("stats_mdsd_c0","npops","0.0");
+CreateReserve("stats_mdg1_c0","npops","0.0");
+CreateReserve("stats_mdg2_c0","npops","0.0");
+CreateReserve("stats_linefreq_c0","inttotnsam_add1","0.0","int_total_nsam");
+CreateReserve("stats_anx_c0","npops","0.0");
+CreateReserve("stats_bnx_c0","npops","0.0");
+CreateReserve("stats_anxo_c0","npops","0.0");
+CreateReserve("stats_bnxo_c0","npops","0.0");
+CreateReserve("stats_mdw_c0","mdw_reg_lengths.data","0.0","npops");
+CreateReserve("stats_piw_c1","npops","0.0");
+CreateReserve("stats_pia_c1","npops_aux","0.0");
+CreateReserve("stats_piT_c1","npops_aux","0.0");
+CreateReserve("stats_fst_c1","npops_aux","0.0");
+CreateReserve("stats_piwHKY_c1","npops","0.0");
+CreateReserve("stats_piaHKY_c1","npops_aux","0.0");
+CreateReserve("stats_piTHKY_c1","npops_aux","0.0");
+CreateReserve("stats_fstHKY_c1","npops_aux","0.0");
+CreateReserve("stats_fst1all_c1","npops_aux","0.0");
+CreateReserve("stats_hapw_c1","npops","0.0");
+CreateReserve("stats_hapa_c1","npops_aux","0.0");
+CreateReserve("stats_hapT_c1","npops_aux","0.0");
+CreateReserve("stats_fsth_c1","npops_aux","0.0");
+CreateReserve("stats_fsth1all_c1","npops_aux","0.0");
+CreateReserve("stats_Gst_c1","npops_aux","0.0");
+CreateReserve("stats_K_c1","npops","0.0");
+CreateReserve("stats_KHKY_c1","npops","0.0");
+CreateReserve("stats_sv_c1","2","0.0","npops","npops");
+CreateReserve("stats_svT_c1","2","0.0","npops","npops");
+CreateReserve("stats_nhpop_c1","npops","0.0");
+CreateReserve("stats_freqh_c1","int_total_nsam","0.0","npops");
+CreateReserve("stats_tcga_c1","4","0.0","npops");
+CreateReserve("piter_i1","npops","0");
+CreateReserve("piter_ih1","npops","0");
+CreateReserve("piter_i","npops_aux","0");
+CreateReserve("piter_ih","npops_aux","0");
+CreateReserve("piter_igh","npops_aux","0");
+CreateReserve("piter_niteri1","npops","0");
+CreateReserve("piter_niterih1","npops","0");
+CreateReserve("piter_niteri","npops_aux","0");
+CreateReserve("piter_niterih","npops_aux","0");
+CreateReserve("piter_niterigh","npops_aux","0");
+AssignValue("stats_total_length_c1","EQ","length_al");
+AssignValue("stats_total_svratio_c1","EQ","svratio");
+AssignValue("stats_nmhits_c1","EQ","nmhits");
+AssignValue("piter_iall","EQ","0");
+AssignValue("piter_ihall","EQ","0");
+AssignValue("piter_ighall","EQ","0");
+AssignValue("piter_niteriall","EQ","0");
+AssignValue("piter_niterihall","EQ","0");
+AssignValue("piter_niterighall","EQ","0");
+CreateIf("sort_nsam.reg_length","EQ","0");
+CreateReserve("sort_nsam","int_total_nsam","0");
+CreateVariable("sort_index","int");
+CreateFor("sort_index","0","int_total_nsam","1");
+AssignValue("sort_nsam[sort_index]","EQ","sort_index");
+CreateEndFor();
+CreateRemoveVariable("sort_index");
+CreateEndIf();
+CreateIf("output","EQ","0","OR","output","EQ","10");
+CreateEndIf();
+AssignValue("calc_open_freq_spec_file.inputs","EQ","ploidy,vint_perpop_nsam,npops,file_H1f,file_H0f");
+AssignValue("calc_open_freq_spec_file.outputs","EQ","stats_H1freq_c0,stats_thetaH1_c0,stats_H0freq_c0,stats_thetaH1_c0,H1frq,H0frq");
+Execute("calc_open_freq_spec_file");
+CreateIf("formatfile","EQ","FASTA_FILE");
+AssignValue("calc_mstatspop_open_fasta.inputs","EQ","file_in,ploidy,outgroup_presence,vint_perpop_nsam,npops,matrix_sizepos,sort_nsam");
+AssignValue("calc_mstatspop_open_fasta.outputs","EQ","length,nmhits,mhitbp,names2,n_site,DNA_matr2,n_samp,matrix_segrpos");
+Execute("calc_mstatspop_open_fasta");
+CreateIf("gfffiles","EQ","YES");
+AssignValue("calc_gff.inputs","EQ","include_unknown,outgroup_presence,vint_perpop_nsam,npops,DNA_matr2,file_GFF,subset_positions,genetic_code,criteria_transcript,n_samp,n_site");
+AssignValue("calc_gff.outputs","EQ","matrix_sizepos,matrix_segrpos,mhitbp,nmhits");
+Execute("calc_gff");
+CreateEndIf();
+AssignValue("calc_file_stats.inputs","EQ","ploidy,include_unknown,outgroup_presence,vint_perpop_nsam,npops,int_total_nsam,names2,n_site,DNA_matr2,matrix_segrpos,n_samp,file_in,file_mas,subset_positions,output");
+AssignValue("calc_file_stats.outputs","EQ","matrix_pol,lengthamng,tcga,anx,bnx,anxo,bnxo,length_al,length_seg,missratio,nsites1_pop,nsites1_pop_outg,nsites2_pop,nsites2_pop_outg,nsites3_pop,nsites3_pop_outg,sum_sam,svratio,frequencies,positions,matrix_sv,mhitbp,length_al_real,nmhits,matrix_sizepos");
+Execute("calc_file_stats");
+AssignValue("niterdata","EQ","1");
+CreateEndIf();
+CreateIf("formatfile","EQ","MS_FILE");
+AssignValue("calc_mask_file_ms.inputs","EQ","include_unknown,outgroup_presence,vint_perpop_nsam,npops,int_total_nsam,file_mas,length");
+AssignValue("calc_mask_file_ms.outputs","EQ","niter,svratio,length_al_real,vector_mask,matrix_mask,sum_sam_mask,length_mask,missratio,length_al");
+Execute("calc_mask_file_ms");
+CreateEndIf();
+CreateFor("li","0","niterdata","1");
+AssignValue("flaghky","EQ","TRUE");
+CreateIf("formatfile","EQ","MS_FILE");
+AssignValue("calc_mstatspop_open_ms.inputs","EQ","file_in,include_unknown,outgroup_presence,vint_perpop_nsam,npops,int_total_nsam,length,kind_length,vector_mask,ms_svratio,freq_revert,file_mas,freq_missing_ms,location_missing_ms");
+AssignValue("calc_mstatspop_open_ms.outputs","EQ","matrix_pol,frequencies,positions,matrix_sv,length_mask,lengthamng,nmhits,matrix_mask,vector_priors,npriors,sum_sam,sum_sam_mask,nsites1_pop,nsites1_pop_outg,nsites2_pop,nsites2_pop_outg,nsites3_pop,nsites3_pop_outg,anx,bnx,anxo,bnxo,missratio");
+CreateIf("li","EQ","FIRST_ITERATION");
+Execute("calc_mstatspop_open_ms --prepare");
+CreateEndIf();
+Execute("calc_mstatspop_open_ms --calculate");
+AssignValue("flaghky","EQ","TRUE");
+AssignValue("calc_x.inputs","EQ","include_unknown,vint_perpop_nsam,npops,int_total_nsam,vector_mask,length,length_mask,sum_sam_mask,nmhits,file_mas");
+AssignValue("calc_x.outputs","EQ","length_al,flaghky,sum_sam,stats_length_c0,stats_linefreq_c0,stats_total_tcga_c0,stats_tcga_c0 ");
+Execute("calc_x");
+CreateEndIf();
+AssignValue("calc_effec_nuc_TCGA_freqs.inputs","EQ","vint_perpop_nsam,npops,nsites2_pop,sum_sam,anx,bnx,anxo,bnxo,tcga");
+AssignValue("calc_effec_nuc_TCGA_freqs.outputs","EQ","stats_length_c0,stats_length2_c0,stats_anx_c0,stats_bnx_c0,stats_anxo_c0,stats_bnxo_c0,stats_tcga_c0,stats_total_tcga_c0");
+Execute("calc_effec_nuc_TCGA_freqs");
+AssignValue("calc_lengthamng_and_calcs.inputs","EQ","outgroup_presence,npops,matrix_pol,lengthamng,length_al,length_al_real,svratio,nmhits");
+AssignValue("calc_lengthamng_and_calcs.outputs","EQ","stats_lengthamng_c0,stats_total_length_c0,stats_total_real_length_c0,stats_total_svratio_c0,stats_nmhits_c0,jfd,nfd");
+Execute("calc_lengthamng_and_calcs");
+AssignValue("calc_sxsfss.inputs","EQ","force_outgroup,outgroup_presence,vint_perpop_nsam,npops,matrix_pol,positions");
+AssignValue("calc_sxsfss.outputs","EQ","sites,sanc");
+Execute("calc_sxsfss");
+AssignValue("calc_joint_freq_dist.inputs","EQ","force_outgroup,outgroup_presence,vint_perpop_nsam,npops,matrix_pol");
+AssignValue("calc_joint_freq_dist.outputs","EQ","jfd,stats_linefreq_c0,nfd");
+Execute("calc_joint_freq_dist");
+AssignValue("calc_piwpiafst.inputs","EQ","vint_perpop_nsam,npops,matrix_pol,matrix_sv,stats_tcga_c0,stats_lengthamng_c0,flaghky,stats_length_c0,formatfile");
+AssignValue("calc_piwpiafst.outputs","EQ","stats_sv_c0,stats_svT_c0,stats_fst_c0,stats_fst1all_c0,stats_fstHKY_c0,stats_K_c0,stats_KHKY_c0,stats_pia_c0,stats_piaHKY_c0,stats_piT_c0,stats_piTHKY_c0,stats_piwHKY_c0,stats_piw_c0,stats_thetaTHKY_c0,stats_piant_c0,stats_piTnt_c0,stats_fstALL_c0");
+Execute("calc_piwpiafst");
+AssignValue("calc_freq_stats.inputs","EQ","include_unknown,force_outgroup,outgroup_presence,vint_perpop_nsam,npops,matrix_pol,n_ccov,H1frq,stats_H1freq_c0");
+AssignValue("calc_freq_stats.outputs","EQ","stats_Dfl_c0,stats_Dtaj_c0,stats_Ez_c0,stats_Ffl_c0,stats_Hnfw_c0,stats_S_c0,stats_So_c0,stats_thetaFL_c0,stats_thetaFW_c0,stats_thetaL_c0,stats_thetaS_c0,stats_thetaSA_c0,stats_thetaSo_c0,stats_thetaT_c0,stats_thetaTA_c0,stats_thetaTo_c0,stats_To_00_c0,stats_To_i0_c0,stats_To_ii_c0,stats_ToH0_00_c0,stats_ToH0_ii_c0,stats_Yach_c0,stats_freq_c0");
+Execute("calc_freq_stats");
+CreateIf("H1frq","EQ","TRUE","AND","include_unknown","EQ","NO");
+AssignValue("calc_optimal_tests.inputs","EQ","vint_perpop_nsam,npops,stats_freq_c0,stats_total_length_c0,stats_H1freq_c0,stats_thetaH1_c0,stats_H0freq_c0,stats_thetaH0_c0");
+AssignValue("calc_optimal_tests.outputs","EQ","stats_ToH0_ii_c0,stats_To_ii_c0,stats_To_00_c0,stats_To_i0_c0,stats_ToH0_00_c0,stats_To_Qc_ii_c0,stats_To_Qw_ii_c0,stats_To_Lc_ii_c0");
+Execute("calc_optimal_tests");
+CreateEndIf();
+AssignValue("calc_r2.inputs","EQ","ploidy,vint_perpop_nsam,npops,matrix_pol,stats_S_c0,stats_thetaT_c0");
+AssignValue("calc_r2.outputs","EQ","stats_R2_c0 ");
+Execute("calc_r2");
+AssignValue("calc_r2p.inputs","EQ","ploidy,vint_perpop_nsam,npops,matrix_pol,sum_sam,stats_S_c0,stats_thetaT_c0,r2i_ploidies");
+AssignValue("calc_r2p.outputs","EQ","stats_R2_c0,stats_R2p_c0");
+Execute("calc_r2p");
+AssignValue("calc_mismatch.inputs","EQ","ploidy,vint_perpop_nsam,npops,matrix_pol,stats_thetaT_c0");
+AssignValue("calc_mismatch.outputs","EQ","stats_mdg1_c0,stats_mdg2_c0,stats_mdsd_c0,stats_mdw_c0");
+Execute("calc_mismatch");
+CreateIf("ploidy[0]","EQ","HAPLOID");
+AssignValue("calc_hwhafsth.inputs","EQ","vint_perpop_nsam,npops,matrix_pol");
+AssignValue("calc_hwhafsth.outputs","EQ","stats_nhpop_c0,stats_hapw_c0,stats_hapa_c0,stats_hapT_c0,stats_fsth_c0,stats_fsth1all_c0,stats_freqh_c0,stats_nh_c0,stats_Gst_c0,stats_fsthALL_c0,stats_GstALL_c0");
+Execute("calc_hwhafsth");
+AssignValue("calc_fs.inputs","EQ","vint_perpop_nsam,npops,stats_thetaT_c0,stats_nhpop_c0");
+AssignValue("calc_fs.outputs","EQ","stats_Fs_c0");
+Execute("calc_fs");
+CreateEndIf();
+CreateIf("formatfile","EQ","FASTA_FILE");
+CreateIf("niter","GT","0","AND","npops","GT","2");
+CreateIf("output","EQ","0","OR","output","EQ","10");
+CreateEndIf();
+CreateIf("npops","GT","2");
+CreateVariable("i1","int64");
+CreateFor("i1","0","niter","1");
+CreateVariable("npops_less_one","int64");
+AssignValue("npops_less_one","EQ","npops","SUB","1");
+AssignValue("nsam2[0]","EQ","vint_perpop_nsam[0]");
+AssignValue("nsam2[1]","EQ","int_total_nsam","SUB","vint_perpop_nsam[npops_less_one]");
+AssignValue("nsam2[1]","EQ","nsam2[1]","SUB","vint_perpop_nsam[0]");
+AssignValue("psam2[0]","EQ","0");
+AssignValue("psam2[1]","EQ","vint_perpop_nsam[0]");
+CreateRemoveVariable("npops_less_one");
+AssignValue("calc_permute.inputs","EQ","int_total_nsam,matrix_pol,nsam2,psam2");
+AssignValue("calc_permute.outputs","EQ","matrix_perm");
+Execute("calc_permute");
+AssignValue("flaghky","EQ","FALSE");
+AssignValue("calc_piwpiafst.inputs","EQ","vint_perpop_nsam,npops,matrix_perm,matrix_sv,stats_tcga_c1,stats_lengthamng_c1,flaghky,stats_length_c1,formatfile");
+AssignValue("calc_piwpiafst.outputs","EQ","stats_sv_c1,stats_svT_c1,stats_fst_c1,stats_fst1all_c1,stats_fstHKY_c1,stats_K_c1,stats_KHKY_c1,stats_pia_c1,stats_piaHKY_c1,stats_piT_c1,stats_piTHKY_c1,stats_piwHKY_c1,stats_piw_c1,stats_thetaTHKY_c1,stats_piant_c1,stats_piTnt_c1,stats_fstALL_c1");
+Execute("calc_piwpiafst");
+CreateIf("ploidy[0]","EQ","HAPLOID");
+AssignValue("calc_hwhafsth.inputs","EQ","vint_perpop_nsam,npops,matrix_perm");
+AssignValue("calc_hwhafsth.outputs","EQ","stats_nhpop_c1,stats_hapw_c1,stats_hapa_c1,stats_hapT_c1,stats_fsth_c1,stats_fsth1all_c1,stats_freqh_c1,stats_nh_c1,stats_Gst_c1,stats_fsthALL_c1,stats_GstALL_c1");
+Execute("calc_hwhafsth");
+CreateEndIf();
+AssignValue("calc_y.inputs","EQ","ploidy,npops,stats_fst1all_c0,stats_fst1all_c1,stats_fsth1all_c0,stats_fsth1all_c1,stats_fstALL_c0,stats_fstALL_c1,stats_fsthALL_c0,stats_fsthALL_c1,stats_GstALL_c0,stats_GstALL_c1");
+AssignValue("calc_y.outputs","EQ","piter_i1,piter_niteri1,piter_ih1,piter_niterih1,piter_iall,piter_niteriall,piter_ihall,piter_niterihall,piter_ighall,piter_niterighall");
+Execute("calc_y");
+CreateEndFor();
+CreateRemoveVariable("i1");
+CreateIf("output","EQ","0","OR","output","EQ","10");
+CreateEndIf();
+CreateEndIf();
+CreateIf("output","EQ","0","OR","output","EQ","10");
+CreateEndIf();
+CreateVariable("i2","int64");
+CreateFor("i2","0","niter","1");
+AssignValue("z_pos","EQ","0");
+AssignValue("psam2[0]","EQ","0");
+AssignValue("psam2[1]","EQ","0");
+CreateVariable("npops_less_one","int64");
+AssignValue("npops_less_one","EQ","npops","SUB","1");
+CreateVariable("x","int64");
+CreateFor("x","0","npops_less_one","1");
+AssignValue("nsam2[0]","EQ","vint_perpop_nsam[x]");
+AssignValue("psam2[1]","EQ","psam2[0]","ADD","vint_perpop_nsam[x]");
+AssignValue("vint_perpop_nsam_iter","EQ","vint_perpop_nsam");
+AssignValue("npops_iter","EQ","npops");
+CreateVariable("next_x","int64");
+AssignValue("next_x","EQ","x","ADD","1");
+CreateVariable("y","int64");
+CreateFor("y","next_x","npops","1");
+AssignValue("nsam2[1]","EQ","vint_perpop_nsam[y]");
+AssignValue("calc_permute.inputs","EQ","int_total_nsam,matrix_pol,nsam2,psam2");
+AssignValue("calc_permute.outputs","EQ","matrix_perm");
+Execute("calc_permute");
+AssignValue("flaghky","EQ","FALSE");
+AssignValue("calc_piwpiafst.inputs","EQ","vint_perpop_nsam_iter,npops_iter,matrix_perm,matrix_sv,stats_tcga_c1,stats_lengthamng_c1,flaghky,stats_length_c1,formatfile");
+AssignValue("calc_piwpiafst.outputs","EQ","stats_sv_c1,stats_svT_c1,stats_fst_c1,stats_fst1all_c1,stats_fstHKY_c1,stats_K_c1,stats_KHKY_c1,stats_pia_c1,stats_piaHKY_c1,stats_piT_c1,stats_piTHKY_c1,stats_piwHKY_c1,stats_piw_c1,stats_thetaTHKY_c1,stats_piant_c1,stats_piTnt_c1,stats_fstALL_c1");
+Execute("calc_piwpiafst");
+CreateIf("ploidy[0]","EQ","HAPLOID");
+AssignValue("calc_hwhafsth.inputs","EQ","vint_perpop_nsam_iter,npops_iter,matrix_perm");
+AssignValue("calc_hwhafsth.outputs","EQ","stats_nhpop_c1,stats_hapw_c1,stats_hapa_c1,stats_hapT_c1,stats_fsth_c1,stats_fsth1all_c1,stats_freqh_c1,stats_nh_c1,stats_Gst_c1,stats_fsthALL_c1,stats_GstALL_c1");
+Execute("calc_hwhafsth");
+CreateEndIf();
+AssignValue("calc_z.inputs","EQ","ploidy,z_pos,stats_fst_c0,stats_fst_c1,stats_fsth_c0,stats_fsth_c1,stats_Gst_c0,stats_Gst_c1");
+AssignValue("calc_z.outputs","EQ","piter_i,piter_niteri,piter_ih,piter_niterih,piter_igh,piter_niterigh");
+Execute("calc_z");
+AssignValue("psam2[1]","EQ","psam2[1]","ADD","vint_perpop_nsam[y]");
+AssignValue("z_pos","EQ","z_pos","ADD","1 ");
+CreateEndFor();
+CreateRemoveVariable("y");
+CreateRemoveVariable("next_x");
+AssignValue("psam2[0]","EQ","psam2[0]","ADD","vint_perpop_nsam[x]");
+CreateEndFor();
+CreateRemoveVariable("x");
+CreateRemoveVariable("npops_less_one");
+CreateEndFor();
+CreateRemoveVariable("i2");
+CreateEndIf("");
+CreateEndIf("");
+AssignValue("calc_mstatspop_output.inputs","EQ","matrix_pol,positions,sites,sanc,argc,file_in,file_out,gfffiles,file_GFF,subset_positions,code_name,genetic_code,length,length_al,length_al_real,niter,ploidy,include_unknown,force_outgroup,outgroup_presence,vint_perpop_nsam,npops,int_total_nsam,svratio,missratio,jfd,nfd,H1frq,H0frq,file_H1f,file_H0f,vector_priors,npriors,formatfile,freq_missing_ms,nsites1_pop,nsites1_pop_outg,nsites2_pop,nsites2_pop_outg,nsites3_pop,nsites3_pop_outg,li,r2i_ploidies,stats_piw_c0,stats_pia_c0,stats_piT_c0,stats_piant_c0,stats_piTnt_c0,stats_fst_c0,stats_piwHKY_c0,stats_piaHKY_c0,stats_piTHKY_c0,stats_fstHKY_c0,stats_fst1all_c0,stats_Gst_c0,stats_hapw_c0,stats_hapa_c0,stats_hapT_c0,stats_fsth_c0,stats_fsth1all_c0,stats_fstALL_c0,stats_fsthALL_c0,stats_GstALL_c0,stats_S_c0,stats_So_c0,stats_thetaS_c0,stats_thetaSo_c0,stats_thetaT_c0,stats_thetaTo_c0,stats_thetaTHKY_c0,stats_thetaFL_c0,stats_thetaFW_c0,stats_thetaL_c0,stats_thetaSA_c0,stats_thetaTA_c0,stats_K_c0,stats_KHKY_c0,stats_Dtaj_c0,stats_Dfl_c0,stats_Ffl_c0,stats_Hnfw_c0,stats_Ez_c0,stats_Yach_c0,stats_R2_c0,stats_Fs_c0,stats_Rm_c0,stats_ZnA_c0,stats_freq_c0,stats_nh_c0,stats_nhpop_c0,stats_freqh_c0,stats_length_c0,stats_length2_c0,stats_lengthamng_c0,stats_total_length_c0,stats_total_real_length_c0,stats_total_svratio_c0,stats_total_tcga_c0,stats_tcga_c0,stats_sv_c0,stats_svT_c0,stats_nmhits_c0,stats_H1freq_c0,stats_thetaH1_c0,stats_H0freq_c0,stats_thetaH0_c0,stats_ToH0_ii_c0,stats_ToH0_00_c0,stats_To_ii_c0,stats_To_00_c0,stats_To_i0_c0,stats_To_Qc_ii_c0,stats_To_Qw_ii_c0,stats_To_Lc_ii_c0,stats_mdsd_c0,stats_mdg1_c0,stats_mdg2_c0,stats_mdw_c0,stats_linefreq_c0,stats_anx_c0,stats_bnx_c0,stats_anxo_c0,stats_bnxo_c0,stats_R2p_c0,piter_i,piter_ih,piter_igh,piter_i1,piter_ih1,piter_niteri,piter_niterih,piter_niterigh,piter_niteri1,piter_niterih1,piter_iall,piter_ihall,piter_ighall,piter_niteriall,piter_niterihall,piter_niterighall,output,seed");
+Execute("calc_mstatspop_output");
+CreateEndFor();
+CreateIf("formatfile","EQ","MS_FILE");
+Execute("calc_mstatspop_open_ms --finalize");
+CreateEndIf();
+
+      Convert();
+    </script>
+  </head>
+
+  <body>
+  </body>
+</html>

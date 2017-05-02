@@ -1,7 +1,7 @@
 /*
  * mstatspop, Statistical Analysis using Multiple Populations for Genomic Data.
  * Copyright (c) 2009-2017, Sebastián Ramos Onsins,
- * Centre for Research in Agricultural Genomics.
+ * Centre for Research in Agricultural Genomics (CRAG).
  * All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify

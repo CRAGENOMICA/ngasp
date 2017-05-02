@@ -1,3 +1,3 @@
 This is a shared folder between your computer and the Docker "lm" image.
-Use it for storing data that you do not want to loose after closing the docker.
+Use it for storing data that you do not want to lose after closing the docker.
 

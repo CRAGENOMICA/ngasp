@@ -1,8 +1,8 @@
 /*
- * ngasp, a computational solution for performing next generation analysis of 
- * sequence polymorphisms using NGS data.
+ * ngaSP: the computational solution for next generation analysis of 
+ * Sequence Polymorphisms.
  * Copyright (c) 2015-2017, Sebastián Ramos Onsins and Gonzalo Vera Rodríguez,
- * Centre for Research in Agricultural Genomics.
+ * Centre for Research in Agricultural Genomics (CRAG).
  * All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify
@@ -30,7 +30,7 @@
  *  \bug
  *  \warning
  *  \copyright Copyright (c) 2015-2017, Sebastián Ramos Onsins and Gonzalo Vera
- *             Rodríguez, Centre for Research in Agricultural Genomics.
+ *             Rodríguez, Centre for Research in Agricultural Genomics (CRAG).
  *             All rights reserved.
  *  \license   LGPL 2.1
  */

@@ -258,7 +258,7 @@ if ($version != "release") {
 </div>
 <br />
 <div>
-Copyright (c) 2009-2017, Sebastián Ramos Onsins. Centre for Research in Agricultural Genomics. All rights reserved.
+Copyright (c) 2009-2017, Sebastián Ramos Onsins. Centre for Research in Agricultural Genomics (CRAG). All rights reserved.
 <br />
 ngasp is licensed under the <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL version 2.1 license</a>.
 </div>

@@ -53,10 +53,6 @@ Project folders are organized in this way:
     * ngasp.xcodeproj
       It contains the XCode configuration for opening the ./source/backend.
 
-    * public-web/
-      This folder contains a copy of the website:
-      "https://bioinformatics.cragenomica.es/projects/ngaSP"
-
     * readme.txt
       This file.
 

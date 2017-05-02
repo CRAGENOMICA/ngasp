@@ -1,4 +1,0 @@
-### MIME TYPES
-AddType image/svg+xml .svg .svgz
-AddEncoding gzip svgz
-

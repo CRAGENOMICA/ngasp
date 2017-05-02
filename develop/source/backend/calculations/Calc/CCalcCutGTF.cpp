@@ -46,6 +46,7 @@ CCalcCutGTF::CCalcCutGTF()
                KeyString::MSTATSPOP_COPYRIGHT,
                KeyString::GENERIC_CITATIONS,
                KeyString::UNDEFINED_STRING) {
+/*
   BEGIN_CALCULATION_INTERFACE_DEFINITION
     SET_INPUT_INFO(input_gtf_file_,                                             // Variable
                    UNDEFINED_STRING,                                            // Group
@@ -94,7 +95,7 @@ CCalcCutGTF::CCalcCutGTF()
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
   
-  
+
     SET_OUTPUT_INFO(output_gtf_file_,                                           // Variable
                    UNDEFINED_STRING,                                            // Group
                    CCALCCUT_GTF_OUTPUT_GTF_FILE,                                // Short Name
@@ -107,13 +108,14 @@ CCalcCutGTF::CCalcCutGTF()
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_mandatory)                                            // Required
   END_CALCULATION_INTERFACE_DEFINITION
+*/
 }
 
 CCalcCutGTF::~CCalcCutGTF() {
 }
 
 void CCalcCutGTF::Prepare(void) {
-  DM_GET_INPUTS
+/*  DM_GET_INPUTS
     DM_INPUT(input_gtf_file_)
     DM_INPUT(selection_)
     DM_INPUT(input_sorted_)
@@ -129,7 +131,7 @@ void CCalcCutGTF::Prepare(void) {
                             iteration_number->value(),
                             iteration_value->value()));
   }  
-  
+  */
 }
 
 /**
@@ -139,7 +141,7 @@ void CCalcCutGTF::Calculate(bool dry_run) {
     if (dry_run == true) {
         return;
     }
-
+/*
     std::ifstream file(input_gtf_file_->value());
 
     if (file.is_open()) {
@@ -193,6 +195,7 @@ void CCalcCutGTF::Calculate(bool dry_run) {
                 << "Failed to open file ' " << input_gtf_file_->value() << "'..." << EOL
                 END_MSG;
     }
+*/
 }
 
 void CCalcCutGTF::Finalize(void) {

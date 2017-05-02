@@ -46,6 +46,7 @@ KeyString::NGASP_AUTHORS,
 KeyString::MSTATSPOP_COPYRIGHT,
 KeyString::GENERIC_CITATIONS,
 KeyString::UNDEFINED_STRING) {
+/*
     BEGIN_CALCULATION_INTERFACE_DEFINITION
     SET_INPUT_INFO(input_bed_file_, // Variable
             UNDEFINED_STRING, // Group
@@ -94,8 +95,6 @@ KeyString::UNDEFINED_STRING) {
             UNDEFINED_VALUE, // Max. Value
             OPTTYPE_optional) // Required
 
-
-
             SET_OUTPUT_INFO(output_bed_file_, // Variable
             UNDEFINED_STRING, // Group
             CCALCCUT_BED_OUTPUT_BED_FILE, // Short Name
@@ -108,6 +107,7 @@ KeyString::UNDEFINED_STRING) {
             UNDEFINED_VALUE, // Max. Value
             OPTTYPE_mandatory) // Required
             END_CALCULATION_INTERFACE_DEFINITION
+*/
 }
 
 CCalcCutBED::~CCalcCutBED() {

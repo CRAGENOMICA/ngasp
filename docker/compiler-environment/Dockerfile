@@ -53,7 +53,8 @@ RUN yum groupinstall -y "Development Tools"
 # ****************
 
 RUN yum install -y java-1.8.0-openjdk
-ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-2.b15.el7_3.x86_64/jre
+# ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-2.b15.el7_3.x86_64/jre
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-0.b13.el7_3.x86_64/jre/
 # Fond out the JAVA_HOME value using "RUN update-alternatives --display java"
 
 # **************

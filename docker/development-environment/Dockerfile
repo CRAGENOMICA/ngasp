@@ -32,10 +32,12 @@ RUN export DISPLAY=:0.0
 # COPY ./netbeans-8.2-linux.sh /tmp/netbeans-8.2-linux.sh
 # COPY ./jdk-8u111-nb-8_2-linux-x64.sh /tmp/jdk-8u111-nb-8_2-linux-x64.sh
 
+RUN curl -o /tmp/jdk-8u111-nb-8_2-linux-x64.sh https://bioinformatics.cragenomica.es/projects/ngaSP/jdk/jdk-8u111-nb-8_2-linux-x64.sh -LOk && \
+    chmod +x /tmp/jdk-8u111-nb-8_2-linux-x64.sh && \
+    /tmp/jdk-8u111-nb-8_2-linux-x64.sh --silent
 RUN curl -o /tmp/netbeans-8.2-cpp-linux-x64.sh http://download.netbeans.org/netbeans/8.2/final/bundles/netbeans-8.2-cpp-linux-x64.sh -LOk && \
-    curl -o /tmp/jdk-8u111-nb-8_2-linux-x64.sh http://download.oracle.com/otn-pub/java/jdk-nb/8u111-8.2/jdk-8u111-nb-8_2-linux-x64.sh -LOk && \
-    /tmp/jdk-8u111-nb-8_2-linux-x64.sh --silent && \
-    /tmp/netbeans-8.2-linux.sh --silent
+    chmod +x /tmp/netbeans-8.2-cpp-linux-x64.sh && \
+    /tmp/netbeans-8.2-cpp-linux-x64.sh --silent
 ENV PATH /usr/local/netbeans-8.2/bin:$PATH
 
 # ***********************

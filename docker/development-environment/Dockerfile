@@ -31,9 +31,12 @@ RUN export DISPLAY=:0.0
 
 # COPY ./netbeans-8.2-linux.sh /tmp/netbeans-8.2-linux.sh
 # COPY ./jdk-8u111-nb-8_2-linux-x64.sh /tmp/jdk-8u111-nb-8_2-linux-x64.sh
-# RUN /tmp/jdk-8u111-nb-8_2-linux-x64.sh --silent
-# RUN /tmp/netbeans-8.2-linux.sh --silent
-# ENV PATH /usr/local/netbeans-8.2/bin:$PATH
+
+RUN curl -o /tmp/netbeans-8.2-cpp-linux-x64.sh http://download.netbeans.org/netbeans/8.2/final/bundles/netbeans-8.2-cpp-linux-x64.sh -LOk && \
+    curl -o /tmp/jdk-8u111-nb-8_2-linux-x64.sh http://download.oracle.com/otn-pub/java/jdk-nb/8u111-8.2/jdk-8u111-nb-8_2-linux-x64.sh -LOk && \
+    /tmp/jdk-8u111-nb-8_2-linux-x64.sh --silent && \
+    /tmp/netbeans-8.2-linux.sh --silent
+ENV PATH /usr/local/netbeans-8.2/bin:$PATH
 
 # ***********************
 # *** psmisc: killall ***

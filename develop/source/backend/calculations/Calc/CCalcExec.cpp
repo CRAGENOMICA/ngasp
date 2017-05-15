@@ -197,15 +197,28 @@ void CCalcExec::Calculate(bool dry_run) {
       // If type EXEC_TYPE_APP is selected then "execv()" function is used.
       // ===========================================================================
 
+// USE ALLWAYS EXEC_TYPE_SYS. Even if it is a call to an application. But if you call to an application use "./" before the name of the application.
+/*
       if (type->value() == STR(EXEC_TYPE_APP)) {
+
+
         std::vector<std::string> command_line_strings = CStringTools::SplitStrings(command_to_execute, ' ');
 
         const char **argv = new const char* [command_line_strings.size() + 1];
 
-        for (unsigned int i = 0; i < command_line_strings.size(); i++) {
-          argv[i] = command_line_strings[i].c_str();
+        unsigned int t = 0;
+
+        for(t = 0; t < command_line_strings.size() + 1; t++) {      
+            argv[t] = NULL;
         }
-        argv[command_line_strings.size()] = NULL;
+
+        t = 0;
+        for (unsigned int i = 0; i < command_line_strings.size(); i++) {
+          if (command_line_strings[i].c_str() != "") {
+              argv[t] = command_line_strings[i].c_str();
+              t++;
+          }
+        }
 
         try {
           result_value = execv(argv[0], (char **)argv);
@@ -213,20 +226,26 @@ void CCalcExec::Calculate(bool dry_run) {
           ERROR_MSG << "Error in execv." END_MSG;           
         }
 
+
         if (argv != NULL) {
           delete []argv;
           argv = NULL;
         }
       } else {
+*/
 
       // ===========================================================================
       // If type EXEC_TYPE_SYS is selected then "system()" function is used.
       // ===========================================================================
 
-        if (type->value() == STR(EXEC_TYPE_SYS)) {
+//        if (type->value() == STR(EXEC_TYPE_SYS)) {
+
+            DEBUG_MSG << "Command line: " << command_to_execute
+            END_MSG;
+
           result_value = system(command_to_execute.c_str());
-        }
-      }
+//        }
+//      }
 
       // ===========================================================================
       // Change to the innitial working directory.

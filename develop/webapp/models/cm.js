@@ -406,7 +406,7 @@ module.exports = function() {
 
 
         // Adding extra commands:
-        code.unshift({parent:null,node_id:null,code:FIRST_EXPERIMENT_CMD});                             // 5th command
+        code.unshift({parent:null,node_id:null,code:FIRST_EXPERIMENT_CMD});                             // 6th command
         code.unshift({parent:null,node_id:null,code:"constant --name FALSE --by 0"});                   // 4rd command
         code.unshift({parent:null,node_id:null,code:"constant --name TRUE  --by 1"});                   // 3rd command
         code.unshift({parent:null,node_id:null,code:"set-value --to $encoding --eq \"english_bn\""});   // 2nd command
@@ -1106,7 +1106,8 @@ cout.cm("////////////////// inputs.from.Push: " + JSON.stringify(a));
               // Get a list of those variables that are connected as inputs of the pipeline node:
               for (var s = 0; s < node.inputs.length; s++) {
                 var connector = self.FindArrayElementById(node.temp.type_obj.inputs, node.inputs[s].id);
-                if ((node.inputs[s] != null) && (node.inputs[s].from[0] != null)) {
+                
+                if ((connector != null) && (node.inputs[s] != null) && (node.inputs[s].from[0] != null)) {
 
                     if (node.inputs[s].from[0].type == "input") {
                       // This would be wrong for the "the_input_pipeline_vars":
@@ -1148,7 +1149,7 @@ cout.cm("////////////////// inputs.from.Push: " + JSON.stringify(a));
               // Get a list of those variables that are connected as outputs of the pipeline node:
               for (var s = 0; s < node.outputs.length; s++) {
                 var connector = self.FindArrayElementById(node.temp.type_obj.outputs, node.outputs[s].id);
-                if ((node.outputs[s] != null) && (node.outputs[s].to[0] != null)) {
+                if ((connector != null) && (node.outputs[s] != null) && (node.outputs[s].to[0] != null)) {
 //console.log("+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
 //console.log(JSON.stringify(node.outputs[s].to[0]));
                     var connected_to = self.FindArrayElementById(execution_list, node.outputs[s].to[0].node_id);
@@ -2330,12 +2331,14 @@ cout.cm("message.data = " + message.data);
     this.RemoveOrderFromValue = function (text) {
         var ret = text;
         
-        if (text.indexOf(":") != -1) {
-            var order = text.substr(0, text.indexOf(":"));
-            if (isNaN(order)) { // For example "hello:world". hello is not a number. Return "hello:world".
-                ret = text;
-            } else { // For example "3:world". 3 is a number. Return only "world".
-                ret = text.substr(text.indexOf(":") + 1);
+        if (typeof text != 'object') {
+            if (text.indexOf(":") != -1) {
+                var order = text.substr(0, text.indexOf(":"));
+                if (isNaN(order)) { // For example "hello:world". hello is not a number. Return "hello:world".
+                    ret = text;
+                } else { // For example "3:world". 3 is a number. Return only "world".
+                    ret = text.substr(text.indexOf(":") + 1);
+                }
             }
         }
             

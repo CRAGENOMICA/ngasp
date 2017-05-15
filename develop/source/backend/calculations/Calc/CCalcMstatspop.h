@@ -42,6 +42,8 @@
 /// ============================================================================
 #include "../../calculations/ICalculation.h"
 #include "../../calculations/CAllCalculations.h"
+
+/*
 #include "../../calculations/Calc/CCalcOpenFastaFile.h"
 #include "../../calculations/Calc/CCalcMstatspopOpenFastaFile.h"
 #include "../../calculations/Calc/CCalcMstatspopOpenMsFile.h"
@@ -75,7 +77,7 @@
 #include "../../calculations/Calc/CCalcOpenEffectSizesFile.h"
 #include "../../calculations/Calc/CCalcOpenCoordinatesFile.h"
 #include "../../calculations/Calc/CCalcOpenWeightPositionsFile.h"
-
+*/
 /// ============================================================================
 /// DATA TYPES
 /// ============================================================================
@@ -98,6 +100,7 @@
 #include "../../data_manager/Data/CDataStdString.h"
 #include "../../data_manager/Data/CDataStringSet.h"
 #include "../../data_manager/Data/CDataBoolean.h"
+#include "../../data_manager/Data/CDataTextFile.h"
 
 /// ============================================================================
 /// CONSTANTS
@@ -114,7 +117,7 @@ class CCalcMstatspop : public ICalculation {
 
 public:
   ICalculation* clone() const { return new CCalcMstatspop(); /*clone*/  }
-
+/*
 /// ============================================================================
 /// CALCS - MSTATSPOP
 /// ============================================================================
@@ -153,17 +156,17 @@ public:
   CCalcOpenEffectSizesFile                    *calc_effect_sizes_;
   CCalcOpenCoordinatesFile                    *calc_coordinates_;
   CCalcOpenWeightPositionsFile                *calc_weight_positions_;
-  
+  */
 /// ============================================================================
 /// INPUT DATAS
 /// ============================================================================
   CDataStdString      *populations_initial_;  ///
   CDataInt            *ploidy_;               ///
-  CDataStdString      *file_out_;             ///
+  CDataStdString      *out_file_name_;             ///
   CDataBoolean        *b_include_unknown_;    ///
   CDataBoolean        *b_force_outgroup_;     ///
   CDataBoolean        *b_outgroup_presence_;  ///
-  CDataInt            *formatfile_;           ///
+  CDataStdString      *formatfile_;           ///
   CDataIntVector      *r2i_ploidies_;         ///
   CDataStdString      *file_mas_;             ///
   CDataInt64          *niter_;                ///
@@ -184,7 +187,7 @@ public:
   CDataInt64          *seed_;                 ///
   CDataStdString      *file_wps_;             /// weights
   CDataStdString      *file_wcoord_;          /// coordinates
-  CDataStdString      *file_effsz_;           /// effect sizes
+  //CDataStdString      *file_effsz_;           /// effect sizes
   CDataInt64          *window_;               ///
   CDataInt64          *slide_;                ///
   CDataInt            *physical_length_;      ///
@@ -212,7 +215,8 @@ public:
   // variables stores all iteration results. For example: "out_stats_So_" 
   // contains all iteration results from "stats_So_".
   
-  CDataStdString    *calc_output_;
+  CDataTextFile    *calc_output_;
+/*
   CDataDoubleVector *out_stats_So_;           /// S
   CDataDoubleVector *out_stats_thetaSo_;      /// Theta/nt(Wat) *1
   CDataDoubleVector *out_stats_thetaTo_;      /// Theta/nt(Taj) *2
@@ -244,10 +248,12 @@ public:
   CDataDoubleVector *out_stats_fstHKY_;       /// FstHKY
   CDataDoubleVector *out_stats_piwHKY_;       /// PiWHKY
   CDataDoubleVector *out_stats_piaHKY_;       /// PiAHKY
-  
+  */
+
 /// ============================================================================
 /// DATAS
 /// ============================================================================
+/*
   CDataInt64          *npops_;                ///
   CDataIntVector      *vint_perpop_nsam_;     ///
   CDataDouble         *length_al_;            ///
@@ -480,6 +486,7 @@ public:
   void PrintOutput(void);
   
   void ConcatenateIterationResults(void);
+*/
 };
 
 #endif  // BACKEND_SRC_CALCULATIONS_CALC_CCALCMSTATSPOP_H_

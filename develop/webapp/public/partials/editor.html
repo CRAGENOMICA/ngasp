@@ -267,11 +267,11 @@
 
   	<div id="content" style="background-color:whitesmoke">
 
+<!--
     <div style="margin:0px;padding:0px" ng-show="GetEditorType()=={{FileType.PIPELINE}}">
-      abc
     </div>
-
-    <div style="margin:0px;padding:0px" ng-show="GetEditorType()=={{FileType.EXPERIMENT}}">
+-->
+    <div style="margin:0px;padding:0px"> <!-- ng-show="GetEditorType()=={{FileType.EXPERIMENT}}" -->
 <!-- ============================================================================ -->
 <!-- ============================================================================ -->
 <!-- ============================================================================ -->
@@ -326,7 +326,7 @@
 	                      <td>
                           <ul class="horiz_list">
                             <li>
-                              <span ng-show="experiment.experiment_id!=0" ng-click="OnOutputTabPress(GetOutputsNavTabs(), experiment.experiment_id)" class="glyphicon glyphicon-refresh outputab_button" data-toggle="tooltip" data-placement="top" title="Refresh"></span>
+                              <span ng-show="experiment.experiment_id!=0" ng-click="OnOutputTabPress(GetOutputsNavTabs(), experiment.experiment_id);OnGetOutput()" class="glyphicon glyphicon-refresh outputab_button" data-toggle="tooltip" data-placement="top" title="Refresh"></span>
                               <span ng-show="experiment.experiment_id!=0" ng-click="OnRemoveExperiment(experiment.experiment_id)" class="glyphicon glyphicon-trash outputab_button" data-toggle="tooltip" data-placement="top" title="Remove Experiment"></span>
                             </li>
                             <!-- <li>
@@ -606,6 +606,7 @@ chart-radar
     <img ng-show="false" class="hidden_image" id="node_print_data" src="./images/node_print_data.svg" alt="node_print_data" imageonload="ImageLoad()">
     <img ng-show="false" class="hidden_image" id="loop" src="./images/loop.svg" alt="loop" imageonload="ImageLoad()">
     <img ng-show="false" class="hidden_image" id="loop_black" src="./images/loop_black.svg" alt="loop_black" imageonload="ImageLoad()">
+    <img ng-show="false" class="hidden_image" id="comment_icon" src="./images/comment_icon.svg" alt="comment_icon" imageonload="ImageLoad()">
 
     
     <div style="z-index:200; position:absolute; left:1000px; top:155px; width:200px; height:200px" ng-show="debug_mode==true">

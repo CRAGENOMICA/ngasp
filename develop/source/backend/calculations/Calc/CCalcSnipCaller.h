@@ -38,12 +38,22 @@
 #include "../../data_manager/CDataManager.h"
 #include "../../data_manager/Data/CDataMpileup.h"
 #include "../../data_manager/Data/CDataFasta.h"
+#include "../../data_manager/Data/CDataInt.h"
+#include "../../data_manager/Data/CDataStdString.h"
 #include "../../data_manager/Data/CDataBoolean.h"
+#include "../../data_manager/Data/CDataIntVector.h"
 
 class CCalcSnipCaller : public ICalculation {
  private:
   // Inputs
   CDataMpileup *input_file;
+  CDataInt *baseq;
+  CDataInt *mindep;
+  CDataInt *maxdep;
+  CDataIntVector *mrd;
+  CDataInt *platform;
+  CDataStdString *outgroup;
+  CDataStdString *names;
   CDataBoolean *keep_intermediate_results;
   
   // Outputs

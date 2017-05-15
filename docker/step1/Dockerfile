@@ -112,6 +112,12 @@ ENV OPEN_MPI_HOME /opt/lib/openmpi
 ENV LD_LIBRARY_PATH "/opt/lib/openmpi/lib:${LD_LIBRARY_PATH}"
 ENV PATH "/opt/lib/openmpi/bin:${PATH}"
 
+# ****************
+# *** samtools ***
+# ****************
+
+RUN yum install -y samtools
+
 # ==============================================================================
 # START
 # ==============================================================================

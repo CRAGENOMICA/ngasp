@@ -46,68 +46,66 @@ KeyString::NGASP_AUTHORS,
 KeyString::MSTATSPOP_COPYRIGHT,
 KeyString::GENERIC_CITATIONS,
 KeyString::UNDEFINED_STRING) {
-/*
-    BEGIN_CALCULATION_INTERFACE_DEFINITION
-    SET_INPUT_INFO(input_bed_file_, // Variable
-            UNDEFINED_STRING, // Group
-            CCALCCUT_BED_INPUT_BED_FILE, // Short Name
-            UNDEFINED_STRING, // Long Name
-            CCALCCUT_BED_INPUT_BED_FILE_DESC, // Description
-            UNDEFINED_STRING, // CutBED
-            UNDEFINED_STRING, // Use only if
-            UNDEFINED_STRING, // Default value
-            UNDEFINED_VALUE, // Min. Value
-            UNDEFINED_VALUE, // Max. Value
-            OPTTYPE_mandatory) // Required
-            SET_INPUT_INFO(selection_, // Variable
-            UNDEFINED_STRING, // Group
-            CCALCCUT_BED_SELECTION, // Short Name
-            UNDEFINED_STRING, // Long Name
-            CCALCCUT_BED_SELECTION_DESC, // Description
-            UNDEFINED_STRING, // CutBED
-            UNDEFINED_STRING, // Use only if
-            UNDEFINED_STRING, // Default value
-            UNDEFINED_VALUE, // Min. Value
-            UNDEFINED_VALUE, // Max. Value
-            OPTTYPE_mandatory) // Required
-            SET_INPUT_INFO(input_sorted_, // Variable
-            UNDEFINED_STRING, // Group
-            CCALCCUT_BED_INPUT_SORTED, // Short Name
-            UNDEFINED_STRING, // Long Name
-            CCALCCUT_BED_INPUT_SORTED_DESC, // Description
-            UNDEFINED_STRING, // CutBED
-            UNDEFINED_STRING, // Use only if
-            UNDEFINED_STRING, // Default value
-            UNDEFINED_VALUE, // Min. Value
-            UNDEFINED_VALUE, // Max. Value
-            OPTTYPE_optional) // Required
 
+    BEGIN_CALCULATION_INTERFACE_DEFINITION
+            SET_INPUT_INFO(input_bed_file_, // Variable
+                            UNDEFINED_STRING, // Group
+                            CCALCCUT_BED_INPUT_BED_FILE, // Short Name
+                            UNDEFINED_STRING, // Long Name
+                            CCALCCUT_BED_INPUT_BED_FILE_DESC, // Description
+                            UNDEFINED_STRING, // CutBED
+                            UNDEFINED_STRING, // Use only if
+                            UNDEFINED_STRING, // Default value
+                            UNDEFINED_VALUE, // Min. Value
+                            UNDEFINED_VALUE, // Max. Value
+                            OPTTYPE_mandatory) // Required
+            SET_INPUT_INFO(selection_, // Variable
+                            UNDEFINED_STRING, // Group
+                            CCALCCUT_BED_SELECTION, // Short Name
+                            UNDEFINED_STRING, // Long Name
+                            CCALCCUT_BED_SELECTION_DESC, // Description
+                            UNDEFINED_STRING, // CutBED
+                            UNDEFINED_STRING, // Use only if
+                            UNDEFINED_STRING, // Default value
+                            UNDEFINED_VALUE, // Min. Value
+                            UNDEFINED_VALUE, // Max. Value
+                            OPTTYPE_mandatory) // Required
+            SET_INPUT_INFO(input_sorted_, // Variable
+                            UNDEFINED_STRING, // Group
+                            CCALCCUT_BED_INPUT_SORTED, // Short Name
+                            UNDEFINED_STRING, // Long Name
+                            CCALCCUT_BED_INPUT_SORTED_DESC, // Description
+                            UNDEFINED_STRING, // CutBED
+                            UNDEFINED_STRING, // Use only if
+                            UNDEFINED_STRING, // Default value
+                            UNDEFINED_VALUE, // Min. Value
+                            UNDEFINED_VALUE, // Max. Value
+                            OPTTYPE_optional) // Required
 
             SET_INPUT_INFO(keep_intermediate_results, // Variable
-            UNDEFINED_STRING, // Group
-            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS, // Short Name
-            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_LONG, // Long Name
-            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_DESC, // Description
-            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_SAMP, // Example
-            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_ONLY, // Use only if
-            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_DEFV, // Default value
-            UNDEFINED_VALUE, // Min. Value
-            UNDEFINED_VALUE, // Max. Value
-            OPTTYPE_optional) // Required
-
+                            UNDEFINED_STRING, // Group
+                            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS, // Short Name
+                            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_LONG, // Long Name
+                            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_DESC, // Description
+                            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_SAMP, // Example
+                            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_ONLY, // Use only if
+                            CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_DEFV, // Default value
+                            UNDEFINED_VALUE, // Min. Value
+                            UNDEFINED_VALUE, // Max. Value
+                            OPTTYPE_optional) // Required
             SET_OUTPUT_INFO(output_bed_file_, // Variable
-            UNDEFINED_STRING, // Group
-            CCALCCUT_BED_OUTPUT_BED_FILE, // Short Name
-            UNDEFINED_STRING, // Long Name
-            CCALCCUT_BED_OUTPUT_BED_FILE_DESC, // Description
-            UNDEFINED_STRING, // CutBED
-            UNDEFINED_STRING, // Use only if
-            CCALCCUT_BED_OUTPUT_BED_FILE_DEFV, // Default value
-            UNDEFINED_VALUE, // Min. Value
-            UNDEFINED_VALUE, // Max. Value
-            OPTTYPE_mandatory) // Required
-            END_CALCULATION_INTERFACE_DEFINITION
-*/
+                            UNDEFINED_STRING, // Group
+                            CCALCCUT_BED_OUTPUT_BED_FILE, // Short Name
+                            UNDEFINED_STRING, // Long Name
+                            CCALCCUT_BED_OUTPUT_BED_FILE_DESC, // Description
+                            UNDEFINED_STRING, // CutBED
+                            UNDEFINED_STRING, // Use only if
+                            CCALCCUT_BED_OUTPUT_BED_FILE_DEFV, // Default value
+                            UNDEFINED_VALUE, // Min. Value
+                            UNDEFINED_VALUE, // Max. Value
+                            OPTTYPE_mandatory) // Required
+    END_CALCULATION_INTERFACE_DEFINITION
+
 }
 
 CCalcCutBED::~CCalcCutBED() {
@@ -123,6 +121,18 @@ void CCalcCutBED::Prepare(void) {
     DM_OUTPUT(output_bed_file_)
     DM_END
 
+   
+    // Output File Name Example:
+    // Input_file     : a.bed
+    // Chrom selected : chr01
+    // Output file    : a.chr01.bed
+    output_bed_file_->set_value(CFile::GetPathFileNameWithoutExtension(input_bed_file_->value()) + "." + selection_->value() + "." + CFile::GetExtensionFromFileName(input_bed_file_->value()));
+
+
+    // Output File Name if user wants to keep intermediate files (Example):
+    // Initial Output file    : a.chr01.bed
+    // Iteration              : 3
+    // Final Output file      : a.chr01.3.bed
     if (keep_intermediate_results->value()) {
         DM_ITERATION_NUMBER(iteration_number)
         DM_ITERATION_VALUE(iteration_value)
@@ -143,12 +153,15 @@ void CCalcCutBED::Calculate(bool dry_run) {
     std::ifstream file(input_bed_file_->value());
 
     if (file.is_open()) {
-        // ==================================================================================
-        // Move to the last stored position
-        // ==================================================================================
-        CFile::MoveToLastAccessedPosition(input_bed_file_->value(), file);
         std::streampos last_position = 0;
-        // ==================================================================================
+
+        if(input_sorted_->value() == true) {
+            // ==================================================================================
+            // Move to the last stored position
+            // ==================================================================================
+            CFile::MoveToLastAccessedPosition(input_bed_file_->value(), file);
+            // ==================================================================================
+        }
 
         std::string output_bed_file_buffer;
 
@@ -172,18 +185,22 @@ void CCalcCutBED::Calculate(bool dry_run) {
                 }
             }
 
-            // =================================================================================
-            // Update the last position
-            // =================================================================================
-            last_position = file.tellg();
-            // =================================================================================
+            if(input_sorted_->value() == true) {
+                // =================================================================================
+                // Update the last position
+                // =================================================================================
+                last_position = file.tellg();
+                // =================================================================================
+            }
         }
 
-        // ==================================================================================
-        // Store the last position
-        // ==================================================================================
-        CFile::StoreLastAccessedPosition(input_bed_file_->value(), file, (selection_found) ? last_position : file.end);
-        // ==================================================================================
+        if(input_sorted_->value() == true) {
+            // ==================================================================================
+            // Store the last position
+            // ==================================================================================
+            CFile::StoreLastAccessedPosition(input_bed_file_->value(), file, (selection_found) ? last_position : file.end);
+            // ==================================================================================
+        }
 
         CFile::ReplaceContentBy(output_bed_file_->value(), output_bed_file_buffer);
     } else {

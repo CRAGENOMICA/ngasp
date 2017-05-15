@@ -44,6 +44,8 @@
 #include "../../data_manager/Data/CDataInt64.h"
 #include "../../data_manager/Data/CDataStdString.h"
 #include "../../util/CFile.h"
+#include "../../util/params.h"
+
 
 CCalcBam2Mpileup::CCalcBam2Mpileup()
 : ICalculation(KeyString::CALC_BAM2MPILEUP,                                     // Calculation Name
@@ -54,7 +56,7 @@ CCalcBam2Mpileup::CCalcBam2Mpileup()
                KeyString::GENERIC_CITATIONS,                                    // Citations
                KeyString::UNDEFINED_STRING) {                                   // See also
   BEGIN_CALCULATION_INTERFACE_DEFINITION
-    SET_INPUT_INFO(bam_file,                                                   // Variable
+    SET_INPUT_INFO(bam_files,                                                   // Variable
                    UNDEFINED_STRING,                                            // Group
                    CCALCBAM2MPILEUP_BAM_FILES,                                  // Short Name
                    CCALCBAM2MPILEUP_BAM_FILES_LONG,                             // Long Name
@@ -77,6 +79,44 @@ CCalcBam2Mpileup::CCalcBam2Mpileup()
                    UNDEFINED_VALUE,                                             // Min. Value
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_mandatory)                                           // Required
+
+
+    SET_INPUT_INFO(min_mq,                                                      // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CCALCBAM2MPILEUP_MIN_MQ,                                  // Short Name
+                   CCALCBAM2MPILEUP_MIN_MQ_LONG,                             // Long Name
+                   CCALCBAM2MPILEUP_MIN_MQ_DESC,                             // Description
+                   CCALCBAM2MPILEUP_MIN_MQ_SAMP,                             // Example
+                   CCALCBAM2MPILEUP_MIN_MQ_ONLY,                             // Use only if
+                   CCALCBAM2MPILEUP_MIN_MQ_DEFV,                             // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                           // Required
+
+    SET_INPUT_INFO(min_bq,                                                      // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CCALCBAM2MPILEUP_MIN_BQ,                                  // Short Name
+                   CCALCBAM2MPILEUP_MIN_BQ_LONG,                             // Long Name
+                   CCALCBAM2MPILEUP_MIN_BQ_DESC,                             // Description
+                   CCALCBAM2MPILEUP_MIN_BQ_SAMP,                             // Example
+                   CCALCBAM2MPILEUP_MIN_BQ_ONLY,                             // Use only if
+                   CCALCBAM2MPILEUP_MIN_BQ_DEFV,                             // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                           // Required
+
+    SET_INPUT_INFO(disable_BAQ,                                                      // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CCALCBAM2MPILEUP_DISABLE_BAQ,                                  // Short Name
+                   CCALCBAM2MPILEUP_DISABLE_BAQ_LONG,                             // Long Name
+                   CCALCBAM2MPILEUP_DISABLE_BAQ_DESC,                             // Description
+                   CCALCBAM2MPILEUP_DISABLE_BAQ_SAMP,                             // Example
+                   CCALCBAM2MPILEUP_DISABLE_BAQ_ONLY,                             // Use only if
+                   CCALCBAM2MPILEUP_DISABLE_BAQ_DEFV,                             // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                           // Required
+
 
     SET_INPUT_INFO(filter,                                                     // Variable
                    UNDEFINED_STRING,                                            // Group
@@ -122,8 +162,11 @@ CCalcBam2Mpileup::~CCalcBam2Mpileup() {
 
 void CCalcBam2Mpileup::Prepare(void) {
   DM_GET_INPUTS
-    DM_INPUT(bam_file)
+    DM_INPUT(bam_files)
     DM_INPUT(fasta_ref)
+    DM_INPUT(min_mq)
+    DM_INPUT(min_bq)
+    DM_INPUT(disable_BAQ)
     DM_INPUT(filter)
     DM_INPUT(keep_intermediate_results)
   DM_GET_OUTPUTS
@@ -131,23 +174,23 @@ void CCalcBam2Mpileup::Prepare(void) {
   DM_END
 
                    
-//  if (bam_files->Size() != 0) {
-//    if (mpileup_file->value() == "") {
-//      mpileup_file->set_value(CFile::GetPathFileNameWithoutExtension((*bam_files)[0]) + ".mpileup");
-//    }  
-//  } else {
-//    ERROR_MSG << "Input file name missing..." END_MSG;
-//  }  
-
   if (filter->value() != "") {
     WARNING_MSG << "Filtering by chromosome name is not implemented yet... "
               END_MSG;
   }
           
-          
-  if (mpileup_file->value() == "") {
-    mpileup_file->set_value(CFile::GetPathFileNameWithoutExtension(bam_file->value()) + ".mpileup");
+
+  if (bam_files->Size() != 0) {
+    if (mpileup_file->value() == "") {
+      mpileup_file->set_value(CFile::GetPathFileNameWithoutExtension((*bam_files)[0]) + ".mpileup");
+    }  
+  } else {
+    ERROR_MSG << "Input file name missing..." END_MSG;
   }  
+          
+  //if (mpileup_file->value() == "") {
+  //  mpileup_file->set_value(CFile::GetPathFileNameWithoutExtension(bam_file->value()) + ".mpileup");
+  //}  
   
   if (keep_intermediate_results->value()) {
     DM_ITERATION_NUMBER(iteration_number)
@@ -158,16 +201,21 @@ void CCalcBam2Mpileup::Prepare(void) {
   }
 }
 
+
+
+
 void CCalcBam2Mpileup::Calculate(bool dry_run) {
     if (dry_run == true) {
         return;
     }
 
-    if (CFile::Exists(bam_file->value()) == false) {
-        ERROR_MSG << "Input file does not exist: "
-                << bam_file->value()
-                END_MSG;
-        return;
+    for (int b = 0; b < bam_files->Size(); b++) {
+        if (CFile::Exists((*bam_files)[b]) == false) {
+            ERROR_MSG << "Input file does not exist: "
+                    << (*bam_files)[b]
+                    END_MSG;
+            return;
+        }
     }
 
     if (CFile::Exists(fasta_ref->value()) == false) {
@@ -177,32 +225,40 @@ void CCalcBam2Mpileup::Calculate(bool dry_run) {
         return;
     }
 
-   if (CFile::Exists(mpileup_file->value()) == false) {
-    
-        char *p_bam_file = new char[bam_file->value().length() + 1];
-        strcpy(p_bam_file, bam_file->value().c_str());
+    if (CFile::Exists(mpileup_file->value()) == false) {
+        //Example: samtools mpileup -q 20 -Q 20 -B -f data_reference_seq.fa -o sortida.mpileup ./PE_data.Ind10.bam ./PE_data.Ind2.bam ./PE_data.Ind4.bam ./PE_data.Ind6.bam ./PE_data.Ind8.bam ./PE_data.Ind1.bam ./PE_data.Ind3.bam ./PE_data.Ind5.bam ./PE_data.Ind7.bam ./PE_data.Ind9.bam
+        START_PARAMS
+            ADD_PARAM("samtools");
+            ADD_PARAM("mpileup");
+            if (!min_mq->auto_created()) {
+                ADD_PARAM("-q");
+                ADD_PARAM(CStringTools::ToString(min_mq->value()));
+            }
+            if (!min_bq->auto_created()) {
+                ADD_PARAM("-Q");
+                ADD_PARAM(CStringTools::ToString(min_bq->value()));
+            }
+            if ((!disable_BAQ->auto_created()) && (disable_BAQ->value())) {
+                ADD_PARAM("-B");
+            }
+            ADD_PARAM("-f");
+            ADD_PARAM(fasta_ref->value());
+            ADD_PARAM("-o");
+            ADD_PARAM(mpileup_file->value());
 
-        char *p_fasta_ref_file= new char[fasta_ref->value().length() + 1];
-        strcpy(p_fasta_ref_file, fasta_ref->value().c_str());
+            for (int b = 0; b < bam_files->Size(); b++) {
+                ADD_PARAM((*bam_files)[b]);
+            }
+        END_PARAMS
 
-        char *p_mpileup_file = new char[mpileup_file->value().length() + 1];
-        strcpy(p_mpileup_file, mpileup_file->value().c_str());
+        int ret = 0;
+        if ((ret = samtools_main(argc, (*argv))) != 0) {
+            ERROR_MSG << "samtools mpileup did not work. Error code = " << ret << "..."  END_MSG;
+        }
 
+        REMOVE_PARAMS
 
-        char *argv[] = {"samtools", "mpileup",
-            p_bam_file,
-            "-f",
-            p_fasta_ref_file,
-            "-o",
-            p_mpileup_file,
-            NULL};
-        int argc = sizeof (argv) / sizeof (char*) - 1;
-
-        samtools_main(argc, argv);
-
-        delete []p_bam_file;
-        delete []p_fasta_ref_file;
-        delete []p_mpileup_file;
+        
    }
    else {
        WARNING_MSG << "The mpileup file '" << mpileup_file->value() << "' already exists. Using the existing one..."

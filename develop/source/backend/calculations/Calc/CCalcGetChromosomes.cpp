@@ -100,7 +100,7 @@ void CCalcGetChromosomes::Calculate(bool dry_run) {
         return;
     }
     
-    std::string bai_file = input_bam_file_->value() + ".bai" ;
+    std::string bai_file = CFile::GetPathFileNameWithoutExtension(input_bam_file_->value()) + ".bai" ;
     if (CFile::Exists(bai_file) == true) {
         GetNamesFromBAI(input_bam_file_->value());
     } else {

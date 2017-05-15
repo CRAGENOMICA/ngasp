@@ -33,6 +33,7 @@
 #include "CCMDConstant.h"
 
 #include <string>
+#include <list>
 
 #include "../../data_manager/CDataManager.h"
 #include "../../language/CStringTable.h"
@@ -84,6 +85,8 @@ void CCMDConstant::DefineCommandOptions() {
 
 bool CCMDConstant::Prepare() {
   bool parseResult = true;
+  bool found_name = false;
+  bool found_by   = false;
 
   KeyString option = KeyString::UNDEFINED_STRING;
   std::string arguments;
@@ -92,9 +95,11 @@ bool CCMDConstant::Prepare() {
     switch (option) {
     case KeyString::CONSTANT_NAME_SHORT:
       constant_name_ = arguments;
+      found_name = true;
       break;
     case KeyString::CONSTANT_BY_SHORT:
       translate_by_ = arguments;
+      found_by = true;
       break;
     default:
       parseResult = false;
@@ -102,12 +107,27 @@ bool CCMDConstant::Prepare() {
     }
   }
 
-  return (CheckOptions() && parseResult);
+  parseResult = ((parseResult) && (((found_name) && (found_by)) || ((!found_name) && (!found_by)))   );
+
+  list_constants_ = ((!found_name) && (!found_by));
+
+  return (/*CheckOptions() && */parseResult);
 }
 
 void CCMDConstant::Run() {
-  manager()->instructions_controller()->AddConstant(constant_name_,
-                                                    translate_by_);
+  if (list_constants_) {
+      for (std::list<std::pair<std::string, std::string> >::iterator it = manager()->instructions_controller()->Constants()->begin();
+           it != manager()->instructions_controller()->Constants()->end();
+           ++it) {
+        NORMAL_MSG << "Constant: \"" << (*it).first << "\" is \"" << (*it).second << "\"." END_MSG;
+      }
+
+  } else {
+      manager()->instructions_controller()->AddConstant(constant_name_,
+                                                        translate_by_);
+
+      DEBUG_MSG << "New constant: \"" << constant_name_ << "\" is \"" << translate_by_ << "\"." END_MSG;
+  }
 }
 
 void CCMDConstant::Finalize() {

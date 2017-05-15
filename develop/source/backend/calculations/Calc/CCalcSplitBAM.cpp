@@ -107,6 +107,7 @@ void CCalcSplitBAM::Prepare(void) {
   DM_GET_OUTPUTS
     DM_OUTPUT(output_bams_)
   DM_END
+
 }
 
 void CCalcSplitBAM::Calculate(bool dry_run) {
@@ -120,12 +121,16 @@ void CCalcSplitBAM::Calculate(bool dry_run) {
     char *p_chromosome_name = 0;
     char *p_output_file = 0;
     
+
+    output_bams_->DeleteMemory();
     
     for (int i = 0; i < chromosomes_->Size(); i++) {
         name = chromosomes_->GetData()[i];
         
         if (exclude_->FindValue(name) == false) {
-            output_file = CFile::GetPathFileNameWithoutExtension(bam_file_->value()) + "_" + name + ".bam_part";
+            output_file = CFile::GetPathFileNameWithoutExtension(bam_file_->value()) + "." + name + ".bam";
+
+            output_bams_->PushBack(output_file);
 
             if (CFile::Exists(output_file) == false) {
                 p_bam_file = new char[bam_file_->value().length() + 1];

@@ -64,6 +64,92 @@ CCalcSnipCaller::CCalcSnipCaller()
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_mandatory)                                           // Required)
   
+    SET_INPUT_INFO(baseq,                                   // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_SNP_CALLER_BASEQ,                         // Short Name
+                   CALC_SNP_CALLER_BASEQ_LONG,                    // Long Name
+                   CALC_SNP_CALLER_BASEQ_DESC,                    // Description
+                   CALC_SNP_CALLER_BASEQ_SAMP,                    // Example
+                   CALC_SNP_CALLER_BASEQ_ONLY,                    // Use only if
+                   CALC_SNP_CALLER_BASEQ_DEFV,                    // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(mindep,                                   // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_SNP_CALLER_MINDEP,                         // Short Name
+                   CALC_SNP_CALLER_MINDEP_LONG,                    // Long Name
+                   CALC_SNP_CALLER_MINDEP_DESC,                    // Description
+                   CALC_SNP_CALLER_MINDEP_SAMP,                    // Example
+                   CALC_SNP_CALLER_MINDEP_ONLY,                    // Use only if
+                   CALC_SNP_CALLER_MINDEP_DEFV,                    // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(maxdep,                                   // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_SNP_CALLER_MAXDEP,                         // Short Name
+                   CALC_SNP_CALLER_MAXDEP_LONG,                    // Long Name
+                   CALC_SNP_CALLER_MAXDEP_DESC,                    // Description
+                   CALC_SNP_CALLER_MAXDEP_SAMP,                    // Example
+                   CALC_SNP_CALLER_MAXDEP_ONLY,                    // Use only if
+                   CALC_SNP_CALLER_MAXDEP_DEFV,                    // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(mrd,                                   // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_SNP_CALLER_MRD,                         // Short Name
+                   CALC_SNP_CALLER_MRD_LONG,                    // Long Name
+                   CALC_SNP_CALLER_MRD_DESC,                    // Description
+                   CALC_SNP_CALLER_MRD_SAMP,                    // Example
+                   CALC_SNP_CALLER_MRD_ONLY,                    // Use only if
+                   CALC_SNP_CALLER_MRD_DEFV,                    // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+
+
+    SET_INPUT_INFO(platform,                                   // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_SNP_CALLER_PLATFORM,                         // Short Name
+                   CALC_SNP_CALLER_PLATFORM_LONG,                    // Long Name
+                   CALC_SNP_CALLER_PLATFORM_DESC,                    // Description
+                   CALC_SNP_CALLER_PLATFORM_SAMP,                    // Example
+                   CALC_SNP_CALLER_PLATFORM_ONLY,                    // Use only if
+                   CALC_SNP_CALLER_PLATFORM_DEFV,                    // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(outgroup,                                   // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_SNP_CALLER_OUTGROUP,                         // Short Name
+                   CALC_SNP_CALLER_OUTGROUP_LONG,                    // Long Name
+                   CALC_SNP_CALLER_OUTGROUP_DESC,                    // Description
+                   CALC_SNP_CALLER_OUTGROUP_SAMP,                    // Example
+                   CALC_SNP_CALLER_OUTGROUP_ONLY,                    // Use only if
+                   CALC_SNP_CALLER_OUTGROUP_DEFV,                    // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(names,                                   // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_SNP_CALLER_NAMES,                         // Short Name
+                   CALC_SNP_CALLER_NAMES_LONG,                    // Long Name
+                   CALC_SNP_CALLER_NAMES_DESC,                    // Description
+                   CALC_SNP_CALLER_NAMES_SAMP,                    // Example
+                   CALC_SNP_CALLER_NAMES_ONLY,                    // Use only if
+                   CALC_SNP_CALLER_NAMES_DEFV,                    // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
     SET_INPUT_INFO(keep_intermediate_results,                                   // Variable
                    UNDEFINED_STRING,                                            // Group
                    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS,                         // Short Name
@@ -93,9 +179,17 @@ CCalcSnipCaller::CCalcSnipCaller()
 CCalcSnipCaller::~CCalcSnipCaller() {
 }
 
+
 void CCalcSnipCaller::Prepare(void) {
   DM_GET_INPUTS
     DM_INPUT(input_file)
+    DM_INPUT(baseq)
+    DM_INPUT(mindep)
+    DM_INPUT(maxdep)
+    DM_INPUT(mrd)
+    DM_INPUT(platform)
+    DM_INPUT(outgroup)
+    DM_INPUT(names)
     DM_INPUT(keep_intermediate_results)
   DM_GET_OUTPUTS
     DM_OUTPUT(output_fasta)
@@ -132,8 +226,65 @@ void CCalcSnipCaller::Calculate(bool dry_run) {
   DM_NEW_DATA(the_command)
   
 
+  std::string command = STR(SNP_CALLER_BINARY) +
+                        " -i " + input_file->value() +
+                        " -o " + output_fasta->value();
+
+
+
+
+
+
+  if (!baseq->auto_created()) {
+    command += " --baseq " + CStringTools::ToString(baseq->value());
+  }
+
+  if (!platform->auto_created()) {
+    command += " --platform " + CStringTools::ToString(platform->value());
+  }
+
+  if (!outgroup->auto_created()) {
+    command += " --outgroup " + outgroup->value();
+  }
+
+  if (!names->auto_created()) {
+    command += " --names " + names->value();
+  }
+
+  std::string values;
+  if ((!mrd->auto_created()) && (mindep->auto_created())) {
+    values = "";
+    for (int i = 0; i < mrd->Size(); i++) {
+        if (i != 0) { values += ","; }
+        values += CStringTools::ToString((*mrd)[i] / 2);
+    }
+  } else {
+      if (!mindep->auto_created()) {
+        values = CStringTools::ToString(mindep->value());
+      }
+  }
+  if (values != "") {
+    command += " --mindep " + values;
+  }
   
-  the_command->set_value(STR(SNP_CALLER_BINARY) + " -i " + input_file->value() + " -o " + output_fasta->value());
+  if ((!mrd->auto_created()) && (maxdep->auto_created())) {
+    values = "";
+    for (int i = 0; i < mrd->Size(); i++) {
+        if (i != 0) { values += ","; }
+        values += CStringTools::ToString((*mrd)[i] + (*mrd)[i]);
+    }
+  } else {
+      if (!maxdep->auto_created()) {
+        values = CStringTools::ToString(mindep->value());
+      }
+  }
+  if (values != "") {
+    command += " --maxdep " + values;
+  }
+
+
+
+  the_command->set_value(command);
     
   CDataStdString *the_working_directory = NULL;
   DM_NEW_DATA(the_working_directory)

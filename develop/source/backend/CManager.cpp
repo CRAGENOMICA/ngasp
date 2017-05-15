@@ -180,6 +180,9 @@ bool CManager::PrepareNextInstruction(void) {
   IInstruction *instruction = instructions_controller()->getCurrentInstruction();
 
   if (instruction != NULL) {
+
+    instruction->ReplaceConstants(instructions_controller()->Constants());
+
     /// Get the name of the next command:
     std::string current_command_name = instruction->command_name();
 
@@ -397,6 +400,7 @@ void CManager::RunWorkerExecutionMode(int argc, char *argv[]) {
     if (instructions_controller()->instructionsWaiting()) {
       if (PrepareNextInstruction() == true) {
         LaunchNextInstruction();
+        logger()->WriteFile();
       }
     }
   }

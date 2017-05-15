@@ -322,15 +322,19 @@ std::string CFile::ConcatenateIterationToFilePathName(std::string file_name, int
     std::size_t loc_end = file_name.find_last_of(".");
     path_name = file_name.substr(0, loc_end);
 
-    //if (iteration_value != "") {
-    //    path_name += "_";
-    //    path_name += iteration_value;
-    //}
-
-    path_name += ".iteration";
+    path_name += ".";
+    if (iteration_value != "") {
+        path_name += iteration_value;
+    } else {
+        path_name += "x";
+    }
 
     path_name += ".";
-    path_name += std::to_string(iteration_number);
+    if (iteration_number != -1) {
+        path_name += std::to_string(iteration_number);
+    } else {
+        path_name += "y";
+    }
 
     path_name += ".";
     path_name += GetExtensionFromFileName(file_name);

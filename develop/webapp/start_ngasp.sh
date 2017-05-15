@@ -22,3 +22,6 @@ echo "******************************************"
 echo "* Open http://localhost:3000 on the host *"
 echo "******************************************"
 # xdg-open
+
+firefox http://localhost:3000 &
+

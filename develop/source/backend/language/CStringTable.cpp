@@ -81,13 +81,14 @@ CStringTable::CStringTable() : IStringTable() {
   /// ==========================================================================
   /// EXTERNAL TOOLS
   /// ==========================================================================
-  strings_[ENGLISH_COL][BINARY_PATH_INSIDE_DOCKER]              = "/develop/webapp/bin/";
+  strings_[ENGLISH_COL][BINARY_PATH_INSIDE_DOCKER]                              = "/develop/webapp/bin/";
   strings_[ENGLISH_COL][SNP_CALLER_BINARY]                                      = "sh ghcaller.sh";
-  strings_[ENGLISH_COL][FASTA_CONVERTER_BINARY]                                 = "fastaconvtr";
+  strings_[ENGLISH_COL][MSTATSPOP_BINARY]                                       = "./mstatspop";
+  strings_[ENGLISH_COL][FASTA_CONVERTER_BINARY]                                 = "./fastaconvtr";
   strings_[ENGLISH_COL][COLLECT_DATA_COLUMNS_BINARY]                            = "perl collect_data_columns.pl";
   strings_[ENGLISH_COL][CONCATENATE_FILES_BINARY]                               = "cat";
-  strings_[ENGLISH_COL][NPSTAT_BINARY]                                         = "npstat";
-  strings_[ENGLISH_COL][VCF2GFASTA_BINARY]                                      = "vcf2gfasta";
+  strings_[ENGLISH_COL][NPSTAT_BINARY]                                          = "./npstat";
+  strings_[ENGLISH_COL][VCF2GFASTA_BINARY]                                      = "./vcf2gfasta";
   
   //@}
   //@{
@@ -1383,12 +1384,12 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][EXEC_APP_LONG]                                          = "command";
   strings_[ENGLISH_COL][EXEC_APP_DESC]                                          = "Command to be executed.";
 
-  strings_[ENGLISH_COL][EXEC_TYPE_APP]                                          = "application";
+  //strings_[ENGLISH_COL][EXEC_TYPE_APP]                                          = "application";
   strings_[ENGLISH_COL][EXEC_TYPE_SYS]                                          = "system";
   
   strings_[ENGLISH_COL][EXEC_TYPE_SHORT]                                        = "t";
   strings_[ENGLISH_COL][EXEC_TYPE_LONG]                                         = "type";
-  strings_[ENGLISH_COL][EXEC_TYPE_DESC]                                         = strings_[ENGLISH_COL][EXEC_TYPE_APP] + " / " + strings_[ENGLISH_COL][EXEC_TYPE_SYS] + ".";
+  strings_[ENGLISH_COL][EXEC_TYPE_DESC]                                         = strings_[ENGLISH_COL][EXEC_TYPE_SYS] + "."; //strings_[ENGLISH_COL][EXEC_TYPE_APP] + " / " + strings_[ENGLISH_COL][EXEC_TYPE_SYS] + ".";
   //@}
   //@{
   /// --------------------------------------------------------------------------
@@ -1588,6 +1589,14 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_BAM2BAI_BRIEF_DESC]                                = "";
   strings_[ENGLISH_COL][CALC_BAM2BAI_DESC]                                      = "Create BAM index.";
   
+  strings_[ENGLISH_COL][CALC_GET_SEQ_LEN]                                       = "calc_get_seq_len";
+  strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_BRIEF_DESC]                            = "Get Sequence Length";
+  strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_DESC]                                  = "It returns the sequence's length of a Fasta file.";
+
+  strings_[ENGLISH_COL][CALC_GET_MRD]                                           = "calc_get_mrd";
+  strings_[ENGLISH_COL][CALC_GET_MRD_BRIEF_DESC]                                = "Median Read Depth";
+  strings_[ENGLISH_COL][CALC_GET_MRD_DESC]                                      = "It returns a list of MRD of BAM files.";
+
   strings_[ENGLISH_COL][CALC_BAM2MPILEUP]                                       = "calc_BAM_to_Mpileup";
   strings_[ENGLISH_COL][CALC_BAM2MPILEUP_BRIEF_DESC]                            = "";
   strings_[ENGLISH_COL][CALC_BAM2MPILEUP_DESC]                                  = "BAM To Mpileup Conversor.";
@@ -1607,11 +1616,19 @@ CStringTable::CStringTable() : IStringTable() {
 
   strings_[ENGLISH_COL][CALC_CONCAT_FILES]                                      = "calc_concat_files";
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_BRIEF_DESC]                           = "";
-  strings_[ENGLISH_COL][CALC_CONCAT_FILES_DESC]                                 = "Concatenate two files. Depending on the passed parameters, the operation done is: 1: output = input1 + input2. 2: output = output + input1. 3: output = output + input2";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILES_DESC]                                 = "Concatenate two files. Depending on the passed parameters, the operation done is: 1: output = input1 + input2. 2: output = output + input1. 3: output = output + input2.";
 
-  strings_[ENGLISH_COL][CALC_CONCAT_STRINGS]                                      = "calc_concat_strings";
-  strings_[ENGLISH_COL][CALC_CONCAT_STRINGS_BRIEF_DESC]                           = "";
-  strings_[ENGLISH_COL][CALC_CONCAT_STRINGS_DESC]                                 = "Concatenate two strings. output = intput 1 + input 2.";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILE_NAMES]                                 = "calc_concat_file_names";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILE_NAMES_BRIEF_DESC]                      = "";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILE_NAMES_DESC]                            = "Concatenate names of files. If File 2 is null then Output Names is += File 1. Else, Output Names = File 1 + File 2.";
+
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME]                                     = "calc_get_file_name";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_BRIEF_DESC]                          = "";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_DESC]                                = "It gets the name of a file.";
+
+  strings_[ENGLISH_COL][CALC_CONCAT_STRINGS]                                    = "calc_concat_strings";
+  strings_[ENGLISH_COL][CALC_CONCAT_STRINGS_BRIEF_DESC]                         = "";
+  strings_[ENGLISH_COL][CALC_CONCAT_STRINGS_DESC]                               = "Concatenate two strings. output = intput 1 + input 2.";
   
   strings_[ENGLISH_COL][CALC_COLLECT_DATA_COLUMNS]                              = "calc_collect_data_columns";
   strings_[ENGLISH_COL][CALC_COLLECT_DATA_COLUMNS_BRIEF_DESC]                   = "";
@@ -1669,6 +1686,7 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CCALCCUT_BED_INPUT_SORTED_DEFV]                            = "False";
   strings_[ENGLISH_COL][CCALCCUT_BED_OUTPUT_BED_FILE]                           = "BED file";
   strings_[ENGLISH_COL][CCALCCUT_BED_OUTPUT_BED_FILE_DESC]                      = "Output BED file";
+  strings_[ENGLISH_COL][CCALCCUT_BED_OUTPUT_BED_FILE_DEFV]                      = "";
     
   strings_[ENGLISH_COL][CCALCCUT_GTF_INPUT_GTF_FILE]                            = "GTF file";
   strings_[ENGLISH_COL][CCALCCUT_GTF_INPUT_GTF_FILE_DESC]                       = "Input GTF file";
@@ -1713,7 +1731,28 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CCALCBAM2MPILEUP_FASTA_REF_SAMP]                        = "./data/reference.fa";
   strings_[ENGLISH_COL][CCALCBAM2MPILEUP_FASTA_REF_ONLY]                        = "";
   strings_[ENGLISH_COL][CCALCBAM2MPILEUP_FASTA_REF_DEFV]                        = "";
-    
+
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_MQ]                                = "Min MQ";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_MQ_LONG]                           = "Min MQ";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_MQ_DESC]                           = "";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_MQ_SAMP]                           = "";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_MQ_ONLY]                           = "";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_MQ_DEFV]                           = "";
+
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_BQ]                                = "Min BQ";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_BQ_LONG]                           = "Min BQ";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_BQ_DESC]                           = "";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_BQ_SAMP]                           = "";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_BQ_ONLY]                           = "";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_MIN_BQ_DEFV]                           = "";
+
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_DISABLE_BAQ]                                = "Disable BAQ";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_DISABLE_BAQ_LONG]                           = "Disable BAQ";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_DISABLE_BAQ_DESC]                           = "";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_DISABLE_BAQ_SAMP]                           = "";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_DISABLE_BAQ_ONLY]                           = "";
+  strings_[ENGLISH_COL][CCALCBAM2MPILEUP_DISABLE_BAQ_DEFV]                           = "";
+
   strings_[ENGLISH_COL][CCALCBAM2MPILEUP_FILTER]                                = "Chromosome";
   strings_[ENGLISH_COL][CCALCBAM2MPILEUP_FILTER_LONG]                           = "Chromosome";
   strings_[ENGLISH_COL][CCALCBAM2MPILEUP_FILTER_DESC]                           = "Chromosome";
@@ -1738,7 +1777,7 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_FILE_2]                               = "Second Input File";
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_FILE_2_LONG]                          = "Second Input File";
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_FILE_2_DESC]                          = "Second Input File";
-  strings_[ENGLISH_COL][CALC_CONCAT_FILES_FILE_2_SAMP]                          = "./data/file_1.fa";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILES_FILE_2_SAMP]                          = "./data/file_2.fa";
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_FILE_2_ONLY]                          = "";
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_FILE_2_DEFV]                          = "";
 
@@ -1748,6 +1787,57 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_OUTPUT_SAMP]                          = "./data/output_file.txt";
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_OUTPUT_ONLY]                          = "";
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_OUTPUT_DEFV]                          = "";
+
+
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_FILE_1]                              = "File";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_FILE_1_LONG]                         = "File";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_FILE_1_DESC]                         = "";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_FILE_1_SAMP]                         = "";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_FILE_1_ONLY]                         = "";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_FILE_1_DEFV]                         = "";
+
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_NAME]                                = "File Name";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_NAME_LONG]                           = "File Name";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_NAME_DESC]                           = "";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_NAME_SAMP]                           = "";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_NAME_ONLY]                           = "";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_NAME_DEFV]                           = "";
+
+
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAM]                                       = "BAM File";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAM_LONG]                                  = "Input BAM File";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAM_DESC]                                  = "";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAM_SAMP]                                  = "";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAM_ONLY]                                  = "";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAM_DEFV]                                  = "";
+
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAI]                                       = "BAI File";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAI_LONG]                                  = "Ouput BAI File";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAI_DESC]                                  = "";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAI_SAMP]                                  = "";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAI_ONLY]                                  = "";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BAI_DEFV]                                  = "";
+
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_1]                               = "First Input File";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_1_LONG]                          = "First Input File";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_1_DESC]                          = "First Input File";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_1_SAMP]                          = "./data/file_1.fa";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_1_ONLY]                          = "";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_1_DEFV]                          = "";
+
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_2]                               = "Second Input File";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_2_LONG]                          = "Second Input File";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_2_DESC]                          = "Second Input File";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_2_SAMP]                          = "./data/file_2.fa";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_2_ONLY]                          = "";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_FILE_2_DEFV]                          = "";
+
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_OUTPUT]                               = "Output File Names";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_OUTPUT_LONG]                          = "Output File Names";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_OUTPUT_DESC]                          = "Output string vector with file names.";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_OUTPUT_SAMP]                          = "./data/file_1.fa,./data/file_2.fa";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_OUTPUT_ONLY]                          = "";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILEN_OUTPUT_DEFV]                          = "";
 
   
   strings_[ENGLISH_COL][CALC_CONCAT_STRINGS_1]                               = "First String";
@@ -1814,6 +1904,20 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_FASTA2TFASTA_BED_ONLY]                             = "";
   strings_[ENGLISH_COL][CALC_FASTA2TFASTA_BED_DEFV]                             = "";
   
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SAMPLES_ORDER]                        = "Samples Order";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SAMPLES_ORDER_LONG]                   = "Samples Order";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SAMPLES_ORDER_DESC]                   = "Number order of first sample, number 0 is the first sample] [second sample] ...etc.";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SAMPLES_ORDER_SAMP]                   = "21 0 1 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 2 3 20";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SAMPLES_ORDER_ONLY]                   = "";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SAMPLES_ORDER_DEFV]                   = "";
+
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_COMPRESS_OUT]                         = "Compress Output";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_COMPRESS_OUT_LONG]                    = "Compress Output";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_COMPRESS_OUT_DESC]                    = "";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_COMPRESS_OUT_SAMP]                    = "";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_COMPRESS_OUT_ONLY]                    = "";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_COMPRESS_OUT_DEFV]                    = "False";
+
   strings_[ENGLISH_COL][CALC_FASTA2TFASTA_OUTPUT]                               = "Transposed Fasta File";
   strings_[ENGLISH_COL][CALC_FASTA2TFASTA_OUTPUT_LONG]                          = "Output T-Fasta File";
   strings_[ENGLISH_COL][CALC_FASTA2TFASTA_OUTPUT_DESC]                          = "Output Transposed Fasta File";
@@ -1834,6 +1938,55 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_SNP_CALLER_MPILEUP_SAMP]                           = "./data/input.mpileup";
   strings_[ENGLISH_COL][CALC_SNP_CALLER_MPILEUP_ONLY]                           = "";
   strings_[ENGLISH_COL][CALC_SNP_CALLER_MPILEUP_DEFV]                           = "";
+
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_BASEQ]                                  = "baseq";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_BASEQ_LONG]                             = "Base Quality";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_BASEQ_DESC]                             = "Minimum base quality of reads. Reads below threshold are discarded.";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_BASEQ_SAMP]                             = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_BASEQ_ONLY]                             = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_BASEQ_DEFV]                             = "20";
+
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MINDEP]                                 = "mindep";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MINDEP_LONG]                            = "Minimum Reads";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MINDEP_DESC]                            = "Minimum number of reads. Sites below threshold are coded missing.";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MINDEP_SAMP]                            = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MINDEP_ONLY]                            = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MINDEP_DEFV]                            = "3";
+
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MAXDEP]                                 = "maxdep";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MAXDEP_LONG]                            = "Maximum Reads";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MAXDEP_DESC]                            = "Maximum number of reads. Sites above threshold are coded missing.";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MAXDEP_SAMP]                            = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MAXDEP_ONLY]                            = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MAXDEP_DEFV]                            = "100";
+
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MRD]                                    = "mrd";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MRD_LONG]                               = "Mean Read Depth";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MRD_DESC]                               = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MRD_SAMP]                               = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MRD_ONLY]                               = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_MRD_DEFV]                               = "";
+
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_PLATFORM]                               = "Platform";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_PLATFORM_LONG]                          = "Platform";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_PLATFORM_DESC]                          = "Offset to convert base qualities.";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_PLATFORM_SAMP]                          = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_PLATFORM_ONLY]                          = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_PLATFORM_DEFV]                          = "33";
+
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_OUTGROUP]                               = "Outgroup";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_OUTGROUP_LONG]                          = "Outgroup";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_OUTGROUP_DESC]                          = "Sequence file in fasta format to add to output alignment.";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_OUTGROUP_SAMP]                          = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_OUTGROUP_ONLY]                          = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_OUTGROUP_DEFV]                          = "none";
+
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_NAMES]                                  = "Names";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_NAMES_LONG]                             = "Names";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_NAMES_DESC]                             = "Comma-separated list of individuals' names, in same order as input.";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_NAMES_SAMP]                             = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_NAMES_ONLY]                             = "";
+  strings_[ENGLISH_COL][CALC_SNP_CALLER_NAMES_DEFV]                             = "";
 
   strings_[ENGLISH_COL][CALC_SNP_CALLER_FASTA]                                  = "Fasta File";
   strings_[ENGLISH_COL][CALC_SNP_CALLER_FASTA_LONG]                             = "Output Fasta File";
@@ -2719,6 +2872,19 @@ CStringTable::CStringTable() : IStringTable() {
     strings_[ENGLISH_COL][CCALCSPLIT_BAM_OUTPUT] = "BAM Files";
     strings_[ENGLISH_COL][CCALCSPLIT_BAM_OUTPUT_DESC] = "List of created BAM files with one chromosome per file.";
         
+
+    strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_FASTA]                               = "Fasta File";
+    strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_FASTA_DESC]                          = "";
+    strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_LEN]                                 = "Sequence Length";
+    strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_LEN_DESC]                            = "";
+
+    strings_[ENGLISH_COL][CALC_GET_MRD_BAM_FILES]                               = "BAM Files";
+    strings_[ENGLISH_COL][CALC_GET_MRD_BAM_FILES_DESC]                          = "";
+    strings_[ENGLISH_COL][CALC_GET_MRD_SEQ_LEN]                                 = "Sequence Length";
+    strings_[ENGLISH_COL][CALC_GET_MRD_SEQ_LEN_DESC]                            = "Fasta reference sequence length";
+    strings_[ENGLISH_COL][CALC_GET_MRD_MRD]                                     = "MRD";
+    strings_[ENGLISH_COL][CALC_GET_MRD_MRD_DESC]                                = "Mean Read Depth";
+
   IStringTable::FillOtherLanguages();
 }
 

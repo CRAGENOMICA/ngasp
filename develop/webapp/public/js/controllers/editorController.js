@@ -86,6 +86,11 @@ CRAG.controller('EditorController', function($scope,
     $scope.paint_page_borders = true;  // paints the page borders
     var OngoingExperimentsList = [];   // Enlist here your experiment id to be notified when the experiment is finished
 
+    $scope.DoApply = function() {
+        if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
+            $scope.$apply();
+        }
+    };
     // =========================================================================
     // CONTEXT MENU
     // =========================================================================
@@ -155,6 +160,17 @@ $scope.MenuType = "eo";
             }
           });
           menu.push(["Add Calculation >", function ($itemScope) {}, menu_items ]);
+
+
+          menu_items = [];
+          $scope.node_types.forEach(function(node_type) {
+            if (node_type.style == $scope.NodeStyle.COMMENT_NODE) {
+              var calc_name = node_type.id;
+              menu_items.push([calc_name, function ($itemScope) { $scope.AddNodeToThePage(node_type.id); }]);
+            }
+          });
+          menu.push(["Add Comment >", function ($itemScope) {}, menu_items ]);
+
 
           menu_items = [];
           $scope.node_types.forEach(function(node_type) {
@@ -242,13 +258,13 @@ $scope.MenuType = "eo";
 
 /*
 if(!$scope.$$phase) {
-  $scope.$apply();
+  $scope.DoApply();
 }
 */
-          //$scope.$apply();
+          //$scope.DoApply();
 //          var graph = document.getElementById("graph_" + node_id);
 //          if (graph != null) {
-//            $scope.$apply();
+//            $scope.DoApply();
 //          }
       }
     };
@@ -283,23 +299,33 @@ if(!$scope.$$phase) {
     };
 
     function GetCurrentDocumentZoom() {
-      if (($scope.DocsNavTabs.selected_tab.page.zoom.current == undefined) || ($scope.DocsNavTabs.selected_tab.page.zoom.current == null)) {
-        $scope.DocsNavTabs.selected_tab.page.zoom.previous = 100;
-        $scope.DocsNavTabs.selected_tab.page.zoom.current = 60;
+      var ret = 1;
+      if ($scope.DocsNavTabs.selected_tab != null) {
+          if (($scope.DocsNavTabs.selected_tab.page.zoom.current == undefined) || ($scope.DocsNavTabs.selected_tab.page.zoom.current == null)) {
+            $scope.DocsNavTabs.selected_tab.page.zoom.previous = 100;
+            $scope.DocsNavTabs.selected_tab.page.zoom.current = 60;
+          }
+          ret = $scope.DocsNavTabs.selected_tab.page.zoom.current * 1;
       }
-      return $scope.DocsNavTabs.selected_tab.page.zoom.current * 1;
+      return ret;
     };
 
     function GetPreviousDocumentZoom() {
-      if (($scope.DocsNavTabs.selected_tab.page.zoom.previous == undefined) || ($scope.DocsNavTabs.selected_tab.page.zoom.previous == null)) {
-        $scope.DocsNavTabs.selected_tab.page.zoom.previous = 100;
+      var ret = 1;
+      if ($scope.DocsNavTabs.selected_tab != null) {
+          if (($scope.DocsNavTabs.selected_tab.page.zoom.previous == undefined) || ($scope.DocsNavTabs.selected_tab.page.zoom.previous == null)) {
+            $scope.DocsNavTabs.selected_tab.page.zoom.previous = 100;
+          }
+          ret = $scope.DocsNavTabs.selected_tab.page.zoom.previous * 1;
       }
-      return $scope.DocsNavTabs.selected_tab.page.zoom.previous * 1;
+      return ret;
     };
 
     function SetCurrentDocumentZoom(value) {
-      $scope.DocsNavTabs.selected_tab.page.zoom.previous = GetCurrentDocumentZoom();
-      $scope.DocsNavTabs.selected_tab.page.zoom.current = Math.round(value,1) * 1;
+      if ($scope.DocsNavTabs.selected_tab != null) {
+          $scope.DocsNavTabs.selected_tab.page.zoom.previous = GetCurrentDocumentZoom();
+          $scope.DocsNavTabs.selected_tab.page.zoom.current = Math.round(value,1) * 1;
+      }
     };
 
 
@@ -528,7 +554,7 @@ if(!$scope.$$phase) {
       });
       AddNavTabs($scope.DocsNavTabs.next_id-1);
 
-      if ($scope.GetEditorType() == $scope.FileType.EXPERIMENT) {
+      //if ($scope.GetEditorType() == $scope.FileType.EXPERIMENT) {
         // Create the console tab        
         AddTab($scope.GetOutputsNavTabs(),
         {
@@ -536,7 +562,7 @@ if(!$scope.$$phase) {
           node:   null,
           output: null
         });
-      }
+      //}
 
       DrawScene();
     };
@@ -678,6 +704,8 @@ if(!$scope.$$phase) {
 
     // User selects an Experiment Tab
     $scope.OnTabPress = function(nav_tabs, id) {
+        SetNodeValueFromTextInput(true);
+
         SelectTab(nav_tabs, id);
         DrawScene();
 
@@ -840,6 +868,7 @@ if(!$scope.$$phase) {
         NodeTitle: "10pt robotobold",
         ConnectorName: "11pt robotoregular", /* pt otherwise GetWiderText does not work properly */
         NodeValue: "11pt robotoregular",
+        Comment: "italic 12pt arial",
         Default: "20pt robotobold",
         PageHeaderLabel: "14pt robotoregular",
         PageHeaderName:   "17pt robotobold",
@@ -859,6 +888,10 @@ if(!$scope.$$phase) {
         x: 3,
         y: 3
     }
+    $scope.paper = {
+        width: 3508,
+        height: 2480
+    };
 
     $scope.NodeStyle = { // Must be consecutive numbers (for accessing an array). They are defined in the CM, too. They must match!
         CALCULATION_NODE:     0,
@@ -867,7 +900,8 @@ if(!$scope.$$phase) {
         GRAPH_NODE:           3,
         DATA_NODE:            4,
         PIPELINE_NODE:        5,
-        NULL_CONNECTION:      6
+        NULL_CONNECTION:      6,
+        COMMENT_NODE:         7
     };
     $scope.mouse_x = 0;
     $scope.mouse_y = 0;
@@ -932,6 +966,14 @@ if(!$scope.$$phase) {
             outputs: [
             ],
         },*/
+        {
+            id: 'comment',
+            style: $scope.NodeStyle.COMMENT_NODE,
+            inputs: [
+            ],
+            outputs: [
+            ],
+        },
         {
             id: 'R Export',
             style: $scope.NodeStyle.GRAPH_NODE,
@@ -1003,6 +1045,7 @@ if(!$scope.$$phase) {
     $scope.IconImage = {
         ICON_INPUT:           $scope.NodeStyle.INPUT_NODE,
         ICON_CALCULATION:     $scope.NodeStyle.CALCULATION_NODE,
+        ICON_COMMENT:         $scope.NodeStyle.COMMENT_NODE,
         ICON_OUTPUT:          $scope.NodeStyle.OUTPUT_NODE,
         ICON_GRAPH:           $scope.NodeStyle.GRAPH_NODE,
         ICON_DATA:            $scope.NodeStyle.DATA_NODE,
@@ -1090,6 +1133,8 @@ console.log("** Init 1 Start **");
                      image: document.getElementById("loop") });
         images.push({id: $scope.IconImage.IMAGE_PIPELINE_LOOP_BLACK,
                      image: document.getElementById("loop_black") });
+        images.push({id: $scope.IconImage.ICON_COMMENT,
+                     image: document.getElementById("comment_icon") });
 
 try {
     var isFileSaverSupported = !!new Blob;
@@ -1120,7 +1165,9 @@ console.log("** Init 2 End **");
       $scope.canvas.height = window.innerHeight - 80;
 
       // Previous lines restores the original size of the painting. So, the previous zoom must be set to 100%.
-      $scope.DocsNavTabs.selected_tab.page.zoom.previous = 100;
+      if ($scope.DocsNavTabs.selected_tab != null) {
+          $scope.DocsNavTabs.selected_tab.page.zoom.previous = 100;
+      }
 
       $scope.DoZoom(); // DrawScene is called.
     };
@@ -1358,7 +1405,9 @@ console.log("** GetCommandsList() Error **");
           } 
 
           // This document is not modified yet, so "saved" is true.
-          $scope.DocsNavTabs.selected_tab.saved = true;
+          if ($scope.DocsNavTabs.selected_tab != null) {
+              $scope.DocsNavTabs.selected_tab.saved = true;
+          }
 
           // LoadPipeline('pipeline_gccontent');
           // LoadExperiment('GC Content');
@@ -1404,7 +1453,9 @@ console.log("** GetCommandsList() Error **");
           } 
 
           // This document is not modified yet, so "saved" is true.
-          $scope.DocsNavTabs.selected_tab.saved = true;
+          if ($scope.DocsNavTabs.selected_tab != null) {
+            $scope.DocsNavTabs.selected_tab.saved = true;
+          }
 
           // LoadPipeline('pipeline_gccontent');
           // LoadExperiment('GC Content');
@@ -2225,7 +2276,7 @@ console.log("** GetCommandsList() Error **");
             if (labeled_connector_names) {
                 var lineWidth = 1;
                 $scope.ctx.font = fonts.ConnectorName; //style.CONNECTOR_TEXT_WIDTH + " 13px Roboto";
-                var text_width = $scope.ctx.measureText(connectors[i].name).width + 35;
+                //var text_width = $scope.ctx.measureText(connectors[i].name).width + 35;
 
 
                 if (side=='left') { 
@@ -2273,7 +2324,7 @@ console.log("** GetCommandsList() Error **");
                     break;
             };
           
-            if ((i != 0) && (connectors[i].group != connectors[i-1].group)) {
+            if ((i != 0) && (connectors[i] != undefined) && (connectors[i-1] != undefined) && (connectors[i].group != connectors[i-1].group)) {
 /*
 (ctx, strokeStyle, lineWidth, shadow,
                       x1, y1, x2, y2, adjust)
@@ -2286,7 +2337,7 @@ console.log("** GetCommandsList() Error **");
             }
 
 
-            if (connectors[i].name != 'Foreach') {
+            if ((connectors[i] != undefined) && (connectors[i].name != 'Foreach')) {
                 DrawText(ctx, fonts.ConnectorName, //style.CONNECTOR_TEXT_WIDTH + " 13px Roboto",
                          style.CONNECTOR_TEXT_COLOR,
                          style.CONNECTOR_TEXT_SHADOW_COLOR,
@@ -2301,13 +2352,15 @@ console.log("** GetCommandsList() Error **");
         DrawText(ctx, fonts.NodeTitle, 'black', null, label, x, y + 4, "center");            
     };
 
-    function DrawNodeLogo(ctx, node, style, x, y) {
+    function DrawNodeLogo(ctx, node, style, x, y, draw_background_circle) {
         if ($scope.debug_mode == false) {
-            ctx.drawImage(arrays.FindArrayElementById(images, $scope.IconImage.ICON_BACKGROUND).image, x, y, 29, 28);
+            if (draw_background_circle) {
+                ctx.drawImage(arrays.FindArrayElementById(images, $scope.IconImage.ICON_BACKGROUND).image, x, y, 29, 28);
+            }
             ctx.drawImage(arrays.FindArrayElementById(images, node.temp.type_obj.style).image, x, y, 29, 28);
         } else {
             //DrawDebugLabel(ctx, (node.temp.execution_order==null)?'?':(node.temp.execution_order + 1), x + 37, y + 14, 'yellow');
-            DrawDebugLabel(ctx, "#" + node.id, x + 15, y + 14, 'cyan');
+            DrawDebugLabel(ctx, node.id, x + 14, y + 14, 'white');
         }
     };
 
@@ -2365,7 +2418,7 @@ console.log("** GetCommandsList() Error **");
                       style.TITLE_BACKGROUND_COLOR, null, 'rectangle');
             DrawNodeLogo(ctx, node, style,
                          node.position.left+4, 
-                         node.position.top + (node.temp.height/2) + style.NODE_TITLE_HEIGHT - 29/2);
+                         node.position.top + (node.temp.height/2) + style.NODE_TITLE_HEIGHT - 29/2, true);
             DrawNodeConnectors(ctx, node, style, 'left', node.temp.type_obj.inputs,
                              node.temp.inputs_areas, node.temp.focused_input, 15, false);
             DrawNodeConnectors(ctx, node, style, 'right',node.temp.type_obj.outputs,
@@ -2394,7 +2447,7 @@ console.log("** GetCommandsList() Error **");
         DrawTitle(ctx, node, style);
         DrawNodeLogo(ctx, node, style,
                      node.position.left + node.temp.width - 29,
-                     node.position.top+1);
+                     node.position.top+1, true);
         DrawNodeConnectors(ctx, node, style, 'left', node.temp.type_obj.inputs,
                          node.temp.inputs_areas, node.temp.focused_input, 15, false);
         DrawNodeConnectors(ctx, node, style, 'right',node.temp.type_obj.outputs,
@@ -2427,7 +2480,7 @@ console.log("** GetCommandsList() Error **");
                   style.TITLE_BACKGROUND_COLOR, null);
         DrawNodeLogo(ctx, node, style,
                      node.position.left + node.temp.width - 29 + 3 - 5,
-                     node.position.top + (node.temp.height/2) + style.NODE_TITLE_HEIGHT - 29/2);
+                     node.position.top + (node.temp.height/2) + style.NODE_TITLE_HEIGHT - 29/2, true);
         DrawNodeConnectors(ctx, node, style, 'left', node.temp.type_obj.inputs,
                          node.temp.inputs_areas, node.temp.focused_input, 15, false);
         DrawNodeConnectors(ctx, node, style, 'right',node.temp.type_obj.outputs,
@@ -2468,7 +2521,7 @@ console.log("** GetCommandsList() Error **");
             y += 3;
             ctx.drawImage(arrays.FindArrayElementById(images, $scope.IconImage.IMAGE_PIPELINE_LOOP).image, x, y, 26, 20); 
         } else {
-            DrawNodeLogo(ctx, node, style, x, y);
+            DrawNodeLogo(ctx, node, style, x, y, true);
         }
 
 
@@ -2481,6 +2534,48 @@ console.log("** GetCommandsList() Error **");
         DrawNodeConnectors(ctx, node, style, 'right',node.temp.type_obj.outputs,
                          node.temp.outputs_areas, node.temp.focused_output,-15, false);
         DrawNodeValue(ctx, node, style);
+    };
+
+    function DrawCommentNode(ctx, node, style) {
+        var lineWidth = 1;
+        var border_color = (node.selected)?style.NODE_SELECTED_BORDER_COLOR:style.NODE_BORDER_COLOR;
+
+
+        var rectType = 'rectangle';
+        if ((node.type.toUpperCase()).indexOf("FILE") != -1) {
+            rectType = 'file';
+        }
+
+        DrawRect(ctx, node.position.left, node.position.top,
+                  node.temp.width, node.temp.height,
+                  lineWidth, border_color, style.NODE_BOX_CORNER_RADIUS,
+                  ((node.enabled)?style.NODE_BACKGROUND_COLOR:style.NODE_DISABLED_COLOR), 'black', rectType);
+
+        // Selection:
+        if ($scope.node_selected == node) {
+            DrawRect(ctx, node.position.left, node.position.top,
+                      node.temp.width, node.temp.height,
+                      2, style.NODE_SELECTED_BORDER_COLOR, style.NODE_BOX_CORNER_RADIUS,
+                      null, null, rectType);
+        }
+
+
+//        DrawTitle(ctx, node, style);
+
+        var x = node.position.left + node.temp.width / 2 - 48/2;
+        var y = node.position.top - 10;
+//        DrawNodeLogo(ctx, node, style, x, y, false);
+        ctx.drawImage(arrays.FindArrayElementById(images, node.temp.type_obj.style).image, x, y, 48, 48);
+
+
+        //DrawNodeValue(ctx, node, style);
+        var value = node.value;
+        DrawText(ctx, fonts.Comment, // "400 13px Roboto", 
+                'green', null, value, 
+                 node.position.left + (node.temp.width/2),
+                 node.position.top + 25 + style.NODE_TITLE_HEIGHT + 4, "center");
+
+
     };
 
     function DrawNullConnection(ctx, node, style) {
@@ -2567,7 +2662,7 @@ console.log("** GetCommandsList() Error **");
         DrawTitle(ctx, node, style);
         DrawNodeLogo(ctx, node, style,
                      node.position.left + node.temp.width - 29,
-                     node.position.top+1);
+                     node.position.top+1, true);
         DrawNodeImage(ctx, node, style,
                       node_background_image,
                       image_pos_x,
@@ -2619,7 +2714,7 @@ console.log("** GetCommandsList() Error **");
         DrawTitle(ctx, node, style);
         DrawNodeLogo(ctx, node, style,
                      node.position.left + node.temp.width - 29,
-                     node.position.top+1);
+                     node.position.top+1, true);
         DrawNodeConnectors(ctx, node, style, 'left', node.temp.type_obj.inputs,
                          node.temp.inputs_areas, node.temp.focused_input, 15, true);
         DrawNodeConnectors(ctx, node, style, 'right',node.temp.type_obj.outputs,
@@ -2651,6 +2746,9 @@ console.log("** GetCommandsList() Error **");
                 break;
             case $scope.NodeStyle.PIPELINE_NODE:
                 DrawPipelineNode(ctx, node, style);
+                break;
+            case $scope.NodeStyle.COMMENT_NODE:
+                DrawCommentNode(ctx, node, style);
                 break;
         };
     };
@@ -3404,6 +3502,27 @@ console.log("** GetCommandsList() Error **");
                     FRAMEWORK_COLOR: '#6f845f',
                     NODE_DISABLED_COLOR: '#eee',
                 },
+                {   // COMMENT_NODE
+                    NODE_TITLE_HEIGHT: 30,
+                    MIN_NODE_WIDTH: 280,
+                    MIN_NODE_HEIGHT: 100,
+                    NODE_BACKGROUND_COLOR: '#ffeeaa',
+                    NODE_BOX_CORNER_RADIUS: 0,
+                    CONNECTOR_HEIGHT: 16,
+                    CONNECTOR_WIDTH: 16,
+                    DISTANCE_BETWEEN_CONNECTORS: 5,
+                    NODE_BORDER_COLOR: '#6f845f',
+                    NODE_SELECTED_BORDER_COLOR: '#99d651',
+                    TITLE_BACKGROUND_COLOR: '#445f2e',
+                    TITLE_TEXT_COLOR: '#fff',
+                    CONNECTOR_TEXT_COLOR: '#445f2e',
+                    CONNECTOR_TEXT_WIDTH: '400',
+                    CONNECTOR_TEXT_SHADOW_COLOR: null,
+                    CONNECTOR_OPEN_COLOR: 'white',
+                    CONNECTOR_CLOSED_COLOR: '#f9a01c',
+                    FRAMEWORK_COLOR: '#6f845f',
+                    NODE_DISABLED_COLOR: '#eee',
+                },
             ],
         },
         // Modern
@@ -3572,6 +3691,27 @@ console.log("** GetCommandsList() Error **");
                     NODE_BOX_CORNER_RADIUS: 0,
                     CONNECTOR_HEIGHT: 0,
                     CONNECTOR_WIDTH: 0,
+                    DISTANCE_BETWEEN_CONNECTORS: 5,
+                    NODE_BORDER_COLOR: '#888',
+                    NODE_SELECTED_BORDER_COLOR: '#4285f4',
+                    TITLE_BACKGROUND_COLOR: '#4285f4',
+                    TITLE_TEXT_COLOR: 'white',
+                    CONNECTOR_TEXT_COLOR: 'black',
+                    CONNECTOR_TEXT_WIDTH: '400',
+                    CONNECTOR_TEXT_SHADOW_COLOR: null,
+                    CONNECTOR_OPEN_COLOR: 'white',
+                    CONNECTOR_CLOSED_COLOR: '#f9a01c',
+                    FRAMEWORK_COLOR: 'white',
+                    NODE_DISABLED_COLOR: '#ddd',
+                },
+                {   // COMMENT_NODE
+                    NODE_TITLE_HEIGHT: 30,
+                    MIN_NODE_WIDTH: 180,
+                    MIN_NODE_HEIGHT: 50,
+                    NODE_BACKGROUND_COLOR: '#ddd',
+                    NODE_BOX_CORNER_RADIUS: 0,
+                    CONNECTOR_HEIGHT: 16,
+                    CONNECTOR_WIDTH: 16,
                     DISTANCE_BETWEEN_CONNECTORS: 5,
                     NODE_BORDER_COLOR: '#888',
                     NODE_SELECTED_BORDER_COLOR: '#4285f4',
@@ -3766,6 +3906,27 @@ console.log("** GetCommandsList() Error **");
                     FRAMEWORK_COLOR: '#222',
                     NODE_DISABLED_COLOR: '#ddd',
                 },
+                {   // COMMENT_NODE
+                    NODE_TITLE_HEIGHT: 30,
+                    MIN_NODE_WIDTH: 180,
+                    MIN_NODE_HEIGHT: 50,
+                    NODE_BACKGROUND_COLOR: 'rgba(255,255,255,0.2)',
+                    NODE_BOX_CORNER_RADIUS: 15,
+                    CONNECTOR_HEIGHT: 16,
+                    CONNECTOR_WIDTH: 16,
+                    DISTANCE_BETWEEN_CONNECTORS: 5,
+                    NODE_BORDER_COLOR: 'black',
+                    NODE_SELECTED_BORDER_COLOR: 'orange',
+                    TITLE_BACKGROUND_COLOR: '#222',
+                    TITLE_TEXT_COLOR: '#aaa',
+                    CONNECTOR_TEXT_COLOR: 'black',
+                    CONNECTOR_TEXT_WIDTH: '400',
+                    CONNECTOR_TEXT_SHADOW_COLOR: null, //'#8e8e8e',
+                    CONNECTOR_OPEN_COLOR: '#999',
+                    CONNECTOR_CLOSED_COLOR: '#f9a01c',
+                    FRAMEWORK_COLOR: '#222',
+                    NODE_DISABLED_COLOR: '#ddd',
+                },
             ],
         },
     ];
@@ -3871,6 +4032,7 @@ console.log("** GetCommandsList() Error **");
             case $scope.NodeStyle.DATA_NODE:
             case $scope.NodeStyle.NULL_CONNECTION:
             case $scope.NodeStyle.GRAPH_NODE:
+            case $scope.NodeStyle.COMMENT_NODE:
                 follow_previous_items = false;
                 num_connectors = (node.temp.type_obj.inputs.length > node.temp.type_obj.outputs.length)?node.temp.type_obj.inputs.length:node.temp.type_obj.outputs.length;
                 break;
@@ -3908,6 +4070,13 @@ console.log("** GetCommandsList() Error **");
                 y = initial_position_y + (i * distance_between_connectors);
             }
 
+            var required = false;
+            if ((node.temp.type_obj != null) && (node.temp.type_obj.outputs.length > 0)) {
+                if (node.temp.type_obj.outputs[i] != undefined) {
+                    required = (node.temp.type_obj.outputs[i].required == "1");
+                }
+            }
+
             node.temp.outputs_areas.push({
                                             left: x-(style.CONNECTOR_HEIGHT/2),
                                             top:  y-(style.CONNECTOR_HEIGHT/2),
@@ -3916,7 +4085,7 @@ console.log("** GetCommandsList() Error **");
                                             x: x,
                                             y: y,
                                             id: node.outputs[i].id,
-                                            required: (node.temp.type_obj.outputs[i].required == "1")
+                                            required: required
             });
         }
     };
@@ -3956,7 +4125,7 @@ console.log("** GetCommandsList() Error **");
             }
             input.value = "";
             $scope.input_visible = false;
-            $scope.$apply();
+            $scope.DoApply();
             node_selected_for_write = null;
             DrawScene();
         }
@@ -4018,7 +4187,7 @@ console.log("** GetCommandsList() Error **");
 
         $scope.input_visible = true;
         input.value = node.value;
-        $scope.$apply();
+        $scope.DoApply();
         node_selected_for_write = node;
         input.focus();
     };
@@ -4057,7 +4226,7 @@ console.log("** GetCommandsList() Error **");
         }
 
         // DrawScene();
-        $scope.$apply(); // Update the value. Then, a watch(.zoom) calls the DrawScene
+        $scope.DoApply(); // Update the value. Then, a watch(.zoom) calls the DrawScene
 //        $scope.DoZoom();
     };
 
@@ -4074,7 +4243,7 @@ console.log("** GetCommandsList() Error **");
         }
 
 //        DrawScene();
-        $scope.$apply(); // Update the value. Then, a watch(.zoom) calls the DrawScene
+        $scope.DoApply(); // Update the value. Then, a watch(.zoom) calls the DrawScene
 //        $scope.DoZoom();
     };
 
@@ -4125,16 +4294,18 @@ console.log("** GetCommandsList() Error **");
         $scope.mouse_y /= (GetCurrentDocumentZoom() / 100);
 
         //Apply the canvas tranlation to the mouse coordinates:
-        $scope.mouse_x += $scope.DocsNavTabs.selected_tab.page.CanvasPosition.x;
-        $scope.mouse_y += $scope.DocsNavTabs.selected_tab.page.CanvasPosition.y;
+        if($scope.DocsNavTabs.selected_tab != null) {
+            $scope.mouse_x += $scope.DocsNavTabs.selected_tab.page.CanvasPosition.x;
+            $scope.mouse_y += $scope.DocsNavTabs.selected_tab.page.CanvasPosition.y;
+        }
 
         if ($scope.debug_mode == true) {
-            $scope.$apply();
+            $scope.DoApply();
             apply_again = true;
         } else {
             if (apply_again == true) {
                 apply_again = false;
-                $scope.$apply();
+                $scope.DoApply();
             }
         }
     };
@@ -4149,7 +4320,7 @@ console.log("** GetCommandsList() Error **");
       } else {
         SelectTab($scope.DocsNavTabs, pipeline_tab_id);
         DrawScene();
-        $scope.$apply();
+        $scope.DoApply();
       }
 
       $scope.DoZoom(); // This function does the zoom but it also ensures that the canvas position is in its place.
@@ -4175,7 +4346,7 @@ console.log("** GetCommandsList() Error **");
                 if ((node.selected == true) &&
                     (node.temp.type_obj.style == $scope.NodeStyle.GRAPH_NODE)) {
                   $scope.OnNodeGraphSelected(node.id);
-                  $scope.$apply();
+                  $scope.DoApply();
                 }
               */              
 
@@ -4196,7 +4367,7 @@ console.log("** GetCommandsList() Error **");
                     CreateNode(2, 'input', 200, 475, 'vector', [{"id":0,"to":[{"node_id":0,"input_id":0},{"node_id":1,"input_id":0}]}]);
                     GetCurrentDocument().properties..name = "gc_content_pipeline";
 
-                    $scope.$apply();
+                    $scope.DoApply();
 
                     SetNodesTheme();
                     DrawScene();
@@ -4206,7 +4377,8 @@ console.log("** GetCommandsList() Error **");
                 if ((node.selected == true) &&
                     ((node.temp.type_obj.style == $scope.NodeStyle.DATA_NODE) ||
                      (node.temp.type_obj.style == $scope.NodeStyle.INPUT_NODE) ||
-                     (node.temp.type_obj.style == $scope.NodeStyle.OUTPUT_NODE)
+                     (node.temp.type_obj.style == $scope.NodeStyle.OUTPUT_NODE) ||
+                     (node.temp.type_obj.style == $scope.NodeStyle.COMMENT_NODE)
                     )) {
                     switch(node.type) {
                         case 'bool':
@@ -4241,7 +4413,7 @@ console.log("** GetCommandsList() Error **");
               // context menu items does not refresh their ng-if (ng-disabled, ...)
               // contition unless the scope is applied here on mouse down:
               // ===================
-              $scope.$apply();
+              $scope.DoApply();
               // ===================
 
               return;
@@ -4269,7 +4441,7 @@ console.log("** GetCommandsList() Error **");
 
                           // Document is being modified for joining connectos:
                           $scope.DocsNavTabs.selected_tab.saved = false;
-                          $scope.$apply();
+                          $scope.DoApply();
 
                           var direction = (node.temp.focused_input != null)?'input':'output';
                           var focused_connector = (node.temp.focused_input != null)?node.temp.focused_input:node.temp.focused_output;
@@ -4327,7 +4499,7 @@ console.log("** GetCommandsList() Error **");
 
                               // Document is being modified for joining connectos:
                               $scope.DocsNavTabs.selected_tab.saved = false;
-                              $scope.$apply();
+                              $scope.DoApply();
 
                               /*
                               // Pipelines and Calculations Outputs can only have one connection per output
@@ -4539,7 +4711,7 @@ console.log("** GetCommandsList() Error **");
 
             // Document is being modified for enabling / disabling nodes:
             $scope.DocsNavTabs.selected_tab.saved = false;
-            $scope.$apply();
+            $scope.DoApply();
 /*
             for (var i = 0; i < GetCurrentDocumentNodes().length; i++) {
                 if ((GetCurrentDocumentNodes()[i].selected == true) &&
@@ -4619,7 +4791,7 @@ console.log("** GetCommandsList() Error **");
             if (node_dragged) {
               // Document is being modified for moving nodes:
               $scope.DocsNavTabs.selected_tab.saved = false;
-              $scope.$apply();
+              $scope.DoApply();
             }
 
             dragging_id = null;
@@ -5466,7 +5638,7 @@ console.log("** GetCommandsList() Error **");
         switch(nav_tabs.selected_tab.data.node.temp.type_obj.id) {
           case 'console':
             $scope.console = nav_tabs.selected_tab.data.node.value;
-            //$scope.$apply();
+            //$scope.DoApply();
             break;
           case 'chart':
             $scope.AngularChartData = nav_tabs.selected_tab.data.node.value.data;
@@ -5499,7 +5671,7 @@ console.log("** GetCommandsList() Error **");
                 }
             };
             $scope.NVD3Data = nav_tabs.selected_tab.data.node.value;
-            //$scope.$apply();
+            //$scope.DoApply();
             break;
           case 'boxplot':
             $scope.NVD3Options = {
@@ -5520,7 +5692,7 @@ console.log("** GetCommandsList() Error **");
               }
             };
             $scope.NVD3Data = nav_tabs.selected_tab.data.node.value;
-            //$scope.$apply();
+            //$scope.DoApply();
             break;
         }
 */
@@ -5617,7 +5789,9 @@ console.log("** GetCommandsList() Error **");
                 connected_node_type = arrays.FindArrayElementById($scope.node_types,
                                                                   connected_node.type);
                 connected_connector = connected_node_type.inputs[node.outputs[0].to[0].input_id];
-                the_input_type = connected_connector.type;
+                if (connected_connector != undefined) {
+                    the_input_type = connected_connector.type;
+                }
               }
           }
 
@@ -6149,10 +6323,13 @@ console.log("** GetCommandsList() Error **");
       last_experiment_log = experiment_parts[experiment_parts.length - 1];
     }
 
-    var node_pos = 0;
-    do {
-      node_pos = last_experiment_log.indexOf("<br />node|", node_pos + 1);
+    // Before, the node can started with this string: "<br />node|"
+    // But now, it starts with "<br />&nbsp;node|" or "<br />&nbsp;&nbsp;node|" or ...
 
+    var node_pos = 0;
+    var find_start_node = "&nbsp;node|";
+    do {
+      node_pos = last_experiment_log.indexOf(find_start_node, node_pos + 1);
       if (node_pos != -1) {
 
         var beautiful_var_name = "";
@@ -6171,7 +6348,7 @@ console.log("** GetCommandsList() Error **");
 
             // line = "<br />node|4|boxplot|0|beautiful name|param name|{"id":"s","type":"string","value":"Example 1"}"
 
-            line = ReplaceAll(line, "<br />node", "");
+            line = ReplaceAll(line, find_start_node, "");
             line = line.substr(line.indexOf("|") + 1);
 
             // line = "4|boxplot|0|beautiful name|param name|{"id":"s","type":"string","value":"Example 1"}"

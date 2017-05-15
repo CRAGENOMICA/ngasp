@@ -183,6 +183,15 @@ void CCMDSocket::Run() {
   std::thread *t_ensure_enrollment = NULL;
   std::thread *t_check_experiments_status = NULL;
 
+
+    // All these events can be done one after the other because their execution is very fast.
+    // But, the execution of a "RUN" could spend a lot of time and it could block all the other events.
+    // So, the "RUN" event will be executed in a separated thread. This thread will execute commands 
+    // one after the other but only commands and all other events will be executed here.
+
+    std::thread *t_run_commands = NULL;
+
+
   do_work_ = true;
 
   while(do_work_ == true) {
@@ -196,12 +205,12 @@ void CCMDSocket::Run() {
         cout_lm("The Central Manager accepts my friendship. My lm_key is '" + lm_id_ + "'.");
         t_ensure_enrollment = new std::thread(&CCMDSocket::EnsureEnrollment, this);
         t_check_experiments_status = new std::thread(&CCMDSocket::CheckAllExperimentsStatus, this);
+        t_run_commands = new std::thread(&CCMDSocket::RunCommandsThread, this);
       }
       else {
         if (JSONmessage.command() == "RUN") {
-          executing_socket_command_ = true;
-          ExecuteCommand(&JSONmessage);
-          executing_socket_command_ = false;
+            cout_lm("New RUN command added to the list.");
+            run_commands_list_.push_back(received); // enlist the command into this list for another thread that is dedicated only to execute commands of "RUN" type.
         }
         else {
           if (JSONmessage.command() == "GET_EXPERIMENT_RESULT") {
@@ -275,9 +284,30 @@ void CCMDSocket::Run() {
   // Wait threads to be closed:
   t_ensure_enrollment->join();
   t_check_experiments_status->join();
+  t_run_commands->join();
 
   delete t_ensure_enrollment;
   delete t_check_experiments_status;
+  delete t_run_commands;
+}
+
+void CCMDSocket::RunCommandsThread(void) {
+
+  while(do_work_ == true) {
+    if (run_commands_list_.size() > 0) {
+        executing_socket_command_ = true;
+
+        cout_lm("Executing RUN command from the list.");
+
+        std::string received;
+        received = run_commands_list_.front();
+        CJSONDataFromCM JSONmessage(received);
+        run_commands_list_.pop_front();
+
+        ExecuteCommand(&JSONmessage);
+        executing_socket_command_ = false;
+    }
+  }
 }
 
 void CCMDSocket::RemoveExperimentsList(void) {
@@ -302,6 +332,11 @@ void CCMDSocket::RemoveExperimentsList(void) {
   experiments_list_.clear();
 }
 
+void CCMDSocket::RemoveCommandsList(void) {
+  // Delete all list elements: (they are not pointers. So, I am not using "delete")
+  run_commands_list_.clear();
+}
+
 void CCMDSocket::Finalize() {
   /// Clean the command to reuse it later:
   ip_ = "127.0.0.1";
@@ -311,6 +346,7 @@ void CCMDSocket::Finalize() {
   address = "";
 
   RemoveExperimentsList();
+  RemoveCommandsList();
   
   DM_DEL_ALL_LOCAL_DATA
 }
@@ -557,7 +593,7 @@ void CCMDSocket::CloseTheExperimentBinary(CJSONDataFromCM *JSONmessage) {
   
   SendMsgToCMNetSocket(JSONmessage->lm_id(), JSONmessage->response_id(), JSONmessage->command(), JSONmessage->experiment_id(), JSONmessage->cmd(), result);
 }
-                          
+                           
 
 void CCMDSocket::GetOwnStatus(CJSONDataFromCM *JSONmessage) {
   cout_lm("My status is OK.");
@@ -568,28 +604,30 @@ void CCMDSocket::GetOwnStatus(CJSONDataFromCM *JSONmessage) {
 void CCMDSocket::GetExperimentResult(CJSONDataFromCM *JSONmessage) {
   cout_lm("I am going return the experiment result for: '" + std::to_string(JSONmessage->experiment_id()) + "'.");
 
+
   // Find the experiment
   CExperimentNode *experiment = FindExperimentById(JSONmessage->experiment_id());
 
+    /*
   std::string result_save;
   if (experiment != NULL) {
     std::string bin_command = "SAVE_COUT_FILE";
     bin_command += STR(COMMAND_SEPARATOR);
 
-
     cout_lm("I am going to request the experiment to save the current output. '" + bin_command + "'.");
     experiment->pipe_manager()->SendPipeMessageToExperiment(bin_command);
+
     result_save = experiment->pipe_manager()->WaitMessageFromExperiment();
   }
   else {
     // The experiment can be closed. It is Ok.
   }
+  */
 
   std::string output_file_name = STR(TEMP_FOLDER);
   output_file_name += STR(PRE_OUTPUT_NAME);
   output_file_name += CStringTools::ToString(JSONmessage->experiment_id());
   output_file_name += STR(OUTPUT_EXTENSION);
-
   
   std::string buffer;
   if (CFile::ReadAll(output_file_name, buffer)) {
@@ -890,12 +928,14 @@ void CCMDSocket::GetDataManagerVariables(CJSONDataFromCM *JSONmessage) {
 }
 
 void CCMDSocket::cout_lm(std::string m) {
-/*    CStringTools::Replace(m, "\n", "<br />");
-     std::chrono::milliseconds ms = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+    CStringTools::Replace(m, "\n", "<br />");
+    std::chrono::milliseconds ms = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
     std::cout << ms.count() << " LM " << m << std::endl;
- */ 
 }
 
 
 // ...
+
+
+
 

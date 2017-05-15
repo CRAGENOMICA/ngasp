@@ -49,6 +49,7 @@
 #include "../../data_manager/Data/CDataGTF.h"
 #include "../../data_manager/Data/CDataBed.h"
 #include "../../data_manager/Data/CDataBoolean.h"
+#include "../../data_manager/Data/CDataStdString.h"
 
 class CCalcFasta2TFasta : public ICalculation {
  private:
@@ -56,6 +57,9 @@ class CCalcFasta2TFasta : public ICalculation {
   CDataFasta *fasta_file;
   CDataGTF *gtf_annotation_file;
   CDataBed *bed_masking_file;
+  CDataStdString *samples_order;
+  CDataBoolean *compress_output;
+
   CDataBoolean *keep_intermediate_results;
             
   // Outputs

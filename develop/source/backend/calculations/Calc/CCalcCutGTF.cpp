@@ -46,7 +46,7 @@ CCalcCutGTF::CCalcCutGTF()
                KeyString::MSTATSPOP_COPYRIGHT,
                KeyString::GENERIC_CITATIONS,
                KeyString::UNDEFINED_STRING) {
-/*
+
   BEGIN_CALCULATION_INTERFACE_DEFINITION
     SET_INPUT_INFO(input_gtf_file_,                                             // Variable
                    UNDEFINED_STRING,                                            // Group
@@ -108,14 +108,14 @@ CCalcCutGTF::CCalcCutGTF()
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_mandatory)                                            // Required
   END_CALCULATION_INTERFACE_DEFINITION
-*/
+
 }
 
 CCalcCutGTF::~CCalcCutGTF() {
 }
 
 void CCalcCutGTF::Prepare(void) {
-/*  DM_GET_INPUTS
+  DM_GET_INPUTS
     DM_INPUT(input_gtf_file_)
     DM_INPUT(selection_)
     DM_INPUT(input_sorted_)
@@ -124,6 +124,12 @@ void CCalcCutGTF::Prepare(void) {
     DM_OUTPUT(output_gtf_file_)
   DM_END
   
+  // Output File Name Example:
+  // Input_file     : a.gtf
+  // Chrom selected : chr01
+  // Output file    : a.chr01.gtf
+  output_gtf_file_->set_value(CFile::GetPathFileNameWithoutExtension(input_gtf_file_->value()) + "." + selection_->value() + "." + CFile::GetExtensionFromFileName(input_gtf_file_->value()));
+
   if (keep_intermediate_results->value()) {
     DM_ITERATION_NUMBER(iteration_number)
     DM_ITERATION_VALUE(iteration_value)
@@ -131,7 +137,6 @@ void CCalcCutGTF::Prepare(void) {
                             iteration_number->value(),
                             iteration_value->value()));
   }  
-  */
 }
 
 /**
@@ -141,16 +146,17 @@ void CCalcCutGTF::Calculate(bool dry_run) {
     if (dry_run == true) {
         return;
     }
-/*
+
     std::ifstream file(input_gtf_file_->value());
 
     if (file.is_open()) {
+        std::streampos last_position = 0;
+
         if(input_sorted_->value() == true) {
             // ==================================================================================
             // Move to the last stored position
             // ==================================================================================
             CFile::MoveToLastAccessedPosition(input_gtf_file_->value(), file);
-            std::streampos last_position = 0;
             // ==================================================================================
         }
         
@@ -176,18 +182,22 @@ void CCalcCutGTF::Calculate(bool dry_run) {
                 }
             }
 
-            // =================================================================================
-            // Update the last position
-            // =================================================================================
-            last_position = file.tellg();
-            // =================================================================================
+            if(input_sorted_->value() == true) {
+                // =================================================================================
+                // Update the last position
+                // =================================================================================
+                last_position = file.tellg();
+                // =================================================================================
+            }
         }
 
-        // ==================================================================================
-        // Store the last position
-        // ==================================================================================
-        CFile::StoreLastAccessedPosition(input_gtf_file_->value(), file, (selection_found) ? last_position : file.end);
-        // ==================================================================================
+        if(input_sorted_->value() == true) {
+            // ==================================================================================
+            // Store the last position
+            // ==================================================================================
+            CFile::StoreLastAccessedPosition(input_gtf_file_->value(), file, (selection_found) ? last_position : file.end);
+            // ==================================================================================
+        }
 
         CFile::ReplaceContentBy(output_gtf_file_->value(), output_gtf_file_buffer);
     } else {
@@ -195,7 +205,6 @@ void CCalcCutGTF::Calculate(bool dry_run) {
                 << "Failed to open file ' " << input_gtf_file_->value() << "'..." << EOL
                 END_MSG;
     }
-*/
 }
 
 void CCalcCutGTF::Finalize(void) {

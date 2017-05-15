@@ -50,6 +50,7 @@ class CCMDConstant : public ICommand {
  private:
   std::string constant_name_;
   std::string translate_by_;
+  bool list_constants_;
 };
 
 #endif  // BACKEND_SRC_COMMANDS_CMD_CCMDCONSTANT_H_

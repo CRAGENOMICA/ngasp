@@ -159,7 +159,7 @@ void CCalcMatrix2Vector::Calculate(bool dry_run) {
     }
     else {
         size_t start = 0;
-        if (remove_index_->value()) {
+        if (remove_index_->value() == 1) {
             start = 1; // discard the first column or the first row
         }
         

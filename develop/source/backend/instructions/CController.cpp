@@ -564,10 +564,14 @@ bool CController::GetInstructionFromPipe(void) {
       dm_vars_json += "]}";
       named_pipe_.SendPipeMessageToLocalManager(dm_vars_json);
     } else {
-    if (command == "SAVE_COUT_FILE") {
+    // Before, the log file was save by demand with this event "SAVE_COUT_FILE".
+    // Now, the log file is saved before and after every command is executed.
+    // So, the LM can access the log file without requesting it to the BIN.
+    // Because the BIN is busy running one command from one pipe
+    /*if (command == "SAVE_COUT_FILE") {
       manager()->logger()->WriteFile();
       named_pipe_.SendPipeMessageToLocalManager("OK");
-    } else {
+    } else {*/
     if (command == "CLEAN_EXPERIMENT_RESULT") {
       // std::cout << "----- Unlink = " << manager()->logger()->cout_file_name().c_str() << std::endl;
       unlink(manager()->logger()->output_descriptors_.top()->name_.c_str());
@@ -597,7 +601,7 @@ bool CController::GetInstructionFromPipe(void) {
       //*****
       std::cout << instruction << std::endl;
       success = true;
-      //*****
+      //***** 
 
       named_pipe_.SendPipeMessageToLocalManager("OK");
     } else {
@@ -613,11 +617,12 @@ bool CController::GetInstructionFromPipe(void) {
 
       // *****
       success = pushInstruction(instruction);
+      // manager()->logger()->WriteFile();
       // *****
 
       // std::cout << "----- Number of instructions in the instructions_list = " << instructions_list_.size() << std::endl;
       named_pipe_.SendPipeMessageToLocalManager("OK");
-    }}}}}}}
+    }}}}}}/*}*/
   }
         
   return success;
@@ -625,7 +630,19 @@ bool CController::GetInstructionFromPipe(void) {
 
 void CController::AddConstant(const std::string & cte,
                               const std::string & value) {
-  constants_.push_back(std::pair<std::string, std::string>(cte, value));
+
+  bool found = false;
+  for (std::list<std::pair<std::string, std::string> >::iterator it
+          = constants_.begin(); ((it != constants_.end()) && (!found)); ++it) {
+    if ((*it).first == cte) {
+       (*it).second = value;
+       found = true;
+    }
+  }
+
+  if (!found) {
+      constants_.push_back(std::pair<std::string, std::string>(cte, value));
+  }
 }
 
 

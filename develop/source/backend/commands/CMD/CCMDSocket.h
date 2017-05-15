@@ -225,6 +225,12 @@ class CCMDSocket : public ICommand {
   void DeleteExperimentOutputFile(int experiment_id); 
   
   void cout_lm(std::string m);
+
+ private:
+  std::list<std::string> run_commands_list_;
+  void RunCommandsThread(void);
+  void RemoveCommandsList(void);
+
 };
 
 #endif  // BACKEND_SRC_COMMANDS_CMD_CCMDSOCKET_H_

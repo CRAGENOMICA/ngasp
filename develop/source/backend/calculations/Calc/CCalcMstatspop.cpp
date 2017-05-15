@@ -39,6 +39,8 @@
 #include <vector>
 #include <stdlib.h>     /* srand, rand */
 
+#include "CCalcExec.h"
+
 #include "../../language/CStringTable.h"
 #include "../../data_manager/common/CDataAccess.h"
 #include "../../util/CFile.h"
@@ -46,6 +48,7 @@
 // =============================================================================
 // CALCULATIONS
 // =============================================================================
+/*
 #include "../../calculations/CAllCalculations.h"
 #include "../../calculations/Calc/CCalcOpenFastaFile.h"
 #include "../../calculations/Calc/CCalcMstatspopOpenFastaFile.h"
@@ -78,6 +81,7 @@
 #include "../../calculations/Calc/CCalcOpenEffectSizesFile.h"
 #include "../../calculations/Calc/CCalcOpenCoordinatesFile.h"
 #include "../../calculations/Calc/CCalcOpenWeightPositionsFile.h"
+*/
 
 // =============================================================================
 // DATA TYPES
@@ -178,7 +182,8 @@ CCalcMstatspop::CCalcMstatspop()
                    0,                                                           // Min. Value
                    1,                                                           // Max. Value
                    OPTTYPE_optional)                                            // Required
-    SET_INPUT_INFO(file_out_,                                                   // Variable -T
+
+    SET_INPUT_INFO(out_file_name_,                                                   // Variable -T
                    MSTATSPOP_GROUP_GENERAL_OPTIONAL,                            // Group
                    CCALCMSTATSPOP_FILE_OUT_,                                    // Short Name
                    UNDEFINED_STRING,                                            // Long Name
@@ -189,6 +194,7 @@ CCalcMstatspop::CCalcMstatspop()
                    UNDEFINED_VALUE,                                             // Min. Value
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
+
     SET_INPUT_INFO(file_H1f_,                                                   // Variable -a
                    MSTATSPOP_GROUP_GENERAL_OPTIONAL,                            // Group
                    CCALCMSTATSPOP_FILE_H1F_,                                    // Short Name
@@ -453,6 +459,7 @@ CCalcMstatspop::CCalcMstatspop()
                    UNDEFINED_VALUE,                                             // Min. Value
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
+/*
     SET_INPUT_INFO(file_effsz_,                                                 // Variable
                    MSTATSPOP_GROUP_FA,                                          // Group
                    CCALCMSTATSPOP_FILE_EFFSZ_,                                  // Short Name
@@ -464,6 +471,7 @@ CCalcMstatspop::CCalcMstatspop()
                    UNDEFINED_VALUE,                                             // Min. Value
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
+*/
     SET_INPUT_INFO(keep_intermediate_results,                                   // Variable
                    UNDEFINED_STRING,                                            // Group
                    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS,                         // Short Name
@@ -490,6 +498,7 @@ CCalcMstatspop::CCalcMstatspop()
                    UNDEFINED_VALUE,                                             // Min. Value
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
+/*
     SET_OUTPUT_INFO(out_stats_So_,                                              // Variable
                    UNDEFINED_STRING,                                            // Group
                    CCALCMSTATSPOP_CALC_STATS_SO_OUTPUT_,                        // Short Name
@@ -831,7 +840,7 @@ CCalcMstatspop::CCalcMstatspop()
                    UNDEFINED_VALUE,                                             // Min. Value
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
-  
+*/  
   END_CALCULATION_INTERFACE_DEFINITION
 }
 
@@ -846,7 +855,7 @@ void CCalcMstatspop::Prepare(void) {
     DM_INPUT(populations_initial_)                                              //-N
     DM_INPUT(b_outgroup_presence_)                                              //-G
     DM_INPUT(b_include_unknown_)                                                //-u
-    DM_INPUT(file_out_)                                                         //-T
+    DM_INPUT(out_file_name_)                                                    //-T
     DM_INPUT(file_H1f_)                                                         //-a
     DM_INPUT(file_H0f_)                                                         //-n
     DM_INPUT(r2i_ploidies_)                                                     //-P
@@ -871,10 +880,11 @@ void CCalcMstatspop::Prepare(void) {
     DM_INPUT(genetic_code_)
     DM_INPUT(criteria_transcript_)                                              //-c
     DM_INPUT(b_mask_print_)                                                     //-K
-    DM_INPUT(file_effsz_)                                                       //
+//    DM_INPUT(file_effsz_)                                                       //
     DM_INPUT(keep_intermediate_results)
   DM_GET_OUTPUTS
     DM_OUTPUT(calc_output_)
+/*
     DM_OUTPUT(out_stats_So_)
     DM_OUTPUT(out_stats_thetaSo_)
     DM_OUTPUT(out_stats_thetaTo_)
@@ -906,8 +916,40 @@ void CCalcMstatspop::Prepare(void) {
     DM_OUTPUT(out_stats_fstHKY_)
     DM_OUTPUT(out_stats_piwHKY_)
     DM_OUTPUT(out_stats_piaHKY_)
+*/
   DM_END
   
+ 
+  // Output File Name as input param (out_file_name_) : statistics.txt
+  // Output File Name                (calc_output_)   : statistics.txt
+
+  if (out_file_name_->value() != "") {
+      calc_output_->set_value(out_file_name_->value());
+  } else {
+      calc_output_->set_value(CFile::GetPathFromFileName(file_in_->value()) + "statistics.txt");
+  }
+
+
+  // 
+  // Output File Name                (calc_output_)   : statistics.x.y.txt
+
+  if (keep_intermediate_results->value()) {
+    DM_ITERATION_NUMBER(iteration_number)
+    DM_ITERATION_VALUE(iteration_value)
+    calc_output_->set_value(CFile::ConcatenateIterationToFilePathName(calc_output_->value(),
+                            iteration_number->value(),
+                            iteration_value->value()));
+  }  
+
+
+
+/*
+*****************************************
+*****************************************
+*****************************************
+*****************************************
+*****************************************
+
 /// ============================================================================
 /// START WRITING OUTPUT TO THE OUTPUT FILE
 /// ============================================================================
@@ -1291,84 +1333,84 @@ void CCalcMstatspop::Prepare(void) {
   /// ============================================================================
   bool parseResult = true;
 
-  /**
-   * Validate that populations is defined:
-   */
+  //
+  // Validate that populations is defined:
+  //
   if (populations_initial_->value() == "") {
     ERROR_MSG << STR(POPULATIONS_NOT_DEF) END_MSG;
     parseResult = false;
   }
 
-  /**
-   * Validate that force_outgroup and outgroup_presence are not equal to 1 at the
-   * same time:
-   */
+  //
+  // Validate that force_outgroup and outgroup_presence are not equal to 1 at the
+  // same time:
+  //
   if ((b_force_outgroup_->value() == 1) && (b_outgroup_presence_->value() == 1)) {
     ERROR_MSG << STR(FORCE_AND_OUTGROUP_ERROR) END_MSG;
     parseResult = false;
   }
 
-  /**
-   * Validate outgroup_presence_:
-   */
+  //
+  // Validate outgroup_presence_:
+  //
   if ((b_outgroup_presence_->value() != 0) && (b_outgroup_presence_->value() != 1)) {
     ERROR_MSG << STR(OUTGROUP_PRESENCE_ERROR) END_MSG;
     parseResult = false;
   }
 
-  /**
-   * Validate force_outgroup_:
-   */
+  //
+  // Validate force_outgroup_:
+  //
   if ((b_force_outgroup_->value() != 0) && (b_force_outgroup_->value() != 1)) {
     ERROR_MSG << STR(FORCE_OUTGROUP_ERROR) END_MSG;
     parseResult = false;
   }
 
-  /**
-   * Validate formatfile_ with force_outgroup_:
-   */
+  //
+  // Validate formatfile_ with force_outgroup_:
+  //
   if(!(formatfile_->value() == MS_FILE || formatfile_->value() == MS_X_FILE) 
       && b_force_outgroup_->value() == 1) {
     ERROR_MSG << STR(FORMATFILE_FORCE_OUTGROUP_ERROR) END_MSG;
     parseResult = false;
   }
 
-  /**
-   * Validate output:
-   */
+  //
+  // Validate output:
+  //
   if ((output_->value() < 0) || (output_->value() > 10)) {
     ERROR_MSG << STR(OUTPUT_ERROR) END_MSG;
     parseResult = false;
   }
 
-  /**
-   * Validate physical_length_:
-   */
+  //
+  // Validate physical_length_:
+  //
   if ((physical_length_->value() != 0) && (physical_length_->value() != 1)) {
     ERROR_MSG << STR(PHYSICAL_LENGTH_ERROR) END_MSG;
     parseResult = false;
   }      
 
-  /**
-   * Validate npops_:
-   */
+  //
+  // Validate npops_:
+  //
   // if (npops_->value() == 0) {
   if (populations_initial_->value() == "") {
     ERROR_MSG << STR(NPOPS_ERROR) END_MSG;
     parseResult = false;
   }
 
-  /**
-   * Validate window_:
-   */
+  //
+  // Validate window_:
+  //
   if ((window_->value() <= 0) && (formatfile_->value() == TFASTA_FILE) && (file_wcoord_->value() == "")) {
     ERROR_MSG << STR(WINDOW_ERROR) END_MSG;
     parseResult = false;
   }
 
-  /**
-   * Validate slide_:
-   */  
+  //
+  // Validate slide_:
+  //  
   if ((slide_->value() == 0) && (window_->value() > 0)) {
     slide_->set_value(window_->value());
   }
@@ -1379,23 +1421,30 @@ void CCalcMstatspop::Prepare(void) {
     parseResult = false;
   }
 
-  /**
-   * Validate length_:
-   */
+  //
+  // Validate length_:
+  //
   if ((length_->value() == 0) && (formatfile_->value() == MS_FILE)) {
     ERROR_MSG << STR(LENGTH_ERROR) END_MSG;
     parseResult = false;
   }
 
-  /**
-   * Validate format_file_ with niterdata_:
-   */
+  //
+  // Validate format_file_ with niterdata_:
+  //
   if ((formatfile_->value() == FASTA_FILE) && (niterdata_->value() > 1)) {
     ERROR_MSG << STR(FORMATFILE_AND_NITERDATA_ERROR) END_MSG;
     parseResult = false;
   } 
+
+****************************
+****************************
+****************************
+****************************
+*/
 }
 
+/*
 void CCalcMstatspop::MultiplyPopulationsDependingOnPloidy(void) {
   /// ==========================================================================
   /// MULTIPLY POPULATIONS (BY 2 IF DIPLOID,...) EXCEPT THE OUTGROUP POP.
@@ -2586,10 +2635,10 @@ void CCalcMstatspop::PrintOutput(void) {
 void CCalcMstatspop::DataMemoryAllocation(long int npops,
                                          long int int_total_nsam,
                                          int outgroup_presence) {
-  /**
-   * Non DM data is automatically free when this calculation is finished.
-   * DM data is automatically free when the ngaSP application is closed.
-   */
+  //
+  // Non DM data is automatically free when this calculation is finished.
+  // DM data is automatically free when the ngaSP application is closed.
+  //
   
   nsam2_->ReserveMemory(2, 0);
   psam2_->ReserveMemory(2, 0);
@@ -2757,9 +2806,9 @@ void CCalcMstatspop::DeleteIterationVariables(void) {
 }
 
 void CCalcMstatspop::ShowMstatspopInformation(void) {
-  /**
-   * Print Header.
-   */
+  //
+  // Print Header.
+  //
   
   DM_GET_DATA3(CDataStdString, all_command_line_, STR(ALL_COMMAND_LINE))
   
@@ -2773,9 +2822,9 @@ void CCalcMstatspop::ShowMstatspopInformation(void) {
 }
 
 void CCalcMstatspop::Print(std::string message) {
-  /**
-   * Show a message to the user.
-   */
+  //
+  // Show a message to the user.
+  //
   if (output_->value() == 0 || output_->value() == 10) {
     fprintf(manager()->foutput(), message.c_str());
     fprintf(manager()->foutput(), STR(EOL).c_str());
@@ -2784,17 +2833,17 @@ void CCalcMstatspop::Print(std::string message) {
 }
 
 void CCalcMstatspop::ChangeUserInputsIfNecessary(void) {
-  /**
-   * Set the length_al_:
-   */
-  /*
-  if ((formatfile_->value() == MS_FILE) || (formatfile_->value() == MS_X_FILE)) {
-    length_al_->set_value(length_->value());
-  }*/
+  //
+  // Set the length_al_:
+  //
+  //
+  //if ((formatfile_->value() == MS_FILE) || (formatfile_->value() == MS_X_FILE)) {
+  //  length_al_->set_value(length_->value());
+  //}
 
-  /**
-	 * introduce the data and mask file (last if necessary)
-	 */
+    //
+	// introduce the data and mask file (last if necessary)
+	//
 	if (mask_print_->value() == 1 && ((formatfile_->value() == FASTA_FILE ||
      (formatfile_->value() == TFASTA_FILE && ((slide_->value() == 0 && window_->value() == 0) && 
       file_wcoord_->value() == ""))))) {
@@ -2836,9 +2885,9 @@ void CCalcMstatspop::ChangeUserInputsIfNecessary(void) {
     file_mas_->add(STR(DEFAULT_MASK_FILE_NAME_END));
 	}
 
-  /**
-	 * Set the genetic_code_:
-	 */  
+    //
+	// Set the genetic_code_:
+	//  
   if ((gfffiles_->value() == YES) && (
       (subset_positions_->GetDataString(false) == STR(SUBSET_POS_SYNONYMOUS)) ||
       (subset_positions_->GetDataString(false) == STR(SUBSET_POS_NONSYNONYMOUS)) ||
@@ -2854,9 +2903,9 @@ void CCalcMstatspop::ChangeUserInputsIfNecessary(void) {
 }
 
 void CCalcMstatspop::AddOneOutgroupIfItIsNotPresent(void) {
-  /**
-   * Add one outgroup at the end if it is not present:
-   */
+  //
+  // Add one outgroup at the end if it is not present:
+  //
   if (outgroup_presence_->value() == NO) {
     populations_initial_->set_value(populations_initial_->value() + ",1");
     CreateThePopulationsVector();
@@ -2864,9 +2913,9 @@ void CCalcMstatspop::AddOneOutgroupIfItIsNotPresent(void) {
 }
 
 void CCalcMstatspop::CreateThePopulationsVector(void) {
-  /**
-   * Create the populations vector:
-   */
+  //
+  // Create the populations vector:
+  //
   vint_perpop_nsam_->set_data_string(populations_initial_->value());
   npops_->set_value(vint_perpop_nsam_->reg_length());
   int_total_nsam_->set_value(0);
@@ -2893,7 +2942,7 @@ void CCalcMstatspop::Calculate(bool dry_run) {
 
   AddOneOutgroupIfItIsNotPresent();
 
-  /*ordering data: in case O is not a flag included*/
+  // ordering data: in case O is not a flag included
   if(int_total_nsam_order_->value() > 0 && int_total_nsam_order_->value()+!outgroup_presence_->value() != int_total_nsam_->value()) {
     ERROR_MSG << STR(SORT_NSAM_ERROR)
               END_MSG;
@@ -2953,7 +3002,7 @@ void CCalcMstatspop::Calculate(bool dry_run) {
   if (formatfile_->value() == FASTA_FILE) {
     ReadFastaFile();
 
-		/*define variables for mhits*/
+		// define variables for mhits
 		nmhits_->set_value(0);
     mhitbp_->ReserveMemory(n_site_->value(), 0);
     
@@ -2987,7 +3036,7 @@ void CCalcMstatspop::Calculate(bool dry_run) {
 
     if (formatfile_->value() == TFASTA_FILE) {
       if (ReadTFastaFile() == false) {
-        /*printf("End processing input tfa data.\n");*/
+        // printf("End processing input tfa data.\n");
         break;
       }
       // When the tfa file is finished then li=0,
@@ -3023,9 +3072,9 @@ void CCalcMstatspop::Calculate(bool dry_run) {
       CalcFs();
     }
 
-    /* Un monton de cosas casi-repes que volvemos a utilizar! */
-    /* PERMUTATION */
-    /* Only if not MS format */    
+    // Un monton de cosas casi-repes que volvemos a utilizar!
+    // PERMUTATION
+    // Only if not MS format
 
     if ((niter_->value()) && (npops_->value() > 2)) {
       // =======================================================================
@@ -3131,10 +3180,10 @@ void CCalcMstatspop::Calculate(bool dry_run) {
 
       Print(STR(CALCULATING_PERMUTATION_TESTS));
 
-      /**
-       * permute 1 pop against rest pops (1 vs all rest (or 2 vs all rest),
-       * that means ALL mixed). Do once is enough
-       */
+      //
+      // permute 1 pop against rest pops (1 vs all rest (or 2 vs all rest),
+      // that means ALL mixed). Do once is enough
+      //
       if (npops_->value() > 2) {
         for (int i1 = 0; i1 < niter_->value(); i1++) {
           (*nsam2_)[0] = (*vint_perpop_nsam_)[0];
@@ -3148,7 +3197,7 @@ void CCalcMstatspop::Calculate(bool dry_run) {
 
           Permute_2();
 
-          /*HERE WE ASSUME THAT THE LENGTH SIZE ARE THE SAME THAN FOR ORIGINAL SAMPLES!!*/
+          // HERE WE ASSUME THAT THE LENGTH SIZE ARE THE SAME THAN FOR ORIGINAL SAMPLES!!
           for(int x=0;x<npops_->value();x++) {
               (*stats_length_[1])[x]  = (*stats_length_[0])[x];
               (*stats_length2_[1])[x] = (*stats_length2_[0])[x];
@@ -3171,7 +3220,7 @@ void CCalcMstatspop::Calculate(bool dry_run) {
 
       Print(STR(CALCULATING_PERMUTATION_TESTS_PAIR));
 
-      /* permute pairs of pops */
+      // permute pairs of pops
       for (int i2 = 0; i2 < niter_->value(); i2++) {
         z_pos_->set_value(0);
 
@@ -3190,7 +3239,7 @@ void CCalcMstatspop::Calculate(bool dry_run) {
 
             Permute_3();
 
-            /*HERE WE ASSUME THAT THE LENGTH SIZE ARE THE SAME THAN FOR ORIGINAL SAMPLES!!*/
+            // HERE WE ASSUME THAT THE LENGTH SIZE ARE THE SAME THAN FOR ORIGINAL SAMPLES!!
             (*stats_length_[1])[x]  = (*stats_length_[0])[x];
             (*stats_length2_[1])[x] = (*stats_length2_[0])[x];
             for(int yy=0;yy<npops_->value();yy++) {
@@ -3205,7 +3254,7 @@ void CCalcMstatspop::Calculate(bool dry_run) {
 
             CalcZ();
 
-            (*psam2_)[1] += (*vint_perpop_nsam_)[y]; /*!outgroup_presence at loops*/
+            (*psam2_)[1] += (*vint_perpop_nsam_)[y]; // !outgroup_presence at loops
             z_pos_->set_value(z_pos_->value() + 1);
           }
           (*psam2_)[0] += (*vint_perpop_nsam_)[x];
@@ -3283,92 +3332,91 @@ void CCalcMstatspop::ConcatenateIterationResults(void) {
     }
   }
 
-  /*
-  if(outgroup_presence_->value() == 1) {
-    np = npops_->value() - 1;
-    for(x = 0; x < np; x++) {
-      if((*stats_thetaT_[0])[x]-(*stats_thetaFW_[0])[x] != NA_VALUE) {
-        (*stats_thetaT_[0])[x] -= (*stats_thetaFW_[0])[x];                      // Fay&WuH
-      }
-    }
-  }
 
-
-  if(npops_->value() - 1 > 1) {
-    if(npops_->value() - 1 > 2) {
-      if(stats_fstALL_[0]->value() > NA_VALUE) {
-        if(niter_->value() && piter_niteriall_ > 0) {
-          // stats_fstALL_[0]->value()                                          // Fst
-          // (double)piter_iall->value()/(double)piter_niteriall_->value()      // P-value
-        }
-      }
-
-      if(ploidy_->value() == HAPLOID && include_unknown_->value() == 0) {
-        if(stats_fsthALL_[0]->value() > NA_VALUE) {
-          if(niter_->value() && piter_niterihall_ > 0) {
-          // stats_fsthALL_[0]->value()                                         // FstH
-          // (double)piter_ihall->value()/(double)piter_niterihall->value()     // P-value
-          }
-        }
-      }
-
-      
-      for(x = 0; x < npops_->value() - 1; x++) {
-        if((*stats_fst1all_[0])[x] > NA_VALUE) {
-          if(niter_->value() && (*piter_niteri1_)[x] > 0) {
-            // (*stats_fst1all_[0])[x]                                          // Fst1
-            // (double)(*piter_i1)[x]/(double)(*piter_niteri1)[x]               // P-value
-          }
-        }
-
-        if(ploidy_->value() == HAPLOID && include_unknown_->value() == 0) {
-          if((*stats_fsth1all_[0])[x] > NA_VALUE) {
-            if(niter_->value() && (*piter_niterih1_)[x] > 0) {
-              // (*stats_fsth1all_[0])[x]                                       // Fst1H
-              // (double)(*piter_ih1)[x]/(double)(*piter_niterih1)[x]           // P-value
-            }
-          }
-        }
-      }
-    }
-
-    z = 0;
-    for(x = 0; x < npops_->value() - 1; x++) {
-      for(y = x + 1; y < npops_->value() - 0; y++) {
-        if(y == npops_->value() - 1) {
-          z++;
-          continue;
-        }
-        if((*stats_fst_[0])[z] > NA_VALUE) {
-          if(niter_->value() && (*piter_niteri_)[z] > 0) {
-            // (*stats_fst)[z]                                                  // Fst
-            // (double)(*piter_i)[z]/(double)(*piter_niteri)[z]                 // P-value
-          }
-        }
-        z++;
-      }
-    }
-
-    z = 0;
-    for(x = 0; x < npops_->value() - 2; x++) {
-      for(y = x + 1; y < npops_->value() - 1; y++) {
-        if(y == npops_->value() - 1) {
-          z++;
-          continue;
-        }
-        if(ploidy_->value() == HAPLOID && include_unknown_->value() == 0) {
-          if((*stats_fsth_[0])[z] > NA_VALUE) {
-            if(niter_->value() && (*piter_niterih_)[z] > 0) {
-              // (*stats_fsth)[z]                                               // FstH
-              // (double)(*piter_ih)[z]/(double)(*piter_niterih)[z]             // P-value
-            }
-          }
-        }
-        z++;
-      }
-    }
-  }
-  */
+//  if(outgroup_presence_->value() == 1) {
+//     np = npops_->value() - 1;
+//     for(x = 0; x < np; x++) {
+//       if((*stats_thetaT_[0])[x]-(*stats_thetaFW_[0])[x] != NA_VALUE) {
+//         (*stats_thetaT_[0])[x] -= (*stats_thetaFW_[0])[x];                      // Fay&WuH
+//       }
+//     }
+//   }
+// 
+// 
+//   if(npops_->value() - 1 > 1) {
+//     if(npops_->value() - 1 > 2) {
+//       if(stats_fstALL_[0]->value() > NA_VALUE) {
+//         if(niter_->value() && piter_niteriall_ > 0) {
+//           // stats_fstALL_[0]->value()                                          // Fst
+//           // (double)piter_iall->value()/(double)piter_niteriall_->value()      // P-value
+//         }
+//       }
+// 
+//       if(ploidy_->value() == HAPLOID && include_unknown_->value() == 0) {
+//         if(stats_fsthALL_[0]->value() > NA_VALUE) {
+//           if(niter_->value() && piter_niterihall_ > 0) {
+//           // stats_fsthALL_[0]->value()                                         // FstH
+//           // (double)piter_ihall->value()/(double)piter_niterihall->value()     // P-value
+//           }
+//         }
+//       }
+// 
+//       
+//       for(x = 0; x < npops_->value() - 1; x++) {
+//         if((*stats_fst1all_[0])[x] > NA_VALUE) {
+//           if(niter_->value() && (*piter_niteri1_)[x] > 0) {
+//             // (*stats_fst1all_[0])[x]                                          // Fst1
+//             // (double)(*piter_i1)[x]/(double)(*piter_niteri1)[x]               // P-value
+//           }
+//         }
+// 
+//         if(ploidy_->value() == HAPLOID && include_unknown_->value() == 0) {
+//           if((*stats_fsth1all_[0])[x] > NA_VALUE) {
+//             if(niter_->value() && (*piter_niterih1_)[x] > 0) {
+//               // (*stats_fsth1all_[0])[x]                                       // Fst1H
+//               // (double)(*piter_ih1)[x]/(double)(*piter_niterih1)[x]           // P-value
+//             }
+//           }
+//         }
+//       }
+//     }
+// 
+//     z = 0;
+//     for(x = 0; x < npops_->value() - 1; x++) {
+//       for(y = x + 1; y < npops_->value() - 0; y++) {
+//         if(y == npops_->value() - 1) {
+//           z++;
+//           continue;
+//         }
+//         if((*stats_fst_[0])[z] > NA_VALUE) {
+//           if(niter_->value() && (*piter_niteri_)[z] > 0) {
+//             // (*stats_fst)[z]                                                  // Fst
+//             // (double)(*piter_i)[z]/(double)(*piter_niteri)[z]                 // P-value
+//           }
+//         }
+//         z++;
+//       }
+//     }
+// 
+//     z = 0;
+//     for(x = 0; x < npops_->value() - 2; x++) {
+//       for(y = x + 1; y < npops_->value() - 1; y++) {
+//         if(y == npops_->value() - 1) {
+//           z++;
+//           continue;
+//         }
+//         if(ploidy_->value() == HAPLOID && include_unknown_->value() == 0) {
+//           if((*stats_fsth_[0])[z] > NA_VALUE) {
+//             if(niter_->value() && (*piter_niterih_)[z] > 0) {
+//               // (*stats_fsth)[z]                                               // FstH
+//               // (double)(*piter_ih)[z]/(double)(*piter_niterih)[z]             // P-value
+//             }
+//           }
+//         }
+//         z++;
+//       }
+//     }
+// }
 
   /// ==========================================================================
   /// CONCATENATE ITERARION RESULTS INTO FINAL OUTPUT DATAS
@@ -3405,3 +3453,193 @@ void CCalcMstatspop::ConcatenateIterationResults(void) {
   out_stats_piwHKY_->Append(*(stats_piwHKY_[0]));         // PiWHKY
   out_stats_piaHKY_->Append(*(stats_piaHKY_[0]));         // PiAHKY    
 }
+*/
+
+
+void CCalcMstatspop::Calculate(bool dry_run) {
+
+  if (dry_run == true) {
+    return;
+  }
+
+  /// CREATE CALC AND DATAS FOR THE CALCULATION
+
+  CCalcExec *calc_execute = NULL;
+  DM_NEW_CALC(calc_execute)
+
+  CDataStdString *the_command = NULL;
+  DM_NEW_DATA(the_command)
+
+  the_command->set_value(STR(MSTATSPOP_BINARY));
+
+  if (!formatfile_->auto_created()) {
+    the_command->add(" -f ");
+    the_command->add(formatfile_->value());
+  }
+  if (!file_in_->auto_created()) {
+    the_command->add(" -i ");
+    the_command->add(file_in_->value());
+  }
+  if (!output_->auto_created()) {
+    the_command->add(" -o ");
+    the_command->add(CStringTools::ToString(output_->value()));
+  }
+  if (!populations_initial_->auto_created()) {
+    the_command->add(" -N ");
+    the_command->add(populations_initial_->value());
+  }
+  if (!b_outgroup_presence_->auto_created()) {
+    the_command->add(" -G ");
+    the_command->add(b_outgroup_presence_->value() ? "1" : "0");
+  }
+  if (!b_include_unknown_->auto_created()) {
+    the_command->add(" -u ");
+    the_command->add(b_include_unknown_->value() ? "1" : "0");
+  }
+
+  the_command->add(" -T ");
+  the_command->add(calc_output_->value());
+
+  if (!file_H1f_->auto_created()) {
+    the_command->add(" -a ");
+    the_command->add(file_H1f_->value());
+  }
+  if (!file_H0f_->auto_created()) {
+    the_command->add(" -n ");
+    the_command->add(file_H0f_->value());
+  }
+  if (r2i_ploidies_->Size() > 0) {
+    the_command->add(" -P ");
+    the_command->add(r2i_ploidies_->GetDataString());
+  }
+  if (!sort_nsam_->auto_created()) {
+    the_command->add(" -O ");
+    the_command->add(sort_nsam_->GetDataString());
+  }
+  if (!niter_->auto_created()) {
+    the_command->add(" -t ");
+    the_command->add(CStringTools::ToString(niter_->value()));
+  }
+  if (!seed_->auto_created()) {
+    the_command->add(" -s ");
+    the_command->add(CStringTools::ToString(seed_->value()));
+  }
+  if (!window_->auto_created()) {
+    the_command->add(" -w ");
+      the_command->add(CStringTools::ToString(window_->value()));
+  }
+  if (!slide_->auto_created()) {
+    the_command->add(" -z ");
+    the_command->add(CStringTools::ToString(slide_->value()));
+  }
+  if (!physical_length_->auto_created()) {
+    the_command->add(" -Y ");
+    the_command->add(CStringTools::ToString(physical_length_->value()));
+  }
+  if (!file_wcoord_->auto_created()) {
+    the_command->add(" -W ");
+    the_command->add(file_wcoord_->value());
+  }
+  if (!file_wps_->auto_created()) {
+    the_command->add(" -E ");
+    the_command->add(file_wps_->value());
+  }
+  if (!length_->auto_created()) {
+    the_command->add(" -l ");
+    the_command->add(CStringTools::ToString(length_->value()));
+  }
+  if (!niterdata_->auto_created()) {
+    the_command->add(" -r ");
+    the_command->add(CStringTools::ToString(niterdata_->value()));
+  }
+  if (!file_mas_->auto_created()) {
+    the_command->add(" -m ");
+    the_command->add(file_mas_->value());
+  }
+  if (!ms_svratio_->auto_created()) {
+    the_command->add(" -v ");
+    the_command->add(CStringTools::ToString(ms_svratio_->value()));
+  }
+  if (!b_force_outgroup_->auto_created()) {
+    the_command->add(" -F ");
+    the_command->add(b_force_outgroup_->value() ? "1" : "0");
+  }
+  if (!freq_revert_->auto_created()) {
+    the_command->add(" -q ");
+    the_command->add(CStringTools::ToString(freq_revert_->value()));
+  }
+  if (!ploidy_->auto_created()) {
+    the_command->add(" -p ");
+    the_command->add(CStringTools::ToString(ploidy_->value()));
+  }
+  if (!file_GFF_->auto_created()) {
+    the_command->add(" -g ");
+    the_command->add(file_GFF_->value());
+
+    if (subset_positions_->Size() > 0) {
+      the_command->add(" ");
+      the_command->add(subset_positions_->GetData());
+    }
+
+    if (code_name_->Size() > 0) {
+      the_command->add(" ");
+      the_command->add(code_name_->GetData());
+    }
+
+    if (genetic_code_->Size() > 0) {
+      the_command->add(" ");
+      the_command->add(genetic_code_->GetData());
+    }
+  }
+  if (criteria_transcript_->Size() > 0) {
+    the_command->add(" -c ");
+    the_command->add(criteria_transcript_->GetData());
+  }
+  if (!b_mask_print_->auto_created()) {
+    the_command->add(" -K ");
+    the_command->add(b_mask_print_->value() ? "1" : "0");
+  }
+  /*
+    if (file_effsz_->value() != "") {
+       the_command->add(" ");
+       the_command->add(file_effsz_->value());
+    }
+   */
+
+  CDataStdString *the_working_directory = NULL;
+  DM_NEW_DATA(the_working_directory)
+  the_working_directory->set_value(STR(BINARY_PATH_INSIDE_DOCKER));
+
+  CDataStdString *the_type = NULL;
+  DM_NEW_DATA(the_type)
+  the_type->set_value(STR(EXEC_TYPE_SYS));
+
+  CDataInt *the_result = (CDataInt *) manager()->data_manager()->GetDataByName(ROOT_PARENT, STR(RESULT)); // This is a global variable. So, its parent is ROOT_PARENT.
+
+    NORMAL_MSG << "the_command: " << the_command->value()
+    END_MSG;
+
+  /// ==========================================================================
+  /// EXECUTE EXTERNAL APPLICATION OR SYSTEM COMMAND
+  /// ==========================================================================
+  calc_execute->SetInput(the_command);
+  calc_execute->SetInput(the_working_directory);
+  calc_execute->SetInput(the_type);
+  calc_execute->SetOutput(the_result);
+  calc_execute->Prepare();
+  calc_execute->Calculate(dry_run);
+  calc_execute->Finalize();
+  /// ==========================================================================
+
+  /// REMOVE CALC AND "DATAS" CREATED ONLY FOR THIS CALCULATION
+
+  DM_DEL_CALC(calc_execute)
+  DM_DEL_DATA(the_command)
+  DM_DEL_DATA(the_working_directory)
+  DM_DEL_DATA(the_type)
+}
+
+void CCalcMstatspop::Finalize(void) {
+  DM_DEL_ALL_LOCAL_DATA   
+}
+

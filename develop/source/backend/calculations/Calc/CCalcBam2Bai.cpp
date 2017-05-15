@@ -95,9 +95,9 @@ void CCalcBam2Bai::Prepare(void) {
   DM_END
   
   
-  if (bai_file_->value() == "") {
+  // if (bai_file_->value() == "") { <--- In a loop getting the file name from the output variable only would work the first iteration when the output variable is "". But the second iteration it has the previous file name. 
     bai_file_->set_value(CFile::GetPathFileNameWithoutExtension(bam_file_->value()) + ".bai");
-  }  
+  // }  
 }
 
 void CCalcBam2Bai::Calculate(bool dry_run) {

@@ -100,6 +100,30 @@ CCalcFasta2TFasta::CCalcFasta2TFasta()
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required)
 
+    SET_INPUT_INFO(samples_order,                                            // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_FASTA2TFASTA_SAMPLES_ORDER,                                       // Short Name
+                   CALC_FASTA2TFASTA_SAMPLES_ORDER_LONG,                                  // Long Name
+                   CALC_FASTA2TFASTA_SAMPLES_ORDER_DESC,                                  // Description
+                   CALC_FASTA2TFASTA_SAMPLES_ORDER_SAMP,                                  // Example
+                   CALC_FASTA2TFASTA_SAMPLES_ORDER_ONLY,                                  // Use only if
+                   CALC_FASTA2TFASTA_SAMPLES_ORDER_DEFV,                                  // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required)
+
+    SET_INPUT_INFO(compress_output,                                            // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_FASTA2TFASTA_COMPRESS_OUT,                                       // Short Name
+                   CALC_FASTA2TFASTA_COMPRESS_OUT_LONG,                                  // Long Name
+                   CALC_FASTA2TFASTA_COMPRESS_OUT_DESC,                                  // Description
+                   CALC_FASTA2TFASTA_COMPRESS_OUT_SAMP,                                  // Example
+                   CALC_FASTA2TFASTA_COMPRESS_OUT_ONLY,                                  // Use only if
+                   CALC_FASTA2TFASTA_COMPRESS_OUT_DEFV,                                  // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required)
+
     SET_INPUT_INFO(keep_intermediate_results,                                   // Variable
                    UNDEFINED_STRING,                                            // Group
                    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS,                         // Short Name
@@ -147,6 +171,9 @@ void CCalcFasta2TFasta::Prepare(void) {
     DM_INPUT(fasta_file)
     DM_INPUT(gtf_annotation_file)
     DM_INPUT(bed_masking_file)
+    DM_INPUT(samples_order)
+    DM_INPUT(compress_output)
+
     DM_INPUT(keep_intermediate_results)
   DM_GET_OUTPUTS
     DM_OUTPUT(tfasta_file)
@@ -154,7 +181,7 @@ void CCalcFasta2TFasta::Prepare(void) {
   DM_END
   
   if (tfasta_file->value() == "") {
-      tfasta_file->set_value(CFile::GetPathFileNameWithoutExtension(fasta_file->value()) + ".tfa");
+      tfasta_file->set_value(CFile::GetPathFileNameWithoutExtension(fasta_file->value()) + ".tfa" + (compress_output->value()?".gz":""));
   }  
   
   weights_file->set_value(tfasta_file->value() + "_WEIGHTS.txt");
@@ -183,16 +210,23 @@ void CCalcFasta2TFasta::Calculate(bool dry_run) {
   DM_NEW_DATA(the_command)
  
 
-  
-  the_command->set_value(STR(FASTA_CONVERTER_BINARY) + " -F fasta -f tfasta -i " + fasta_file->value() + " -o " + tfasta_file->value());
+  std::string command = STR(FASTA_CONVERTER_BINARY) + " -F f -f tfasta -i " + fasta_file->value() + " -f t -o " + tfasta_file->value();
 
-  if (gtf_annotation_file->value() != "")     {
-    the_command->add(" -g " + gtf_annotation_file->value() + "  silent Nuclear_Universal");
+
+  if (!gtf_annotation_file->auto_created()) {
+    command += " -g " + gtf_annotation_file->value() + "  silent Nuclear_Universal";
   }
 
-  if (bed_masking_file->value() != "")     {
-    the_command->add(" -m " + bed_masking_file->value());
+  if (!bed_masking_file->auto_created())     {
+    command += " -m " + bed_masking_file->value();
   }
+
+  if (!samples_order->auto_created())     {
+    command += " -O " + samples_order->value();
+  }
+
+  the_command->set_value(command);
+
   
   // the_command->add(" > fasta_converter.log");
   

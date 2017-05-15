@@ -54,6 +54,46 @@ make
 cp ./src/pghcaller /develop/webapp/bin
 cp ./scripts/ghcaller /develop/webapp/bin
 
+
+# ********************************
+# *** mstatspop                ***
+# *** Requirements: zlib & gsl ***
+# ********************************
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/:
+mkdir /tmp/mstatspop
+cd /tmp/mstatspop
+wget https://bioinformatics.cragenomica.es/numgenomics/people/sebas/software/files/page3_4.zip
+unzip -o page3_4.zip
+cd mstatspop_pack*
+gcc ./sources/*.c -lgsl -lgslcblas -lm -Wall -DinGSL=1 -O3 -lz -o /develop/webapp/bin/mstatspop
+
+
+
+#zlib 1.2.8 installation (dependency)
+#
+#mkdir -p ./zlib
+#wget http://zlib.net/zlib-1.2.8.tar.gz -P ./zlib
+#tar -zxvf ./zlib/zlib-1.2.8.tar.gz -C ./zlib
+#rm ./zlib/zlib-1.2.8.tar.gz
+#cd ./zlib/zlib-1.2.8
+#./configure
+#make
+#sudo make install
+
+#gsl installation (dependency)
+mkdir -p /tmp/gsl
+    curl -o /tmp/gsl-2.2.tar.gz ftp://ftp.gnu.org/gnu/gsl/gsl-2.2.tar.gz -LOk
+    tar -zxvf /tmp/gsl-2.2.tar.gz -C /tmp/gsl && \
+    rm /tmp/gsl-2.2.tar.gz && \
+    cd /tmp/gsl/gsl-2.2 && \
+    ./configure && \
+    make && \
+    sudo make install
+
+
+
+
 # **************************************
 # *** Get the project version number ***
 # **************************************

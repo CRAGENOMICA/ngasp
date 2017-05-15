@@ -94,6 +94,11 @@
 #include "Calc/CCalcMatrix2Vector.h"
 #include "Calc/CCalcConcatStrings.h"
 #include "Calc/CCalcSplitBAM.h"
+#include "Calc/CCalcConcatFileNames.h"
+#include "Calc/CCalcGetFileName.h"
+#include "Calc/CCalcGetSeqLength.h"
+#include "Calc/CCalcGetMeanReadDepth.h"
+
   
 CCalcFactory::CCalcFactory() {
   // ===========================================================================
@@ -159,10 +164,14 @@ CCalcFactory::CCalcFactory() {
   data_map_[KeyString::CALC_CUT_BED]                = new CCalcCutBED();
   data_map_[KeyString::CALC_CUT_GTF]                = new CCalcCutGTF();
   data_map_[KeyString::CALC_EXAMPLE]                = new CCalcExample();
-  data_map_[KeyString::CALC_LIST_FILES]                = new CCalcListFiles();
-  data_map_[KeyString::CALC_MATRIX2VECTOR]                = new CCalcMatrix2Vector();
-  data_map_[KeyString::CALC_CONCAT_STRINGS]           = new CCalcConcatStrings();   
-  data_map_[KeyString::CALC_SPLIT_BAM]           = new CCalcSplitBAM();
+  data_map_[KeyString::CALC_LIST_FILES]             = new CCalcListFiles();
+  data_map_[KeyString::CALC_MATRIX2VECTOR]          = new CCalcMatrix2Vector();
+  data_map_[KeyString::CALC_CONCAT_STRINGS]         = new CCalcConcatStrings();   
+  data_map_[KeyString::CALC_SPLIT_BAM]              = new CCalcSplitBAM();
+  data_map_[KeyString::CALC_CONCAT_FILE_NAMES]      = new CCalcConcatFileNames();
+  data_map_[KeyString::CALC_GET_FILE_NAME]          = new CCalcGetFileName();
+  data_map_[KeyString::CALC_GET_SEQ_LEN]            = new CCalcGetSeqLength();
+  data_map_[KeyString::CALC_GET_MRD]                = new CCalcGetMeanReadDepth();
 }
 
 CCalcFactory::~CCalcFactory() {

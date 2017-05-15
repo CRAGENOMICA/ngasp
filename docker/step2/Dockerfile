@@ -31,6 +31,13 @@ RUN curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7
 
 RUN yum install -y nodejs
 
+
+# ***************
+# *** firefox ***
+# ***************
+
+yum install -y firefox
+
 # ==============================================================================
 # START
 # ==============================================================================

@@ -193,9 +193,11 @@ class CController : public IBase {
   */
  private:
   std::list<std::pair<std::string, std::string> > constants_;
+  
 
  public:
     void AddConstant(const std::string & cte, const std::string & value);
+    inline std::list<std::pair<std::string, std::string> > * Constants() { return &constants_; }
 
  /**
   * History:

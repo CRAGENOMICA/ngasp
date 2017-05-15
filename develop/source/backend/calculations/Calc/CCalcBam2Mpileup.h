@@ -42,13 +42,17 @@
 #include "../../data_manager/Data/CDataBoolean.h"
 #include "../../data_manager/Data/CDataBam.h"
 #include "../../data_manager/Data/CDataFasta.h"
+#include "../../data_manager/Data/CDataInt.h"
 
 class CCalcBam2Mpileup : public ICalculation {
  private:
    // Inputs
-  // CDataStdStringVector *bam_files;
-  CDataBam *bam_file;
+  CDataStdStringVector *bam_files;
+  //CDataBam *bam_file;
   CDataFasta *fasta_ref;
+  CDataInt *min_mq;
+  CDataInt *min_bq;
+  CDataBoolean *disable_BAQ;
   CDataStdString *filter;
   CDataBoolean *keep_intermediate_results;
   

@@ -1,0 +1,13 @@
+verbose --level debug
+constant --name TRUE --by 1
+constant --name FALSE --by 0
+constant --name TRUE --by 1
+constant --name FALSE --by 0
+constant --name TRUE --by 1
+constant --name FALSE --by 0
+constant --name TRUE --by 1
+constant --name FALSE --by 0
+dim --name sunny --as bool
+set-value --to sunny --eq "TRUE"
+print -n sunny
+constant

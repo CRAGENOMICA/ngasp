@@ -25,3 +25,8 @@ echo "******************************************"
 
 firefox http://localhost:3000 &
 
+cd tfaviewer
+./start_viewer.sh
+cd ..
+
+

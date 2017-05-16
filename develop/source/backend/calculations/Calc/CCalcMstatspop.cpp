@@ -923,10 +923,12 @@ void CCalcMstatspop::Prepare(void) {
   // Output File Name as input param (out_file_name_) : statistics.txt
   // Output File Name                (calc_output_)   : statistics.txt
 
-  if (out_file_name_->value() != "") {
-      calc_output_->set_value(out_file_name_->value());
-  } else {
-      calc_output_->set_value(CFile::GetPathFromFileName(file_in_->value()) + "statistics.txt");
+  if (calc_output_->value() == "") {
+      if (out_file_name_->value() != "") {
+          calc_output_->set_value(out_file_name_->value());
+      } else {
+          calc_output_->set_value(CFile::GetPathFromFileName(file_in_->value()) + "statistics.txt");
+      }
   }
 
 

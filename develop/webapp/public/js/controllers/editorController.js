@@ -984,6 +984,18 @@ if(!$scope.$$phase) {
             ],
         },
         {
+            id: 'TFA Viewer',
+            style: $scope.NodeStyle.GRAPH_NODE,
+            inputs: [
+                { id: 0, name: "TFA (gz)", type: "tfa_file", accumulative: false },
+                { id: 1, name: "GFF", type: "gff_file", accumulative: false },
+                { id: 2, name: "Weights", type: "weights_file", accumulative: false },
+                { id: 3, name: "Statistics", type: "text_file", accumulative: false },
+            ],
+            outputs: [
+            ],
+        },
+        {
             id: 'chart',
             style: $scope.NodeStyle.GRAPH_NODE,
             inputs: [
@@ -1058,6 +1070,7 @@ if(!$scope.$$phase) {
         IMAGE_NODE_BOXPLOT:   112,
         IMAGE_NODE_DONUTCHART:113,
         IMAGE_NODE_EXPORT:    114,
+        IMAGE_TFA_VIEWER:     118,
         IMAGE_NODE_PRINT_DATA:117,
         IMAGE_PIPELINE_LOOP:  115,
         IMAGE_PIPELINE_LOOP_BLACK:  116,
@@ -1129,6 +1142,8 @@ console.log("** Init 1 Start **");
                      image: document.getElementById("node_donutchart") });
         images.push({id: $scope.IconImage.IMAGE_NODE_EXPORT,
                      image: document.getElementById("node_export") });
+        images.push({id: $scope.IconImage.IMAGE_TFA_VIEWER,
+                     image: document.getElementById("tfa_viewer") });
         images.push({id: $scope.IconImage.IMAGE_PIPELINE_LOOP,
                      image: document.getElementById("loop") });
         images.push({id: $scope.IconImage.IMAGE_PIPELINE_LOOP_BLACK,
@@ -2620,7 +2635,7 @@ console.log("** GetCommandsList() Error **");
         var border_color = (node.selected)?style.NODE_SELECTED_BORDER_COLOR:style.NODE_BORDER_COLOR;
 
         var node_background_image = null;
-        var image_pos_x = node.position.left + 75;
+        var image_pos_x = node.position.left + 110;
 
         switch(node.type) {
             case 'chart':
@@ -2634,6 +2649,9 @@ console.log("** GetCommandsList() Error **");
                 break;
             case 'R Export':
                 node_background_image = $scope.IconImage.IMAGE_NODE_EXPORT;
+                break;
+            case 'TFA Viewer':
+                node_background_image = $scope.IconImage.IMAGE_TFA_VIEWER;
                 break;
             case 'Print Data':
                 node_background_image = $scope.IconImage.IMAGE_NODE_PRINT_DATA;
@@ -3418,7 +3436,7 @@ console.log("** GetCommandsList() Error **");
                 },
                 {   // GRAPH
                     NODE_TITLE_HEIGHT: 30,
-                    MIN_NODE_WIDTH: 165,
+                    MIN_NODE_WIDTH: 200,
                     MIN_NODE_HEIGHT: 125,
                     NODE_BACKGROUND_COLOR: '#fff',
                     NODE_BOX_CORNER_RADIUS: 0,
@@ -3620,7 +3638,7 @@ console.log("** GetCommandsList() Error **");
                 },
                 {   // GRAPH
                     NODE_TITLE_HEIGHT: 30,
-                    MIN_NODE_WIDTH: 165,
+                    MIN_NODE_WIDTH: 200,
                     MIN_NODE_HEIGHT: 125,
                     NODE_BACKGROUND_COLOR:  '#ddd',
                     NODE_BOX_CORNER_RADIUS: 0,
@@ -3822,7 +3840,7 @@ console.log("** GetCommandsList() Error **");
                 },
                 {   // GRAPH
                     NODE_TITLE_HEIGHT: 30,
-                    MIN_NODE_WIDTH: 165,
+                    MIN_NODE_WIDTH: 200,
                     MIN_NODE_HEIGHT: 125,
                     NODE_BACKGROUND_COLOR: 'rgba(255,255,255,0.2)', /* 'rgba(0,0,0,0.5)',*/
                     NODE_BOX_CORNER_RADIUS: 15,
@@ -4378,9 +4396,14 @@ console.log("** GetCommandsList() Error **");
                     ((node.temp.type_obj.style == $scope.NodeStyle.DATA_NODE) ||
                      (node.temp.type_obj.style == $scope.NodeStyle.INPUT_NODE) ||
                      (node.temp.type_obj.style == $scope.NodeStyle.OUTPUT_NODE) ||
-                     (node.temp.type_obj.style == $scope.NodeStyle.COMMENT_NODE)
+                     (node.temp.type_obj.style == $scope.NodeStyle.COMMENT_NODE) ||
+                     (node.temp.type_obj.style == $scope.NodeStyle.GRAPH_NODE)
                     )) {
                     switch(node.type) {
+                        case 'TFA Viewer':
+
+                            $window.open('http://localhost:3001', '_blank');
+                            break;
                         case 'bool':
                             if (node.value == "FALSE") { 
                                 node.value = "TRUE"; 
@@ -5833,12 +5856,14 @@ console.log("** GetCommandsList() Error **");
 
                   separed = SepareValueAndOrder(node.value);
 
-                  ordered_outputs_list.push({
-                    id: null,
-                    name: separed.value,
-                    type: GetMatrixTypeEquivalent(connected_connector.type),
-                    order: separed.order
-                  });
+                  if (connected_connector != undefined) {
+                      ordered_outputs_list.push({
+                        id: null,
+                        name: separed.value,
+                        type: GetMatrixTypeEquivalent(connected_connector.type),
+                        order: separed.order
+                      });
+                  }
 
                   id++;
                 }

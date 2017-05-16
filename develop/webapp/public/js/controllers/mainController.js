@@ -19,7 +19,7 @@
  * Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
-CRAG.controller('MainController', function($scope, $rootScope, $http, $state, $cookies, $interval, socket, logs, AlertService, Fullscreen, arrays, docs) {
+CRAG.controller('MainController', function($scope, $rootScope, $http, $state, $cookies, $interval, $window, socket, logs, AlertService, Fullscreen, arrays, docs) {
 
 	$scope.init = function() {
     $rootScope.webAddress = ''; /*http://localhost:3000/*/
@@ -74,9 +74,9 @@ var values = {"dm":[{"name":"$idum","type":"int64","value":"-12345"},{"name":"$o
 	};
 
     $scope.stylesheets = [
-        { id: 0, name: 'CRAG', href: 'theme_crag' },
-        { id: 1, name: 'Modern', href: 'theme_modern' },
-        { id: 2, name: 'Dark', href: 'theme_dark' }
+        { id: 0, name: 'CRAG', href: 'theme_crag' }
+/*        { id: 1, name: 'Modern', href: 'theme_modern' },
+        { id: 2, name: 'Dark', href: 'theme_dark' }*/
     ]; 
 
 
@@ -164,24 +164,46 @@ var values = {"dm":[{"name":"$idum","type":"int64","value":"-12345"},{"name":"$o
 		{ id: 147, name: 'open-weight-positions-file',    parents: [110], selected: false, has_children: false, is_open: false, icon: 'glyphicons-question-sign',	url: 'mstatspop' },
 		{ id: 148, name: 'execute',    parents: [110], selected: false, has_children: false, is_open: false, icon: 'glyphicons-question-sign',	url: 'mstatspop' },
 */
-
+/*
 		{ id: 2,	name: 'Administration', 	    parents: [], 	  selected: false, has_children: true,  is_open: true, icon: 'glyphicon-cog',	url: null },
 		{ id: 3,	name: 'Dashboard', 			      parents: [2], 	selected: false, has_children: false, is_open: false, icon: '',	url: 'admin_dashboard' },
 		{ id: 4,	name: 'Network', 			        parents: [2], 	selected: false, has_children: false, is_open: false, icon: '',	url: 'network' },
+*/
 		//{ id: 5,	name: 'Experiments', 		      parents: [2], 	selected: false, has_children: false, is_open: false, icon: '',	url: 'experiments' },
 
+/*
+    Technical Documentation is outside (doc/ngasp.pdf)
 		{ id: 7,	name: 'Documents',			      parents: [2], 	selected: false, has_children: true,  is_open: true, icon: 'glyphicon-file',	url: null },
-/*		{ id: 15,	name: 'URS & FRS',            parents: [2,7],	selected: false, has_children: false, is_open: false, icon: '',	url: 'URS_FRS' },
+		{ id: 15,	name: 'URS & FRS',            parents: [2,7],	selected: false, has_children: false, is_open: false, icon: '',	url: 'URS_FRS' },
 		{ id: 16,	name: 'UC & TM',	parents: [2,7],	selected: false, has_children: false, is_open: false, icon: '',	url: 'traceability_matrix' },
-*/
 		{ id: 9,	name: "Use Cases (Events' Flow)",      parents: [2,7],	selected: false, has_children: false, is_open: false, icon: '',	url: 'system_diagrams' },
-
 		{ id: 17,	name: "Calculation Development",      parents: [2,7],	selected: false, has_children: false, is_open: false, icon: '',	url: 'calculation_development' },
+*/
 //		{ id: 8,	name: 'Components',			      parents: [2,7],	selected: false, has_children: false, is_open: false, icon: '',	url: 'components_diagram' },
+/*
 		{ id: 12,	name: 'Pipeline Development', parents: [], 	  selected: false, has_children: true,  is_open: true, icon: 'glyphicon-pencil',	url: '' },
 		{ id: 13,	name: 'Pipeline Editor', 	    parents: [12], 	selected: false, has_children: false, is_open: false, icon: '',	url: 'pipeline_editor' },
 		{ id: 14,	name: 'Experiment Designer',  parents: [], 	  selected: false, has_children: true,  is_open: true, icon: 'glyphicon-star',	url: '' },
 		{ id: 18, name: 'Experiment Editor',    parents: [14], 	selected: true, has_children: false, is_open: false, icon: '',	url: 'experiment_editor' },
+		{ id: 19,	name: 'Tools', parents: [], 	  selected: false, has_children: true,  is_open: true, icon: 'glyphicon-pencil',	url: '' },
+		{ id: 20,	name: 'TFA Viewer', 	    parents: [19], 	selected: false, has_children: false, is_open: false, icon: '',	url: 'http://localhost:3001' },
+*/
+
+/*
+		{ id: 1,	name: 'Administration', 	  parents: [], 	    selected: false, has_children: true,  is_open: true,  icon: 'glyphicon-cog',	url: null },
+		{ id: 2,	name: 'Dashboard', 			  parents: [1], 	selected: false, has_children: false, is_open: false, icon: '',	url: 'admin_dashboard' },
+		{ id: 3,	name: 'Network', 			  parents: [1], 	selected: false, has_children: false, is_open: false, icon: '',	url: 'network' },
+		{ id: 4,	name: 'Pipeline Development', parents: [], 	    selected: false, has_children: true,  is_open: true,  icon: 'glyphicon-pencil',	url: '' },
+		{ id: 5,	name: 'Pipeline Editor', 	  parents: [4], 	selected: false, has_children: false, is_open: false, icon: '',	url: 'pipeline_editor' },
+		{ id: 6,	name: 'Experiment Designer',  parents: [], 	    selected: false, has_children: true,  is_open: true,  icon: 'glyphicon-star',	url: '' },
+		{ id: 7,    name: 'Experiment Editor',    parents: [6], 	selected: true,  has_children: false, is_open: false, icon: '',	url: 'experiment_editor' },
+		{ id: 8,	name: 'Tools',                parents: [], 	    selected: false, has_children: true,  is_open: true,  icon: 'glyphicon-pencil',	url: '' },
+		{ id: 9,	name: 'TFA Viewer', 	      parents: [8],     selected: false, has_children: false, is_open: false, icon: '',	url: 'http://localhost:3001' },
+*/
+		{ id: 2,	name: 'Dashboard', 			  parents: [], 	selected: false, has_children: false, is_open: false, icon: 'glyphicon-cog',	url: 'admin_dashboard' },
+		{ id: 5,	name: 'Pipeline Editor', 	  parents: [], 	selected: false, has_children: false, is_open: false, icon: 'glyphicon-pencil',	url: 'pipeline_editor' },
+		{ id: 7,    name: 'Experiment Editor',    parents: [], 	selected: true,  has_children: false, is_open: false, icon: 'glyphicon-star',	url: 'experiment_editor' },
+		{ id: 9,	name: 'TFA Viewer', 	      parents: [],  selected: false, has_children: false, is_open: false, icon: 'glyphicon-pencil',	url: 'http://localhost:3001' },
 
 	];
 
@@ -242,7 +264,11 @@ var values = {"dm":[{"name":"$idum","type":"int64","value":"-12345"},{"name":"$o
       /*$scope.OnShowHideMenu();*/
 
       $rootScope.selected_case = null;
-			$state.go(option.url);
+            if (option.url.indexOf('http://') == 0) {
+                $window.open(option.url, '_blank');
+            } else {
+    			$state.go(option.url);
+            }
 		}
 	};
 

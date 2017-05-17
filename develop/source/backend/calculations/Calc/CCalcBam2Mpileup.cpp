@@ -160,6 +160,18 @@ CCalcBam2Mpileup::CCalcBam2Mpileup()
 CCalcBam2Mpileup::~CCalcBam2Mpileup() {
 }
 
+/*
+void debug(std::string n, const char *mess = NULL) {
+    std::string file = "/develop/debug_" + n + ".txt";
+    FILE *handle = fopen(file.c_str(), "w+");
+    if (handle != NULL)     {
+        if (mess != NULL) {
+            fputs(mess, handle);
+        }
+        fclose(handle);
+    }
+}
+*/
 void CCalcBam2Mpileup::Prepare(void) {
   DM_GET_INPUTS
     DM_INPUT(bam_files)
@@ -174,13 +186,11 @@ void CCalcBam2Mpileup::Prepare(void) {
   DM_END
 
          
-DEBUG_MSG << "1" END_MSG;          
   if (filter->value() != "") {
     WARNING_MSG << "Filtering by chromosome name is not implemented yet... "
               END_MSG;
   }
           
-DEBUG_MSG << "2" END_MSG;
   if (bam_files->Size() != 0) {
     if (mpileup_file->value() == "") {
       mpileup_file->set_value(CFile::GetPathFileNameWithoutExtension((*bam_files)[0]) + ".mpileup");
@@ -188,7 +198,7 @@ DEBUG_MSG << "2" END_MSG;
   } else {
     ERROR_MSG << "Input file name missing..." END_MSG;
   }  
-DEBUG_MSG << "3" END_MSG;
+
   //if (mpileup_file->value() == "") {
   //  mpileup_file->set_value(CFile::GetPathFileNameWithoutExtension(bam_file->value()) + ".mpileup");
   //}  
@@ -200,7 +210,6 @@ DEBUG_MSG << "3" END_MSG;
                             iteration_number->value(),
                             iteration_value->value()));
   }
-DEBUG_MSG << "4" END_MSG;
 }
 
 
@@ -210,7 +219,7 @@ void CCalcBam2Mpileup::Calculate(bool dry_run) {
     if (dry_run == true) {
         return;
     }
-DEBUG_MSG << "5" END_MSG;
+
     for (int b = 0; b < bam_files->Size(); b++) {
         if (CFile::Exists((*bam_files)[b]) == false) {
             ERROR_MSG << "Input file does not exist: "
@@ -219,17 +228,18 @@ DEBUG_MSG << "5" END_MSG;
             return;
         }
     }
-DEBUG_MSG << "6" END_MSG;
+
     if (CFile::Exists(fasta_ref->value()) == false) {
         ERROR_MSG << "Input fasta reference file does not exist: "
                 << fasta_ref->value()
                 END_MSG;
         return;
     }
-DEBUG_MSG << "7" END_MSG;
+
     if (CFile::Exists(mpileup_file->value()) == false) {
-DEBUG_MSG << "8" END_MSG;
+
         //Example: samtools mpileup -q 20 -Q 20 -B -f data_reference_seq.fa -o sortida.mpileup ./PE_data.Ind10.bam ./PE_data.Ind2.bam ./PE_data.Ind4.bam ./PE_data.Ind6.bam ./PE_data.Ind8.bam ./PE_data.Ind1.bam ./PE_data.Ind3.bam ./PE_data.Ind5.bam ./PE_data.Ind7.bam ./PE_data.Ind9.bam
+        /*
         START_PARAMS
             ADD_PARAM("samtools");
             ADD_PARAM("mpileup");
@@ -253,21 +263,44 @@ DEBUG_MSG << "8" END_MSG;
                 ADD_PARAM((*bam_files)[b]);
             }
         END_PARAMS
-DEBUG_MSG << "9" END_MSG;
+        //params_debug.c_str()
         int ret = 0;
         if ((ret = samtools_main(argc, (*argv))) != 0) {
             ERROR_MSG << "samtools mpileup did not work. Error code = " << ret << "..."  END_MSG;
         }
-DEBUG_MSG << "10" END_MSG;
         REMOVE_PARAMS
-DEBUG_MSG << "11" END_MSG;
-        
+*/
+        std::string command = "samtools";
+        command += " mpileup";
+        if (!min_mq->auto_created()) {
+            command += " -q ";
+            command += CStringTools::ToString(min_mq->value());
+        }
+        if (!min_bq->auto_created()) {
+            command += " -Q ";
+            command += CStringTools::ToString(min_bq->value());
+        }
+        if ((!disable_BAQ->auto_created()) && (disable_BAQ->value())) {
+            command += " -B";
+        }
+        command += " -f ";
+        command += fasta_ref->value();
+
+        for (int b = 0; b < bam_files->Size(); b++) {
+            command += " ";
+            command += (*bam_files)[b];
+        }
+
+        command += " > ";
+        command += mpileup_file->value();
+
+        DEBUG_MSG << "Command line: " << command END_MSG;
+        system(command.c_str());
    }
    else {
        WARNING_MSG << "The mpileup file '" << mpileup_file->value() << "' already exists. Using the existing one..."
                END_MSG;
    }
-DEBUG_MSG << "12" END_MSG;
 }
 
   // this code works but it needs a FAI file with faidx
@@ -325,7 +358,5 @@ DEBUG_MSG << "12" END_MSG;
    */
 
 void CCalcBam2Mpileup::Finalize(void) {
-DEBUG_MSG << "13" END_MSG;
   DM_DEL_ALL_LOCAL_DATA
-DEBUG_MSG << "14" END_MSG;
 }

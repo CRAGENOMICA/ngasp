@@ -17,3 +17,4 @@ examples/coord_100Kb.txt filter=lfs diff=lfs merge=lfs -text
 examples/MC1R.gff filter=lfs diff=lfs merge=lfs -text
 examples/MC1R_H1frq.txt filter=lfs diff=lfs merge=lfs -text
 examples/MC1R_PigsOutg_aligned.fas filter=lfs diff=lfs merge=lfs -text
+./develop/webapp/bin/ngasp filter=lfs diff=lfs merge=lfs -text

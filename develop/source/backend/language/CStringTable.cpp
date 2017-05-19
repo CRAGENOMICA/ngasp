@@ -1594,7 +1594,7 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_DESC]                                  = "It returns the sequence's length of a Fasta file.";
 
   strings_[ENGLISH_COL][CALC_GET_MRD]                                           = "calc_get_mrd";
-  strings_[ENGLISH_COL][CALC_GET_MRD_BRIEF_DESC]                                = "Median Read Depth";
+  strings_[ENGLISH_COL][CALC_GET_MRD_BRIEF_DESC]                                = "Mean Read Depth";
   strings_[ENGLISH_COL][CALC_GET_MRD_DESC]                                      = "It returns a list of MRD of BAM files.";
 
   strings_[ENGLISH_COL][CALC_BAM2MPILEUP]                                       = "calc_BAM_to_Mpileup";

@@ -1,0 +1,6 @@
+#NAME.CHR	INITIAL	FINAL
+scaffold1	1	10000
+scaffold1	20001	30000
+scaffold1	40001	50000
+scaffold1	60001	70000
+scaffold1	80001	90000

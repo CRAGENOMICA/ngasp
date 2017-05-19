@@ -36,7 +36,7 @@ RUN yum install -y nodejs
 # *** firefox ***
 # ***************
 
-yum install -y firefox
+RUN yum install -y firefox
 
 # ==============================================================================
 # START

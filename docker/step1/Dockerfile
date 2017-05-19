@@ -116,7 +116,7 @@ ENV PATH "/opt/lib/openmpi/bin:${PATH}"
 # *** samtools ***
 # ****************
 
-RUN yum install -y samtools
+# RUN yum install -y samtools
 
 # ==============================================================================
 # START

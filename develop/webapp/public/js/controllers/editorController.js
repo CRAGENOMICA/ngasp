@@ -34,6 +34,8 @@ CRAG.controller('EditorController', function($scope,
                                              arrays,
                                              AlertService,
                                              MessagesFactory) {
+
+
     ////////////////////////////////////////////////////////////////////////////
     // CONSTANTS
     ////////////////////////////////////////////////////////////////////////////
@@ -901,7 +903,8 @@ if(!$scope.$$phase) {
         DATA_NODE:            4,
         PIPELINE_NODE:        5,
         NULL_CONNECTION:      6,
-        COMMENT_NODE:         7
+        COMMENT_NODE:         7,
+        EXTERNAL_VIEWER_NODE: 8
     };
     $scope.mouse_x = 0;
     $scope.mouse_y = 0;
@@ -985,7 +988,7 @@ if(!$scope.$$phase) {
         },
         {
             id: 'TFA Viewer',
-            style: $scope.NodeStyle.GRAPH_NODE,
+            style: $scope.NodeStyle.EXTERNAL_VIEWER_NODE,
             inputs: [
                 { id: 0, name: "TFA (gz)", type: "tfa_file", accumulative: false },
                 { id: 1, name: "GFF", type: "gff_file", accumulative: false },
@@ -1060,6 +1063,7 @@ if(!$scope.$$phase) {
         ICON_COMMENT:         $scope.NodeStyle.COMMENT_NODE,
         ICON_OUTPUT:          $scope.NodeStyle.OUTPUT_NODE,
         ICON_GRAPH:           $scope.NodeStyle.GRAPH_NODE,
+        ICON_GRAPH:           $scope.NodeStyle.EXTERNAL_VIEWER_NODE, //-------------------------------------------------------------------------------------------------------------------------------
         ICON_DATA:            $scope.NodeStyle.DATA_NODE,
         ICON_DM:              $scope.NodeStyle.DATA_NODE,
         ICON_NULL_CONNECTION: $scope.NodeStyle.NULL_CONNECTION,
@@ -2327,6 +2331,7 @@ console.log("** GetCommandsList() Error **");
             switch(node.temp.type_obj.style) {
                 case $scope.NodeStyle.CALCULATION_NODE:
                 case $scope.NodeStyle.GRAPH_NODE:
+                case $scope.NodeStyle.EXTERNAL_VIEWER_NODE:
                 case $scope.NodeStyle.PIPELINE_NODE:
                     if (conector_areas[i].required) {
                       //if(IsThisNodeInputConnectorEmpty(node.id, conector_areas[i].id)) {
@@ -2760,6 +2765,7 @@ console.log("** GetCommandsList() Error **");
                 DrawNullConnection(ctx, node, style);
                 break;
             case $scope.NodeStyle.GRAPH_NODE:
+            case $scope.NodeStyle.EXTERNAL_VIEWER_NODE:
                 DrawGraphNode(ctx, node, style);
                 break;
             case $scope.NodeStyle.PIPELINE_NODE:
@@ -3541,6 +3547,27 @@ console.log("** GetCommandsList() Error **");
                     FRAMEWORK_COLOR: '#6f845f',
                     NODE_DISABLED_COLOR: '#eee',
                 },
+                {   // EXTERNAL_VIEWER_NODE
+                    NODE_TITLE_HEIGHT: 30,
+                    MIN_NODE_WIDTH: 200,
+                    MIN_NODE_HEIGHT: 125,
+                    NODE_BACKGROUND_COLOR: '#fff',
+                    NODE_BOX_CORNER_RADIUS: 0,
+                    CONNECTOR_HEIGHT: 16,
+                    CONNECTOR_WIDTH: 16,
+                    DISTANCE_BETWEEN_CONNECTORS: 5,
+                    NODE_BORDER_COLOR: '#6f845f',
+                    NODE_SELECTED_BORDER_COLOR: '#99d651',
+                    TITLE_BACKGROUND_COLOR: '#445f2e',
+                    TITLE_TEXT_COLOR: '#fff',
+                    CONNECTOR_TEXT_COLOR: '#445f2e',
+                    CONNECTOR_TEXT_WIDTH: '400',
+                    CONNECTOR_TEXT_SHADOW_COLOR: null,
+                    CONNECTOR_OPEN_COLOR: 'white',
+                    CONNECTOR_CLOSED_COLOR: '#f9a01c',
+                    FRAMEWORK_COLOR: '#6f845f',
+                    NODE_DISABLED_COLOR: '#eee',
+                },
             ],
         },
         // Modern
@@ -3742,6 +3769,27 @@ console.log("** GetCommandsList() Error **");
                     CONNECTOR_CLOSED_COLOR: '#f9a01c',
                     FRAMEWORK_COLOR: 'white',
                     NODE_DISABLED_COLOR: '#ddd',
+                },
+                {   // EXTERNAL_VIEWER_NODE
+                    NODE_TITLE_HEIGHT: 30,
+                    MIN_NODE_WIDTH: 200,
+                    MIN_NODE_HEIGHT: 125,
+                    NODE_BACKGROUND_COLOR: '#fff',
+                    NODE_BOX_CORNER_RADIUS: 0,
+                    CONNECTOR_HEIGHT: 16,
+                    CONNECTOR_WIDTH: 16,
+                    DISTANCE_BETWEEN_CONNECTORS: 5,
+                    NODE_BORDER_COLOR: '#6f845f',
+                    NODE_SELECTED_BORDER_COLOR: '#99d651',
+                    TITLE_BACKGROUND_COLOR: '#445f2e',
+                    TITLE_TEXT_COLOR: '#fff',
+                    CONNECTOR_TEXT_COLOR: '#445f2e',
+                    CONNECTOR_TEXT_WIDTH: '400',
+                    CONNECTOR_TEXT_SHADOW_COLOR: null,
+                    CONNECTOR_OPEN_COLOR: 'white',
+                    CONNECTOR_CLOSED_COLOR: '#f9a01c',
+                    FRAMEWORK_COLOR: '#6f845f',
+                    NODE_DISABLED_COLOR: '#eee',
                 },
             ],
         },
@@ -3945,6 +3993,27 @@ console.log("** GetCommandsList() Error **");
                     FRAMEWORK_COLOR: '#222',
                     NODE_DISABLED_COLOR: '#ddd',
                 },
+                {   // EXTERNAL_VIEWER_NODE
+                    NODE_TITLE_HEIGHT: 30,
+                    MIN_NODE_WIDTH: 200,
+                    MIN_NODE_HEIGHT: 125,
+                    NODE_BACKGROUND_COLOR: '#fff',
+                    NODE_BOX_CORNER_RADIUS: 0,
+                    CONNECTOR_HEIGHT: 16,
+                    CONNECTOR_WIDTH: 16,
+                    DISTANCE_BETWEEN_CONNECTORS: 5,
+                    NODE_BORDER_COLOR: '#6f845f',
+                    NODE_SELECTED_BORDER_COLOR: '#99d651',
+                    TITLE_BACKGROUND_COLOR: '#445f2e',
+                    TITLE_TEXT_COLOR: '#fff',
+                    CONNECTOR_TEXT_COLOR: '#445f2e',
+                    CONNECTOR_TEXT_WIDTH: '400',
+                    CONNECTOR_TEXT_SHADOW_COLOR: null,
+                    CONNECTOR_OPEN_COLOR: 'white',
+                    CONNECTOR_CLOSED_COLOR: '#f9a01c',
+                    FRAMEWORK_COLOR: '#6f845f',
+                    NODE_DISABLED_COLOR: '#eee',
+                },
             ],
         },
     ];
@@ -3963,7 +4032,7 @@ console.log("** GetCommandsList() Error **");
     function SetOneNodeTheme(node) {
 
         var style = current_theme.node[node.temp.type_obj.style];
-        var node_value = (node.temp.type_obj.style != $scope.NodeStyle.GRAPH_NODE)?node.value:0;
+        var node_value = ((node.temp.type_obj.style != $scope.NodeStyle.GRAPH_NODE) && (node.temp.type_obj.style != $scope.NodeStyle.EXTERNAL_VIEWER_NODE))?node.value:0;
 
         var max_width = 
             GetWiderText($scope.ctx, fonts.NodeTitle, node.type, 120, // Added some space to the node title for the node id and the node logo
@@ -4050,6 +4119,7 @@ console.log("** GetCommandsList() Error **");
             case $scope.NodeStyle.DATA_NODE:
             case $scope.NodeStyle.NULL_CONNECTION:
             case $scope.NodeStyle.GRAPH_NODE:
+            case $scope.NodeStyle.EXTERNAL_VIEWER_NODE:
             case $scope.NodeStyle.COMMENT_NODE:
                 follow_previous_items = false;
                 num_connectors = (node.temp.type_obj.inputs.length > node.temp.type_obj.outputs.length)?node.temp.type_obj.inputs.length:node.temp.type_obj.outputs.length;
@@ -4397,11 +4467,11 @@ console.log("** GetCommandsList() Error **");
                      (node.temp.type_obj.style == $scope.NodeStyle.INPUT_NODE) ||
                      (node.temp.type_obj.style == $scope.NodeStyle.OUTPUT_NODE) ||
                      (node.temp.type_obj.style == $scope.NodeStyle.COMMENT_NODE) ||
-                     (node.temp.type_obj.style == $scope.NodeStyle.GRAPH_NODE)
+                     (node.temp.type_obj.style == $scope.NodeStyle.GRAPH_NODE) ||
+                     (node.temp.type_obj.style == $scope.NodeStyle.EXTERNAL_VIEWER_NODE)
                     )) {
                     switch(node.type) {
                         case 'TFA Viewer':
-
                             $window.open('http://localhost:3001', '_blank');
                             break;
                         case 'bool':

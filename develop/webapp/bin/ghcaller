@@ -20,10 +20,11 @@ function help(){
 	echo "-------------------------"
 	echo "   Usage: ghcaller  [-p|--procs number_of_processes (MPI)] [-t|--threads number_of_threads (OMP)] [GHcaller main options]"
 	echo ""
-	# Get help from main application
+	
+        # Get help from main application
 	echo "GHcaller main options:" 
 	echo "----------------------" 
-	$MPIRUN -np $PROC $PGHCALLER --help
+	$MPIRUN --allow-run-as-root -np $PROC $PGHCALLER --help
 }
 
 # TODO runners
@@ -31,9 +32,6 @@ function run(){
 	local args=$@
 	echo "[GHCALLER] Running ARGS $args"
 	export OMP_NUM_THREADS=$THREADS
-	#echo mpirun -x OMP_NUM_THREADS -np $PROC $PGHCALLER $args
-	#mpirun -x OMP_NUM_THREADS -np $PROC $PGHCALLER $args
-	# $MPIRUN --display-map -x OMP_NUM_THREADS  $PGHCALLER $args
 	$MPIRUN --allow-run-as-root -x OMP_NUM_THREADS  $PGHCALLER $args
 }
 
@@ -110,25 +108,6 @@ fi
 array=( $@ )              # get all args in an array
 len=${#array[@]}          # find the length of an array
 l=0
-
-# GNU VERSION with long options
-# TEMP=`getopt -q -o hp:t: --long help,procs,threads: \
-#     -n 'ghcaller.bash' -- "$@"` 
-# eval set -- "$TEMP"
-# while true ; do
-#    case "$1" in
-#	-h|--help)    help ; exit 0 
-#	;;
-#        #-p|--procs)   echo "Processes  $2" ; l=$(( l+1 )); PROC=$2;   shift 2
-#        -p|--procs)   l=$(( l+1 )); PROC=$2;   shift 2
-#	;;
-#        #-t|--threads) echo "Thread $2" ; l=$(( l+1 )); THREADS=$2; shift 2 
-#        -t|--threads) l=$(( l+1 )); THREADS=$2; shift 2 
-#	;;
-#        --) shift ; break 
-#	;;
-#    esac
-# done
 
 # BASH BUILT-IN option
 set -- $(getopt -q hp:t: "$@")

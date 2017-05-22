@@ -109,14 +109,21 @@ RUN mkdir /tmp/openmpi && \
     make all && \
     make install
 ENV OPEN_MPI_HOME /opt/lib/openmpi
-ENV LD_LIBRARY_PATH "/opt/lib/openmpi/lib:${LD_LIBRARY_PATH}"
+ENV LD_LIBRARY_PATH "/opt/lib/openmpi/lib:/usr/local/lib/:${LD_LIBRARY_PATH}"
 ENV PATH "/opt/lib/openmpi/bin:${PATH}"
+
+# ************
+# *** epel ***
+# ************
+
+RUN curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \
+    rpm -Uvh epel.rpm
 
 # ****************
 # *** samtools ***
 # ****************
 
-# RUN yum install -y samtools
+RUN yum install -y samtools
 
 # ==============================================================================
 # START

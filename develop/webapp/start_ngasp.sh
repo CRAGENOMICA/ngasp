@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /develop/webapp
+
 # Close previous Node.js & ngasp instances
 killall -q node
 killall -q ngasp

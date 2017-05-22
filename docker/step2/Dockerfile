@@ -18,19 +18,11 @@ FROM step1
 # NODE JS SERVER
 # ==============================================================================
 
-# ************
-# *** epel ***
-# ************
-
-RUN curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \
-    rpm -Uvh epel.rpm
-
 # **************
 # *** nodejs ***
 # **************
 
 RUN yum install -y nodejs
-
 
 # ***************
 # *** firefox ***

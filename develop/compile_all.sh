@@ -18,7 +18,7 @@ cd /tmp/fastaconvtr
 wget https://bioinformatics.cragenomica.es/numgenomics/people/sebas/software/files/page3_5.zip
 unzip -o page3_5.zip
 cd fastaconvtr_pack
-gcc ./sources/*.c -lm -o /develop/webapp/bin/fastaconvtr -Wall -pedantic
+gcc ./sources/*.c -lm -o /develop/webapp/bin/fastaconvtr -Wall -pedantic -lz
 
 # **************
 # *** npstat ***

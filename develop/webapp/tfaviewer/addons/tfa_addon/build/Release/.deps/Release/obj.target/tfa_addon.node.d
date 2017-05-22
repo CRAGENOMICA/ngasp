@@ -1,0 +1,1 @@
+cmd_Release/obj.target/tfa_addon.node := flock ./Release/linker.lock g++ -shared -pthread -rdynamic -m64  -Wl,-soname=tfa_addon.node -o Release/obj.target/tfa_addon.node -Wl,--start-group Release/obj.target/tfa_addon/tfa_addon.o Release/obj.target/tfa_addon/zutil.o Release/obj.target/tfa_addon/zindex.o -Wl,--end-group -lz /usr/lib64/libstdc++.so.6

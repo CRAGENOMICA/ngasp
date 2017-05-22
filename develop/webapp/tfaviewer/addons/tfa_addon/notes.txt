@@ -1,0 +1,197 @@
+Problem:
+
+Error: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /home/jjene/EclipseProjects/tfaviewer/addon/build/Release/tfa_addon.node)
+    at Error (native)
+    at Object.Module._extensions..node (module.js:597:18)
+    at Module.load (module.js:487:32)
+    at tryModuleLoad (module.js:446:12)
+    at Function.Module._load (module.js:438:3)
+    at Module.require (module.js:497:17)
+    at require (internal/module.js:20:19)
+    at Object.<anonymous> (/home/jjene/EclipseProjects/tfaviewer/server.js:12:23)
+    at Module._compile (module.js:570:32)
+    at Object.Module._extensions..js (module.js:579:10)
+
+
+Solution:
+
+    Watch your GLIBXX version, running:
+    $ strings /usr/lib/libstdc++.so.6 | grep GLIBXX
+
+
+    Include your libstdc++.so.6 inside the binding.gyp file:
+
+      "libraries": [
+        "-lz",
+        "/usr/lib64/libstdc++.so.6"
+      ],
+
+
+--------------------------------------------------------------------------------
+
+
+/*
+================================= OK ===========================================
+Nan::Persistent<v8::String> memory_pointer_;
+void PublicTest(const FunctionCallbackInfo<Value>& args) {
+    Isolate* isolate = args.GetIsolate();
+    HandleScope scope(isolate);
+
+    v8::Local<v8::String> input_string(args[0]->ToString());
+    v8::Local<v8::String> memory_pointer = Nan::New(memory_pointer_);
+
+    memory_pointer_.Reset(v8::String::Concat(memory_pointer, input_string));
+
+    // Return Data
+    // -----------
+    args.GetReturnValue().Set(memory_pointer); //String::NewFromUtf8(isolate, *utf8));
+}
+================================= OK ===========================================
+En el init:
+    memory_pointer_.Reset(Nan::New("init2").ToLocalChecked());
+================================= OK ===========================================
+*/
+
+--------------------------------------------------------------------------------
+
+
+    function DrawSequenceBasesOld(data) {
+/*
+        var DNA_SEQ_H = 2;
+        var DNA_SEQ_W = 20;
+        var DNA_STICK_H = 5;
+        var DNA_STICK_W = 1;
+        var DNA_LABEL_H = 16;
+        var DNA_LABEL_TOP = 5;
+        var DNA_LABEL_SPAN = 4;
+        var DNA_COLOR = "lightgray"; // #D61921";
+        var BASE_G_COLOR = "#F78C19";
+        var BASE_T_COLOR = "#00843A";
+        var BASE_A_COLOR = "#006BB5";
+        var BASE_C_COLOR = "#293194";
+        var BASE_OTHER_COLOR = DNA_COLOR;
+        var pX = 20;
+        var pY = 20;
+
+*/
+        var DNA_SEQ_H = 2 * zoom_.h;
+        var DNA_SEQ_W = 20 * zoom_.w;
+        var DNA_STICK_H = 5 * zoom_.h;
+        var DNA_STICK_W = 1 * zoom_.w;
+        var DNA_LABEL_H = 16 * zoom_.h;
+        var DNA_LABEL_TOP = 5 * zoom_.h;
+        var DNA_LABEL_SPAN = 4 * zoom_.w;
+        var DNA_COLOR = "lightgray"; // #D61921";
+        var BASE_G_COLOR = "#F78C19";
+        var BASE_T_COLOR = "#00843A";
+        var BASE_A_COLOR = "#006BB5";
+        var BASE_C_COLOR = "#293194";
+        var BASE_OTHER_COLOR = DNA_COLOR;
+        var pX = 0;
+        var pY = 0;
+        
+/*
+        DrawText(fonts_.seq_title, 'black', null, "ID", pX, pY, "left");
+        DrawText(fonts_.seq_title, 'black', null, "Sequence", pX + 100, pY, "left");
+        pY += 30;
+*/
+        for(var i = 0; i < data.length; i++) {
+            order = data[i].order;
+            id    = data[i].id;
+            seq   = data[i].seq;
+
+//            DrawText(fonts_.seq_id, 'black', null, id, pX, pY, "left");
+
+            if (seq != undefined) {
+                for (var b = 0; b < seq.length; b++) {
+    //                x = pX + 100 + b * DNA_SEQ_W;
+                    x = pX + b * DNA_SEQ_W;
+                    y = pY;
+                    base = seq[b];
+    /*
+                    ctx_.save();
+                    ctx_.beginPath();
+
+                    ctx_.moveTo(x, y);
+                    ctx_.lineTo(x + DNA_SEQ_W, y);
+                    ctx_.lineTo(x + DNA_SEQ_W, y - DNA_SEQ_H);
+                    ctx_.lineTo(x + (DNA_SEQ_W / 2) + (DNA_STICK_W / 2), y - DNA_SEQ_H);
+                    ctx_.lineTo(x + (DNA_SEQ_W / 2) + (DNA_STICK_W / 2), y - DNA_SEQ_H - DNA_STICK_H);
+                    ctx_.lineTo(x + (DNA_SEQ_W / 2) - (DNA_STICK_W / 2), y - DNA_SEQ_H - DNA_STICK_H);
+                    ctx_.lineTo(x + (DNA_SEQ_W / 2) - (DNA_STICK_W / 2), y - DNA_SEQ_H);
+                    ctx_.lineTo(x, y - DNA_SEQ_H);
+                    ctx_.lineTo(x, y);
+
+                    ctx_.closePath();
+                    ctx_.strokeStyle = DNA_COLOR;
+                    ctx_.lineWidth=0;
+                    ctx_.stroke();
+                    ctx_.fillStyle = DNA_COLOR;
+                    ctx_.fill();
+                    ctx_.restore();
+    */
+                    var color = 'gray';
+
+                    ctx_.beginPath();
+
+                    ctx_.moveTo(x + (DNA_SEQ_W / 2) + (DNA_STICK_W / 2), y - DNA_SEQ_H - DNA_STICK_H);
+
+                    switch(base) {
+                        case 'A':
+                            color = BASE_A_COLOR;
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H);
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H + DNA_LABEL_TOP);
+                            ctx_.quadraticCurveTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H,
+                                                  x + DNA_SEQ_W / 2, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H);
+                            ctx_.quadraticCurveTo(x + DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H,
+                                                  x + DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H + DNA_LABEL_TOP);
+                            break;
+                        case 'T':
+                            color = BASE_T_COLOR;
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H);
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H);
+                            ctx_.quadraticCurveTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H + DNA_LABEL_TOP,
+                                                  x + DNA_SEQ_W / 2, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H + DNA_LABEL_TOP);
+                            ctx_.quadraticCurveTo(x + DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H + DNA_LABEL_TOP,
+                                                  x + DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H);
+                            ctx_.lineTo(x + DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H);
+                            break;
+                        case 'C':
+                            color = BASE_C_COLOR;
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H);
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H);
+                            ctx_.lineTo(x + DNA_SEQ_W / 2, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H + DNA_LABEL_TOP);
+                            ctx_.lineTo(x + DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H);
+                            break;
+                        case 'G':
+                            color = BASE_G_COLOR;
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H);
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H + DNA_LABEL_TOP);
+                            ctx_.lineTo(x + DNA_SEQ_W / 2, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H);
+                            ctx_.lineTo(x + DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H + DNA_LABEL_TOP);
+                            break;
+                        case 'N':
+                            color = BASE_OTHER_COLOR;
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H);
+                            ctx_.lineTo(x + DNA_SEQ_W - DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H);
+                            ctx_.lineTo(x + DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H - DNA_LABEL_H);
+                        default:
+                            break;
+                    }
+
+                    ctx_.lineTo(x + DNA_LABEL_SPAN, y - DNA_SEQ_H - DNA_STICK_H);
+
+                    ctx_.closePath();
+                    ctx_.strokeStyle = color;
+                    ctx_.lineWidth=0;
+                    ctx_.stroke();
+                    ctx_.fillStyle = color;
+                    ctx_.fill();
+
+                    DrawText(fonts_.base, 'white', null, base, x + DNA_LABEL_SPAN + 2 , y - DNA_SEQ_H - DNA_STICK_H - 2, "left");
+                }
+
+                pY = pY + (DNA_SEQ_H + DNA_STICK_H + DNA_LABEL_H);
+            }
+        }
+    };

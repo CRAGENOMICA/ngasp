@@ -1,0 +1,413 @@
+<!-- do not set the controller here because it is in the $stateProvider -->
+
+<style>
+
+/* The size of the navbar */
+.navbar 
+{
+    margin: 0px;
+    width: 1495px
+}
+
+/* It contains the viewer: drawing zone and the slider. each one in a separate sub div horizontal */
+#viewer
+{
+	width: 1600px;
+    margin: 0px;
+    padding: 0px;
+    
+    background-color: white;
+}
+
+/* It contains the canvas */
+#viewer_draw
+{
+    display: inline-block; /* It must be displayed horizontal with the viewer_slider */
+    margin: 0px;
+    padding: 0px;
+
+	width: 1500px; /* Size of the canvas */
+    height: 100%;
+
+    background-color: white;
+}
+
+/* it contains the slider and the up & down buttons */
+#slider_group 
+{
+    display: inline-block; /* It must be displayed horizontal with the viewer_draw */
+
+	width: 20px;    /* The size of the vertical slider */
+    height: 715px;
+
+    background-color: white;
+    padding:0px;
+    margin:0px;
+    vertical-align: top;
+}
+
+/* It contains the slider */
+#viewer_slider
+{
+    display: inline-block; /* It must be displayed horizontal with the viewer_draw */
+
+	width: 20px;    /* The size of the vertical slider */
+    height: 681px;
+
+    background-color: white;
+
+    vertical-align: top;
+    
+}
+
+
+.file_input
+{
+    width: 100%;
+    height: 30px;
+}
+
+label
+{
+    width: 100%;
+    height: 25px;
+}
+
+
+/*
+----------------------------
+Statistics Dialog
+----------------------------
+*/
+
+.modal-stats-selection {
+    /* new custom width */
+    width: 1000px;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    margin-left: 530px;
+}
+
+
+#filters
+{
+    columns: 4;
+    -webkit-columns: 4;
+    -moz-columns: 4;
+
+    list-style-type: none;
+}
+
+
+/*
+----------------------------
+Slider custom style
+----------------------------
+*/
+
+.custom-slider.rzslider .rz-bar {
+  background: #495468;
+  width: 2px;
+}
+.custom-slider.rzslider .rz-selection {
+/*  background: orange;*/
+}
+
+.custom-slider.rzslider .rz-pointer {
+
+  width: 15px;
+  height: 15px;
+  margin: 15px 0px 0px 7px;
+
+/*    top: auto; */ /*to remove the default positioning */
+/*
+  bottom: 0;
+*/
+  background-color: #495468;
+}
+
+.custom-slider.rzslider .rz-pointer:after {
+  display: none;
+}
+
+.custom-slider.rzslider .rz-bubble {
+/*  bottom: 14px;*/
+}
+
+.custom-slider.rzslider .rz-limit {
+/*  font-weight: bold;
+  color: orange;*/
+}
+
+.custom-slider.rzslider .rz-tick {
+/*  width: 1px;
+  height: 10px;
+  margin-left: 4px;
+  border-radius: 0;
+  background: #ffe4d1;
+  top: -1px;*/
+}
+
+.custom-slider.rzslider .rz-tick.rz-selected {
+  background: orange;
+}
+
+/*
+----------------------------
+Slider custom style
+----------------------------
+*/
+
+#mouse_info
+{
+    position: absolute;
+    background-color: #dde;
+    z-index: 99;
+    top: 100px;
+    left: 100px;
+}
+
+</style>
+
+<div id="content1" width="100%">
+
+<!--
+================================================================================
+NAVBAR
+================================================================================
+-->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">T-Fasta Viewer <small>0.1</small></a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" data-toggle="modal" ng-click="OnOpenFilesDialog()" data-target="#FilesModal">Open...</a></li>
+            <li ng-show="ViewerHasData()" role="separator" class="divider"></li>
+            <li ng-show="ViewerHasData()"><a href="#" id="btn-download" download="capture.png" ng-click="OnSaveCanvasAsImage()">Save as image...</a></li>
+            <li ng-show="ViewerHasData()" role="separator" class="divider"></li>
+            <li ng-show="ViewerHasData()"><a href="#" ng-click="OnClose();">Close</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown" ng-show="ViewerHasData()">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li ng-repeat="x in GetViews()"><a href="#" ng-click="OnSetView(x.id)">
+                <img src="images/check.png" ng-show="(viewer.view_type == x.id)" />&nbsp;{{x.view_name}}</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown" ng-show="StatsHasData()">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Statistics <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+                <a href="#" ng-click="OnTogleStatsVisibility('show_curve_line')"><img src="images/check.png" ng-show="viewer.stats_options.show_curve_line" />&nbsp;Show Curve Line</a></li>
+            </li>
+            <li>
+                <a href="#" ng-click="OnTogleStatsVisibility('show_quadratic_line')"><img src="images/check.png" ng-show="viewer.stats_options.show_quadratic_line" />&nbsp;Show Rectangular Line</a></li>
+            </li>
+            <li>
+                <a href="#" ng-click="OnTogleStatsVisibility('show_values')"><img src="images/check.png" ng-show="viewer.stats_options.show_values" />&nbsp;Show Values</a></li>
+            </li>
+            <li>
+                <a href="#" ng-click="OnTogleStatsVisibility('show_range')"><img src="images/check.png" ng-show="viewer.stats_options.show_range" />&nbsp;Show Ranges</a></li>
+            </li>
+            <li>
+                <a href="#" ng-click="OnTogleStatsVisibility('show_genes')"><img src="images/check.png" ng-show="viewer.stats_options.show_genes" />&nbsp;Show Genes ID's</a></li>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" data-toggle="modal" data-target="#StatsModal">Choose statistics...</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+                <a target="_blank" href="help.html">T-Fasta Viewer Help...</a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li>
+                <a href="#" ng-click="">About...</a>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<!--
+================================================================================
+VIEWER
+================================================================================
+-->
+<div id="viewer">
+    <div id="viewer_draw">
+        <canvas id="myCanvas" width="1500px" height="750px"></canvas> <!-- width and height joined to #viewer_holder -->
+    </div>
+    <div id="slider_group">
+        <button style="padding:0px;margin:0px 0px 1px 8px;" ng-click="OnViewerMoveUp()" ng-disabled="!ViewerHasData()"><image src="images/button_up.svg"></img></button>
+        <div id="viewer_slider">
+            <rzslider  rz-slider-model="viewer.position" rz-slider-high="viewer.max_position" rz-slider-options="{floor: 0, ceil: viewer.files[0].items, vertical:true, rightToLeft:true}" ng-mouseup="OnChangeSliderRange()" class="custom-slider" ng-disabled="!ViewerHasData()"></rzslider> 
+<!--            <rzslider  rz-slider-model="viewer.position" rz-slider-options="{floor: 0, ceil: viewer.files[0].items, vertical:true, rightToLeft:true}" class="custom-slider" ng-mouseup="OnChangeSliderRange()" ng-disabled="!ViewerHasData()"></rzslider> -->
+            <!-- https://github.com/angular-slider/angularjs-slider -->
+        </div>
+        <button style="padding:0px;margin:1px 0px 0px 8px;" ng-click="OnViewerMoveDown()" ng-disabled="!ViewerHasData()"><image src="images/button_down.svg"></img></button>
+    </div>
+</div>
+
+
+<!--
+================================================================================
+MOUSE INFORMATION
+================================================================================
+-->
+
+<style>
+table
+{
+    width: 250px;
+    margin: 5px;
+    border: 1px solid #000;
+}
+td
+{
+    padding: 5px;
+    border: 1px solid #000;
+}
+.property
+{
+    font-weight: bold;
+    font-size: 75%;
+
+    width: 100px;
+}
+.value
+{
+    font-weight: normal;
+    font-size: 75%;
+}
+</style>
+<div id="mouse_info" ng-show="false"> <!-- viewer.information.show && !col_resizing -->
+    <div ng-show="(viewer.information.mouse_over=='viewer')">
+        <table>
+            <tr>
+                <td class="property">Gene ID:</td><td class="value">{{viewer.information.viewer.gene_id}}</td>
+            </tr>
+            <tr>
+                <td class="property">Base:</td><td class="value">{{viewer.information.viewer.base}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div ng-show="false"> <!-- (viewer.information.mouse_over=='stats') -->
+        <table>
+            <tr>
+                <td class="property">Range:</td><td class="value">[{{viewer.information.stats.range.min}}, {{viewer.information.stats.range.max}}]</td>
+            </tr>
+            <tr>
+                <td class="property">Window:</td><td class="value">[{{viewer.information.stats.window.start}}, {{viewer.information.stats.window.end}}]</td>
+            </tr>
+            <tr>
+                <td class="property">Value:</td><td class="value">{{viewer.information.stats.value}}</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+
+<!--
+================================================================================
+FILES MODAL
+================================================================================
+-->
+<div id="FilesModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Input Files</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="container col-md-12">
+
+                    <div class="row">
+                        <div class="col-md-3"><label>T-Fasta File:</label></div>
+                        <div class="col-md-9"><input class="file_input" type="text" ng-model="viewer.files[0].file_name" ></input></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><label>GFF File:</label></div>
+                        <div class="col-md-9"><input class="file_input" type="text" ng-model="viewer.files[1].file_name" ></input></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><label>Weights File:</label></div>
+                        <div class="col-md-9"><input class="file_input" type="text" ng-model="viewer.files[2].file_name" ></input></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><label>Statistics File:</label></div>
+                        <div class="col-md-9"><input id="file_stats" class="file_input" type="text" ng-model="viewer.files[3].file_name" data-toggle="tooltip" data-placement="bottom" title="mstatspop statistics file in json format. For example, ./stats2json.sh mstatspop_output.txt mstatspop_output.json"></input></div>
+                    </div>
+                </div>
+
+                <br /><br /><br /><br /><br /><br />
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal" ng-click="OnAcceptRefreshFiles()">OK</button>
+                <button type="button" class="btn" data-dismiss="modal" ng-click="OnCancelRefreshFiles()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--
+================================================================================
+STATS MODAL
+================================================================================
+-->
+<div id="StatsModal" class="modal fade " role="dialog">
+  <div class="modal-stats-selection"> <!-- instead of modal-dialog -->
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Choose visible statistics</h4>
+      </div>
+      <div class="modal-body">
+
+            <ul id="filters">
+                <small>
+                <li ng-repeat="x in viewer.files[3].stats_names"><label><input type="checkbox" ng-checked="x.selected" ng-true-value="'YES'" ng-false-value="'NO'" ng-click="OnToggleStatSelection(x.name)" />&nbsp;{{x.name}}</label></li>
+                </small>
+            </ul>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" ng-click="OnCloseStatsSelection()">OK</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+

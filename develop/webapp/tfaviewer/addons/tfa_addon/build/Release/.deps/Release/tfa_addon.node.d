@@ -1,0 +1,1 @@
+cmd_Release/tfa_addon.node := ln -f "Release/obj.target/tfa_addon.node" "Release/tfa_addon.node" 2>/dev/null || (rm -rf "Release/tfa_addon.node" && cp -af "Release/obj.target/tfa_addon.node" "Release/tfa_addon.node")

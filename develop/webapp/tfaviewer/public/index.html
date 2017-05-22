@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta charset="utf-8"> <!-- it's important for d3.js -->
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	    <link rel="icon" href="./css/icons/favicon.ico">
+
+		<title></title>
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./bower_components/angularjs-slider/dist/rzslider.css">
+        <link rel="stylesheet" href="./bower_components/ngprogress/ngProgress.css">
+	</head>
+
+	<body ng-app='CRAG' ng-controller="MainController"> <!-- body class set on angular -->
+    <!-- ===================================================== -->
+    <!-- SHEET -->
+    <!-- ===================================================== -->
+
+<!--
+    <div id="header">
+      <h1>HEADER</h1>
+      <button ng-click="MenuClick('home')">Open Home</button>
+    </div>
+-->
+
+  	<div ui-view='main'></div>
+<!--
+    <div id="footer">
+        <h1>FOOTER</h1>
+    </div>
+-->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/angular/angular.js"></script> <!-- 1.5.3 -->
+    <script src="./bower_components/angular-route/angular-route.min.js"></script>  <!-- Required by "angular-ui-router" -->
+    <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="./bower_components/angular-animate/angular-animate.js"></script>
+    <script src="./bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+    <script src="./bower_components/bootstrap-filestyle/src/bootstrap-filestyle.min.js"></script>
+    <script src="./bower_components/ngprogress/build/ngprogress.min.js"></script>
+
+    <!-- App -->
+    <script src="./js/app.js"></script>
+
+    <!-- Services -->
+    <script src="./js/services/drawing.js"></script>
+    <script src="./js/services/viewer.js"></script>
+    <script src="./js/services/dao.js"></script>
+    <script src="./js/services/sequences.js"></script>
+
+
+    <!-- Controllers -->
+    <script src="./js/controllers/mainController.js"></script>
+    <script src="./js/controllers/viewerController.js"></script>
+
+    <!-- Directives -->
+    <script src="./js/directives/fileread.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="./css/styles.css" rel="stylesheet">
+	</body>
+
+<script>
+    // Disabling page context menu
+    document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
+
+</html>
+
+<!DOCTYPE html>
+<html>
+
+
+

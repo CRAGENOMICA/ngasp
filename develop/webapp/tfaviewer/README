@@ -1,0 +1,48 @@
+Installation
+============
+
+1) Download the application:
+
+    $ git clone https://gitlab.bio.crag.local/jjene/tfaviewer.git
+
+2) Install Node.js (https://nodejs.org/es/):
+
+    Linux   : $ sudo apt-get install node
+    MacOS X : $ brew install node
+
+3) Install gyp:
+
+	$ npm install -g node-gyp
+
+4) Compile the app:
+
+    $ ./compile.sh
+
+
+Launch the T-Fasta Viewer
+=========================
+
+1) Run:
+
+	$ ./start_viewer.sh
+
+2) Open:
+
+    http://localhost:8082
+
+
+Stop the T-Fasta Viewer
+=======================
+
+1) Run:
+
+	$ ./stop_viewer.sh
+
+
+Troubleshooting
+===============
+
+*) Problem: ./start_viewer.sh shows "Error: listen EADDRINUSE"
+   Solution: change the port number in the server.js file: server.listen(8082);
+
+

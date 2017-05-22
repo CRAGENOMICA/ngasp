@@ -1,0 +1,37 @@
+/*
+-------------------------------------------------------------------------------
+HTML & Body
+-------------------------------------------------------------------------------
+*/
+html, body
+{
+	height: 100%;	/* menu height 100% */
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+}
+
+.default_body
+{
+  padding: 0px;
+  margin: 0px;
+}
+
+#header
+{
+  background-color: orange;
+  width: 100%;
+}
+
+#content1
+{
+  background-color: white;
+  width: 100%;
+}
+
+#footer
+{
+  background-color: gray;
+  width: 100%;
+}
+

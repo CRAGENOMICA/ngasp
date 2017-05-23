@@ -177,6 +177,8 @@ void CCalcListFiles::Calculate(bool dry_run) {
     catch(...) {
         ERROR_MSG << "Include parameter error..." END_MSG;
     }
+
+    files_->Sort();
 }
 
 void CCalcListFiles::Finalize(void) {

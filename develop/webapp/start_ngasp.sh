@@ -28,6 +28,7 @@ echo "******************************************"
 firefox http://localhost:3000 &
 
 cd tfaviewer
+# Do not do: ./stop_viewer.sh
 ./start_viewer.sh
 cd ..
 

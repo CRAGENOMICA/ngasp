@@ -36,7 +36,7 @@ CRAG.service('vcte', function () {
     this.TABLE_COLUMN_2_WIDTH = 70;
     this.TABLE_COLUMN_3_WIDTH = 50;
     this.TABLE_COLUMN_4_WIDTH = 3;
-    this.TABLE_COLUMN_5_WIDTH = 892; //892
+    this.TABLE_COLUMN_5_WIDTH = 500; //892
     this.CELL_SPAN            = 5;
     this.DNA_TABLE_WIDTH      = this.TABLE_COLUMN_1_WIDTH + 
                                 this.TABLE_COLUMN_2_WIDTH + 
@@ -279,7 +279,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
             'show_curve_line': true,
             'show_quadratic_line': false,
             'show_range': true,
-            'show_genes': true,
+            'show_genes': false,
             'show_value': false
         };
     },
@@ -458,11 +458,21 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
 
     ViewerHasData: function(viewer) {
-        return (viewer.files[vcte.FileType.TFA].data.length > 0);
+        var ret = false;
+
+        if (viewer.files[vcte.FileType.TFA].data != null) {
+            ret = (viewer.files[vcte.FileType.TFA].data.length > 0);
+        }
+        return ret;
     },
 
     StatsHasData: function(viewer) {
-        return (viewer.files[vcte.FileType.STATS].data.length > 0);
+        var ret = false;
+
+        if (viewer.files[vcte.FileType.STATS].data != null) {
+            ret = (viewer.files[vcte.FileType.STATS].data.length > 0);
+        }
+        return ret;
     },
 
 
@@ -675,13 +685,20 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
             // Draw Arrow Line
             y += viewer.ctx.lineWidth;
             viewer.ctx.beginPath();
-            viewer.ctx.moveTo(x, y + start);
-            viewer.ctx.lineTo(x, (y + start + arrow_length < y + end)?y + start + arrow_length:y + end);
+            if (dir == '-') {
+                viewer.ctx.moveTo(x, y + start);
+            }
+            if (dir == '+') {
+                viewer.ctx.moveTo(x, y + start - viewer.ctx.lineWidth);
+            }
+//            viewer.ctx.lineTo(x, (y + start + arrow_length < y + end)?y + start + arrow_length:y + end);
+            viewer.ctx.lineTo(x, y + start + arrow_length);
             viewer.ctx.closePath();
             viewer.ctx.stroke();
 
+
             if (dir == '-') {
-                // Draw Arrow Head (Up)
+               // Draw Arrow Head (Up)
                 viewer.ctx.beginPath();
                 viewer.ctx.moveTo(x, y + start - viewer.ctx.lineWidth);
                 viewer.ctx.lineTo(x + arrow_head_size, y + start + arrow_head_size - viewer.ctx.lineWidth);
@@ -689,6 +706,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                 viewer.ctx.closePath();
                 viewer.ctx.fill();
             }
+
 
             if (dir == '+') {
                 // Draw Arrow Head (Down)
@@ -699,6 +717,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                 viewer.ctx.closePath();
                 viewer.ctx.fill();
             }
+
             y -= viewer.ctx.lineWidth;
 
 
@@ -1656,7 +1675,10 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
         if ((stats_names != null) && (stats_names.length > 0)) {
             for (var i = 0; i < stats_names.length; i++) {
-                if (stats_names[i].name.indexOf('Theta(F') != -1) {
+                if ((stats_names[i].name == 'TajimaD[1]') ||
+                    (stats_names[i].name == 'Fst[0,1]') || 
+                    (stats_names[i].name == 'PiT[0,1]')) {
+                //if (stats_names[i].name.indexOf('Theta(F') != -1) {
                     stats_names[i].selected = true;
                     viewer.files[vcte.FileType.STATS].num_visible_charts++;
                 } else {
@@ -1756,6 +1778,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         var data_minmax = viewer.files[vcte.FileType.STATS].minmax;
         var stats_names = viewer.files[vcte.FileType.STATS].stats_names;
         
+
         // Normalize values
 
         viewer.stat_col_width = ((viewer.statistics_width) / viewer.files[vcte.FileType.STATS].num_visible_charts);
@@ -2180,9 +2203,14 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         viewer.position -= step;
         viewer.max_position -= step;
 
-        if (step != 0) {
-            this.OnChangeSliderRange(viewer);
+        if (viewer.position < 0) {
+            viewer.max_position += viewer.position * (-1);
+            viewer.position = 0;
         }
+
+//      if (step != 0) {
+        this.OnChangeSliderRange(viewer);
+//      }
     },
 
     OnViewerMoveDown: function(viewer) {
@@ -2197,10 +2225,14 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         viewer.position += step;
         viewer.max_position += step;
 
-        if (step != 0) {
-
-            this.OnChangeSliderRange(viewer);
+        if (viewer.max_position > viewer.files[vcte.FileType.TFA].items) {
+            viewer.position -= viewer.max_position - viewer.files[vcte.FileType.TFA].items;
+            viewer.max_position = viewer.files[vcte.FileType.TFA].items;
         }
+
+//      if (step != 0) {
+        this.OnChangeSliderRange(viewer);
+//      }
     }
 
 

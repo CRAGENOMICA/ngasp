@@ -171,7 +171,6 @@ app.post("/gff", function (req, res) {
     StartTimer();
     // -------------------------------------------------------------------------
 
-
     try {
         var str = tfa_addon.get_gff(req.body.file_name);
 
@@ -184,9 +183,13 @@ app.post("/gff", function (req, res) {
                 (cols[2] == "CDS") &&
                 (cols[8].indexOf("_criteria_") != -1)){
 
-                var p = cols[8].split("\"");
-                if ((p.length > 1) && (p[0] == "gene_id ")) {
-                    var gene_id = p[1];
+                //var p = cols[8].split("\"");
+                //if ((p.length > 1) && (p[0] == "gene_id ")) {
+                var p = cols[8].split(" ");
+                if ((p.length > 1) && (p[0] == "gene_id")) {
+                    var pp = p[1].split(";");
+                    var gene_id = pp[0];
+                    gene_id = gene_id.replace(/\"/g, "");
 
                     ret.data.data.push({
                         'gene_id':gene_id,

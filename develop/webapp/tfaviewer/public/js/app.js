@@ -1,8 +1,8 @@
 var CRAG = angular.module('CRAG', [ 'ui.router',
                                     'ui.bootstrap',
                                     'rzModule',
-                                    'ngProgress',
-                                    'ngRoute'
+                                    'ngProgress'
+                                    //,'ngRoute'
                                   ]);
 
 CRAG.config( ['$stateProvider', '$urlRouterProvider',

@@ -123,7 +123,7 @@ $scope.MenuType = "eo";
         if ($scope.OutputConnectorSelected()) {
           menu_items = [];
           $scope.node_types.forEach(function(node_type) {
-            if (node_type.style == $scope.NodeStyle.GRAPH_NODE) {
+            if ((node_type.style == $scope.NodeStyle.GRAPH_NODE) || (node_type.style == $scope.NodeStyle.EXTERNAL_VIEWER_NODE)) {
               menu_items.push([node_type.id, function ($itemScope) { $scope.AddPlotToTheNode(node_type.id); }]);
             }
           });
@@ -139,6 +139,10 @@ $scope.MenuType = "eo";
           }
           if ($scope.node_selected.temp.type_obj.style == $scope.NodeStyle.GRAPH_NODE) {
             menu.push(["Show in Right Panel", function ($itemScope, $event, value) { $scope.OnNodeGraphSelected($scope.node_selected.id); }, function ($itemScope, $event) { return $scope.SelectedNodes(); }]);
+            items_above = true;
+          }
+          if ($scope.node_selected.temp.type_obj.style == $scope.NodeStyle.EXTERNAL_VIEWER_NODE) {
+            menu.push(["Show in New Tab", function ($itemScope, $event, value) { $scope.OpenTFAViewer($scope.node_selected.id); }, function ($itemScope, $event) { return $scope.SelectedNodes(); }]);
             items_above = true;
           }
           if ($scope.node_selected.temp.type_obj.style == $scope.NodeStyle.PIPELINE_NODE) {
@@ -2377,7 +2381,10 @@ console.log("** GetCommandsList() Error **");
             if (draw_background_circle) {
                 ctx.drawImage(arrays.FindArrayElementById(images, $scope.IconImage.ICON_BACKGROUND).image, x, y, 29, 28);
             }
-            ctx.drawImage(arrays.FindArrayElementById(images, node.temp.type_obj.style).image, x, y, 29, 28);
+            var e = arrays.FindArrayElementById(images, node.temp.type_obj.style);
+            if (e != null) {
+               ctx.drawImage(e.image, x, y, 29, 28);
+            }
         } else {
             //DrawDebugLabel(ctx, (node.temp.execution_order==null)?'?':(node.temp.execution_order + 1), x + 37, y + 14, 'yellow');
             DrawDebugLabel(ctx, node.id, x + 14, y + 14, 'white');
@@ -4472,7 +4479,7 @@ console.log("** GetCommandsList() Error **");
                     )) {
                     switch(node.type) {
                         case 'TFA Viewer':
-                            $window.open('http://localhost:3001', '_blank');
+                            $scope.OpenTFAViewer(node.id);
                             break;
                         case 'bool':
                             if (node.value == "FALSE") { 
@@ -4498,6 +4505,28 @@ console.log("** GetCommandsList() Error **");
                 }
             });
         });
+
+        $scope.OpenTFAViewer = function(id) {
+            // find those nodes that their outputs are inputs of the current node
+            var tfa = "";
+            var stats = "";
+            var gff = "";
+            var weight = "";
+
+            file_node = FindNodeLinkedToThisConnector(id, 0); // 0 is the TFA connector
+            if (file_node != null) { tfa = file_node.node.value.replace(/\//g, "slash"); }
+
+            file_node = FindNodeLinkedToThisConnector(id, 3); // 3 is the stats connector
+            if (file_node != null) { stats = file_node.node.value.replace(/\//g, "slash"); }
+
+            file_node = FindNodeLinkedToThisConnector(id, 1); // 1 is the gff connector
+            if (file_node != null) { gff = file_node.node.value.replace(/\//g, "slash"); }
+
+            file_node = FindNodeLinkedToThisConnector(id, 2); // 2 is the weight connector
+            if (file_node != null) { weight = file_node.node.value.replace(/\//g, "slash"); }
+
+            $window.open("http://localhost:3001/#/load/" + tfa + "/" + stats + "/" + gff + "/" + weight, "_blank");
+        };
 
         $scope.canvas.addEventListener('mousedown', function(event) {
             /*

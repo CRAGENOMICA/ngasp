@@ -11,14 +11,14 @@ node server.js &
 echo
 echo "Waiting for NodeJs to start..."
 echo
-sleep 2
+sleep 5
 
 # Open one Local Manager (one instance of ngasp)
 ./bin/ngasp tcp --ip 0.0.0.0 --port 6969 &
 echo
 echo "Waiting for local manager to start..."
 echo
-sleep 2
+sleep 5
 
 echo "******************************************"
 echo "* Open http://localhost:3000 on the host *"

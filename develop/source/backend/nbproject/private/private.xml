@@ -7,12 +7,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/develop/source/backend/calculations/Calc/CCalcGetChromosomes.cpp</file>
-            <file>file:/develop/source/backend/instructions/CController.h</file>
-            <file>file:/develop/source/backend/CManager.cpp</file>
-            <file>file:/develop/source/backend/calculations/Calc/CCalcMstatspop.cpp</file>
-            <file>file:/develop/source/backend/instructions/CController.cpp</file>
-            <file>file:/develop/source/backend/language/CStringTable.cpp</file>
+            <file>file:/data/github/ngasp-workshop01/develop/source/backend/commands/CMD/CCMDSocket.cpp</file>
+            <file>file:/data/github/ngasp-workshop01/develop/source/backend/ngaSP_backend.cpp</file>
         </group>
     </open-files>
 </project-private>

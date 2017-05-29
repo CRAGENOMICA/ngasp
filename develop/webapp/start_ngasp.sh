@@ -20,16 +20,14 @@ echo "Waiting for local manager to start..."
 echo
 sleep 5
 
-echo "******************************************"
-echo "* Open http://localhost:3000 on the host *"
-echo "******************************************"
-# xdg-open
-
-firefox http://localhost:3000 &
-
 cd tfaviewer
 # Do not do: ./stop_viewer.sh
 ./start_viewer.sh
 cd ..
 
+echo
+echo "Opening http://localhost:3000..."
+echo
+firefox http://localhost:3000
+# xdg-open
 

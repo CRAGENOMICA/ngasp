@@ -28,6 +28,7 @@ cd ..
 echo
 echo "Opening http://localhost:3000..."
 echo
+systemd-machine-id-setup
 firefox http://localhost:3000
 # xdg-open
 

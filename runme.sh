@@ -12,11 +12,6 @@ if [ "$(uname)" == "Darwin" ]; then
     echo $ip
     xhost + $ip
     echo "Opening docker..."
-    echo "Do:"
-    echo "  $ cd /develop/webapp"
-    echo "  $ ./start_ngasp.sh"
-    echo "If firefox does not run do:"
-    echo "  $ systemd-machine-id-setup"
     docker run -it --rm --privileged -p 3000:3000 -p 3001:3001 -e DISPLAY=$ip:0  -v $NGASP_PATH/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix development-environment /develop/webapp/start_ngasp.sh
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     echo "GNU/Linux platform detected..."

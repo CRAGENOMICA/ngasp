@@ -33,7 +33,7 @@ CRAG.service('vcte', function () {
     // -------------------------------------------------------------------------
 
     this.TABLE_COLUMN_1_WIDTH = 70;
-    this.TABLE_COLUMN_2_WIDTH = 70;
+    this.TABLE_COLUMN_2_WIDTH = 100;
     this.TABLE_COLUMN_3_WIDTH = 50;
     this.TABLE_COLUMN_4_WIDTH = 3;
     this.TABLE_COLUMN_5_WIDTH = 500; //892
@@ -238,7 +238,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                              'window': { 'start': 0, 'end': 0 },
                              'value': 0
                            },
-                'show'   : false            // Show information dialog (true / false)
+                'show'   : true            // Show information dialog (true / false)
             };
         viewer.transactions = {
             'last_transaction_id': 0,       // This id is used for asking for data to the server. For example: the client wants 3 files in one transaction. Then, all three files have id=0. But just after, the client wants another file. This last file will have transaction id++.
@@ -569,6 +569,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         // console.log("DrawTableRownCoutColumn");
 
         var x = vcte.DNA_TABLE_POS_X;
+        var yy = y;
 
         y = y + (viewer.seq_height/3)*2;
 
@@ -605,11 +606,23 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
         x += vcte.TABLE_COLUMN_1_WIDTH;
 
+        // Draw the header content:
+
         if (draw_text == true) {
-            viewer.ctx.font = vcte.FONTS.table_id.font;
-            viewer.ctx.fillStyle = vcte.FONTS.table_id.color;
-            viewer.ctx.textAlign = "left";
-            viewer.ctx.fillText(id, x + vcte.CELL_SPAN, y);
+
+            viewer.ctx.save();
+                // Clip for not writing the sequence id over the next column:
+                drawing.DrawRect(viewer.ctx, x, yy -25, vcte.TABLE_COLUMN_2_WIDTH, 50, null);
+                viewer.ctx.clip();
+
+                viewer.ctx.font = vcte.FONTS.table_id.font;
+                viewer.ctx.fillStyle = vcte.FONTS.table_id.color;
+                viewer.ctx.textAlign = "left";
+                viewer.ctx.fillText(id, x + vcte.CELL_SPAN, y);
+
+                viewer.information.viewer.gene_id = id;
+
+            viewer.ctx.restore();
         }
     },
 

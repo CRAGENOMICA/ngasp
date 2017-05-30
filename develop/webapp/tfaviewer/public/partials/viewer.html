@@ -303,15 +303,17 @@ td
     font-size: 75%;
 }
 </style>
-<div id="mouse_info" ng-show="false"> <!-- viewer.information.show && !col_resizing -->
+<div id="mouse_info" ng-show="viewer.information.show && !col_resizing"> <!-- false -->
     <div ng-show="(viewer.information.mouse_over=='viewer')">
         <table>
             <tr>
                 <td class="property">Gene ID:</td><td class="value">{{viewer.information.viewer.gene_id}}</td>
             </tr>
+            <!--
             <tr>
                 <td class="property">Base:</td><td class="value">{{viewer.information.viewer.base}}</td>
             </tr>
+            -->
         </table>
     </div>
 

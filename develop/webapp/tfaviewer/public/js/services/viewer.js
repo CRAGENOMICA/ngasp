@@ -233,7 +233,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         viewer.information =                         // Information about the mouse selected viewer area
             {
                 'mouse_over'   : '',                    // 'viewer' / 'stats' / ''
-                'viewer' : { 'gene_id': '', 'base': '' },
+                'viewer' : { 'seq_id':'', 'gene_id': '', 'base': '' },
                 'stats'  : { 'range': { 'min': 0, 'max': 0 },
                              'window': { 'start': 0, 'end': 0 },
                              'value': 0
@@ -569,8 +569,6 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         // console.log("DrawTableRownCoutColumn");
 
         var x = vcte.DNA_TABLE_POS_X;
-        var yy = y;
-
         y = y + (viewer.seq_height/3)*2;
 
         var active_cell = ((order - viewer.position == viewer.cell_selected.y) && (viewer.cell_selected.y >= 0));  //&& ((viewer.cell_selected.x >= 0)
@@ -578,6 +576,8 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
         // If the cell is actived       
         if (active_cell == true) {
+            viewer.information.viewer.seq_id = id;
+
             draw_text = true;
 
             // Draw the active cell pointer
@@ -612,16 +612,13 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
             viewer.ctx.save();
                 // Clip for not writing the sequence id over the next column:
-                drawing.DrawRect(viewer.ctx, x, yy -25, vcte.TABLE_COLUMN_2_WIDTH, 50, null);
+                drawing.DrawRect(viewer.ctx, x, y -25, vcte.TABLE_COLUMN_2_WIDTH, 50, null);
                 viewer.ctx.clip();
 
                 viewer.ctx.font = vcte.FONTS.table_id.font;
                 viewer.ctx.fillStyle = vcte.FONTS.table_id.color;
                 viewer.ctx.textAlign = "left";
                 viewer.ctx.fillText(id, x + vcte.CELL_SPAN, y);
-
-                viewer.information.viewer.gene_id = id;
-
             viewer.ctx.restore();
         }
     },
@@ -894,7 +891,8 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         viewer.ctx.font = vcte.FONTS.base.font;
         viewer.ctx.textAlign = "left";       
 
-        var inside_path = false;
+        //var inside_path = false;
+        var first_base_of_group = true;
         var previous_color = '';
 
         if (data_tfa.length > 0) {
@@ -953,7 +951,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                 x = vcte.DNA_TABLE_POS_X + vcte.TABLE_COLUMN_1_WIDTH + vcte.TABLE_COLUMN_2_WIDTH + vcte.TABLE_COLUMN_3_WIDTH + vcte.TABLE_COLUMN_4_WIDTH;
 
 
-                inside_path = false;
+                //inside_path = false;
                 previous_color = ' ';
                 previous_base = ' ';
                 previous_x = 0;
@@ -1009,36 +1007,38 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                         color = force_to_color;
                     }
 
-                    if (inside_path == false) {
-                        inside_path = true;
-                        previous_color = color;
-                        previous_base = base;
-
-                        this.DrawStartBasesGroup(viewer, x, y, color);
-                        previous_x = x;
-                    }
-
+                    // Current Base <> Previous Base
                     if (previous_base != base) {
-                        inside_path = false;
 
-                        this.DrawEndBasesGroup(viewer, x + viewer.seq_width, y, previous_x, h);
+                        // Close previous group if the current base is not the first base
+                        if (j != 0) {
+                            // Close previous group
+                            this.DrawEndBasesGroup(viewer, x + viewer.seq_width, y, previous_x, h);
+                            // Draw the base of the previous group
+                            this.DrawBaseChar(viewer, previous_x, y + (viewer.seq_height / 3)*2, previous_base);
+                        }
 
-                        this.DrawBaseChar(viewer, previous_x, y + (viewer.seq_height / 3)*2, previous_base);
-
-                        if (j < seq.length - 1) { // It is not the last one
+                        // Start a new group if current base is not the last base
+                        if (j < seq.length - 1) {
+                            // Start a new group
+                            previous_color = color;
+                            previous_base = base;
                             this.DrawStartBasesGroup(viewer, x, y, color);
                             previous_x = x;
                         }
+                    } else {
+                        // Continue previous group
                     }
 
                     x += viewer.seq_width;
                 }
 
-                if (inside_path == true) {
-                    this.DrawEndBasesGroup(viewer, x, y, previous_x, h);
-                    this.DrawBaseChar(viewer, previous_x, y + (viewer.seq_height / 3)*2, previous_base);
-                }
+                // Close the last group
+                this.DrawEndBasesGroup(viewer, x + viewer.seq_width, y, previous_x, h);
+                // Draw the base of the previous group
+                this.DrawBaseChar(viewer, previous_x, y + (viewer.seq_height / 3)*2, previous_base);
 
+                // Restart the X position and increment the Y position for the next sequence:
                 x = 0;
                 y += viewer.seq_height;
             }

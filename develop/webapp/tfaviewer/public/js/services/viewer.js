@@ -973,7 +973,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                 var force_to_color = '';
 
                 if (data_weights.length > 0) {
-                    if (data_weights.indexOf(id*1) == -1) {
+                    if (data_weights.indexOf(id) == -1) {
                         force_to_color = vcte.NO_COLOR;
                     }
                 }

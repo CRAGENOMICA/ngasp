@@ -253,13 +253,13 @@ app.post("/weights", function (req, res) {
 
             var cols = line.split("\t");
 
-            var pos = cols[0] * 1;
+            var gene_id = cols[0];
             var weight_pos = cols[1] * 1;
             var weight_var = cols[2] * 1;
 
             if ((weight_pos != 0) && (weight_var != 0)) {
                 ret.data.data.push(
-                    pos
+                    gene_id
                 );
             }
         }

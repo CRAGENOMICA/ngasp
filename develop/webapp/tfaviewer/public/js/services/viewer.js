@@ -1018,14 +1018,11 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                             this.DrawBaseChar(viewer, previous_x, y + (viewer.seq_height / 3)*2, previous_base);
                         }
 
-                        // Start a new group if current base is not the last base
-                        if (j < seq.length - 1) {
-                            // Start a new group
-                            previous_color = color;
-                            previous_base = base;
-                            this.DrawStartBasesGroup(viewer, x, y, color);
-                            previous_x = x;
-                        }
+                        // Start a new group
+                        previous_color = color;
+                        previous_base = base;
+                        this.DrawStartBasesGroup(viewer, x, y, color);
+                        previous_x = x;
                     } else {
                         // Continue previous group
                     }

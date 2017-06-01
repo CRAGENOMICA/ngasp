@@ -25,11 +25,17 @@ FROM step1
 RUN yum install -y nodejs
 
 # ***************
-# *** firefox ***
+# *** chrome  ***
 # ***************
 
-RUN yum install -y firefox
-
+RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo && \
+    echo "name=google-chrome - \$basearch" >> /etc/yum.repos.d/google-chrome.repo && \
+    echo "baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch" >> /etc/yum.repos.d/google-chrome.repo && \
+    echo "enabled=1" >> /etc/yum.repos.d/google-chrome.repo && \
+    echo "gpgcheck=1" >> /etc/yum.repos.d/google-chrome.repo && \
+    echo "gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub" >> /etc/yum.repos.d/google-chrome.repo
+# RUN cat  /etc/yum.repos.d/google-chrome.repo
+RUN yum install -y google-chrome-stable
 # ==============================================================================
 # START
 # ==============================================================================

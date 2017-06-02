@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=ngasp
-Exec=/bin/bash -c 'cd "$(dirname %k)" && /data/github/ngasp-workshop01/runme.sh'
-Icon=/data/github/ngasp-workshop01/icons/ngasp_icon.png
-

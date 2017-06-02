@@ -29,6 +29,6 @@ echo
 echo "Opening http://localhost:3000..."
 echo
 systemd-machine-id-setup
-firefox http://localhost:3000
+google-chrome --no-sandbox --disable-bundled-ppapi-flash --app=http://localhost:3000
 # xdg-open
 

@@ -254,10 +254,15 @@ std::string CFile::GetCurrentWorkingDirectory(void) {
  * return    : "/home/jjene/Documents/contacts"
  */
 std::string CFile::GetPathFileNameWithoutExtension(std::string file_name) {
-    std::string ret;
+    std::string ret = file_name; // by default
+    std::size_t loc = 0;
 
-    std::size_t loc_end = file_name.find_last_of(".");
-    ret = file_name.substr(0, loc_end);
+    loc = ret.find_last_of(".");
+    if (loc !=  std::string::npos) {
+        // file_name : "contacts.txt"
+        // ret       : "contacts"
+        ret = ret.substr(0, loc);
+    }
 
     return ret;
 }
@@ -281,11 +286,22 @@ std::string CFile::GetPathFromFileName(std::string file_name) {
  * return    : "contacts"
  */
 std::string CFile::GetFileNameWithoutExtension(std::string file_name) {
-    std::string ret;
+    std::string ret = file_name; // by default
+    std::size_t loc = 0;
 
-    std::size_t loc_start = file_name.find_last_of("/") + 1;
-    std::size_t loc_end = file_name.find_last_of(".");
-    ret = file_name.substr(loc_start, loc_end);
+    loc = file_name.find_last_of("/") + 1;
+    if (loc !=  std::string::npos) {
+        // file_name : "/home/jjene/Documents/contacts.txt"
+        // ret       : "contacts.txt"
+        ret = file_name.substr(loc, std::string::npos);
+    }
+
+    loc = ret.find_last_of(".");
+    if (loc !=  std::string::npos) {
+        // file_name : "contacts.txt"
+        // ret       : "contacts"
+        ret = ret.substr(0, loc);
+    }
 
     return ret;
 }

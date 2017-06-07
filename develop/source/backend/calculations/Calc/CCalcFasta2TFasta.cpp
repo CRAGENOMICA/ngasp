@@ -192,7 +192,7 @@ void CCalcFasta2TFasta::Prepare(void) {
     DM_ITERATION_VALUE(iteration_value)
     tfasta_file->set_value(CFile::ConcatenateIterationToFilePathName(tfasta_file->value(),
                            iteration_number->value(),
-                           iteration_value->value()));  
+                           CFile::GetFileNameWithoutExtension(iteration_value->value())));  
   }
 }
 

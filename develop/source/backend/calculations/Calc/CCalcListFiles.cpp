@@ -32,11 +32,12 @@
 #include "CCalcListFiles.h"
 
 #include "../../language/CStringTable.h"
+#include "../../util/CStringTools.h"
 
 #include "boost/filesystem/operations.hpp"
 #include "boost/filesystem/path.hpp"
 #include "boost/progress.hpp"
-#include <regex>
+#include "boost/regex.hpp"
 
 namespace fs = boost::filesystem;
 
@@ -133,13 +134,16 @@ void CCalcListFiles::Calculate(bool dry_run) {
             path_->add("/");
         }
 
+        std::string include_value = include_->value();
+        CStringTools::Replace(include_value, "\\\\.", "\.");
+
         // Add the dot of the extension (example: from "fa" to ".fa"):
-        if ((include_->value() != "") && (include_->value() [0] != '.')){
-            include_->set_value("." + include_->value());
-        }
+//        if ((include_value != "") && (include_value [0] != '.')){
+//            include_->set_value("." + include_value);
+//        }
         
         //include_->set_value("^.*\\\\.fa$");
-        //const boost::regex my_filter( include_->value());
+        //const boost::regex my_filter( include_value);
 
         full_path = fs::system_complete(fs::path(path_->value()));
 
@@ -148,7 +152,7 @@ void CCalcListFiles::Calculate(bool dry_run) {
             fs::directory_iterator end_iter;
             std::string cur_extension;
             std::string file_name;
-            std::regex regex_expression (include_->value());
+            boost::regex regex_expression (include_value);
             
             for (fs::directory_iterator dir_itr(full_path);
                     dir_itr != end_iter;
@@ -160,10 +164,16 @@ void CCalcListFiles::Calculate(bool dry_run) {
                         // file_extension = dir_itr->path().extension().c_str();
 
                         if (exclude_->FindValue(file_name) == false) {
-                            if(std::regex_match(file_name,  regex_expression) ) {
-                            //if (file_extension== include_->value()) {
+DEBUG_MSG << file_name << " is not excluded. Let's check with: " << include_value END_MSG;
+                            if(boost::regex_match(file_name,  regex_expression, boost::match_default | boost::format_sed) ) {
+DEBUG_MSG << "Matched!" END_MSG;
+                            //if (file_extension== include_value) {
                                 files_->PushBack(path_->value() + file_name);
+                            } else {
+DEBUG_MSG << "Not matched!" END_MSG;
                             }
+                        } else {
+DEBUG_MSG << file_name << " is excluded." END_MSG;
                         }
                     }
                 } catch (const std::exception & ex) {

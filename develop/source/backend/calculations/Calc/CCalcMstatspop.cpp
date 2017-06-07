@@ -919,28 +919,39 @@ void CCalcMstatspop::Prepare(void) {
 */
   DM_END
   
+
+    // How to decide the output file name?
+
+    // If user sets the -T option, the output file name is this -T option.
+    if (out_file_name_->value() != "") { //<<<< this is the -T option
+        calc_output_->set_value(out_file_name_->value());
+    }
+    else {
+        // If user sets the output to a file with a name, then the output file name will be this one.
+        if (calc_output_->value() != "") {
+            // calc_output_->set_value(calc_output_->value());
+        }
+        else {
+            // If user sets an input file then the output file will be the path of the input file + "statistics.txt".
+            if (file_in_->value() != "") {
+                calc_output_->set_value(CFile::GetPathFromFileName(file_in_->value()) + "statistics.txt");
+            }
+        }
+    }
  
-  // Output File Name as input param (out_file_name_) : statistics.txt
-  // Output File Name                (calc_output_)   : statistics.txt
+    // Then, if keep intermediate results is true, the "_<ite_number>_<ite_value>" must be inserted before the last ".".
+    // the <ite_value> could have a path, so this function must be used: GetFileNameWithoutExtension
 
-  if (calc_output_->value() == "") {
-      if (out_file_name_->value() != "") {
-          calc_output_->set_value(out_file_name_->value());
-      } else {
-          calc_output_->set_value(CFile::GetPathFromFileName(file_in_->value()) + "statistics.txt");
-      }
-  }
-
-
-  // 
-  // Output File Name                (calc_output_)   : statistics.x.y.txt
-
-  if (keep_intermediate_results->value()) {
-    DM_ITERATION_NUMBER(iteration_number)
-    DM_ITERATION_VALUE(iteration_value)
-    calc_output_->set_value(CFile::ConcatenateIterationToFilePathName(calc_output_->value(),
-                            iteration_number->value(),
-                            iteration_value->value()));
+    if (keep_intermediate_results->value()) {
+        DM_ITERATION_NUMBER(iteration_number)
+        DM_ITERATION_VALUE(iteration_value)
+        calc_output_->set_value(CFile::ConcatenateIterationToFilePathName
+                                    (
+                                        calc_output_->value(),
+                                        iteration_number->value(),
+                                        CFile::GetFileNameWithoutExtension(iteration_value->value())
+                                    )
+                                );
   }  
 
 

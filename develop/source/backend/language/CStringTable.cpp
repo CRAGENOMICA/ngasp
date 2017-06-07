@@ -2837,7 +2837,7 @@ CStringTable::CStringTable() : IStringTable() {
     strings_[ENGLISH_COL][CCALCLIST_FILES_PATH] = "Path";
     strings_[ENGLISH_COL][CCALCLIST_FILES_PATH_DESC] = "";
     strings_[ENGLISH_COL][CCALCLIST_FILES_INCLUDE] = "Include";
-    strings_[ENGLISH_COL][CCALCLIST_FILES_INCLUDE_DESC] = "Regex expression. For example: (.*).txt";
+    strings_[ENGLISH_COL][CCALCLIST_FILES_INCLUDE_DESC] = ""; //"Regex expression (The scape character is \\\\ instead of \\). For example: (.*)\\\\.txt";
     strings_[ENGLISH_COL][CCALCLIST_FILES_EXCLUDE] = "Exclude";
     strings_[ENGLISH_COL][CCALCLIST_FILES_EXCLUDE_DESC] = "Exclude files separated by coma.";
     strings_[ENGLISH_COL][CCALCLIST_FILES_FILES] = "List of Files";

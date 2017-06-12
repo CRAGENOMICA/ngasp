@@ -1246,27 +1246,28 @@ Zoom menu
 {
     z-index: 5;
     position: absolute;
-    right: 5px;
-    bottom: 0px;
+    right: 12px;
+    bottom: 12px;
 
-    width: 160px;
+    width: 180px;
 	border-radius: 4px;
     padding: 10px;
 
-    box-shadow: 0px 1px 1px #444;
+    box-shadow: 3px 3px 6px #444;
 
-    opacity: 0;
-
+/*
+    opacity: 1;
 	-webkit-transition:all linear 0.3s;
 	transition:all linear 0.3s;
+*/
 }
-
+/*
 .zoom_menu:hover
 {
     opacity: 1;
     bottom: 10px;
 }
-
+*/
 #zoom_slider
 {
     float:left;
@@ -2274,5 +2275,12 @@ Lists
 }
 
 
+
+
+#navigation_panel td
+{
+  color: rgb(68,95,46);
+  padding: 1px;
+}
 
 

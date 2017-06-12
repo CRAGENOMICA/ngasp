@@ -626,6 +626,8 @@ if(!$scope.$$phase) {
             DrawScene(); // The first time calculates page dimensions
             DrawScene(); // Do it again with correct page dimensions
 
+            OnResize();
+
           },
           function(message) {
             console.log("****** LoadPipeline() ERROR");
@@ -684,8 +686,13 @@ if(!$scope.$$phase) {
           GetCurrentDocument().saved = true; // The experiment is just loaded, so, it is saved.
           
           SetNodesTheme();
+
           DrawScene(); // The first time calculates page dimensions
           DrawScene(); // Do it again with correct page dimensions
+
+          OnResize();
+          DrawScene(); // Do it again with correct page dimensions
+
         },
         function(message) {
           console.log("****** LoadExperiment() ERROR");
@@ -1191,6 +1198,25 @@ console.log("** Init 2 End **");
       if ($scope.DocsNavTabs.selected_tab != null) {
           $scope.DocsNavTabs.selected_tab.page.zoom.previous = 100;
       }
+
+      // Page width per zoom cannot be larger that the window width. It means that, zoom * page_width = window_width. 
+      // So, zoom = window_width / page_width
+      var sidebar_pos = document.getElementById('sidebar-resizer').style.left;
+      if (sidebar_pos != undefined) {
+        if (sidebar_pos != "") {
+            $scope.ResetCanvasMovement();
+            console.log("sidebar_pos = " + sidebar_pos);
+            sidebar_pos = sidebar_pos.replace("px", "");
+            console.log("sidebar_pos = " + sidebar_pos);
+            sidebar_pos *= 1;
+            var windows_width = sidebar_pos;
+            console.log("windows_width = " + windows_width);
+            $scope.DocsNavTabs.selected_tab.page.zoom.current =  (windows_width  / $scope.DocsNavTabs.selected_tab.page.width) * 100;
+            $scope.DoApply();
+        }
+      }
+
+
 
       $scope.DoZoom(); // DrawScene is called.
     };
@@ -4368,6 +4394,15 @@ console.log("** GetCommandsList() Error **");
             DrawScene();
 //        }
     };
+
+    $scope.ResetCanvasMovement = function() {
+        $scope.ctx.translate($scope.DocsNavTabs.selected_tab.page.CanvasPosition.x,
+                             $scope.DocsNavTabs.selected_tab.page.CanvasPosition.y);
+        $scope.DocsNavTabs.selected_tab.page.CanvasPosition.x = 0;
+        $scope.DocsNavTabs.selected_tab.page.CanvasPosition.y = 0;
+        DrawScene();
+    };
+
 
     $scope.MoveCanvasUp = function(step) {
         if (step == null) step = MOVE_STEP;

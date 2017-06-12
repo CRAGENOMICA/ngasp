@@ -202,8 +202,8 @@ var values = {"dm":[{"name":"$idum","type":"int64","value":"-12345"},{"name":"$o
 */
 		{ id: 2,	name: 'Dashboard', 			  parents: [], 	selected: false, has_children: false, is_open: false, icon: 'glyphicon-cog',	url: 'admin_dashboard' },
 		{ id: 5,	name: 'Pipeline Editor', 	  parents: [], 	selected: false, has_children: false, is_open: false, icon: 'glyphicon-pencil',	url: 'pipeline_editor' },
-		{ id: 7,    name: 'Experiment Editor',    parents: [], 	selected: true,  has_children: false, is_open: false, icon: 'glyphicon-star',	url: 'experiment_editor' },
-		{ id: 9,	name: 'TFA Viewer', 	      parents: [],  selected: false, has_children: false, is_open: false, icon: 'glyphicon-pencil',	url: 'http://localhost:3001' },
+		{ id: 7,    name: 'Experiment Editor',    parents: [], 	selected: true,  has_children: false, is_open: false, icon: 'glyphicon-filter',	url: 'experiment_editor' },
+		{ id: 9,	name: 'TFA Viewer', 	      parents: [],  selected: false, has_children: false, is_open: false, icon: 'glyphicon-eye-open',	url: 'http://localhost:3001' },
 
 	];
 

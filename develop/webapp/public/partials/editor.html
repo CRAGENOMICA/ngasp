@@ -39,7 +39,7 @@
   		<canvas id="myCanvas" droppable drop="handleDrop" ng-show="true" context-menu="canvasMenuOptions()" context-menu-class="custom_context_menu_class" model="MenuType"></canvas>  <!-- contextmenu="MenuNode" -->
 
         <!-- NAV TABS -->
-        <div class="nav_tab_bar company_background_menu_color company_sub_text_color nav_tab_bar_bottom_line">
+        <div class="nav_tab_bar nav_tab_bar_bottom_line" ng-class="{company_background_color_extra_4: GetEditorType()=={{FileType.PIPELINE}}, company_background_menu_color: GetEditorType()=={{FileType.EXPERIMENT}}, company_sub_text_color: GetEditorType()=={{FileType.EXPERIMENT}} }"> <!-- ,  company_sub_text_color: GetEditorType()=={{FileType.EXPERIMENT}}, -->
             <span  ng-show="GetEditorType()=={{FileType.EXPERIMENT}}" class="nav_tab_title horizontal_aligment nav_tab_title_font">Experiment Editor</span>
             <span  ng-show="GetEditorType()=={{FileType.PIPELINE}}" class="nav_tab_title horizontal_aligment nav_tab_title_font">Pipeline Editor</span>
             <button ng-click="OnNew()" class="nav_tab_button horizontal_aligment" data-toggle="tooltip" data-placement="top" title="New"><span class="glyphicon glyphicon-plus"></span></button>
@@ -246,10 +246,37 @@
 -->
         <!-- ZOOM MENU -->
         <div class="zoom_menu default_button_color">
-            <input ng-model="DocsNavTabs.selected_tab.page.zoom.current" id="zoom_slider" type="range" min="20" max="200" step="10" tabIndex="-1" ng-click="RemoveBlurFromZoomSlider()" 
-            data-toggle="tooltip" data-placement="left" title="Zoom"
-            />
-            <span id="zoom_input"/>&nbsp;{{DocsNavTabs.selected_tab.page.zoom.current}}%</span>
+            <!--
+                <input ng-model="DocsNavTabs.selected_tab.page.zoom.current" id="zoom_slider" type="range" min="20" max="200" step="10" tabIndex="-1" ng-click="RemoveBlurFromZoomSlider()" data-toggle="tooltip" data-placement="left" title="Zoom" />
+                <span id="zoom_input"/>&nbsp;{{DocsNavTabs.selected_tab.page.zoom.current}}%</span>
+            -->
+            <table id="navigation_panel">
+                <tr><td>&nbsp;</td><td><button class="NavigationButton" ng-click="MoveCanvasUp(100)"><span class="glyphicon glyphicon-chevron-up"></span></button></td><td colspan="2">&nbsp;</td></tr>
+                <tr><td><button class="NavigationButton" ng-click="MoveCanvasLeft(100)"><span class="glyphicon glyphicon-chevron-left"></span></button></td><td><button class="NavigationButton" ng-click="ResetCanvasMovement()"><span class="glyphicon glyphicon-asterisk"></span></button></td><td><button class="NavigationButton" ng-click="MoveCanvasRight(100)"><span class="glyphicon glyphicon-chevron-right"></span></button></td><td width="20px">&nbsp;</td>
+                    <td>
+                        <select ng-model="DocsNavTabs.selected_tab.page.zoom.current">
+                            <option value="20">20%</option>
+                            <option value="50">50%</option>
+                            <option value="80">80%</option>
+                            <option value="100">100%</option>
+                            <option value="150">150%</option>
+                            <option value="200">200%</option>
+            <!--                <option value="50">Fit to screen</option> -->
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td><td><button class="NavigationButton" ng-click="MoveCanvasDown(100)"><span class="glyphicon glyphicon-chevron-down"></span></button></td><td colspan="2">&nbsp;</td></tr>
+            </table>
+            
+            
+
+            
+            
+            
+
+
+            
+
         </div>
 
         <button id="PlayButton"
@@ -261,6 +288,7 @@
                 title="Save & Run">
                 <span class="glyphicon glyphicon-play"></span>
         </button>
+
 
   	</div>
 
@@ -420,8 +448,12 @@
 
 <!--                          <span ng-show="((tab.node == null) || ((tab.node != null) && (tab.node.type=='R Export')))"   ng-click="OnSaveOutputCSV((tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save"></span> -->
 
-                          <span ng-show="(tab.node == null)"                                    ng-click="OnSaveOutput('LOG',          (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as Log File"></span> <!-- this is the Console Tab -->
-                          <span ng-show="(tab.node == null)"                                    ng-click="OnSaveOutput('NGASP_SCRIPT', (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as ngasp Script File"></span> <!-- this is the Console Tab -->
+                          <span ng-show="(tab.node == null)"                                    ng-click="OnSaveOutput('LOG',(tab.node==null)?0:tab.node.id);OnSaveOutput('NGASP_SCRIPT', (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save Log & Script Files"></span> <!-- this is the Console Tab -->
+
+<!--
+                          <span ng-show="(tab.node == null)"                                    ng-click="OnSaveOutput('LOG',          (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as Log File"></span> this is the Console Tab
+                          <span ng-show="(tab.node == null)"                                    ng-click="OnSaveOutput('NGASP_SCRIPT', (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as ngasp Script File"></span> this is the Console Tab
+-->
                           <span ng-show="((tab.node != null) && (tab.node.type=='R Export'))"   ng-click="OnSaveOutput('CSV',          (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as CSV File"></span>
                           <span ng-show="((tab.node != null) && (tab.node.type=='Print Data'))" ng-click="OnSaveOutput('TXT',          (tab.node==null)?0:tab.node.id)" class="glyphicon glyphicon-save  outputab_button" data-toggle="tooltip" data-placement="top" title="Save as Text File"></span>
                           <!-- <span ng-show="tab.id!=0" ng-click="OnOutputTabPress(GetOutputsNavTabs(), tab.id)" class="glyphicon glyphicon-refresh outputab_button" data-toggle="tooltip" data-placement="top" title="Refresh"></span> -->

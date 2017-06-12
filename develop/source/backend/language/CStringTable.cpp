@@ -1614,9 +1614,9 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_SNIPCALLER_BRIEF_DESC]                             = "";
   strings_[ENGLISH_COL][CALC_SNIPCALLER_DESC]                                   = "SNP Caller.";
 
-  strings_[ENGLISH_COL][CALC_CONCAT_FILES]                                      = "calc_concat_files";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILES]                                      = "calc_concat_text_files";
   strings_[ENGLISH_COL][CALC_CONCAT_FILES_BRIEF_DESC]                           = "";
-  strings_[ENGLISH_COL][CALC_CONCAT_FILES_DESC]                                 = "Concatenate two files. Depending on the passed parameters, the operation done is: 1: output = input1 + input2. 2: output = output + input1. 3: output = output + input2.";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILES_DESC]                                 = "Concatenate two text files. Depending on the given parameters, the operation done is: 1: output = input1 + input2. 2: output = output + input1. 3: output = output + input2.";
 
   strings_[ENGLISH_COL][CALC_CONCAT_FILE_NAMES]                                 = "calc_concat_file_names";
   strings_[ENGLISH_COL][CALC_CONCAT_FILE_NAMES_BRIEF_DESC]                      = "";

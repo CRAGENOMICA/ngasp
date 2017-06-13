@@ -250,9 +250,7 @@ CRAG.controller('ViewerController', function($scope,
         ctx_ = canvas_.getContext("2d");
         viewer.OnInit($scope.viewer, canvas_, ctx_);
 
-
         $scope.viewer.OnAllFilesLoaded = OnAllFilesLoaded;
-
 
         // Disabling canvas' context menu
 

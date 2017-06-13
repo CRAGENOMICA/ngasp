@@ -1166,6 +1166,34 @@ console.log("** Init 1 Start **");
         images.push({id: $scope.IconImage.ICON_COMMENT,
                      image: document.getElementById("comment_icon") });
 
+
+        // -------------------------------------------------------------------------
+        // DRAG & DROP FILE NAMES
+        // -------------------------------------------------------------------------
+        $scope.canvas.addEventListener('dragover', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        });
+        $scope.canvas.addEventListener('drop', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var files = e.dataTransfer.files;
+
+            GetCurrentDocumentNodes().forEach(function(node) {
+                if ((node.selected == true) && 
+                    (node.temp.type_obj.style == $scope.NodeStyle.DATA_NODE) &&
+                    (node.type != 'bool') &&
+                    (node.type != 'foreach_iteration') &&
+                    (node.type != 'foreach_value')) {
+
+                    node.value = files[0].name;
+                    DrawScene();
+                }
+            });
+        });
+
+
 try {
     var isFileSaverSupported = !!new Blob;
 } catch (e) {}

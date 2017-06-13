@@ -192,6 +192,16 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         var pos_des_x = viewer.mouse.x;
         var diff      = pos_des_x - pos_ori_x;
 
+        // Store previous values (temp)
+
+        var prev_values = {
+            table_column_5_width : viewer.table_column_5_width,
+            dna_table_width      : viewer.dna_table_width,
+            statistics_width     : viewer.statistics_width
+        };
+
+        // Change values:
+
         viewer.table_column_5_width += diff;
         viewer.dna_table_width = vcte.TABLE_COLUMN_1_WIDTH + 
                                  vcte.TABLE_COLUMN_2_WIDTH + 
@@ -199,6 +209,21 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                                  vcte.TABLE_COLUMN_4_WIDTH +
                                  viewer.table_column_5_width;
         viewer.statistics_width = vcte.CONTROL_WIDTH - vcte.STATISTICS_MARGIN - viewer.dna_table_width;
+
+        // If new values are not allowed then restore previous ones:
+
+        if ((viewer.statistics_width < 90) || // 90 is more or less the size of the statistics title ("Statistics:"). We do not want to resize the column to a smaller size.
+            (viewer.statistics_width > vcte.CONTROL_WIDTH - (vcte.TABLE_COLUMN_1_WIDTH + 
+                                        vcte.TABLE_COLUMN_2_WIDTH + 
+                                        vcte.TABLE_COLUMN_3_WIDTH +
+                                        vcte.TABLE_COLUMN_4_WIDTH))) {
+            viewer.table_column_5_width = prev_values.table_column_5_width;
+            viewer.dna_table_width      = prev_values.dna_table_width;
+            viewer.statistics_width     = prev_values.statistics_width;
+            $rootScope.col_resizing = false;
+            $rootScope.SetMousePointer($rootScope.MouseOverType.Previous);
+        } else {
+        }
 
         this.RecalculateSizesForRenderingTFA(viewer);
         this.NormalizeStatisticalDataForRenderingIt(viewer);
@@ -1963,6 +1988,12 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         return ((viewer.mouse.x > vcte.DNA_TABLE_POS_X + viewer.dna_table_width) && (viewer.mouse.x < vcte.DNA_TABLE_POS_X + viewer.dna_table_width + vcte.STATISTICS_MARGIN));
     },
 
+    EndResizingColumn: function(viewer) {
+        $rootScope.col_resizing = false;
+        $rootScope.SetMousePointer($rootScope.MouseOverType.Previous);
+        this.ResizeColumn(viewer);
+    },
+
     /*
         returns true if $apply() must be called
     */
@@ -1976,6 +2007,12 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         this.UpdateMousePosition(viewer, evt);
 
         viewer.information.mouse_over = '';
+
+        if ($rootScope.col_resizing) {
+            if (evt.buttons != 1) { // If user is not pressing the left button of the mouse, then stop resizing the column
+                this.EndResizingColumn(viewer);
+            }
+        }
 
         if (viewer.start_selection_point != null) {
             //drawing.DrawSelectionRect(viewer.ctx, viewer.mouse.x, viewer.mouse.y, viewer.start_selection_point.x - viewer.mouse.x, viewer.start_selection_point.y - viewer.mouse.y);
@@ -2126,11 +2163,8 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
         viewer.start_selection_point = null;
 
-
         if ($rootScope.col_resizing) {
-            $rootScope.col_resizing = false;
-            $rootScope.SetMousePointer($rootScope.MouseOverType.Previous);
-            this.ResizeColumn(viewer);
+            this.EndResizingColumn(viewer);
         }
 
         if (viewer.zoom.start != -1) {

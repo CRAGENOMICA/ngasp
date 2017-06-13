@@ -357,19 +357,19 @@ FILES MODAL
 
                     <div class="row">
                         <div class="col-md-3"><label>T-Fasta File:</label></div>
-                        <div class="col-md-9"><input class="file_input" type="text" ng-model="viewer.files[0].file_name" ></input></div>
+                        <div class="col-md-9"><input id="file1" class="file_input" type="text" ng-model="viewer.files[0].file_name" ></input></div>
                     </div>
                     <div class="row">
                         <div class="col-md-3"><label>GFF File:</label></div>
-                        <div class="col-md-9"><input class="file_input" type="text" ng-model="viewer.files[1].file_name" ></input></div>
+                        <div class="col-md-9"><input id="file2" class="file_input" type="text" ng-model="viewer.files[1].file_name" ></input></div>
                     </div>
                     <div class="row">
                         <div class="col-md-3"><label>Weights File:</label></div>
-                        <div class="col-md-9"><input class="file_input" type="text" ng-model="viewer.files[2].file_name" ></input></div>
+                        <div class="col-md-9"><input id="file3" class="file_input" type="text" ng-model="viewer.files[2].file_name" ></input></div>
                     </div>
                     <div class="row">
                         <div class="col-md-3"><label>Statistics File:</label></div>
-                        <div class="col-md-9"><input id="file_stats" class="file_input" type="text" ng-model="viewer.files[3].file_name" data-toggle="tooltip" data-placement="bottom" title="mstatspop statistics file in json format. For example, ./stats2json.sh mstatspop_output.txt mstatspop_output.json"></input></div>
+                        <div class="col-md-9"><input id="file4" id="file_stats" class="file_input" type="text" ng-model="viewer.files[3].file_name" data-toggle="tooltip" data-placement="bottom" title="mstatspop statistics file in json format. For example, ./stats2json.sh mstatspop_output.txt mstatspop_output.json"></input></div>
                     </div>
                 </div>
 
@@ -384,7 +384,59 @@ FILES MODAL
 
     </div>
 </div>
+<script>
+function DragOver(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+}
 
+function Drop(e, dropZone) {
+    e.stopPropagation();
+    e.preventDefault();
+    var files = e.dataTransfer.files;
+    dropZone.value = files[0].name;
+}
+
+var dropZone1 = document.getElementById('file1');
+var dropZone2 = document.getElementById('file2');
+var dropZone3 = document.getElementById('file3');
+var dropZone4 = document.getElementById('file4');
+var NoDropZone = document.getElementById('FilesModal');
+
+// Optional. Show the copy icon when dragging over. Seems to only work for chrome.
+dropZone1.addEventListener('dragover', DragOver);
+dropZone2.addEventListener('dragover', DragOver);
+dropZone3.addEventListener('dragover', DragOver);
+dropZone4.addEventListener('dragover', DragOver);
+FilesModal.addEventListener('dragover', DragOver);
+
+// Get file data on drop
+dropZone1.addEventListener('drop', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var files = e.dataTransfer.files;
+    dropZone1.value = files[0].name;});
+dropZone2.addEventListener('drop', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var files = e.dataTransfer.files;
+    dropZone2.value = files[0].name;});
+dropZone3.addEventListener('drop', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var files = e.dataTransfer.files;
+    dropZone3.value = files[0].name;});
+dropZone4.addEventListener('drop', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var files = e.dataTransfer.files;
+    dropZone4.value = files[0].name;});
+FilesModal.addEventListener('drop', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+});
+</script>
 <!--
 ================================================================================
 STATS MODAL

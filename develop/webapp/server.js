@@ -52,6 +52,7 @@ var flash         = require('connect-flash');
 
 var walk          = require('walk');
 
+var fs            = require('fs');
 //var util            = require('util');
 //util.inspect(obj, {showHidden: false, depth: 1}));
 
@@ -60,7 +61,9 @@ var walk          = require('walk');
 // ============================================================================
 
 var app = express();
-var server = require('http').Server(app);
+var http = require('http');
+var server = http.Server(app);
+//var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 
@@ -375,6 +378,58 @@ io.sockets.on('connect', function(client) {
         central_manager.RemoveClient(client);
     });
 })
+
+
+// ============================================================================
+// UPLOAD FILES
+// ============================================================================
+
+var SERVER_DATA_FOLDER = "/develop/webapp/data/";
+
+app.post("/upload", function (req, res) {
+    cout.node("Uploading file '" + req.headers.filename + "'...");
+
+    var server_path_file     = SERVER_DATA_FOLDER + req.headers.filename;
+    var server_path_file_loc = SERVER_DATA_FOLDER + req.headers.filename + ".loc";
+    var locData = "";
+
+    locData =  "{";
+    if (req.headers.filetype == 'remote') {
+        locData += "location:'" + server_path_file; // + "',";
+    }
+    if (req.headers.filetype == 'local') {
+        locData += "location:'" + req.headers.pathname; // + "',";
+    }
+    locData += "}";
+
+    fs.writeFile(server_path_file_loc, locData, function(err) {
+        if(err) { return console.log(err); }
+    });
+
+    if (req.headers.filetype == 'remote') {
+        res.writeHead(200);
+        var destinationFile = fs.createWriteStream(server_path_file);
+        req.pipe(destinationFile);
+
+        var fileSize = req.headers['content-length'];
+        var uploadedBytes = 0 ;
+
+        req.on('data',function(d) {
+            uploadedBytes += d.length;
+            var p = (uploadedBytes/fileSize) * 100;
+            res.write("Uploading " + parseInt(p)+ " %\n");
+        });
+
+        req.on('end',function(){
+            res.end("File Upload Complete\n");
+        });
+    }
+
+    if (req.headers.filetype == 'local') {
+        res.writeHead(200);
+        res.end("File Reference Upload Complete\n");
+    }
+});
 
 
 

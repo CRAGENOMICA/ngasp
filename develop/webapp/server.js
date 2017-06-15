@@ -381,54 +381,20 @@ io.sockets.on('connect', function(client) {
 
 
 // ============================================================================
-// UPLOAD FILES
+// UPLOAD DATA FILES / RETRIEVE LIST OF DATA FILES
 // ============================================================================
 
-var SERVER_DATA_FOLDER = "/develop/webapp/data/";
+app.post("/datafiles", function (req, res) {
+    cout.node("Register data file '" + req.headers.filename + "'...");
 
-app.post("/upload", function (req, res) {
-    cout.node("Uploading file '" + req.headers.filename + "'...");
+    central_manager.RequestRegisterDataFile(req, res);
+});
 
-    var server_path_file     = SERVER_DATA_FOLDER + req.headers.filename;
-    var server_path_file_loc = SERVER_DATA_FOLDER + req.headers.filename + ".loc";
-    var locData = "";
-
-    locData =  "{";
-    if (req.headers.filetype == 'remote') {
-        locData += "location:'" + server_path_file; // + "',";
-    }
-    if (req.headers.filetype == 'local') {
-        locData += "location:'" + req.headers.pathname; // + "',";
-    }
-    locData += "}";
-
-    fs.writeFile(server_path_file_loc, locData, function(err) {
-        if(err) { return console.log(err); }
-    });
-
-    if (req.headers.filetype == 'remote') {
-        res.writeHead(200);
-        var destinationFile = fs.createWriteStream(server_path_file);
-        req.pipe(destinationFile);
-
-        var fileSize = req.headers['content-length'];
-        var uploadedBytes = 0 ;
-
-        req.on('data',function(d) {
-            uploadedBytes += d.length;
-            var p = (uploadedBytes/fileSize) * 100;
-            res.write("Uploading " + parseInt(p)+ " %\n");
-        });
-
-        req.on('end',function(){
-            res.end("File Upload Complete\n");
-        });
-    }
-
-    if (req.headers.filetype == 'local') {
-        res.writeHead(200);
-        res.end("File Reference Upload Complete\n");
-    }
+/// User request for getting the local managers list.
+app.get("/datafiles", function (req, res) {
+	cout.nodeRec("WEB", "Get data files list.");
+	var response_id = central_manager.PushClientResponse(res);
+	central_manager.RequestDataFilesList(response_id);
 });
 
 

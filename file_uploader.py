@@ -63,10 +63,11 @@ BUTTON_BROWSER_W   = 30
 
 # These are constants for uploading the file:
 
-LOCAL_SERVER       = 'localhost'
 REMOTE_SERVER      = 'localhost'
 PORT               = '3000'
-
+LOCAL_INSTALLATION = True
+UPLOAD_FILE        = True
+DO_NOT_UPLOAD_FILE = False
 
 # ==============================================================================
 # GLOBAL VARIABLES
@@ -83,8 +84,8 @@ label_file_name    = QtGui.QLabel()
 le_file_name       = QtGui.QLineEdit()
 button_file_name   = QtGui.QPushButton()
 label_destination  = QtGui.QLabel()
-label_destination2 = QtGui.QLabel()
-cb_create_copy     = QtGui.QCheckBox()
+le_destination     = QtGui.QLineEdit()
+cb_symblink        = QtGui.QCheckBox()
 button_upload      = QtGui.QPushButton()
 button_cancel      = QtGui.QPushButton()
 
@@ -123,16 +124,18 @@ def createMainWindow():
     label_destination.setText("Destination:")
     label_destination.move(COL_1, LINE_1 + LINE_SPACE * 1)
 
-    label_destination2.setParent(w)
-    label_destination2.setText("Root History")
-    label_destination2.move(COL_2, LINE_1 + LINE_SPACE * 1)
+    le_destination.setParent(w)
+    le_destination.setGeometry(COL_2, LINE_1 + LINE_SPACE * 1, COL_3 - COL_2, CONTROL_H)
+    le_destination.setAcceptDrops(True)
 
-    cb_create_copy.setParent(w)
-    cb_create_copy.setText("Create a copy of the file in the Server")
-    cb_create_copy.move(COL_1, LINE_1 + LINE_SPACE * 2)
-    cb_create_copy.setCheckState(Qt.Checked)
+    cb_symblink.setParent(w)
+    cb_symblink.setText("Create a symbolic link to the file")
+    cb_symblink.move(COL_1, LINE_1 + LINE_SPACE * 2)
+    cb_symblink.setCheckState(Qt.Unchecked)
 
-    cb_create_copy.setVisible((LOCAL_SERVER == REMOTE_SERVER))
+    # If it is a local installation the user can copy the file to the docker's shared folder or create a symbolic link to the file there
+    # If it is a remote installation then, the file must be loaded into the server
+    cb_symblink.setVisible(LOCAL_INSTALLATION)
 
     button_upload.setParent(w)
     button_upload.clicked.connect(OnUploadFile)
@@ -154,12 +157,14 @@ def createMainWindow():
 # ------------------------------------------------------------------------------
 # createSymbolicLink()
 #
-# Description: This function creates a symbolic link of the selected file
-#              in the shared folder between the docker container and the host.
-# return     : True if Ok. Otherwise, False.
+# Description      : This function creates a symbolic link of the selected file
+#                    in the shared folder between the docker container and the
+#                    host.
+# @param subfolder : Destination subfolder of the symbolic link. 
+# return           : True if it is Ok, otherwise False.
 # ------------------------------------------------------------------------------
 
-def createSymbolicLink():
+def createSymbolicLink(subfolder):
 
     ret = True
 
@@ -168,7 +173,17 @@ def createSymbolicLink():
 
     src = str(le_file_name.text())
     cwd = os.getcwd()
-    dst = os.path.join(cwd, "develop", ntpath.basename(src))
+
+    dst_path = os.path.join(cwd, "develop/webapp/data/", subfolder)
+    try:
+        os.makedirs(dst_path)
+    except:
+        pass
+        
+    dst = os.path.join(dst_path, ntpath.basename(src))
+
+    alert(dst_path)
+    alert(dst)
 
     try:
         os.symlink(src, dst)
@@ -180,38 +195,33 @@ def createSymbolicLink():
 
 
 # ------------------------------------------------------------------------------
-# sendFileToServer()
+# registerFileOnServer()
 #
-# Description: This function uploads the selected file to the remote server.
+# Description     : This function uploads the selected file to the remote server.
+# @param filetype : 'local' -> the file is not uploaded. Only its reference.
+#                   'remote'-> both, the file and its reference are uploaded.
+# return          : True
 # ------------------------------------------------------------------------------
 
-def sendFileToServer():
+def registerFileOnServer(file_name, upload_file, subfolder):
 
     ret = True
 
-    src = str(le_file_name.text())
-    os.system('curl --upload-file ' + src + ' -X POST -H "filename:' + ntpath.basename(src) + '" -H "filetype:remote" http://' + REMOTE_SERVER + ':' + PORT + '/upload')
+    command = 'curl --upload-file '
+    command = command + file_name
+    command = command + ' -X POST '
+    command = command + '-H "filename:' + file_name + '" '
+    command = command + '-H "subpath:' + subfolder + '" '
+    if upload_file == True:
+        command = command + '-H "upload:yes" '
+    else:
+        command = command + '-H "upload:no" '
+    command = command + 'http://' + REMOTE_SERVER + ':' + PORT + '/datafiles'
+
+    os.system(command)
 
     return ret
 
-
-# ------------------------------------------------------------------------------
-# sendFileReferenceToServer()
-#
-# Description: This function uploads the reference of the selected file to the
-#              remote server.
-# ------------------------------------------------------------------------------
-
-def sendFileReferenceToServer():
-
-    ret = True
-
-    src = str(le_file_name.text())
-    
-    # The option "filetype:local" prevents from curl to send the file.
-    os.system('curl --upload-file ' + src + ' -X POST -H "filename:' + ntpath.basename(src) + '" -H "filetype:local" -H "pathname:' + src + '" http://' + REMOTE_SERVER + ':' + PORT + '/upload')
-
-    return ret
 
 # ------------------------------------------------------------------------------
 # alert()
@@ -260,6 +270,8 @@ def OnUploadFile():
 
     ret = True
 
+    subfolder = str(le_destination.text())
+
     src = str(le_file_name.text())
     if src == '':
         alert('Choose a file first')
@@ -268,15 +280,17 @@ def OnUploadFile():
         src = src.replace('file://', '')
         le_file_name.setText(src)
 
-        if LOCAL_SERVER == REMOTE_SERVER:
-            if cb_create_copy.checkState() == Qt.Checked:
-                ret = sendFileToServer()
-            else:
-                ret = createSymbolicLink()
+        file_name = ntpath.basename(src)
+
+        if LOCAL_INSTALLATION == True:
+            if cb_symblink.checkState() == Qt.Checked:
+                ret = createSymbolicLink(subfolder)
                 if ret == True:
-                    ret = sendFileReferenceToServer()
+                    ret = registerFileOnServer(file_name, DO_NOT_UPLOAD_FILE, subfolder)
+            else:
+                ret = registerFileOnServer(file_name, UPLOAD_FILE, subfolder)
         else:
-            ret = sendFileToServer()
+            ret = registerFileOnServer(file_name, UPLOAD_FILE, subfolder)
 
     if ret == True:
         alert('Done.')

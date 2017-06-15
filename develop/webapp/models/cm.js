@@ -73,6 +73,8 @@ var math_tools		= require('./math_tools');
 var split = require('split');
 var fs = require('fs');
 
+var shell = require('shelljs');
+
 // ============================================================================
 // CONSTANTS
 // ============================================================================
@@ -115,6 +117,8 @@ module.exports = function() {
 	var interval_check_LMs_status = null;	// Interval for checking connection with all local managers
 
 
+    this.data_files_list  = [];  		    // List of data files
+
     this.SetClientSocket = function(sock) {
         this.client_socket = sock;
         cout.cm("Set client socket: " + this.client_socket);
@@ -137,9 +141,13 @@ module.exports = function() {
 
 		cout.cm(string_table.CM_LISTENING() + cte.HOST() + " " + cte.PORT_CM() + ".");
 
+        self.loadDataFilesTable();
+
 		cout.cm("Starting the interval for updating the local managers list...");
 		interval_check_LMs_status = setInterval(self.CheckAllLocalManagersStatus, cte.TIME_REFRESH_LM_LIST());
 		cout.cm("Started.");
+
+
 	};
 
 
@@ -2344,5 +2352,112 @@ cout.cm("message.data = " + message.data);
             
         return ret;
     };
+
+// ============================================================================
+// UPLOAD DATA FILES / RETRIEVE LIST OF DATA FILES
+// ============================================================================
+
+    this.loadDataFilesTable = function() {
+        var ret = true;
+
+        cout.cm("Reading data files table...");
+
+        try {
+          var text = fs.readFileSync(cte.DATA_FILES_TABLE_FILE(), 'utf8');
+          if (text != "") {
+              self.data_files_list = JSON.parse(text);
+          } else {
+              self.data_files_list = [];
+          }
+        } catch (e) {
+          self.data_files_list = [];
+          ret = false;
+        }
+
+        return ret;
+    };
+
+    this.saveDataFilesTable = function() {
+        var ret = true;
+
+        cout.cm("Writing data files table...");
+
+        try {
+          fs.writeFileSync(cte.DATA_FILES_TABLE_FILE(), JSON.stringify(self.data_files_list), 'utf8');
+        } catch (e) {
+          ret = false;
+        }
+
+        return ret;
+    };
+
+    this.RequestRegisterDataFile = function (req, res) {
+
+        cout.cm("Registering data files...");
+
+        newFile = {
+            "location":cte.SERVER_DATA_FOLDER(),
+            "filename":req.headers.filename
+        };
+
+        if (req.headers.subpath != undefined) {
+            newFile.location += req.headers.subpath;
+            if (newFile.location[newFile.length-1] != '/') {
+                newFile.location += '/';
+            }
+        }
+
+/*
+        var found = false;
+        for (var i = 0; ((i < self.data_files_list.length) && (!found)); i++) {
+            found = ((self.data_files_list[i].location == newFile.location) &&
+                     (self.data_files_list[i].filename == newFile.filename));
+        }
+
+        if (!found) {
+*/
+        if (self.FindArrayElementById(self.data_files_list, newFile) == null) {
+
+            self.data_files_list.push(newFile);
+            self.saveDataFilesTable();
+
+            if (req.headers.upload == 'yes') {
+
+                shell.mkdir('-p', newFile.location);
+
+                res.writeHead(200);
+                req.pipe(fs.createWriteStream(newFile.location + newFile.filename));
+
+                var fileSize = req.headers['content-length'];
+                var uploadedBytes = 0 ;
+
+                req.on('data',function(d) {
+                    uploadedBytes += d.length;
+                    var p = (uploadedBytes/fileSize) * 100;
+                    res.write("Uploading " + parseInt(p)+ " %\n");
+                });
+
+                req.on('end',function(){
+                    res.end("File Upload Complete\n");
+                });
+            }
+
+            if (req.headers.upload == 'no') {
+                res.writeHead(200);
+                res.end("File Reference Upload Complete\n");
+            }    
+        } else {
+            res.writeHead(200);
+            res.end("File Exists\n");
+        }
+    };
+
+
+    this.RequestDataFilesList = function (response_id) {
+		var exported_list = self.data_files_list;
+
+		self.ResponseRequestOK(response_id, exported_list);
+    };
+
 };
 

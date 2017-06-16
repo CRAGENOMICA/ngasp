@@ -53,6 +53,7 @@ CRAG.controller('EditorController', function($scope,
     };
 
     var NOT_DEFINED = "2.14748e+09";
+    var SERVER_DATA_PATH = '/develop/data/';
 
     ////////////////////////////////////////////////////////////////////////////
     // DATA
@@ -120,6 +121,19 @@ $scope.MenuType = "eo";
           }
         }
 
+          // SAME ++++++
+          data_files = [];
+          $scope.data_files.forEach(function(data_file) {
+            var file_name = data_file.location + data_file.filename;
+
+            short_file_name = ReplaceAll(file_name, SERVER_DATA_PATH, "");
+
+            data_files.push([short_file_name, function ($itemScope) { $scope.OnAddVariable(file_name) }, function ($itemScope, $event) { return $scope.ConnectorSelected(); }]);
+          });
+          menu.push(["Add Data File >", function ($itemScope) {}, data_files ]);
+          // SAME ++++++
+
+
         if ($scope.OutputConnectorSelected()) {
           menu_items = [];
           $scope.node_types.forEach(function(node_type) {
@@ -129,6 +143,7 @@ $scope.MenuType = "eo";
           });
           menu.push(["Add Plot >", function ($itemScope) {}, menu_items ]);
         }
+
       }
       else {
         if ($scope.SelectedNodes()) {
@@ -185,6 +200,20 @@ $scope.MenuType = "eo";
             }
           });
           menu.push(["Add Stored Pipeline >", function ($itemScope) {}, menu_items ]);
+/*
+          // SAME ++++++
+          data_files = [];
+          $scope.data_files.forEach(function(data_file) {
+            var file_name = data_file.location + data_file.filename;
+
+            short_file_name = ReplaceAll(file_name, SERVER_DATA_PATH, "");
+
+            /// Different
+            data_files.push([short_file_name, function ($itemScope) { $scope.OnAddVariable(file_name); }]);
+          });
+          menu.push(["Add Data File >", function ($itemScope) {}, data_files ]);
+          // SAME ++++++
+*/
 
           /*
           menu_items = [];
@@ -922,6 +951,8 @@ if(!$scope.$$phase) {
     $scope.input_visible = false;
     var node_selected_for_write = null;
 
+    $scope.data_files = [];
+
     $scope.node_types = [];
 
     function InitializeNodeTypes() {
@@ -1204,10 +1235,11 @@ console.log("** Init 1 End **");
     // This init is started when all images are loaded:
 	$scope.init2 = function () {
 console.log("** Init 2 Start **");
-        num_data_resources_loaded = 4;
+        num_data_resources_loaded = 5;
 
         GetCalculationsList();
         GetCommandsList();
+        GetDataFilesList();
         GetDataTypesList();
         AddPipelinesToNodeTypes();
 console.log("** Init 2 End **");
@@ -1330,6 +1362,39 @@ console.log("** Init 3 End **");
             $scope.init3();
         }
     };
+
+
+    function GetDataFilesList() {
+console.log("** GetDataFilesList() **");
+        $rootScope.Http({
+		        method: 'GET',
+		        url: $rootScope.webAddress + 'datafiles',
+		        headers: { 'Content-Type': 'application/json' },
+		        data: {
+		        },
+        },
+        function(message) {
+            var result = message.data.data;
+
+            result.forEach(function (datafile_def) {
+                var new_data_file = {
+                    location: datafile_def.location,
+                    filename: datafile_def.filename
+                };
+
+                $scope.data_files.push(new_data_file);
+            });
+
+            $scope.DataResourceLoad();
+        },
+        function(message) {
+	        $scope.new_experiment_message = JSON.stringify(message);
+console.log("** GetDataFilesList() Error **" + $scope.new_experiment_message);
+        });
+    };
+
+
+
 
     function GetDataTypesList() {
 console.log("** GetDataTypesList() **");
@@ -4827,13 +4892,14 @@ console.log("** GetCommandsList() Error **");
           return (($scope.connector_selected.node != null) && ($scope.connector_selected.connector != null));
         };
 
-        $scope.OnAddVariable = function() {
+        $scope.OnAddVariable = function(value) {
           if ($scope.InputConnectorSelected()) {
             if (IsThisNodeInputConnectorEmpty($scope.connector_selected.node.id,
                                               $scope.connector_selected.connector.id) == true) {
                 $scope.CreateNodeToConnector($scope.connector_selected.node,
                                              $scope.connector_selected,
-                                             $scope.NodeStyle.DATA_NODE);
+                                             $scope.NodeStyle.DATA_NODE,
+                                             value);
             }
           }
 
@@ -4842,7 +4908,8 @@ console.log("** GetCommandsList() Error **");
                                                $scope.connector_selected.connector.id) == true) {
                 $scope.CreateNodeToConnector($scope.connector_selected.node,
                                              $scope.connector_selected,
-                                             $scope.NodeStyle.DATA_NODE);
+                                             $scope.NodeStyle.DATA_NODE,
+                                             value);
             }
           }
         };
@@ -4859,7 +4926,8 @@ console.log("** GetCommandsList() Error **");
                                                     $scope.connector_selected.connector.id) == true) {
                       $scope.CreateNodeToConnector($scope.connector_selected.node,
                                                    $scope.connector_selected,
-                                                   $scope.NodeStyle.INPUT_NODE);
+                                                   $scope.NodeStyle.INPUT_NODE,
+                                                   null);
                   }
               }
           }
@@ -4877,7 +4945,8 @@ console.log("** GetCommandsList() Error **");
                                                     $scope.connector_selected.connector.id) == true) {
                       $scope.CreateNodeToConnector($scope.connector_selected.node,
                                                    $scope.connector_selected,
-                                                   $scope.NodeStyle.OUTPUT_NODE);
+                                                   $scope.NodeStyle.OUTPUT_NODE,
+                                                   null);
                   }
               }
           }
@@ -5472,7 +5541,8 @@ console.log("** GetCommandsList() Error **");
 	// 
 	// ========================================================================
 
-    $scope.CreateNodeToConnector = function(node, connector, new_node_type) {
+    // default_value could be null or undefined
+    $scope.CreateNodeToConnector = function(node, connector, new_node_type, default_value) {
         var header_height = HEADER_HEIGHT;
         var separation = 0;
         var connector_type = "";
@@ -5565,6 +5635,10 @@ console.log("** GetCommandsList() Error **");
                               $scope.mouse_y - header_height, 
                               inputs,
                               outputs);
+
+        if ((default_value != undefined) && (default_value != null)) {
+            new_node.value = default_value;
+        }
 
         if (remove_other_links != null) {
             new_node.value = arrays.FindArrayElementById(remove_other_links,

@@ -38,8 +38,8 @@ module.exports = function() {
   this.FIVE_MINUTES          = function() { return 300000; };
   this.ONE_HOUR              = function() { return 600000; };
   this.TIME_REFRESH_LM_LIST  = function() { return 600000; };
-  this.SERVER_DATA_FOLDER    = function() { return "/develop/webapp/data/"; };
-  this.DATA_FILES_TABLE_FILE = function() { return "/develop/webapp/data/data_files.json"; };
+  this.SERVER_DATA_FOLDER    = function() { return "/develop/data/"; };
+  this.DATA_FILES_TABLE_FILE = function() { return "/develop/data/data_files.json"; };
 
 // ============================================================================
 // CONSTANTS: MESSAGES

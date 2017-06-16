@@ -2407,7 +2407,6 @@ cout.cm("message.data = " + message.data);
             }
         }
 
-/*
         var found = false;
         for (var i = 0; ((i < self.data_files_list.length) && (!found)); i++) {
             found = ((self.data_files_list[i].location == newFile.location) &&
@@ -2415,8 +2414,6 @@ cout.cm("message.data = " + message.data);
         }
 
         if (!found) {
-*/
-        if (self.FindArrayElementById(self.data_files_list, newFile) == null) {
 
             self.data_files_list.push(newFile);
             self.saveDataFilesTable();

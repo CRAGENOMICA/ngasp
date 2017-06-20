@@ -2406,8 +2406,7 @@ cout.cm("message.data = " + message.data);
     };
 
     this.RequestRegisterDataFile = function (newFile) {
-        var ret = false;
-
+        
         cout.cm("Registering data file: location=" + newFile.location + ". filename=" + newFile.filename);
 
         if (newFile.location.indexOf(cte.SERVER_DATA_FOLDER()) != -1) {
@@ -2415,20 +2414,25 @@ cout.cm("message.data = " + message.data);
             for (var i = 0; ((i < self.data_files_list.length) && (!found)); i++) {
                 found = ((self.data_files_list[i].location == newFile.location) &&
                          (self.data_files_list[i].filename == newFile.filename));
+
+                if (found) {
+                    // Registration already exists. Let's change the registration information to new information:
+
+                    // -- No more information to be registered. --
+                }
             }
 
             if (!found) {
                 self.data_files_list.push(newFile);
                 self.saveDataFilesTable();
-                ret = true;
                 cout.cm("File registered");
             }
         }
         else {
-            cout.cm("Trying to register a file that it is outside " + cte.SERVER_DATA_FOLDER());
+            cout.cm("Trying to register a file that it is outside " + cte.SERVER_DATA_FOLDER()); // It cannot happen because the registration application uses always this SERVER_DATA_FOLDER
         } 
 
-        return ret;
+        return true; // Return must be always true because it the file is not registered it has to be registered and if the file is already registered then it is ok.
     }; 
 
     this.RequestUnregisterDataFile = function (response_id, unregisterFile) {

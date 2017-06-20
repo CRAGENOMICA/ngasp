@@ -39,6 +39,7 @@ from PyQt4 import QtGui
 from PyQt4.QtGui import *
 from PyQt4 import QtCore
 from PyQt4.QtCore import *
+import glob
 
 
 # ==============================================================================
@@ -55,8 +56,8 @@ WIN_H                = 565
 COL_1                = 50
 COL_2                = 185
 COL_3                = 500
-LINE_1               = 265
-LINE_SPACE           = 70
+LINE_1               = 255
+LINE_SPACE           = 80
 CONTROL_H            = 30
 DEFAULT_BUTTON_W     = 140
 DEFAULT_BUTTON_H     = 50
@@ -69,17 +70,22 @@ PORT                 = '3000'
 WEB_SERVICE          = '/datafiles'
 WEB_SERVICE_TYPE     = 'POST'    # For adding files.
 LOCAL_INSTALLATION   = True      # For getting do: http://localhost:3000/datafiles
-DOCKER_VOLUME_PATH_1 = "develop" # Docker's Volume Path: /develop/data
-DOCKER_VOLUME_PATH_2 = "data"
+DOCKER_VOLUME_PATH   = ['develop', 'data']  # Docker's Volume Path: /develop/data in Linux and \develop\data in Windows
 
 # ==============================================================================
 # STRING TABLE
 # ==============================================================================
 
-MSG_REGISTRATION_ERROR        = 'Error registering file. Is ngasp running?'
+MSG_REGISTRATION_ERROR        = 'Is ngasp running? Error uploading file: '
 MSG_NO_INPUT_FILE             = 'Choose a file first.'
-MSG_INPUT_FILE_DOES_NOT_EXIST = 'File does not exist.'
-MSG_SYMLINK_ALREADY_EXISTS    = 'The shortcut already exists: '
+MSG_INPUT_FILE_DOES_NOT_EXIST = 'File does not exist: '
+MSG_SYMLINK_CREATION_ERROR    = 'The destination folder for this shortcut is owned by the root user. Change its owner first: '
+MSG_SHORTCUT_CREATED          = 'Shortcut created for file: '
+MSG_REGISTERED_FILES          = 'Number of uploaded files on Server: '
+MSG_UNLINK_ERROR              = 'Could not remove the shortcut of the just created shortcut to: '
+MSG_END_REGISTRATION          = '. Restart the ngasp web interface to see them.'
+MSG_NO_REGISTERED_FILES       = 'No files or shortcuts have been uploaded.'
+
 
 # ==============================================================================
 # MyQLineEdit class
@@ -91,6 +97,12 @@ class MyQLineEdit(QtGui.QLineEdit):
     def __init__(self):
         super(MyQLineEdit, self).__init__()
         super(MyQLineEdit, self).setAcceptDrops(True)
+
+    def dropEnterEvent(self, event):
+        event.accept()
+
+    def dropMoveEvent(self, event):
+        event.accept()
 
     def dropEvent(self, event):
         data = event.mimeData()
@@ -114,6 +126,7 @@ button_file_name   = QtGui.QPushButton()
 le_destination     = QtGui.QLineEdit()
 button_upload      = QtGui.QPushButton()
 button_link        = QtGui.QPushButton()
+
 
 # ==============================================================================
 # APPLICATION METHODS
@@ -180,7 +193,7 @@ def createMainWindow():
                               DEFAULT_BUTTON_H)
     button_link.setParent(w)
     button_link.clicked.connect(OnLinkFile)
-    button_link.setText("Create Shortcut")
+    button_link.setText("Upload Shortcut")
     button_link.setGeometry(pos_button_link,
                             WIN_H - LINE_SPACE - CONTROL_H, 
                             DEFAULT_BUTTON_W,
@@ -221,32 +234,61 @@ def createMainWindow():
 # ------------------------------------------------------------------------------
 
 def createSymbolicLink(path_file_name, subfolder):
-
     ret = True
 
     # The source is the selected file and the destination is the
     # develop folder inside the current directory
 
     dst_path = os.path.join(os.getcwd(),
-                            DOCKER_VOLUME_PATH_1,
-                            DOCKER_VOLUME_PATH_2,
+                            DOCKER_VOLUME_PATH[0],
+                            DOCKER_VOLUME_PATH[1],
                             subfolder)
     try:
         os.makedirs(dst_path)
     except:
         pass
         
-    dst = os.path.join(dst_path, ntpath.basename(path_file_name))
+    symbolic_link = os.path.join(dst_path, ntpath.basename(path_file_name))
 
     try:
-        os.symlink(path_file_name, dst)
+        os.symlink(path_file_name, symbolic_link)
     except OSError:
-        alert(MSG_SYMLINK_ALREADY_EXISTS + dst)
-        clearForm()
         ret = False
 
     return ret
 
+# ------------------------------------------------------------------------------
+# removeSymbolicLink()
+#
+# Description     : This function removes a symbolic link.
+# @path_file_name : File linked.
+# @subfolder      : Destination subfolder of the symbolic link. 
+# return          : True if it is Ok, otherwise False.
+# ------------------------------------------------------------------------------
+
+def removeSymbolicLink(path_file_name, subfolder):
+    ret = True
+
+    # The source is the selected file and the destination is the
+    # develop folder inside the current directory
+
+    dst_path = os.path.join(os.getcwd(),
+                            DOCKER_VOLUME_PATH[0],
+                            DOCKER_VOLUME_PATH[1],
+                            subfolder)
+    try:
+        os.makedirs(dst_path)
+    except:
+        pass
+        
+    symbolic_link = os.path.join(dst_path, ntpath.basename(path_file_name))
+
+    try:
+        os.unlink(symbolic_link)
+    except OSError:
+        ret = False
+
+    return ret
 
 # ------------------------------------------------------------------------------
 # registerFileOnServer()
@@ -259,7 +301,6 @@ def createSymbolicLink(path_file_name, subfolder):
 # ------------------------------------------------------------------------------
 
 def registerFileOnServer(path_file_name, upload_file, subfolder):
-
     ret = True
 
     file_name = ntpath.basename(path_file_name)
@@ -277,33 +318,45 @@ def registerFileOnServer(path_file_name, upload_file, subfolder):
                          '-H', 'subpath:' + subfolder,
                          '-H', 'upload:' + u,
                          'http://' + REMOTE_SERVER + ':' + PORT + WEB_SERVICE])
-        alert(str(x))
+
     except:
-        alert(MSG_REGISTRATION_ERROR)
         ret = False
 
     return ret
 
+
 # ------------------------------------------------------------------------------
-# CheckInputFile()
+# IsInputFilesEmpty()
 #
-# Description : This function checks if the file exists.
-# return      : True if it is Ok. Else, False.
+# Description     : This function checks that the input files text control has
+#                   at least one file.
+# return          : True if it is Empty. Else, False.
 # ------------------------------------------------------------------------------
 
-def CheckInputFile():
+def IsInputFilesEmpty():
+    ret = False
 
+    files = str(le_file_name.text())
+
+    if files == '':
+        ret = True
+
+    return ret
+
+
+# ------------------------------------------------------------------------------
+# CheckOneInputFile()
+#
+# Description     : This function checks if the file exists.
+# @path_file_name : The file to be checked.
+# return          : True if it is Ok. Else, False.
+# ------------------------------------------------------------------------------
+
+def CheckOneInputFile(path_file_name):
     ret = True
 
-    path_file_name = str(le_file_name.text())
-
-    if path_file_name == '':
-        alert(MSG_NO_INPUT_FILE)
+    if not os.path.isfile(path_file_name):
         ret = False
-    else:
-        if not os.path.isfile(path_file_name):
-            alert(MSG_INPUT_FILE_DOES_NOT_EXIST)
-            ret = False
 
     return ret
 
@@ -352,34 +405,25 @@ def alert(msg):
 
 def OnSelectFile():
 
-    le_file_name.setText(QFileDialog.getOpenFileName())
+    files = QFileDialog.getOpenFileNames()
+    str_files = ''
+    for one_file in files:
+        str_files = str_files + str(one_file) + ','
+
+    le_file_name.setText(str_files)
 
 
 # ------------------------------------------------------------------------------
 # OnLinkFile()
 #
-# Description : This function creates a shortcut to the selected file. Then, it
-#               registers the file.
-# return      : True if it is Ok. Else, False.
+# Description : This function creates shortcuts to the selected files. Then, it
+#               registers these files.
+# return      : None.
 # ------------------------------------------------------------------------------
 
 def OnLinkFile():
 
-    ret = CheckInputFile()
-
-    if ret == True:
-        path_file_name = str(le_file_name.text())
-        subfolder = str(le_destination.text())
-
-        ret = createSymbolicLink(path_file_name, subfolder)
-
-        if ret == True:
-            registerFileOnServer(path_file_name,
-                                 False,  # Do not upload the file. Only register
-                                 subfolder)
-            clearForm()
-
-    return ret
+    Do(False) # Do not upload files. Only register them.
 
 
 # ------------------------------------------------------------------------------
@@ -387,22 +431,78 @@ def OnLinkFile():
 #
 # Description : This function uploads the file. If the system installation is
 #               local, the upload is like a copy to the docker's volume.
-# return      : True if it is Ok. Else, False.
+# return      : None.
 # ------------------------------------------------------------------------------
 
 def OnUploadFile():
 
-    ret = CheckInputFile()
+    Do(True) # Upload files and register them.
 
-    if ret == True:
-        path_file_name = str(le_file_name.text())
+
+# ------------------------------------------------------------------------------
+# Do()
+# @upload     : If False: This function creates shortcuts to the selected files.
+#                         Then, it registers these files.
+#               If True:  This function uploads the file. If the system installation 
+#                         is local, the upload is like a copy to the docker's volume.
+# return      : None.
+# ------------------------------------------------------------------------------
+
+def Do(upload):
+
+    registered_files = 0
+
+    if IsInputFilesEmpty() == False:
+
         subfolder = str(le_destination.text())
-        registerFileOnServer(path_file_name, 
-                             True,  # Upload the file (and register it, too)
-                             subfolder)
-        clearForm()
 
-    return ret
+        files = str(le_file_name.text()).split(',')
+
+        for path_file_name in files:
+
+            if path_file_name <> '':
+
+                if path_file_name.find('*') <> -1:
+                    # If the file contains '*', for example: /a/b/*.bam
+                    # The following function gets all files ended with '.bam' and it concatenates them to the 'files' list.
+                    files.extend(glob.glob(path_file_name))
+                else:
+                    if CheckOneInputFile(path_file_name) == True:
+
+                        # Try to remove existing previous shortcut to the file (if it exists):
+                        # For both cases: "upload shurtcut" and "upload file"
+                        removeSymbolicLink(path_file_name, subfolder)
+
+                        if upload == False:
+                            # Create shortcut
+                            if createSymbolicLink(path_file_name, subfolder) == False:
+                                alert(MSG_SYMLINK_CREATION_ERROR + path_file_name)
+                                break # <---- STOP
+
+                        # If upload is True, this function uploads the file and it registers it on the Server
+                        # If upload is False, this function only registers the file on the Server
+                        if registerFileOnServer(path_file_name, upload, subfolder) == False:
+                            alert(MSG_REGISTRATION_ERROR + path_file_name)
+
+                            if upload == False:
+                                # Remove the just created symbolic link because the file could not be registered on the Server
+                                if removeSymbolicLink(path_file_name, subfolder) == False:
+                                    alert(MSG_UNLINK_ERROR + path_file_name)
+                            break # <---- STOP
+                        else:
+                            # Increment the number of registered files
+                            registered_files = registered_files + 1
+                    else:
+                        alert(MSG_INPUT_FILE_DOES_NOT_EXIST + path_file_name)
+    else:
+        alert(MSG_NO_INPUT_FILE)
+
+
+    if registered_files > 0:
+        alert(MSG_REGISTERED_FILES + str(registered_files) + MSG_END_REGISTRATION)
+    else:
+        alert(MSG_NO_REGISTERED_FILES)
+
 
 
 # ==============================================================================

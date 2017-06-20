@@ -52,7 +52,6 @@
 				        <div ng-if="row.has_children==true" style="float: right;" ng-class="{'glyphicon-plus':IsMenuOpen(row.id)==false,'glyphicon-minus':IsMenuOpen(row.id)==true, '':IsMenuOpen(row.id)=='NO_CHILDREN' }"></div>
 			        </li>
 		        </ul>
-
           </div>
 	      </div>
 
@@ -62,14 +61,21 @@
 		    <div class="header company_background_titlebar_color hide_on_print">
                 <div ng-class="{'glyphicon-arrow-right':menu_visible==true,'glyphicon-menu-hamburger':menu_visible==false}" class="open_menu_icon glyphicon cursor_hand hide_on_print" aria-hidden="true" ng-click="OnShowHideMenu()"></div>
 			    <div class="admin_logo cursor_hand" ng-click="OnOpenHome()"></div>
-     
+
                 <div style="float:right; padding:20px 20px 0px 0px;">
+                    <div class="dropdown header_button cursor_hand">
+                        <form><img src='images/restart.png' tooltip="Restart&nbsp;Interface" onClick="history.go(0)" value="Restart" /></form>
+                    </div>
+
+                    <div class="dropdown header_button cursor_hand">
+                        <form><img src='images/fullscreen.png' tooltip="Full&nbsp;Screen" ng-click="OnFullScreen()" value="FullScreen" /></form>
+                    </div>
+<!--
                     <div class="dropdown header_button cursor_hand">
                         <span class="dropdown-toggle glyphicon glyphicon-option-vertical hide_on_print" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
                         <ul class="dropdown-menu dropdown-menu-right company_background_menu_color dropdown-animation" >
                             <li><a href="#" ng-click="OnFullScreen()" class="menu_item_font">Toggle Fullscreen</a></li>
                             <li role="presentation" class="divider"></li>
-
 
                             <li class="menu-item dropdown dropdown-submenu">
                                 <a href="#" class="dropdown-toggle menu_item_font"><span style="float:left">&#9664;</span>Web Themes</a>
@@ -85,6 +91,9 @@
 
                         </ul>
                     </div>
+
+-->
+
                 </div>
 
 

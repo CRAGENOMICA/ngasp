@@ -403,28 +403,19 @@ app.post("/datafiles", function (req, res) {
     var uploaded   = false;
 
     if (req.headers.upload == 'yes') {
-        registered = central_manager.RequestRegisterDataFile(newFile);
+        central_manager.RequestRegisterDataFile(newFile);
 
-        if (registered) {
-            // The output message is sent inside the RequestUploadDataFile because it is an async function (using res).
-            uploaded = central_manager.RequestUploadDataFile(req, res, newFile);
-        } else {
-            res.writeHead(200);
-            res.end("The file is already registered\n");
-        }
+        // The output message is sent inside the RequestUploadDataFile because it is an async function (using res).
+        uploaded = central_manager.RequestUploadDataFile(req, res, newFile);
+
     } else {
         // Do not upload the file, only register it
-        registered = central_manager.RequestRegisterDataFile(newFile);
+        central_manager.RequestRegisterDataFile(newFile);
 
         // The output message is sent here:
 
         res.writeHead(200);
-
-        if (registered) {
-            res.end("File Registration Completed\n");
-        } else {
-            res.end("The file is already registered\n");
-        }
+        res.end("File Registration Completed\n");
     }
 
 });

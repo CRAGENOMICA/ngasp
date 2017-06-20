@@ -8,15 +8,15 @@ if [ "$(uname)" == "Darwin" ]; then
     docker build -t development-environment .
     cd ../..
     # Take an image and make the image its own icon:
-    sips -i icons/ngasp_icon.png
+    sips -i media/ngasp_01.png
     # Extract the icon to its own resource file:
-    DeRez -only icns icons/ngasp_icon.png > icons/tmpicns.rsrc
+    DeRez -only icns media/ngasp_01.png > media/tmpicns.rsrc
     # append this resource to the file you want to icon-ize.
-    Rez -append icons/tmpicns.rsrc -o ./runme.sh
+    Rez -append media/tmpicns.rsrc -o ./runme.sh
     # Use the resource to set the icon.
     SetFile -a C ./runme.sh
     # clean up.
-    rm icons/tmpicns.rsrc
+    rm media/tmpicns.rsrc
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     echo "GNU/Linux platform detected..."
     cd docker
@@ -29,7 +29,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     echo "Type=Application" >> ngasp.desktop
     echo "Name=ngasp" >> ngasp.desktop
     echo "Exec=/bin/bash -c 'cd \"\$(dirname %k)\" && $NGASP_PATH/runme.sh'" >> ngasp.desktop
-    echo "Icon=$NGASP_PATH/icons/ngasp_icon_black.png" >> ngasp.desktop
+    echo "Icon=$NGASP_PATH/media/ngasp_01.png" >> ngasp.desktop
     echo "Name[es_ES]=ngasp" >> ngasp.desktop
     chmod +x ngasp.desktop 
 elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then

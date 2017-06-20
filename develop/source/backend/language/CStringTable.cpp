@@ -183,6 +183,7 @@ CStringTable::CStringTable() : IStringTable() {
 
   strings_[ENGLISH_COL][DATA_STRING_SET]                                        = "string_set";
 
+                                                                                // All Data Files must end with "_file": (in order to be recognized by the CM as files when registering them)
   strings_[ENGLISH_COL][DATA_SAM]                                               = "sam_file";
   strings_[ENGLISH_COL][DATA_BAM]                                               = "bam_file";
   strings_[ENGLISH_COL][DATA_BAM_INDEX]                                         = "bam_index_file";

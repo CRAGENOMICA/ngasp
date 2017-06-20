@@ -130,6 +130,7 @@ $scope.MenuType = "eo";
 
             data_files.push([short_file_name, function ($itemScope) { $scope.OnAddVariable(file_name) }, function ($itemScope, $event) { return $scope.ConnectorSelected(); }]);
           });
+          data_files.sort();
           menu.push(["Add Data File >", function ($itemScope) {}, data_files ]);
           // SAME ++++++
 
@@ -167,7 +168,11 @@ $scope.MenuType = "eo";
           if (items_above) {
             menu.push(null);
           }
-          menu.push(["Remove", function ($itemScope, $event, value) { $scope.OnRemoveNode() }, function ($itemScope, $event) { return $scope.SelectedNodes(); }]);
+
+          if (($scope.node_selected.temp.type_obj.style == $scope.NodeStyle.DATA_NODE) && ($scope.node_selected.temp.type_obj.id.indexOf('_file') != -1)) {
+              menu.push(["Unregister Data File", function ($itemScope, $event, value) { $scope.OnUnregisterDataFile() }, function ($itemScope, $event) { return $scope.SelectedNodes(); }]);
+          }
+          menu.push(["Remove Node", function ($itemScope, $event, value) { $scope.OnRemoveNode() }, function ($itemScope, $event) { return $scope.SelectedNodes(); }]);
         } else {
 
           menu_items = [];
@@ -1237,11 +1242,11 @@ console.log("** Init 1 End **");
 console.log("** Init 2 Start **");
         num_data_resources_loaded = 5;
 
-        GetCalculationsList();
-        GetCommandsList();
-        GetDataFilesList();
-        GetDataTypesList();
-        AddPipelinesToNodeTypes();
+        GetCalculationsList($scope.DataResourceLoad());
+        GetCommandsList($scope.DataResourceLoad());
+        GetDataFilesList($scope.DataResourceLoad());
+        GetDataTypesList($scope.DataResourceLoad());
+        AddPipelinesToNodeTypes($scope.DataResourceLoad());
 console.log("** Init 2 End **");
 	};
 
@@ -1364,7 +1369,7 @@ console.log("** Init 3 End **");
     };
 
 
-    function GetDataFilesList() {
+    function GetDataFilesList(OnReceived) {
 console.log("** GetDataFilesList() **");
         $rootScope.Http({
 		        method: 'GET',
@@ -1376,6 +1381,8 @@ console.log("** GetDataFilesList() **");
         function(message) {
             var result = message.data.data;
 
+            $scope.data_files = [];
+
             result.forEach(function (datafile_def) {
                 var new_data_file = {
                     location: datafile_def.location,
@@ -1385,7 +1392,9 @@ console.log("** GetDataFilesList() **");
                 $scope.data_files.push(new_data_file);
             });
 
-            $scope.DataResourceLoad();
+            if ((OnReceived != undefined) && (OnReceived != null)) {
+                OnReceived();
+            }
         },
         function(message) {
 	        $scope.new_experiment_message = JSON.stringify(message);
@@ -1396,7 +1405,7 @@ console.log("** GetDataFilesList() Error **" + $scope.new_experiment_message);
 
 
 
-    function GetDataTypesList() {
+    function GetDataTypesList(OnReceived) {
 console.log("** GetDataTypesList() **");
         $rootScope.Http({
 		        method: 'GET',
@@ -1430,7 +1439,9 @@ console.log("** GetDataTypesList() **");
 
             $scope.node_types.push(new_data_node);
 
-            $scope.DataResourceLoad();
+            if ((OnReceived != undefined) && (OnReceived != null)) {
+                OnReceived();
+            }
         },
         function(message) {
 	        $scope.new_experiment_message = JSON.stringify(message);
@@ -1438,7 +1449,7 @@ console.log("** GetDataTypesList() Error **" + $scope.new_experiment_message);
         });
     };
 
-    function GetCalculationsList() {
+    function GetCalculationsList(OnReceived) {
 console.log("** GetCalculationsList() **");
         $rootScope.Http({
 		        method: 'GET',
@@ -1455,14 +1466,16 @@ console.log("** GetCalculationsList() **");
                 $scope.node_types.push(calc_def);
             });
 
-            $scope.DataResourceLoad();
+            if ((OnReceived != undefined) && (OnReceived != null)) {
+                OnReceived();
+            }
         },
         function(message) {
 console.log("** GetCalculationsList() Error **");
         });
     };
 
-    function GetCommandsList() {
+    function GetCommandsList(OnReceived) {
 console.log("** GetCommandsList() **");
         $rootScope.Http({
 		        method: 'GET',
@@ -1478,14 +1491,16 @@ console.log("** GetCommandsList() **");
                 commands_list.push(calc_def);
             });
 
-            $scope.DataResourceLoad();
+            if ((OnReceived != undefined) && (OnReceived != null)) {
+                OnReceived();
+            }
         },
         function(message) {
 console.log("** GetCommandsList() Error **");
         });
     };
 
-    function AddPipelinesToNodeTypes() {
+    function AddPipelinesToNodeTypes(OnReceived) {
       console.log("** AddPipelinesToNodeTypes() **");
       $rootScope.Http({
         method: 'GET',
@@ -1507,7 +1522,9 @@ console.log("** GetCommandsList() Error **");
           }
         );  
 
-       $scope.DataResourceLoad();       
+        if ((OnReceived != undefined) && (OnReceived != null)) {
+            OnReceived();
+        }
       },
       function(message) {
         console.log("** AddPipelinesToNodeTypes() Error **");
@@ -7509,6 +7526,53 @@ node|5|boxplot|2|Theta/nt(Fu&Li)|Outliers|{"id":"","type":"double_vector","value
     }
     return "Finished";
   };
+
+
+        // =====================
+        // UNREGISTER DATA FILES
+        // =====================
+	    function GetFileName(path_file_name) {
+            return path_file_name.split('/').pop();
+
+	    };
+
+	    function GetPath(path_file_name) {
+            var len = (path_file_name.split('/')).length;          // a/b/c/d/file.txt   len =5
+            path_file_name = path_file_name.split('/', len-1).join('/')      // path_file_name = a/b/c/d 
+            path_file_name += '/';  // path_file_name = a/b/c/d/
+            return path_file_name;
+	    };
+
+        $scope.OnUnregisterDataFile = function() {
+
+          if ($scope.SelectedNodes()) {
+            var unregisterFile = {
+                "location":GetPath($scope.node_selected.value),
+                "filename":GetFileName($scope.node_selected.value)
+            };
+
+            MessagesFactory.confirm("Are you sure that you want to unregister the data file " + unregisterFile.location + unregisterFile.filename + "?", 
+            function() {  // Yes
+                var send = {
+                  method: 'DELETE',
+                  url: $rootScope.webAddress + 'datafiles/' + ReplaceAll(unregisterFile.location, '/', 'slash') + '/' + ReplaceAll(unregisterFile.filename, '/', 'slash'),
+                  headers: { 'Content-Type': 'application/json' },
+                  data: {}
+                };
+
+                $rootScope.Http(send,
+                function(message) {
+                    alert('File unregistered');
+                    GetDataFilesList(null);
+                },
+                function(message) {
+                    alert('File could not be unregistered');
+                });
+            },
+            function() {  // No
+            });
+          }
+        };
 
 
 	$scope.init();

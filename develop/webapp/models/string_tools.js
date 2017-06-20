@@ -45,5 +45,15 @@ module.exports = {
 
 		return ret;
 	},
+	GetFileName: function(path_file_name) {
+        return path_file_name.split('/').pop();
+
+	},
+	GetPath: function(path_file_name) {
+        var len = (path_file_name.split('/')).length;          // a/b/c/d/file.txt   len =5
+        path_file_name = path_file_name.split('/', len-1).join('/')      // path_file_name = a/b/c/d 
+        path_file_name += '/';  // path_file_name = a/b/c/d/
+        return path_file_name;
+	}
 };
 

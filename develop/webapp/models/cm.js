@@ -725,6 +725,20 @@ cout.cm("////////////////// inputs.from.Push: " + JSON.stringify(a));
         //code.push({parent:parent,node_id:node.id,code:"print --text \"***" + " to_type="+to_type+" to_style="+to_style+" to_name="+to_name + " this_node_output_id=" + this_node_output_id + " this_node_output_type="+this_node_output_type + "\""});
         }
 
+        // =============================
+        // Output Data File Registration
+        // =============================
+
+        if ((to_style == NodeStyle.DATA_NODE) && (this_node_output_type.indexOf('_file') != -1)) {
+            var newFile = {
+                "location":string_tools.GetPath(destination_node.value),
+                "filename":string_tools.GetFileName(destination_node.value)
+            };
+
+            if (newFile.filename != undefined) {
+                self.RequestRegisterDataFile(newFile);
+            }
+        }
 
         // Conversions are treated only in the input side
 
@@ -2391,64 +2405,77 @@ cout.cm("message.data = " + message.data);
         return ret;
     };
 
-    this.RequestRegisterDataFile = function (req, res) {
+    this.RequestRegisterDataFile = function (newFile) {
+        var ret = false;
 
-        cout.cm("Registering data files...");
+        cout.cm("Registering data file: location=" + newFile.location + ". filename=" + newFile.filename);
 
-        newFile = {
-            "location":cte.SERVER_DATA_FOLDER(),
-            "filename":req.headers.filename
-        };
+        if (newFile.location.indexOf(cte.SERVER_DATA_FOLDER()) != -1) {
+            var found = false;
+            for (var i = 0; ((i < self.data_files_list.length) && (!found)); i++) {
+                found = ((self.data_files_list[i].location == newFile.location) &&
+                         (self.data_files_list[i].filename == newFile.filename));
+            }
 
-        if (req.headers.subpath != undefined) {
-            newFile.location += req.headers.subpath;
-            if (newFile.location[newFile.length-1] != '/') {
-                newFile.location += '/';
+            if (!found) {
+                self.data_files_list.push(newFile);
+                self.saveDataFilesTable();
+                ret = true;
+                cout.cm("File registered");
+            }
+        }
+        else {
+            cout.cm("Trying to register a file that it is outside " + cte.SERVER_DATA_FOLDER());
+        } 
+
+        return ret;
+    }; 
+
+    this.RequestUnregisterDataFile = function (response_id, unregisterFile) {
+        var ret = false;
+
+        cout.cm("Unregistering data file: location=" + unregisterFile.location + ". filename=" + unregisterFile.filename);
+
+        for (var i = 0; ((i < self.data_files_list.length) && (!ret)); i++) {
+            ret = ((self.data_files_list[i].location == unregisterFile.location) &&
+                   (self.data_files_list[i].filename == unregisterFile.filename));
+            if (ret) {
+                self.data_files_list.splice(i, 1);
+                cout.cm("File unregistered");
             }
         }
 
-        var found = false;
-        for (var i = 0; ((i < self.data_files_list.length) && (!found)); i++) {
-            found = ((self.data_files_list[i].location == newFile.location) &&
-                     (self.data_files_list[i].filename == newFile.filename));
-        }
-
-        if (!found) {
-
-            self.data_files_list.push(newFile);
-            self.saveDataFilesTable();
-
-            if (req.headers.upload == 'yes') {
-
-                shell.mkdir('-p', newFile.location);
-
-                res.writeHead(200);
-                req.pipe(fs.createWriteStream(newFile.location + newFile.filename));
-
-                var fileSize = req.headers['content-length'];
-                var uploadedBytes = 0 ;
-
-                req.on('data',function(d) {
-                    uploadedBytes += d.length;
-                    var p = (uploadedBytes/fileSize) * 100;
-                    res.write("Uploading " + parseInt(p)+ " %\n");
-                });
-
-                req.on('end',function(){
-                    res.end("File Upload Complete\n");
-                });
-            }
-
-            if (req.headers.upload == 'no') {
-                res.writeHead(200);
-                res.end("File Reference Upload Complete\n");
-            }    
+        if (ret) {
+			    self.ResponseRequestOK(response_id, "File unregistered");
         } else {
-            res.writeHead(200);
-            res.end("File Exists\n");
+			    self.ResponseRequestError(response_id, "File could not be unregistered");
         }
-    };
 
+        return ret;
+    }; 
+
+    this.RequestUploadDataFile = function (req, res, newFile) {
+
+        cout.cm("Uploading data files...");
+
+        shell.mkdir('-p', newFile.location);
+
+        res.writeHead(200);
+        req.pipe(fs.createWriteStream(newFile.location + newFile.filename));
+
+        var fileSize = req.headers['content-length'];
+        var uploadedBytes = 0 ;
+
+        req.on('data',function(d) {
+            uploadedBytes += d.length;
+            var p = (uploadedBytes/fileSize) * 100;
+            res.write("Uploading " + parseInt(p)+ " %\n");
+        });
+
+        req.on('end',function(){
+            res.end("File Upload Complete\n");
+        });
+    };
 
     this.RequestDataFilesList = function (response_id) {
 		var exported_list = self.data_files_list;

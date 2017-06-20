@@ -385,9 +385,48 @@ io.sockets.on('connect', function(client) {
 // ============================================================================
 
 app.post("/datafiles", function (req, res) {
-    cout.node("Register data file '" + req.headers.filename + "'...");
+    cout.node("/datafiles with '" + req.headers.filename + "'...");
 
-    central_manager.RequestRegisterDataFile(req, res);
+    var newFile = {
+        "location":cte.SERVER_DATA_FOLDER(),
+        "filename":req.headers.filename
+    };
+
+    if (req.headers.subpath != undefined) {
+        newFile.location += req.headers.subpath;
+        if (newFile.location[newFile.length-1] != '/') {
+            newFile.location += '/';
+        }
+    }
+
+    var registered = false;
+    var uploaded   = false;
+
+    if (req.headers.upload == 'yes') {
+        registered = central_manager.RequestRegisterDataFile(newFile);
+
+        if (registered) {
+            // The output message is sent inside the RequestUploadDataFile because it is an async function (using res).
+            uploaded = central_manager.RequestUploadDataFile(req, res, newFile);
+        } else {
+            res.writeHead(200);
+            res.end("The file is already registered\n");
+        }
+    } else {
+        // Do not upload the file, only register it
+        registered = central_manager.RequestRegisterDataFile(newFile);
+
+        // The output message is sent here:
+
+        res.writeHead(200);
+
+        if (registered) {
+            res.end("File Registration Completed\n");
+        } else {
+            res.end("The file is already registered\n");
+        }
+    }
+
 });
 
 /// User request for getting the local managers list.
@@ -397,6 +436,18 @@ app.get("/datafiles", function (req, res) {
 	central_manager.RequestDataFilesList(response_id);
 });
 
+/// User request for unregistering a data file.
+app.delete("/datafiles/:location/:filename", function (req, res) {
+	cout.nodeRec("WEB", "Unregistering data file: '" + req.params.location + req.params.filename + "'.");
+	var response_id = central_manager.PushClientResponse(res);
+
+    var unregisterFile = {
+        "location":req.params.location.replace(new RegExp('slash', 'g'), '/'),
+        "filename":req.params.filename.replace(new RegExp('slash', 'g'), '/')
+    };
+
+	central_manager.RequestUnregisterDataFile(response_id, unregisterFile);
+});
 
 
 // ============================================================================

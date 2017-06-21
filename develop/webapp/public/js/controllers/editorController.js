@@ -123,7 +123,7 @@ $scope.MenuType = "eo";
 
           // SAME ++++++
           data_files = [];
-          $scope.data_files.forEach(function(data_file) {
+          $rootScope.data_files.forEach(function(data_file) {
             var file_name = data_file.location + data_file.filename;
 
             short_file_name = ReplaceAll(file_name, SERVER_DATA_PATH, "");
@@ -956,8 +956,6 @@ if(!$scope.$$phase) {
     $scope.input_visible = false;
     var node_selected_for_write = null;
 
-    $scope.data_files = [];
-
     $scope.node_types = [];
 
     function InitializeNodeTypes() {
@@ -1244,7 +1242,7 @@ console.log("** Init 2 Start **");
 
         GetCalculationsList($scope.DataResourceLoad());
         GetCommandsList($scope.DataResourceLoad());
-        GetDataFilesList($scope.DataResourceLoad());
+        $rootScope.OnRefreshDataFilesList($scope.DataResourceLoad());
         GetDataTypesList($scope.DataResourceLoad());
         AddPipelinesToNodeTypes($scope.DataResourceLoad());
 console.log("** Init 2 End **");
@@ -1368,7 +1366,7 @@ console.log("** Init 3 End **");
         }
     };
 
-
+/*
     function GetDataFilesList(OnReceived) {
 console.log("** GetDataFilesList() **");
         $rootScope.Http({
@@ -1401,7 +1399,7 @@ console.log("** GetDataFilesList() **");
 console.log("** GetDataFilesList() Error **" + $scope.new_experiment_message);
         });
     };
-
+*/
 
 
 
@@ -7563,7 +7561,7 @@ node|5|boxplot|2|Theta/nt(Fu&Li)|Outliers|{"id":"","type":"double_vector","value
                 $rootScope.Http(send,
                 function(message) {
                     alert('File unregistered');
-                    GetDataFilesList(null);
+                    // the CM will send a message to everybody to refresh their data files list
                 },
                 function(message) {
                     alert('File could not be unregistered');

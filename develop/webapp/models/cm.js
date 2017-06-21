@@ -2426,6 +2426,7 @@ cout.cm("message.data = " + message.data);
                 self.data_files_list.push(newFile);
                 self.saveDataFilesTable();
                 cout.cm("File registered");
+                self.NotifyRefreshRequired("DATA_FILES_LIST", true);
             }
         }
         else {
@@ -2450,9 +2451,10 @@ cout.cm("message.data = " + message.data);
         }
 
         if (ret) {
-			    self.ResponseRequestOK(response_id, "File unregistered");
+			self.ResponseRequestOK(response_id, "File unregistered");
+            self.NotifyRefreshRequired("DATA_FILES_LIST", true);
         } else {
-			    self.ResponseRequestError(response_id, "File could not be unregistered");
+			self.ResponseRequestError(response_id, "File could not be unregistered");
         }
 
         return ret;
@@ -2478,6 +2480,7 @@ cout.cm("message.data = " + message.data);
 
         req.on('end',function(){
             res.end("File Upload Complete\n");
+            self.NotifyRefreshRequired("DATA_FILES_LIST", true);
         });
     };
 

@@ -28,6 +28,7 @@ CRAG.controller('MainController', function($scope, $rootScope, $http, $state, $c
 		$rootScope.experiments_list = [];
     $rootScope.selected_experiment_id = -1;
     $rootScope.clients_list = [];
+    $rootScope.data_files = [];
 
 /*
 // var str = '{"command": "value", "key2": "value2"}';
@@ -465,6 +466,39 @@ var values = {"dm":[{"name":"$idum","type":"int64","value":"-12345"},{"name":"$o
 		});
 	};
 
+	$rootScope.OnRefreshDataFilesList = function(OnReceived) {
+
+        logs.log("-------------OnRefreshDataFilesList-----------------");
+
+		$rootScope.Http({
+		        method: 'GET',
+		        url: $rootScope.webAddress + 'datafiles',
+				headers: { 'Content-Type': 'application/json' },
+		        data: {},
+	    },
+        function(message) {
+            var result = message.data.data;
+
+            $rootScope.data_files = [];
+
+            result.forEach(function (datafile_def) {
+                var new_data_file = {
+                    location: datafile_def.location,
+                    filename: datafile_def.filename
+                };
+
+                $rootScope.data_files.push(new_data_file);
+            });
+
+            if ((OnReceived != undefined) && (OnReceived != null)) {
+                OnReceived();
+            }
+        },
+        function(message) {
+        });
+	};
+    
+
 	// ========================================================================
 	// MESSAGES FROM THE CENTRAL MANAGER
 	// ========================================================================
@@ -497,6 +531,11 @@ var values = {"dm":[{"name":"$idum","type":"int64","value":"-12345"},{"name":"$o
               AlertService.info("Experiment output available.");
 	      // $scope.OnGetOutput();
       }
+
+      if (message.data.indexOf("DATA_FILES_LIST") != -1) {
+            $rootScope.OnRefreshDataFilesList();
+      }
+
     }
 	});
 

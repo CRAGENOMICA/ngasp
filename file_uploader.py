@@ -30,6 +30,9 @@
 # bug
 # warning
 
+# ==============================================================================
+# IMPORTS
+# ==============================================================================
 
 import sys
 import ntpath
@@ -48,44 +51,55 @@ import glob
 
 # These are constants for building the interface:
 
-APP_TITTLE           = "ngasp - File Uploader"
-WIN_X                = 100
-WIN_Y                = 100
-WIN_W                = 600
-WIN_H                = 565
-COL_1                = 50
-COL_2                = 185
-COL_3                = 500
-LINE_1               = 255
-LINE_SPACE           = 80
-CONTROL_H            = 30
-DEFAULT_BUTTON_W     = 140
-DEFAULT_BUTTON_H     = 50
-BUTTON_BROWSER_W     = 30
+APP_TITLE           = "ngasp - File Uploader"    # Application Title
+WIN_X                = 100                       # Main Window Innitial Pos X
+WIN_Y                = 100                       # Main Window Innitial Pos Y
+WIN_W                = 600                       # Main Window Width
+WIN_H                = 565                       # Main Window Height
+COL_1                = 50                        # Position of the first column of controls
+COL_2                = 185                       # Position of the second column of controls
+COL_3                = 500                       # Position of the third column of controls
+LINE_1               = 255                       # First line top position 
+LINE_SPACE           = 80                        # Space between lines
+CONTROL_H            = 30                        # Default height of controls
+DEFAULT_BUTTON_W     = 140                       # Default width of buttons
+DEFAULT_BUTTON_H     = 50                        # Default height of buttons
+BUTTON_BROWSER_W     = 30                        # The width of the browsert button
+IMAGES_PATH          = 'media'                   # Folder where images are stored
+BG_IMAGE             = 'uploader_background.png' # The main window's background image
+ICON_IMAGE           = 'ngasp_01.png'            # The application icon
+
+# General constants:
+
+FILES_SEPARATOR      = ','                       # e.g. file1.fas,file2.fas
 
 # These are constants for uploading the file:
 
-REMOTE_SERVER        = 'localhost'
-PORT                 = '3000'
-WEB_SERVICE          = '/datafiles'
-WEB_SERVICE_TYPE     = 'POST'    # For adding files.
-LOCAL_INSTALLATION   = True      # For getting do: http://localhost:3000/datafiles
-DOCKER_VOLUME_PATH   = ['develop', 'data']  # Docker's Volume Path: /develop/data in Linux and \develop\data in Windows
-
-# ==============================================================================
-# STRING TABLE
-# ==============================================================================
+REMOTE_SERVER        = 'localhost'               # e.g. http://localhost:3000/datafiles
+PORT                 = '3000'                    # Port
+WEB_SERVICE          = '/datafiles'              # Web Service name
+WEB_SERVICE_TYPE     = 'POST'                    # POST = Adding files / GET = listing
+LOCAL_INSTALLATION   = True                      # False if Back-End is remote
+DOCKER_VOLUME_PATH   = ['develop',               # Docker's Volume Path:
+                        'data']                  #   Linux  &
+                                                 #   Mac OS X : /develop/data
+                                                 #   Windows  : \develop\data
+# String Table
 
 MSG_REGISTRATION_ERROR        = 'Is ngasp running? Error uploading file: '
 MSG_NO_INPUT_FILE             = 'Choose a file first.'
 MSG_INPUT_FILE_DOES_NOT_EXIST = 'File does not exist: '
 MSG_SYMLINK_CREATION_ERROR    = 'The destination folder for this shortcut is owned by the root user. Change its owner first: '
 MSG_SHORTCUT_CREATED          = 'Shortcut created for file: '
-MSG_REGISTERED_FILES          = 'Number of uploaded files on Server: '
+MSG_REGISTERED_FILES          = ' file(s) uploaded.'
+MSG_REGISTERED_SHORTCUT       = ' shortcut(s) uploaded.'
 MSG_UNLINK_ERROR              = 'Could not remove the shortcut of the just created shortcut to: '
-MSG_END_REGISTRATION          = '. Restart the ngasp web interface to see them.'
 MSG_NO_REGISTERED_FILES       = 'No files or shortcuts have been uploaded.'
-
+UPLOAD_FILE_BUTTON_TEXT       = 'Upload File(s)'
+UPLOAD_SHORTCUT_BUTTON_TEXT   = 'Upload Shortcut(s)'
+BROWSER_BUTTON_TEXT           = '...'
+FILES_PLACE_HOLDER            = 'You can also drag & drop files here'
+DEST_PLACE_HOLDER             = 'Enter path to store uploaded files'
 
 # ==============================================================================
 # MyQLineEdit class
@@ -110,8 +124,9 @@ class MyQLineEdit(QtGui.QLineEdit):
         if (urls and urls[0].scheme() == 'file' ):
             self.setText(urls[0].path())
 
+
 # ==============================================================================
-# GLOBAL VARIABLES
+# GLOBALS
 # ==============================================================================
 
 # QApplication creation:
@@ -127,7 +142,6 @@ le_destination     = QtGui.QLineEdit()
 button_upload      = QtGui.QPushButton()
 button_link        = QtGui.QPushButton()
 
-
 # ==============================================================================
 # APPLICATION METHODS
 # ==============================================================================
@@ -140,42 +154,53 @@ button_link        = QtGui.QPushButton()
 # ------------------------------------------------------------------------------
 
 def createMainWindow():
-    
+
+    # Main Window
+
     app.setWindowIcon(QtGui.QIcon(os.path.join(os.getcwd(),
-                                  "media",
-                                  "ngasp_01.png")))
+                                  IMAGES_PATH,
+                                  ICON_IMAGE)))
 
     w.setGeometry(WIN_X, WIN_Y, WIN_W, WIN_H)
     w.setFixedSize(WIN_W, WIN_H)
-    w.setWindowTitle(APP_TITTLE)
+    w.setWindowTitle(APP_TITLE)
 
     background_image = os.path.join(os.getcwd(),
-                                    "media",
-                                    "uploader_background.png")
+                                    IMAGES_PATH,
+                                    BG_IMAGE)
+    # Files Line Edit
+
     le_file_name.setParent(w)
     le_file_name.setGeometry(COL_2,
                              LINE_1,
                              COL_3 - COL_2,
                              CONTROL_H)
+    le_file_name.setPlaceholderText(FILES_PLACE_HOLDER) 
+
+    # Browser button
 
     button_file_name.setParent(w)
     button_file_name.clicked.connect(OnSelectFile)
-    button_file_name.setText("...")
+    button_file_name.setText(BROWSER_BUTTON_TEXT)
     button_file_name.setGeometry(COL_3,
                                  LINE_1,
                                  BUTTON_BROWSER_W,
                                  CONTROL_H)
+
+    # Destination Line Edit
 
     le_destination.setParent(w)
     le_destination.setGeometry(COL_2,
                                LINE_1 + LINE_SPACE * 1,
                                COL_3 - COL_2,
                                CONTROL_H)
-    le_destination.setAcceptDrops(True)
+    le_destination.setPlaceholderText(DEST_PLACE_HOLDER) 
 
     regex=QRegExp("([a-z-A-Z-0-9_]+)([a-z-A-Z-0-9_]+/)*")
     validator = QtGui.QRegExpValidator(regex)
     le_destination.setValidator(validator)
+
+    # Bottom Buttons Position
 
     if LOCAL_INSTALLATION == True:
         pos_button_upload = (WIN_W / 3) - (DEFAULT_BUTTON_W / 2)
@@ -184,21 +209,29 @@ def createMainWindow():
         pos_button_upload = (WIN_W / 2) - (DEFAULT_BUTTON_W / 2)
         pos_button_link   = 0
 
+
+    # Upload File(s) Button
+
     button_upload.setParent(w)
     button_upload.clicked.connect(OnUploadFile)
-    button_upload.setText("Upload File")
+    button_upload.setText(UPLOAD_FILE_BUTTON_TEXT)
     button_upload.setGeometry(pos_button_upload,
                               WIN_H - LINE_SPACE - CONTROL_H, 
                               DEFAULT_BUTTON_W,
                               DEFAULT_BUTTON_H)
+
+    # Upload Shortcut(s) Button
+
     button_link.setParent(w)
     button_link.clicked.connect(OnLinkFile)
-    button_link.setText("Upload Shortcut")
+    button_link.setText(UPLOAD_SHORTCUT_BUTTON_TEXT)
     button_link.setGeometry(pos_button_link,
                             WIN_H - LINE_SPACE - CONTROL_H, 
                             DEFAULT_BUTTON_W,
                             DEFAULT_BUTTON_H)
     button_link.setVisible(LOCAL_INSTALLATION)
+
+    # StyleSheet
 
     app.setStyleSheet("QMainWindow"
                       "{"
@@ -218,7 +251,15 @@ def createMainWindow():
                       "    font: bold 14px;"
                       "    background-color: #445F2E"
                       "}")
+
+    # Remove the focus of the first QLineEdit in order to show its placeholder:
+
+    w.setFocus()
+
+    # Show the window:
+
     w.show()
+
     sys.exit(app.exec_())
 
 
@@ -385,7 +426,7 @@ def clearForm():
 def alert(msg):
 
     msgBox = QtGui.QMessageBox(w)
-    msgBox.setWindowTitle(APP_TITTLE)
+    msgBox.setWindowTitle(APP_TITLE)
     msgBox.setText(msg)
     msgBox.exec_()
 
@@ -408,7 +449,7 @@ def OnSelectFile():
     files = QFileDialog.getOpenFileNames()
     str_files = ''
     for one_file in files:
-        str_files = str_files + str(one_file) + ','
+        str_files = str_files + str(one_file) + FILES_SEPARATOR
 
     le_file_name.setText(str_files)
 
@@ -456,7 +497,7 @@ def Do(upload):
 
         subfolder = str(le_destination.text())
 
-        files = str(le_file_name.text()).split(',')
+        files = str(le_file_name.text()).split(FILES_SEPARATOR)
 
         for path_file_name in files:
 
@@ -494,15 +535,19 @@ def Do(upload):
                             registered_files = registered_files + 1
                     else:
                         alert(MSG_INPUT_FILE_DOES_NOT_EXIST + path_file_name)
+
+        # Show final report to the user:
+        if registered_files > 0:
+            if upload == True:
+                alert(str(registered_files) + MSG_REGISTERED_FILES)
+            else:
+                alert(str(registered_files) + MSG_REGISTERED_SHORTCUT)
+           
+        else:
+            alert(MSG_NO_REGISTERED_FILES)
+
     else:
         alert(MSG_NO_INPUT_FILE)
-
-
-    if registered_files > 0:
-        alert(MSG_REGISTERED_FILES + str(registered_files) + MSG_END_REGISTRATION)
-    else:
-        alert(MSG_NO_REGISTERED_FILES)
-
 
 
 # ==============================================================================

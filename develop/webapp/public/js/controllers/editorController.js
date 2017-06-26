@@ -130,8 +130,13 @@ $scope.MenuType = "eo";
 
             data_files.push([short_file_name, function ($itemScope) { $scope.OnAddVariable(file_name) }, function ($itemScope, $event) { return $scope.ConnectorSelected(); }]);
           });
-          data_files.sort();
-          menu.push(["Add Data File >", function ($itemScope) {}, data_files ]);
+          
+            if (data_files.length > 0) {
+              data_files.sort();
+            } else {
+                data_files.push(["Use FileUploader for uploading files to ngasp", function ($itemScope) {  }, function ($itemScope, $event) { return $scope.ConnectorSelected(); }]);                
+            }
+            menu.push(["Add Data File >", function ($itemScope) {}, data_files ]);
           // SAME ++++++
 
 

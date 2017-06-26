@@ -15,9 +15,12 @@ cd /develop
 
 mkdir /tmp/fastaconvtr
 cd /tmp/fastaconvtr
-wget https://bioinformatics.cragenomica.es/numgenomics/people/sebas/software/files/page3_5.zip
-unzip -o page3_5.zip
-cd fastaconvtr_pack
+# wget https://bioinformatics.cragenomica.es/numgenomics/people/sebas/software/files/page3_5.zip
+# unzip -o page3_5.zip
+# cd fastaconvtr_pack
+wget https://github.com/CRAGENOMICA/fastaconvtr/archive/master.zip
+unzip -o master.zip
+cd fastaconvtr-master
 gcc ./sources/*.c -lm -o /develop/webapp/bin/fastaconvtr -Wall -pedantic -lz
 
 # **************
@@ -45,9 +48,12 @@ gradle build_and_export_lib -b /develop/.gradle/build_samtoolslib.gradle
 
 mkdir /tmp/ghcaller
 cd /tmp/ghcaller
-wget https://bioinformatics.cragenomica.es/projects/ghcaller/binaries/ghcaller-mpi_0.2.2_src.tgz 
-tar -xvf ghcaller-mpi_0.2.2_src.tgz
-cd pghcaller-0.2.2
+# wget https://bioinformatics.cragenomica.es/projects/ghcaller/binaries/ghcaller-mpi_0.2.2_src.tgz 
+# tar -xvf ghcaller-mpi_0.2.2_src.tgz
+# cd pghcaller-0.2.2
+wget https://github.com/CRAGENOMICA/pGHcaller/archive/master.zip
+unzip -o master.zip
+cd pGHcaller-master
 ./bootstrap
 ./configure
 make
@@ -63,9 +69,12 @@ cp ./scripts/ghcaller /develop/webapp/bin
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/:
 mkdir /tmp/mstatspop
 cd /tmp/mstatspop
-wget https://bioinformatics.cragenomica.es/numgenomics/people/sebas/software/files/page3_4.zip
-unzip -o page3_4.zip
-cd mstatspop_pack*
+# wget https://bioinformatics.cragenomica.es/numgenomics/people/sebas/software/files/page3_4.zip
+# unzip -o page3_4.zip
+# cd mstatspop_pack*
+wget https://github.com/CRAGENOMICA/mstatspop/archive/master.zip
+unzip -o master.zip
+cd mstatspop-master
 gcc ./sources/*.c -lgsl -lgslcblas -lm -Wall -DinGSL=1 -O3 -lz -o /develop/webapp/bin/mstatspop
 
 

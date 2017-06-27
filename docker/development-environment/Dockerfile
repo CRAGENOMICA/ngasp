@@ -39,7 +39,6 @@ RUN curl -o /tmp/netbeans-8.2-cpp-linux-x64.sh http://download.netbeans.org/netb
     chmod +x /tmp/netbeans-8.2-cpp-linux-x64.sh && \
     /tmp/netbeans-8.2-cpp-linux-x64.sh --silent
 ENV PATH /usr/local/netbeans-8.2/bin:$PATH
-ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-2.b11.el7_3.x86_64/jre
 
 # ***********************
 # *** psmisc: killall ***

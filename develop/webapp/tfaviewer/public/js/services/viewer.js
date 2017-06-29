@@ -103,6 +103,7 @@ CRAG.service('vcte', function () {
     this.STAT_QUAD_SIZE       = 1.5;
     this.STATISTIC_BORDERS_PADDING = 10;
     this.STATS_LINES_COLOR    = '#727c8e'; //this.CTRL_MAIN_COLOR;
+    this.STATS_SCAFFOLDS_COLORS = ['#727c8e', '#ff0000', '#0000ff']; //this.CTRL_MAIN_COLOR;
 
     // -------------------------------------------------------------------------
     // FONTS
@@ -116,7 +117,8 @@ CRAG.service('vcte', function () {
         table_id:          {font: "bold 8pt monospace", color: '#000',     sel_color: '#000'},
         legend_info:       {font: "bold 8pt monospace", color: '#666',     sel_color: '#000'},
         stats_values:      {font: "bold 8pt monospace", color: '#666',     sel_color: '#fff'},
-        gene:              {font: "bold 8pt monospace", color: this.CTRL_MAIN_COLOR,  sel_color: '#000'}
+        gene:              {font: "bold 8pt monospace", color: this.CTRL_MAIN_COLOR,  sel_color: '#000'},
+        scaffold:          {font: "bold 8pt monospace", color: this.CTRL_MAIN_COLOR,  sel_color: '#000'}
     };
 
     this.MIN_SHOW_TEXT_SIZE   = 5;  // This is the size of the smaller text. Less than it, the text disapperars.
@@ -258,7 +260,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         viewer.information =                         // Information about the mouse selected viewer area
             {
                 'mouse_over'   : '',                    // 'viewer' / 'stats' / ''
-                'viewer' : { 'seq_id':'', 'gene_id': '', 'base': '' },
+                'viewer' : { 'scaffold_name':'', 'seq_id':'', 'gene_id': '', 'base': '' },
                 'stats'  : { 'range': { 'min': 0, 'max': 0 },
                              'window': { 'start': 0, 'end': 0 },
                              'value': 0
@@ -276,22 +278,23 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                 'full_load':false,          // Set to true for getting all the file content (not only fron position to max_position)
                 'data':[],                  // List of T-Fasta sequences {order:3000, id:"3001", seq:"CCCCCNNNCCCC"}
                 'items':0,                  // Total number of items (visible and hidden)
-                'max_seq_bases':0           // Maximum number of bases per sequence
-            },
+                'max_seq_bases':0,          // Maximum number of bases per sequence
+                'scaffolds_positions':{}    // {'chr10':{line:0,pixel:50},'chr12':{line:50000,pixel:150},...} // line is the starting position of every scaffold inside the TFA file. pixel is the starting position in pixels.
+            },                              // It has only the information of the TFA filtered sequences. And positions are not exactly the first of each scaffold but the first of each visible scaffold.
             {
                 'id':vcte.FileType.GFF,     
                 'file_name':"",             // File name
-                'data':[]                   // List GFF records filtered by CDS and criteria {gene_id:'abc',start:'2000',end:'3000',strand:'+'/'-'/'.'}
+                'data':[]                   // List GFF records filtered by CDS and criteria {scaffold_name:'chr10',gene_id:'abc',start:'2000',end:'3000',strand:'+'/'-'/'.'}
             },
             {
                 'id':vcte.FileType.WEIGHTS, 
                 'file_name':"",             // File name
-                'data':[]                   // List of positions of those weights that have a 0 in the secord or third column [4183,4184,4186,...]
+                'data':[]                   // List of positions of those weights that have a 0 in the secord or third column [{'gene_id':4183,'scaffold_name':'chr10'},{'gene_id':4184,'scaffold_name':'chr10'},...]
             },
             {
                 'id':vcte.FileType.STATS,   
                 'file_name':"",             // File name
-                'data':[],                  // mstatspop output in JSON format {infile:"./file.tfa",start_window:"1000",end_window:"2000","Theta(Wat)[0]":"0.0000",...}
+                'data':[],                  // mstatspop output in JSON format {infile:"./file.tfa",scaffold_name:"chr10",start_window:"1000",end_window:"2000","Theta(Wat)[0]":"0.0000",...} // En cada scaffold_name nou l'start_window torna a començar
                 'stats_names':[],           // Statistics names {selected:true/false, name:""}
                 'data_norm':[],             // Data prepared to be rendered {"Theta(Wat)[0]":0,...}
                 'num_visible_charts':0,     // Number of visible charts
@@ -302,10 +305,12 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         ];
         viewer.stats_options = {
             'show_curve_line': true,
-            'show_quadratic_line': false,
+            'show_quadratic_line': true,
             'show_range': true,
-            'show_genes': false,
-            'show_value': false
+            'show_genes': true,
+            'show_value': false,
+            'show_scaffolds': false,
+            'show_scaffolds_colors': true
         };
     },
 
@@ -590,7 +595,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         viewer.ctx.restore();
     },
  
-    DrawTableRownCoutColumn: function(viewer, y, order, id) {
+    DrawTableRownCoutColumn: function(viewer, y, order, id, scaffold_name) {
         // console.log("DrawTableRownCoutColumn");
 
         var x = vcte.DNA_TABLE_POS_X;
@@ -602,6 +607,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         // If the cell is actived       
         if (active_cell == true) {
             viewer.information.viewer.seq_id = id;
+            viewer.information.viewer.scaffold_name = scaffold_name;
 
             draw_text = true;
 
@@ -643,7 +649,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                 viewer.ctx.font = vcte.FONTS.table_id.font;
                 viewer.ctx.fillStyle = vcte.FONTS.table_id.color;
                 viewer.ctx.textAlign = "left";
-                viewer.ctx.fillText(id, x + vcte.CELL_SPAN, y);
+                viewer.ctx.fillText(scaffold_name + ":" + id, x + vcte.CELL_SPAN, y);
             viewer.ctx.restore();
         }
     },
@@ -831,6 +837,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
             var x = vcte.DNA_TABLE_POS_X;
             var y = vcte.DNA_TABLE_POS_Y;
             var data_gff = viewer.files[vcte.FileType.GFF].data;
+            var scaffolds_positions = viewer.files[vcte.FileType.TFA].scaffolds_positions;
 
             var BOTTOM_DRAWING_LIMIT_PX_WITHOUT_Y = vcte.DNA_TABLE_HEIGHT - vcte.DNA_TABLE_HEADER_HEIGHT;
 
@@ -841,12 +848,13 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
             viewer.ctx.clip(); // <----------- CLIP
 
 
-            var cur = {id: '', start: -1, end: -1, start_px: 0, end_px: 0, dir: ''};
-            var prev = {id: '', start: -1, end: -1, start_px: 0, end_px: 0, dir: ''};
+            var cur = {scaffold_name:'', id: '', start: -1, end: -1, start_px: 0, end_px: 0, dir: ''};
+            var prev = {scaffold_name:'', id: '', start: -1, end: -1, start_px: 0, end_px: 0, dir: ''};
             var painted = false;
 
             for (var i = 0; i < data_gff.length; i++) {
                 cur = {
+                    scaffold_name: data_gff[i].scaffold_name,
                     id: data_gff[i].gene_id,
                     start: data_gff[i].start * 1,
                     end: data_gff[i].end * 1,
@@ -854,6 +862,12 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                     end_px: (data_gff[i].end * 1 - viewer.position) * viewer.seq_height,
                     dir: data_gff[i].strand
                 }
+
+                if (scaffolds_positions[cur.scaffold_name] != undefined) {
+                    cur.start_px = (scaffolds_positions[cur.scaffold_name].line * 1 + data_gff[i].start * 1 - viewer.position) * viewer.seq_height;
+                    cur.end_px   = (scaffolds_positions[cur.scaffold_name].line * 1 + data_gff[i].end * 1 - viewer.position) * viewer.seq_height;
+                }
+
 
                 this.DrawGeneBlock(viewer, x, y, cur.start_px, cur.end_px);
 
@@ -963,11 +977,12 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                     order = data_tfa[i].order * 1;
                     id    = data_tfa[i].id;
                     seq   = data_tfa[i].seq;
+                    scaffold_name = data_tfa[i].scaffold_name;
                     i++;
-                    this.DrawTableRownCoutColumn(viewer, y, r, id);
+                    this.DrawTableRownCoutColumn(viewer, y, r, id, scaffold_name);
                 } else {
                     // print previous sequence because we do not have the current one
-                    this.DrawTableRownCoutColumn(viewer, y, r, id); // If no ID then show the previous ID. Before, id param was ""
+                    this.DrawTableRownCoutColumn(viewer, y, r, id, scaffold_name); // If no ID then show the previous ID. Before, id param was ""
                     y += viewer.seq_height;
                     continue; //<-----------------------------------------------------------------------
                 }
@@ -996,7 +1011,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                 var force_to_color = '';
 
                 if (data_weights.length > 0) {
-                    if (data_weights.indexOf(id) == -1) {
+                    if (data_weights.indexOf(scaffold_name + ':' + id) == -1) {
                         force_to_color = vcte.NO_COLOR;
                     }
                 }
@@ -1294,6 +1309,49 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         }
 
     },
+    DrawScaffolds: function(viewer) {
+        var x = vcte.DNA_TABLE_POS_X + viewer.dna_table_width + vcte.STATISTICS_MARGIN;
+        var w = viewer.statistics_width; //stat_col_width;
+
+        var scaffolds_positions = viewer.files[vcte.FileType.TFA].scaffolds_positions;
+
+        viewer.ctx.save();
+
+            //this.ClipStatisticsZone(viewer);
+
+            viewer.ctx.setLineDash([1, 2]);
+
+            var i_color = 0;
+
+            for (var key in scaffolds_positions) {
+                var scaffold_y = scaffolds_positions[key].pixel;
+
+                // Draw Scaffold Line
+
+                viewer.ctx.strokeStyle = vcte.STATS_SCAFFOLDS_COLORS[i_color];
+                viewer.ctx.beginPath();
+                viewer.ctx.moveTo(x, scaffold_y);
+                viewer.ctx.lineTo(x + w, scaffold_y);
+                viewer.ctx.closePath();
+                viewer.ctx.stroke();
+
+                // Draw Scaffold Text
+
+                viewer.ctx.font = vcte.FONTS.scaffold.font;
+                viewer.ctx.fillStyle = vcte.STATS_SCAFFOLDS_COLORS[i_color];
+                viewer.ctx.textAlign = "left";
+                viewer.ctx.fillText(key, x + 5, scaffold_y + 12);
+
+                if (viewer.stats_options.show_scaffolds_colors) {
+                    i_color++;
+                    if (i_color > vcte.STATS_SCAFFOLDS_COLORS.length) {
+                        i_color = 0;
+                    }
+                }
+            }
+
+        viewer.ctx.restore();
+    },
 
     DrawStatistics: function(viewer) {
         // console.log("DrawStatistics");
@@ -1383,6 +1441,8 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                         var first_dot_of_current_stat = { x: -1, y: -1 };
                         var last_dot_of_current_stat = { x: -1, y: -1 };
 
+                        var i_color = 0; // only used when show_scaffolds_colors is true. It is the color index to be used for drawing stats lines. It changes for every new scaffold
+
                         // Loop all values of the current statistic.
                         for(var i = 0; i < data_norm.length; i++) {
 
@@ -1432,7 +1492,12 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
                                         if (viewer.stats_options.show_curve_line) {
                                             viewer.ctx.lineWidth = vcte.STAT_LINE_SIZE;
-                                            viewer.ctx.strokeStyle = vcte.STAT_LINE_COLOR;
+                                            if (viewer.stats_options.show_scaffolds_colors) {
+                                                viewer.ctx.strokeStyle = vcte.STATS_SCAFFOLDS_COLORS[i_color];
+                                            }
+                                            else {
+                                                viewer.ctx.strokeStyle = vcte.STAT_LINE_COLOR;
+                                            }
 
                                             viewer.ctx.beginPath();
                                             viewer.ctx.moveTo(prev_middle_point.x, prev_middle_point.y);
@@ -1455,6 +1520,15 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                                     prev_middle_point = {x:middle_point.x, y:middle_point.y};
                                 }
                             }
+
+                            if ((viewer.stats_options.show_scaffolds_colors) && (i > 0)) {
+                                if (data_norm[i-1].scaffold_name != data_norm[i].scaffold_name) {
+                                    i_color++;
+                                    if (i_color > vcte.STATS_SCAFFOLDS_COLORS.length) {
+                                        i_color = 0;
+                                    }
+                                }
+                            }
                         }
 
 
@@ -1462,7 +1536,13 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                         // when the continuos line is visible and the quadratic line is hidden
                         if ((viewer.stats_options.show_quadratic_line == false) && (viewer.stats_options.show_curve_line == true)) {
                             viewer.ctx.lineWidth = vcte.STAT_LINE_SIZE;
-                            viewer.ctx.strokeStyle = vcte.STAT_LINE_COLOR;
+
+                            if (viewer.stats_options.show_scaffolds_colors) {
+                                viewer.ctx.strokeStyle = vcte.STATS_SCAFFOLDS_COLORS[i_color];
+                            }
+                            else {
+                                viewer.ctx.strokeStyle = vcte.STAT_LINE_COLOR;
+                            }
 
                             // Line from top to the first point of the statistic
                             viewer.ctx.beginPath();
@@ -1485,6 +1565,9 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
                         pos_x += viewer.stat_col_width;
 
+
+
+
                     viewer.ctx.restore();
 
                 }
@@ -1492,6 +1575,9 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
             if (viewer.stats_options.show_genes) {
                 this.DrawStatsGenes(viewer);
+            }
+            if (viewer.stats_options.show_scaffolds) {
+                this.DrawScaffolds(viewer);
             }
 
         }
@@ -1677,20 +1763,21 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                 if ((key != 'start_window') &&               // They are not an stadistics
                     (key != 'end_window') &&                 // 
                     (key != 'infile') &&                     // 
-                    (key != 'iteration') &&                     // 
-                    (key != 'npermutations') &&                     // 
+                    (key != 'iteration') &&                  // 
+                    (key != 'npermutations') &&              // 
                     (key != 'Length') &&                     // 
-                    (key != 'Lengtht') &&                     // 
-                    (key != 'mh') &&                     // 
-                    (key != 'npops') &&                     // 
-                    (key != 'nsam[0]') &&                     // 
-                    (key != 'nsam[1]') &&                     // 
-                    (key.indexOf("fr[") == -1) &&                     // 
-                    (key != 'an_xo[0]') &&                     // 
-                    (key != 'bn_xo[0]') &&                     // 
+                    (key != 'Lengtht') &&                    // 
+                    (key != 'mh') &&                         // 
+                    (key != 'npops') &&                      // 
+                    (key != 'nsam[0]') &&                    // 
+                    (key != 'nsam[1]') &&                    // 
+                    (key.indexOf("fr[") == -1) &&            // 
+                    (key != 'an_xo[0]') &&                   // 
+                    (key != 'bn_xo[0]') &&                   // 
                     (key != 'seed') &&                       // 
+                    (key != 'scaffold_name') &&              // 
 
-                    (isNaN(data_stats[0][key]) == false) &&  // It is a number
+                    //(isNaN(data_stats[0][key]) == false) &&  // It is a number
                     (data_stats[0][key] != null)) {          // It is not null
 
                     viewer.files[vcte.FileType.STATS].stats_names.push({
@@ -1710,9 +1797,10 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
         if ((stats_names != null) && (stats_names.length > 0)) {
             for (var i = 0; i < stats_names.length; i++) {
-                if ((stats_names[i].name == 'TajimaD[1]') ||
-                    (stats_names[i].name == 'Fst[0,1]') || 
-                    (stats_names[i].name == 'PiT[0,1]')) {
+                if ((stats_names[i].name.indexOf('TajimaD') !=-1) ||
+                    (stats_names[i].name.indexOf('Fst') !=-1) || 
+                    (stats_names[i].name.indexOf('PiT') !=-1)) {
+
                 //if (stats_names[i].name.indexOf('Theta(F') != -1) {
                     stats_names[i].selected = true;
                     viewer.files[vcte.FileType.STATS].num_visible_charts++;
@@ -1833,32 +1921,57 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
                 // X = Value * (SizeOfStatsColum-STAT_SPAN) / MinMaxRange
 
-                if (isNaN(param[key] * 1) == false) {
-                    param[key] = border_padding_pixels + ((((param[key]*1) - data_minmax[key].min_ori) * (viewer.stat_col_width - vcte.STAT_SPAN - 2*border_padding_pixels)) / (data_minmax[key].max_ori - data_minmax[key].min_ori));
-                } else {
-                    param[key] = 0;
+                var value = 0;
+
+                if (isNaN(param[key] * 1) == true) {
+                    // value is NA
+                    value = 'NA'; // data_minmax[key].min_ori + (data_minmax[key].max_ori - data_minmax[key].min_ori) / 2; // middle point value
                 }
+                else {
+                    // value is a number
+                    value = param[key] * 1;
+                } 
+                param[key] = border_padding_pixels + ((((value) - data_minmax[key].min_ori) * (viewer.stat_col_width - vcte.STAT_SPAN - 2*border_padding_pixels)) / (data_minmax[key].max_ori - data_minmax[key].min_ori));
             }
         }
 
         // Translate into pixels the start_window and end_window of the data_norm
-        var y = vcte.DNA_TABLE_POS_Y + vcte.DNA_TABLE_HEADER_HEIGHT;
         var h = viewer.seq_height * ((viewer.max_position - viewer.position) / data_tfa.length);
+        var y = vcte.DNA_TABLE_POS_Y + vcte.DNA_TABLE_HEADER_HEIGHT;
+
+        // Do not reinitialize the structure:  viewer.files[vcte.FileType.TFA].scaffolds_positions = {};
+        // When the file is loaded the first time, this piece of code will get the information of all scafolds because the first time the file is loaded completelly.
+        // When a zoom is done, some scaffolds would be lost in case of reinitializing the structure.
+        var scaffolds_positions = viewer.files[vcte.FileType.TFA].scaffolds_positions;
+
+        var prev_scaffold_name = '';
 
         for(var i = 0; i < data_tfa.length; i++) {
-            id    = data_tfa[i].id * 1;
+            id            = data_tfa[i].id * 1;
+            scaffold_name = data_tfa[i].scaffold_name;
+
+            if (scaffold_name != prev_scaffold_name) {
+                if (scaffolds_positions[scaffold_name] == undefined) { // First time that this scaffold is found:
+                    scaffolds_positions[scaffold_name] = {'line':data_tfa[i].order,'pixel':y};
+                } else {
+                    scaffolds_positions[scaffold_name].pixel = y; // Second time that this scafold is found: the starting line will be the same. Is the pixel position that would be different depending on the zoom.
+                }
+                prev_scaffold_name = scaffold_name;
+            }
 
             found = false;
             for(var j = 0; ((j < data_stats.length) && (found == false)); j++) {
-                if ((id >= data_stats[j].start_window * 1) && (id <= data_stats[j].end_window * 1)) {
-                    found = true;
+                if (data_stats[j].scaffold_name == scaffold_name)  {
+                    if ((id >= data_stats[j].start_window * 1) && (id <= data_stats[j].end_window * 1)) {
+                        found = true;
 
-                    if (data_norm[j]["start_window_assigned"] == undefined) {
-                        data_norm[j]["start_window_assigned"] = true;
-                        data_norm[j]["start_window"] = y + (h/2);
+                        if (data_norm[j]["start_window_assigned"] == undefined) {
+                            data_norm[j]["start_window_assigned"] = true;
+                            data_norm[j]["start_window"] = y + h + (h/2);
+                        }
+
+                        data_norm[j]["end_window"] = y + h + (h/2);
                     }
-
-                    data_norm[j]["end_window"] = y + (h/2);
                 }
             }
 
@@ -2039,11 +2152,12 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
             for(var r = viewer.position; r < viewer.max_position; r++) {
                 if ((i < data_tfa.length) && (data_tfa[i].order*1 == r)) {
                     id = data_tfa[i].id;
+                    scaffold_name = data_tfa[i].scaffold_name;
                     i++;
                 } else {
                     // If no ID then show the previous ID. Before: id="";
                 }
-                this.DrawTableRownCoutColumn(viewer, y, r, id);
+                this.DrawTableRownCoutColumn(viewer, y, r, id, scaffold_name);
                 y += viewer.seq_height;
             }
         }

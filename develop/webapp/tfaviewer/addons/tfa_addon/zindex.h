@@ -6,14 +6,16 @@
  *  \brief     zindex.h
  *  \details
  *  \author    Joan Jené
- *  \version   1.7
- *  \date      April 20, 2007
- *  \history   - April 7, 2007 :  The SGZIndex struct has its own SScanState struct
- *             - April 10, 2007 : Comments updated & items++ added
+ *  \version   1.9
+ *  \date      May 22, 2017
+ *  \history   - April 7, 2007 :  The SGZIndex struct has its own SScanState struct.
+ *             - April 10, 2007 : Comments updated & items++ added.
  *             - April 11, 2007 : Search from last position found.
- *             - April 12, 2007 : define ';' removed
+ *             - April 12, 2007 : define ';' removed.
  *             - April 18, 2017 : Documentation updated & fzprintf, fzgetc, fzeof, fzclose functions updated, too.
- *             - April 20, 2017 : Library updated for Mac Os X
+ *             - April 20, 2017 : Library updated for Mac Os X.
+ *             - May 19, 2017   : fzseekNearest added.
+ *             - May 22, 2017   : C++ things (comments, declararions, ...) changed to C things.
  *  \pre
  *  \bug
  *  \warning
@@ -30,8 +32,9 @@
  *
  *            load_index_from_file("data.tfa.index", &idx);
  *
- *            fzseek(handle, &gz, &idx, "000064681", false);
- *
+ *            long int row_num = 0;
+ *            int from_last_search = 1;
+ *            fzseek(handle, &gz, &idx, "000064681", &row_num, from_last_search);
  *            unload_all_index_positions(&idx);
  *
  *      Example:
@@ -46,10 +49,10 @@
  *			struct SGZIndex idx;
  *			load_index_from_file(gz.index_file_name, &idx);
  *
- *          long int row_num = -1;                                                // Set to -1 if you want to search by ID.
- *			if (fzseek(h, &gz, &idx, "00000001", &row_num, false) == GZ_OK) {     // Or set NULL to the ID if you want to seach by position.
- *                                                                                // After the call to fzseek, the row_num variable has the reached sequence number (0-based).
- *                                                                                // Set the last parameter to true (1) if you want to search from the last position found. It is faster.
+ *          long int row_num = -1;                                                                    Set to -1 if you want to search by ID.
+ *			if (fzseek(h, &gz, &idx, "00000001", &row_num, false, DO_NOT_GET_NEAREST) == GZ_OK) {     Or set NULL to the ID if you want to seach by position.
+ *                                                                                                    After the call to fzseek, the row_num variable has the reached sequence number (0-based).
+ *                                                                                                    Set the last parameter to true (1) if you want to search from the last position found. It is faster.
  *	 			char ch = ' ';
  * 				while((!fzeof(h, &gz)) && (ch != '\n') && (ch != '\x0')) {
  *					ch = fzgetc(h, &gz);
@@ -62,6 +65,66 @@
  *			fzclose(h, &gz);
  *		}
  *
+ *      Example of using fzseekNearest     
+ *
+ *      void test(void) {
+ *      	FILE *h = 0;
+ *      	SGZip gz;
+ *      
+ *      	h = fzopen("./examples/input.tfa.gz", "r", &gz);
+ *      
+ *      	if (h != NULL) {
+ *      
+ *      		struct SGZIndex idx;
+ *      		load_index_from_file(gz.index_file_name, &idx);
+ *      
+ *              char search_id[10];
+ *              strcpy(search_id, "1:2");
+ *              printf("Positionate at existing %s\n", search_id);
+ *      
+ *              long int max = 10;
+ *              long int seq_id = 0;
+ *      
+ *              if (fzseekNearest(h, &gz, &idx, search_id, max, &seq_id) == GZ_OK) {
+ *                  printLine(h, &gz, &idx);
+ *      
+ *                  strcpy(search_id, "1:3");
+ *                  printf("Searching for %s\n", search_id);
+ *      
+ *                  if (fzseekNearest(h, &gz, &idx, search_id, max, &seq_id) == GZ_OK) {
+ *      
+ *                      printLine(h, &gz, &idx);
+ *      
+ *                      strcpy(search_id, "1:7");
+ *                      printf("Searching for %s\n", search_id);
+ *      
+ *                      if (fzseekNearest(h, &gz, &idx, search_id, max, &seq_id) == GZ_OK) {
+ *      
+ *                          printLine(h, &gz, &idx);
+ *      
+ *                          strcpy(search_id, "1:9");
+ *                          printf("Searching for %s\n", search_id);
+ *      
+ *                          if (fzseekNearest(h, &gz, &idx, search_id, max, &seq_id) == GZ_OK) {
+ *      
+ *                              printLine(h, &gz, &idx);
+ *      		            } else {
+ *      			            printf ("Not found %s.\n", search_id);
+ *      		            }
+ *      		        } else {
+ *      			        printf ("Not found %s.\n", search_id);
+ *      		        }
+ *      		    } else {
+ *      			    printf ("Not found %s.\n", search_id);
+ *      		    }
+ *              }
+ *      
+ *      		unload_all_index_positions(&idx);
+ *      
+ *      		fzclose(h, &gz);
+ *      	}
+ *      }
+ *      
  */
 
 #ifndef ZINDEX_H
@@ -182,8 +245,8 @@ extern "C" {
      * @param file_handle is the compressed file handle.
      * @param z is the GZ structure of the compressed file.
      * @param idx is the index file structure.
-     * @search_id is the ID to be found.
-     * @row_num is the sequence number to be reached (0-based). It is also a return parameter that indicates the reached sequence number.
+     * @param search_id is the ID to be found.
+     * @param row_num is the sequence number to be reached (0-based). It is also a return parameter that indicates the reached sequence number.
      * @param from_last_search is 1 if the search must be done from the last found position.
      *
      * @return 	GZ_OK
@@ -192,6 +255,30 @@ extern "C" {
      * 			GZ_INDEX_KEY_NOT_FOUND
      */
     gz_return fzseek(FILE *file_handle, SGZip *z, struct SGZIndex *idx, const char *search_id, long int *row_num, int from_last_search);
+
+
+    /**
+     * Use this function for random access to a desired sequence ID or the next available ID of the same chromosome.
+     * You can access by setting the sequence ID (first column).
+     * It only works with compressed files with index file.
+     *
+     * @param file_handle is the compressed file handle.
+     * @param z is the GZ structure of the compressed file.
+     * @param idx is the index file structure.
+     * @param search_id is the ID to be found.
+     * @param max is maximum sequence id to search in. For example, imagine that you are looking for "1:3" but it does not exist. So, the function will try "1:4", "1:5", ... until this max..
+     * @param seq_id_found If the function has to search for the nearest sequence inside the same chromosome. Otherwise, -1.
+     *        If the exact search_id is not found but it is found a nearest sequence within the same chromosome the value of seq_id_found will be the id of the found sequence (and GZ_OK). 
+     *        For example: - you are searching for "1:2", It exists, then the file pointer will point to the start of "1:2". The function will return GZ_OK and this parameter will be -1.
+     *                     - you are searching for "1:3", It does not exist, then the file pointer will point to the nearest sequence inside the same chromosome "1:6". The function will return GZ_OK and this parameter will be 6.
+     *                     - you are searching for "1:9", It does not exist and it is the last sequence of this chromosome, so it does not have a nearest sequence. Then, the file pointer won't be moved. The function will return GZ_INDEX_KEY_NOT_FOUND and this parameter will be -1.
+     *
+     * @return 	GZ_OK
+     *          GZ_PARAMS_ERROR
+     * 			GZ_ERROR_DATA_FILE
+     *          GZ_INDEX_KEY_NOT_FOUND
+     */
+    gz_return fzseekNearest(FILE *file_handle, SGZip *z, struct SGZIndex *idx, const char *search_id, long int max, long int *seq_id_found);
 
 	/**
 	 * Dan Bernstein djb2 has function.

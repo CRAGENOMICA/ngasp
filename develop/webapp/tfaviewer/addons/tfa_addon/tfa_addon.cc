@@ -148,12 +148,26 @@ v8::Local<v8::String> GetSequencesFromCurrentPosition(Isolate *isolate, FILE *tf
 
         if (fzseek(tfa_handle, tfa_gz, tfa_idx, NULL, &jump_to_row, true) == GZ_OK) {
 
+            // Get the sequence Scaffold
+            // -------------------------
+
+            ret = v8::String::Concat(ret, String::NewFromUtf8(isolate, ",\"scaffold_name\":\""));
+
+            ch = 'a';
+
+            while((!fzeof(tfa_handle, tfa_gz)) && (ch != ':')) {
+                ch = fzgetc(tfa_handle, tfa_gz);
+
+                if (ch != ':') {
+                    ch_static.at(0) = ch;
+                    ret = v8::String::Concat(ret, String::NewFromUtf8(isolate, ch_static.c_str()));
+                }
+            }
+
             // Get the sequence ID
             // -------------------
 
-            ret = v8::String::Concat(ret, String::NewFromUtf8(isolate, ",\"id\":\""));
-
-            ch = 'a';
+            ret = v8::String::Concat(ret, String::NewFromUtf8(isolate, "\",\"id\":\""));
 
             while((!fzeof(tfa_handle, tfa_gz)) && (ch != '\t')) {
                 ch = fzgetc(tfa_handle, tfa_gz);

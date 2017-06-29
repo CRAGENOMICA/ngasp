@@ -99,6 +99,105 @@ app.post("/sequences", function (req, res) {
 });
 
 
+
+
+function csv2json(csv_text) {
+    var str = csv_text;
+
+    // These are the characters that must be escaped: . ^ $ * + - ? ( ) [ ] { } \ | on a RegEx expression.
+
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <\r> <\n>
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <\r> <\n>
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <\r> <\n>
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <\r> <\n>
+
+    // Step 1: Remove all '\r':
+    // ------------------------
+
+    str = str.replace(/\r/g, '');
+    //console.log("1>>>" + str + "<<<");
+
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <\n>
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <\n>
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <\n>
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <\n>
+
+
+    // Step 2: All end of lines must be "},":
+    // --------------------------------------
+
+    str = str.replace(/\n/g, '},\n');
+    //console.log("2>>>" + str + "<<<");
+
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <}> <,> <\n>
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <}> <,> <\n>
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <}> <,> <\n>
+    // <infile> <:> <\t> <value> <\t>                   <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <}> <,> <\n>
+
+
+    // Step 3: All "infile" must start a new json object:
+    // --------------------------------------------------
+
+    str = str.replace(/infile/g, '{"infile');
+    //console.log("3>>>" + str + "<<<");
+
+    // <{> <"> <infile> <:> <\t> <value> <\t>           <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <}> <,> <\n>
+    // <{> <"> <infile> <:> <\t> <value> <\t>           <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <}> <,> <\n>
+    // <{> <"> <infile> <:> <\t> <value> <\t>           <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <}> <,> <\n>
+    // <{> <"> <infile> <:> <\t> <value> <\t>           <name> <:> <\t> <value> <\t>                <name> <:> <\t> <value> <\t>                <}> <,> <\n>
+
+
+    // Step 4: All ":\t" must end a name string and start a value string:
+    // ----------------------------------------------------------------
+
+    str = str.replace(/:\t/g, '":"');
+    //console.log("4>>>" + str + "<<<");
+
+    // <{> <"> <infile> <"> <:> <"> <value> <\t>        <name> <"> <:> <"> <value> <\t>             <name> <"> <:> <"> <value> <\t>             <}> <,> <\n>
+    // <{> <"> <infile> <"> <:> <"> <value> <\t>        <name> <"> <:> <"> <value> <\t>             <name> <"> <:> <"> <value> <\t>             <}> <,> <\n>
+    // <{> <"> <infile> <"> <:> <"> <value> <\t>        <name> <"> <:> <"> <value> <\t>             <name> <"> <:> <"> <value> <\t>             <}> <,> <\n>
+    // <{> <"> <infile> <"> <:> <"> <value> <\t>        <name> <"> <:> <"> <value> <\t>             <name> <"> <:> <"> <value> <\t>             <}> <,> <\n>
+
+
+    // Step 5: All "\t" must end value string and start a name string with a separator between them:
+    // ---------------------------------------------------------------------------------------------
+
+    str = str.replace(/\t/g, '","');
+    //console.log("5>>>" + str + "<<<");
+
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <,><"> <}> <,> <\n>
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <,><"> <}> <,> <\n>
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <,><"> <}> <,> <\n>
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <,><"> <}> <,> <\n>
+
+
+    // Step 6: End of lines must be repared:
+    // -------------------------------------
+
+    str = str.replace(/,"\},\n/g, '},');
+    //console.log("6>>>" + str + "<<<");
+
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <}> <,>
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <}> <,>
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <}> <,>
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <}> <,>
+
+
+    // Step 7: Remove the last <,>:
+    // -------------------------------------------------------------------------------
+
+    str = str.substring(0, str.length - 1);
+    //console.log("7>>>" + str + "<<<");
+
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <}> <,>
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <}> <,>
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <}> <,>
+    // <{> <"> <infile> <"> <:> <"> <value> <"> <,>     <"> <name> <"> <:> <"> <value> <"> <,>      <"> <name> <"> <:> <"> <value> <">         <}>
+
+
+    return str;
+};
+
 /*
 Return:
 {
@@ -111,6 +210,7 @@ Return:
 }
 */
 app.post("/statistics", function (req, res) {
+
     //console.log("/statistics");
     // -------------------------------------------------------------------------
     var ret = "{" +
@@ -121,20 +221,13 @@ app.post("/statistics", function (req, res) {
     StartTimer();
     // -------------------------------------------------------------------------
 
-
     try {
-        var str = tfa_addon.get_statistics(req.body.file_name);
-
-        // file_content.data replacements:
-        str = str.replace(/\n/g, "},");
-        str = str.replace(/:\t/g, "\":\"");
-        str = str.replace(/\t/g, "\",\"");
-        str = str.replace(/,\"}/g, "}");
-        str = str.replace(/infile\"/g, "{\"infile\"");
-
-        ret += str;
-        ret += "{}]}}";
-
+        // Step 1: Get Input File:
+        // -----------------------
+        
+        ret += csv2json(tfa_addon.get_statistics(req.body.file_name));
+        ret += "]}}";
+        //console.log(ret);
         ret = JSON.parse(ret);
 
     } catch (ex) {
@@ -193,7 +286,7 @@ app.post("/gff", function (req, res) {
 
                     ret.data.data.push({
                         'gene_id':gene_id,
-                        //'seqname':cols[0],
+                        'scaffold_name':cols[0],
                         //'source':cols[1],
                         //'feature':cols[2],
                         'start':cols[3],
@@ -253,14 +346,15 @@ app.post("/weights", function (req, res) {
 
             var cols = line.split("\t");
 
-            var gene_id = cols[0];
+            //var scaffold_name = cols[0].split(":")[0];
+            //var gene_id = cols[0].split(":")[1] * 1;
+            var scaffold_name_id = cols[0];
             var weight_pos = cols[1] * 1;
             var weight_var = cols[2] * 1;
 
             if ((weight_pos != 0) && (weight_var != 0)) {
-                ret.data.data.push(
-                    gene_id
-                );
+                //ret.data.data.push({'gene_id':gene_id,'scaffold_name':scaffold_name});
+                ret.data.data.push(scaffold_name_id);
             }
         }
     } catch (ex) {

@@ -42,39 +42,16 @@ CRAG.controller('ViewerController', function($scope,
     };
 
     $scope.OnOpenFilesDialog = function() {
-        /*
-        var test = 2;
+        //$scope.viewer.files[vcte.FileType.TFA].file_name      = "/data/gitlab/tfaviewer/data/tfaviewer/chr/100Kallchr.tfa.gz";
+        //$scope.viewer.files[vcte.FileType.GFF].file_name      = "/data/gitlab/tfaviewer/data/tfaviewer/chr/100Kallchr_criteria_max.gff";
+        //$scope.viewer.files[vcte.FileType.WEIGHTS].file_name  = "/data/gitlab/tfaviewer/data/tfaviewer/chr/100Kallchr07.tfa.gz_npops1_nsam42_nonsynonymous_max_IncludeMissingVariantsmhits_NOoutg_ploidy1_WEIGHTS.gz";
+        //$scope.viewer.files[vcte.FileType.STATS].file_name    = "/data/gitlab/tfaviewer/data/tfaviewer/chr/mstatspop_100alchr.tfa.01c.txt";
 
-        if (test == 0) {
-            $scope.viewer.files[vcte.FileType.TFA].file_name      = "./data/<filename>";
-            $scope.viewer.files[vcte.FileType.GFF].file_name      = "";
-            $scope.viewer.files[vcte.FileType.WEIGHTS].file_name  = "";
-            $scope.viewer.files[vcte.FileType.STATS].file_name    = "";
-        }
+        //$scope.viewer.files[vcte.FileType.TFA].file_name      = "/develop/data/tfaviewer/chr/100Kallchr.tfa.gz";
+        //$scope.viewer.files[vcte.FileType.GFF].file_name      = "";
+        //$scope.viewer.files[vcte.FileType.WEIGHTS].file_name  = "";
+        //$scope.viewer.files[vcte.FileType.STATS].file_name    = "/develop/data/tfaviewer/chr/mstatspop_100alchr.tfa.01c.txt";
 
-        // DEBUG ***************************************************************
-        if (test == 1) {
-            $scope.viewer.files[vcte.FileType.TFA].file_name      = "./data/206_tfasta_chr1_1.tfa.gz";
-            $scope.viewer.files[vcte.FileType.GFF].file_name      = "";
-            $scope.viewer.files[vcte.FileType.WEIGHTS].file_name  = "";
-            $scope.viewer.files[vcte.FileType.STATS].file_name    = "";
-        }
-
-        if (test == 2) {
-            $scope.viewer.files[vcte.FileType.TFA].file_name      = "./data/100Kchr10.tfa.gz";
-            $scope.viewer.files[vcte.FileType.GFF].file_name      = "./data/100Kchr10_criteria_max.gff";
-            $scope.viewer.files[vcte.FileType.WEIGHTS].file_name  = "./data/100Kchr10_tfa2tfa_02B.tfa_npops1_nsam42_nonsynonymous_max_ExcludeMissingVariantsmhits_NOoutg_ploidy1_WEIGHTS.txt.gz";
-            $scope.viewer.files[vcte.FileType.STATS].file_name    = "./data/mstatspop_100chr10.tfa.15.txt";
-        }
-
-        if (test == 3) {
-            $scope.viewer.files[vcte.FileType.TFA].file_name      = "./data/100Kchr10.tfa.gz";
-            $scope.viewer.files[vcte.FileType.GFF].file_name      = "./data/100Kchr10_criteria_max.gff";
-            $scope.viewer.files[vcte.FileType.WEIGHTS].file_name  = "";
-            $scope.viewer.files[vcte.FileType.STATS].file_name    = "./data/mstatspop_100chr10.tfa.15.txt";
-        }
-        // *********************************************************************
-        */
         previous_files_ = {
             file_tfa: $scope.viewer.files[vcte.FileType.TFA].file_name,
             file_gff: $scope.viewer.files[vcte.FileType.GFF].file_name,

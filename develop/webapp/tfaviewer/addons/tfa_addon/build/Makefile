@@ -316,8 +316,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = /usr/bin/gyp -fmake --ignore-environment "--toplevel-dir=." -I/home/jjene/EclipseProjects/tfaviewer/addons/tfa_addon/build/config.gypi -I/usr/lib/node_modules/node-gyp/addon-rpm.gypi -I/usr/share/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/usr/share/node" "-Dmodule_root_dir=/home/jjene/EclipseProjects/tfaviewer/addons/tfa_addon" binding.gyp
-Makefile: $(srcdir)/../../../../../../usr/share/node/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../../usr/lib/node_modules/node-gyp/addon-rpm.gypi
+cmd_regen_makefile = /usr/bin/gyp -fmake --ignore-environment "--toplevel-dir=." -I/data/gitlab/tfaviewer/addons/tfa_addon/build/config.gypi -I/usr/lib/node_modules/node-gyp/addon-rpm.gypi -I/usr/share/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/usr/share/node" "-Dmodule_root_dir=/data/gitlab/tfaviewer/addons/tfa_addon" binding.gyp
+Makefile: $(srcdir)/../../../../../usr/share/node/common.gypi $(srcdir)/../../../../../usr/lib/node_modules/node-gyp/addon-rpm.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

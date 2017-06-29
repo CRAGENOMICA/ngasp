@@ -185,7 +185,7 @@ NAVBAR
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">T-Fasta Viewer <small>0.1</small></a>
+      <a class="navbar-brand" href="#">T-Fasta Viewer <small>0.3</small></a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -214,7 +214,7 @@ NAVBAR
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Statistics <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
-                <a href="#" ng-click="OnTogleStatsVisibility('show_curve_line')"><img src="images/check.png" ng-show="viewer.stats_options.show_curve_line" />&nbsp;Show Curve Line</a></li>
+                <a href="#" ng-click="OnTogleStatsVisibility('show_curve_line')"><img src="images/check.png" ng-show="viewer.tfa_options.show_curve_line" />&nbsp;Show Curve Line</a></li>
             </li>
             <li>
                 <a href="#" ng-click="OnTogleStatsVisibility('show_quadratic_line')"><img src="images/check.png" ng-show="viewer.stats_options.show_quadratic_line" />&nbsp;Show Rectangular Line</a></li>
@@ -228,11 +228,17 @@ NAVBAR
             <li>
                 <a href="#" ng-click="OnTogleStatsVisibility('show_genes')"><img src="images/check.png" ng-show="viewer.stats_options.show_genes" />&nbsp;Show Genes ID's</a></li>
             </li>
+            <li>
+                <a href="#" ng-click="OnTogleStatsVisibility('show_scaffolds')"><img src="images/check.png" ng-show="viewer.stats_options.show_scaffolds" />&nbsp;Show Scaffolds</a></li>
+            </li>
+            <li>
+                <a href="#" ng-click="OnTogleStatsVisibility('show_scaffolds_colors')"><img src="images/check.png" ng-show="viewer.stats_options.show_scaffolds_colors" />&nbsp;Use Different Colors Scaffolds</a></li>
+            </li>
             <li role="separator" class="divider"></li>
             <li><a href="#" data-toggle="modal" data-target="#StatsModal">Choose statistics...</a></li>
           </ul>
         </li>
-
+<!--
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -245,7 +251,7 @@ NAVBAR
             </li>
           </ul>
         </li>
-
+-->
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -307,7 +313,7 @@ td
     <div ng-show="(viewer.information.mouse_over=='viewer')">
         <table>
             <tr>
-                <td class="property">Header:</td><td class="value">{{viewer.information.viewer.seq_id}}</td>
+                <td class="property">Header:</td><td class="value">{{viewer.information.viewer.scaffold_name}}:{{viewer.information.viewer.seq_id}}</td>
             </tr>
             <!--
             <tr>

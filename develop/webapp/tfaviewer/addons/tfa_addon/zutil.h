@@ -6,14 +6,17 @@
  *  \brief     zutil.h
  *  \details
  *  \author    Joan Jené
- *  \version   1.12
- *  \date      April 20, 2017
- *  \history   - March 29, 2017 : Added stdarg.h include
- *             - April 7, 2017  : fprintf generates box GZ and Index files
- *             - April 12, 2017 : different size constants for "in" and "out" buffers & discard Z_BUF_ERROR message.
- *             - April 13, 2017 : Documentation added & some fixes to the fzgetc  & fzeof functions.
- *             - April 18, 2017 : Documentation updated & fzprintf, fzgetc, fzeof, fzclose functions updated, too.
- *             - April 20, 2017 : Library updated for Mac Os X
+ *  \version   1.15
+ *  \date      June 22, 2017
+ *  \history   - March 29, 2017 : jjene : Added stdarg.h include.
+ *             - April 7, 2017  : jjene : fprintf generates box GZ and Index files.
+ *             - April 12, 2017 : jjene : different size constants for "in" and "out" buffers & discard Z_BUF_ERROR message.
+ *             - April 13, 2017 : jjene : Documentation added & some fixes to the fzgetc  & fzeof functions.
+ *             - April 18, 2017 : jjene : Documentation updated & fzprintf, fzgetc, fzeof, fzclose functions updated, too.
+ *             - April 20, 2017 : jjene : Library updated for Mac Os X.
+ *             - May 19, 2017   : jjene : working on zindex::fzseekNearest.
+ *             - May 22, 2017   : jjene : C++ things (comments, declararions, ...) changed to C things.
+ *             - June 22, 2017  : jjene : fzgetc(), case of inflating compressed data and getting only the EOF. private_setEnd added.
  *  \pre
  *  \bug
  *  \warning
@@ -26,9 +29,9 @@
  *      ================
  *
  *		FILE *h = 0;
- *		SGZip gz;    														// <---- Define one SGZip structure for every FILE variable.
+ *		SGZip gz;    														 <---- Define one SGZip structure for every FILE variable.
  *
- * 		h = fzopen("input.tfa.gz", "r", &gz);								// <---- Always pass the SGZip structure to every function that uses a FILE variable.
+ * 		h = fzopen("input.tfa.gz", "r", &gz);								 <---- Always pass the SGZip structure to every function that uses a FILE variable.
  *
  *		if (h != NULL) {
  *
@@ -38,24 +41,24 @@
  *				printf("%c", ch);
  *			}
  *
- *			fzclose(h, &gz);												// <---- Close your files, always.
+ *			fzclose(h, &gz);												 <---- Close your files, always.
  *		}
  *
  *      Write GZ Example:
  *      =================
  *
  *		FILE *h = 0;
- *		SGZip gz;    														// <---- Define one SGZip structure for every FILE variable.
+ *		SGZip gz;    														 <---- Define one SGZip structure for every FILE variable.
  *
- * 		h = fzopen("input.tfa.gz", "wb+", &gz);								// <---- Always pass the SGZip structure to every function that uses a FILE variable.
+ * 		h = fzopen("input.tfa.gz", "wb+", &gz);								 <---- Always pass the SGZip structure to every function that uses a FILE variable.
  *
  *		if (h != NULL) {
  *
  * 			fzprintf(h, &gz, "Hello World!\n");
  * 			fzprintf(h, &gz, "My name is %s. I am %d years old.\n", name, age);
- * 			fzprintf(h, &gz, data);                                         // <------ if the size of the data is larger than MAX_FZPRINTF_MESSAGE do not use '%'
+ * 			fzprintf(h, &gz, data);                                          <------ if the size of the data is larger than MAX_FZPRINTF_MESSAGE do not use '%'
  *
- *			fzclose(h, &gz);												// <---- Close your files, always.
+ *			fzclose(h, &gz);												 <---- Close your files, always.
  *		}
  *
  *
@@ -101,7 +104,7 @@ extern "C" {
 	#define GZ_ERROR_CREATE_FILE 	-2		/* The file can not be created. Does the file already exist? Correct Name? Disk space? */
 	#define GZ_ERROR_DATA_FILE   	-3		/* The file does not contain the expected data. Maybe expected TXT or GZ file? */
     #define GZ_ERROR_OPEN_FILE		-4		/* The file can not be opened. Does it exist?  */
-	#define GZ_EOF                  -5      /* The end of file has been reached. It could be OK. */
+	#define GZ_EOF                  0      /* The end of file has been reached. It could be OK. Ask for feof() for knowning if the EOF has been reached. */
 	#define GZ_PARAMS_ERROR         -6      /* Function parameters are null */
 
 	/* CHUNK is the size of every compressed piece of data */
@@ -113,8 +116,8 @@ extern "C" {
 	#define GZIP_ENCODING     16
 
 	/* All zlib functions are called through this macro. It catches and shows errors if they exist */
-    // Z_BUF_ERROR is just an indication that there was nothing for inflate() to do on that call. Simply continue and provide more input data and more output space for the next inflate() call.
-    // && (status != Z_BUF_ERROR))
+    /* Z_BUF_ERROR is just an indication that there was nothing for inflate() to do on that call. Simply continue and provide more input data and more output space for the next inflate() call. */
+    /* && (status != Z_BUF_ERROR)) */
 	#define CALL_ZLIB(x) {                                              \
         int status;                                                     \
         status = x;                                                     \
@@ -191,12 +194,21 @@ extern "C" {
     #define MAX_FZPRINTF_MESSAGE 0x4000 /* 16384 bytes */
 
     /*
-     * Do not used this function directly. This function is used by the fzprintf function.
+     * Do not use this function directly. This function is used by the fzprintf function.
      *
      * @return: GZ_OK
      * 			GZ_PARAMS_ERROR
      */
     gz_return private_fzprintf(FILE * file_handle, SGZip *z, char *message);
+
+
+    /*
+     * Do not use this function directly. This function ends the inflate.
+     *
+     * @param file_handle is the open file.
+     * @param z is the initialized SGZip structure.
+     */
+    void private_setEnd(FILE * file_handle, SGZip *z);
 
     /**
      * Use this function for writing strings to a file.

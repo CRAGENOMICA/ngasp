@@ -103,7 +103,7 @@ CRAG.service('vcte', function () {
     this.STAT_QUAD_SIZE       = 1.5;
     this.STATISTIC_BORDERS_PADDING = 10;
     this.STATS_LINES_COLOR    = '#727c8e'; //this.CTRL_MAIN_COLOR;
-    this.STATS_SCAFFOLDS_COLORS = ['#727c8e', '#ff0000', '#0000ff']; //this.CTRL_MAIN_COLOR;
+    this.STATS_SCAFFOLDS_COLORS = ['#727c8e', '#00ff00', '#ff0000', '#0000ff']; //this.CTRL_MAIN_COLOR;
 
     // -------------------------------------------------------------------------
     // FONTS
@@ -279,7 +279,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                 'data':[],                  // List of T-Fasta sequences {order:3000, id:"3001", seq:"CCCCCNNNCCCC"}
                 'items':0,                  // Total number of items (visible and hidden)
                 'max_seq_bases':0,          // Maximum number of bases per sequence
-                'scaffolds_positions':{}    // {'chr10':{line:0,pixel:50},'chr12':{line:50000,pixel:150},...} // line is the starting position of every scaffold inside the TFA file. pixel is the starting position in pixels.
+                'scaffolds_positions':{}    // {'chr10':{line:0,pixel:50,color:'',visible:true},'chr12':{line:50000,pixel:150,color:'',visible:true},...} // line is the starting position of every scaffold inside the TFA file. pixel is the starting position in pixels.
             },                              // It has only the information of the TFA filtered sequences. And positions are not exactly the first of each scaffold but the first of each visible scaffold.
             {
                 'id':vcte.FileType.GFF,     
@@ -309,7 +309,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
             'show_range': true,
             'show_genes': true,
             'show_value': false,
-            'show_scaffolds': false,
+            'show_scaffolds': true,
             'show_scaffolds_colors': true
         };
     },
@@ -1324,29 +1324,24 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
             var i_color = 0;
 
             for (var key in scaffolds_positions) {
-                var scaffold_y = scaffolds_positions[key].pixel;
+                if (scaffolds_positions[key].visible) {
+                    var scaffold_y = scaffolds_positions[key].pixel;
 
-                // Draw Scaffold Line
+                    // Draw Scaffold Line
 
-                viewer.ctx.strokeStyle = vcte.STATS_SCAFFOLDS_COLORS[i_color];
-                viewer.ctx.beginPath();
-                viewer.ctx.moveTo(x, scaffold_y);
-                viewer.ctx.lineTo(x + w, scaffold_y);
-                viewer.ctx.closePath();
-                viewer.ctx.stroke();
+                    viewer.ctx.strokeStyle = scaffolds_positions[key].color;
+                    viewer.ctx.beginPath();
+                    viewer.ctx.moveTo(x, scaffold_y);
+                    viewer.ctx.lineTo(x + w, scaffold_y);
+                    viewer.ctx.closePath();
+                    viewer.ctx.stroke();
 
-                // Draw Scaffold Text
+                    // Draw Scaffold Text
 
-                viewer.ctx.font = vcte.FONTS.scaffold.font;
-                viewer.ctx.fillStyle = vcte.STATS_SCAFFOLDS_COLORS[i_color];
-                viewer.ctx.textAlign = "left";
-                viewer.ctx.fillText(key, x + 5, scaffold_y + 12);
-
-                if (viewer.stats_options.show_scaffolds_colors) {
-                    i_color++;
-                    if (i_color > vcte.STATS_SCAFFOLDS_COLORS.length) {
-                        i_color = 0;
-                    }
+                    viewer.ctx.font = vcte.FONTS.scaffold.font;
+                    viewer.ctx.fillStyle = scaffolds_positions[key].color;
+                    viewer.ctx.textAlign = "left";
+                    viewer.ctx.fillText(key, x + 5, scaffold_y + 12);
                 }
             }
 
@@ -1361,7 +1356,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         var data_norm = viewer.files[vcte.FileType.STATS].data_norm;
         var data_stats = viewer.files[vcte.FileType.STATS].data;
         var data_minmax = viewer.files[vcte.FileType.STATS].minmax;
-
+        var scaffolds_positions = viewer.files[vcte.FileType.TFA].scaffolds_positions;
 
         if (data_norm.length > 0) {
 
@@ -1460,7 +1455,16 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
                                     if (viewer.stats_options.show_quadratic_line) {
                                         viewer.ctx.lineWidth = vcte.STAT_QUAD_SIZE;
-                                        viewer.ctx.strokeStyle = vcte.STAT_QUAD_COLOR;
+                                        if (viewer.stats_options.show_scaffolds_colors) {
+                                            if (scaffolds_positions[data_norm[i].scaffold_name] != undefined) {
+                                                viewer.ctx.strokeStyle = scaffolds_positions[data_norm[i].scaffold_name].color;
+                                            } else {
+                                                viewer.ctx.strokeStyle = vcte.STATS_SCAFFOLDS_COLORS[0];
+                                            }
+                                        }
+                                        else {
+                                            viewer.ctx.strokeStyle = vcte.STAT_QUAD_COLOR;
+                                        }
 
                                         viewer.ctx.beginPath();
                                         viewer.ctx.moveTo(first_point.x, first_point.y);
@@ -1479,13 +1483,24 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                                             // Join quadratic lines
 
                                             viewer.ctx.lineWidth = vcte.STAT_QUAD_SIZE;
-                                            viewer.ctx.strokeStyle = vcte.STAT_QUAD_COLOR;
+                                            if (viewer.stats_options.show_scaffolds_colors) {
+                                                if (scaffolds_positions[data_norm[i].scaffold_name] != undefined) {
+                                                    viewer.ctx.strokeStyle = scaffolds_positions[data_norm[i].scaffold_name].color;
+                                                } else {
+                                                    viewer.ctx.strokeStyle = vcte.STATS_SCAFFOLDS_COLORS[0];
+                                                }
+                                            }
+                                            else {
+                                                viewer.ctx.strokeStyle = vcte.STAT_QUAD_COLOR;
+                                            }
 
-                                            viewer.ctx.beginPath();
-                                            viewer.ctx.moveTo(prev_point.x, prev_point.y);
-                                            viewer.ctx.lineTo(first_point.x, first_point.y);
-                                            viewer.ctx.closePath();
-                                            viewer.ctx.stroke();
+                                            if ((i == 0) || ((i != 0) && (data_norm[i].scaffold_name == data_norm[i-1].scaffold_name))) {  // Do not draw line between different scaffolds
+                                                viewer.ctx.beginPath();
+                                                viewer.ctx.moveTo(prev_point.x, prev_point.y);
+                                                viewer.ctx.lineTo(first_point.x, first_point.y);
+                                                viewer.ctx.closePath();
+                                                viewer.ctx.stroke();
+                                            }
                                         }
                 
                                         // Draw main continuos line
@@ -1493,17 +1508,23 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                                         if (viewer.stats_options.show_curve_line) {
                                             viewer.ctx.lineWidth = vcte.STAT_LINE_SIZE;
                                             if (viewer.stats_options.show_scaffolds_colors) {
-                                                viewer.ctx.strokeStyle = vcte.STATS_SCAFFOLDS_COLORS[i_color];
+                                                if (scaffolds_positions[data_norm[i].scaffold_name] != undefined) {
+                                                    viewer.ctx.strokeStyle = scaffolds_positions[data_norm[i].scaffold_name].color;
+                                                } else {
+                                                    viewer.ctx.strokeStyle = vcte.STATS_SCAFFOLDS_COLORS[0];
+                                                }
                                             }
                                             else {
                                                 viewer.ctx.strokeStyle = vcte.STAT_LINE_COLOR;
                                             }
 
-                                            viewer.ctx.beginPath();
-                                            viewer.ctx.moveTo(prev_middle_point.x, prev_middle_point.y);
-                                            viewer.ctx.lineTo(middle_point.x, middle_point.y);
-                                            viewer.ctx.closePath();
-                                            viewer.ctx.stroke();
+                                            if ((i == 0) || ((i != 0) && (data_norm[i].scaffold_name == data_norm[i-1].scaffold_name))) {  // Do not draw line between different scaffolds
+                                                viewer.ctx.beginPath();
+                                                viewer.ctx.moveTo(prev_middle_point.x, prev_middle_point.y);
+                                                viewer.ctx.lineTo(middle_point.x, middle_point.y);
+                                                viewer.ctx.closePath();
+                                                viewer.ctx.stroke();
+                                            }
                                         }
 
                                         if (viewer.stats_options.show_values) {
@@ -1521,28 +1542,25 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                                 }
                             }
 
-                            if ((viewer.stats_options.show_scaffolds_colors) && (i > 0)) {
-                                if (data_norm[i-1].scaffold_name != data_norm[i].scaffold_name) {
-                                    i_color++;
-                                    if (i_color > vcte.STATS_SCAFFOLDS_COLORS.length) {
-                                        i_color = 0;
-                                    }
-                                }
-                            }
+
                         }
 
-
                         // Close the continuos line top and bottom
-                        // when the continuos line is visible and the quadratic line is hidden
-                        if ((viewer.stats_options.show_quadratic_line == false) && (viewer.stats_options.show_curve_line == true)) {
-                            viewer.ctx.lineWidth = vcte.STAT_LINE_SIZE;
+                        if (viewer.stats_options.show_curve_line == true) {
+                            var top_color = vcte.STAT_LINE_COLOR;
+                            var bottom_color = vcte.STAT_LINE_COLOR;
 
                             if (viewer.stats_options.show_scaffolds_colors) {
-                                viewer.ctx.strokeStyle = vcte.STATS_SCAFFOLDS_COLORS[i_color];
+                                // Color of the scaffold of the first sequence:
+                                top_color    = viewer.files[vcte.FileType.TFA].scaffolds_positions[viewer.files[vcte.FileType.TFA].data[0].scaffold_name].color;
+                                // Color of the scaffold of the last sequence:
+                                bottom_color = viewer.files[vcte.FileType.TFA].scaffolds_positions[viewer.files[vcte.FileType.TFA].data[viewer.files[vcte.FileType.TFA].data.length-1].scaffold_name].color;
                             }
-                            else {
-                                viewer.ctx.strokeStyle = vcte.STAT_LINE_COLOR;
-                            }
+
+
+                            viewer.ctx.lineWidth = vcte.STAT_LINE_SIZE;
+                            viewer.ctx.strokeStyle = vcte.STAT_LINE_COLOR;
+                            viewer.ctx.strokeStyle = top_color;
 
                             // Line from top to the first point of the statistic
                             viewer.ctx.beginPath();
@@ -1550,6 +1568,8 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
                             viewer.ctx.lineTo(first_dot_of_current_stat.x, first_dot_of_current_stat.y);
                             viewer.ctx.closePath();
                             viewer.ctx.stroke();
+
+                            viewer.ctx.strokeStyle = bottom_color;
 
                             if ((last_dot_of_current_stat.x == -1) && (last_dot_of_current_stat.y == -1)) {
                                 last_dot_of_current_stat.x = first_dot_of_current_stat.x;
@@ -1797,9 +1817,11 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
         if ((stats_names != null) && (stats_names.length > 0)) {
             for (var i = 0; i < stats_names.length; i++) {
-                if ((stats_names[i].name.indexOf('TajimaD') !=-1) ||
+                if (
+                //(stats_names[i].name.indexOf('TajimaD') !=-1) ||
                     (stats_names[i].name.indexOf('Fst') !=-1) || 
-                    (stats_names[i].name.indexOf('PiT') !=-1)) {
+                    (stats_names[i].name.indexOf('PiT') !=-1) ||
+                    (stats_names[i].name.indexOf('an_x[0]') !=-1)) {
 
                 //if (stats_names[i].name.indexOf('Theta(F') != -1) {
                     stats_names[i].selected = true;
@@ -1942,20 +1964,41 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
         // Do not reinitialize the structure:  viewer.files[vcte.FileType.TFA].scaffolds_positions = {};
         // When the file is loaded the first time, this piece of code will get the information of all scafolds because the first time the file is loaded completelly.
         // When a zoom is done, some scaffolds would be lost in case of reinitializing the structure.
-        var scaffolds_positions = viewer.files[vcte.FileType.TFA].scaffolds_positions;
+
+        var i_color = 0;
+        var setting_scaffolds_colors = false;
+
+        if (viewer.files[vcte.FileType.TFA].scaffolds_positions.first_time == undefined) {
+            viewer.files[vcte.FileType.TFA].scaffolds_positions.first_time = true;
+            setting_scaffolds_colors = true;
+        } else {
+            viewer.files[vcte.FileType.TFA].scaffolds_positions.first_time = false;
+            setting_scaffolds_colors = false;
+        }
+
+        for (var key in viewer.files[vcte.FileType.TFA].scaffolds_positions) {
+            viewer.files[vcte.FileType.TFA].scaffolds_positions[key].visible = false;
+        }
 
         var prev_scaffold_name = '';
-
         for(var i = 0; i < data_tfa.length; i++) {
             id            = data_tfa[i].id * 1;
             scaffold_name = data_tfa[i].scaffold_name;
 
             if (scaffold_name != prev_scaffold_name) {
-                if (scaffolds_positions[scaffold_name] == undefined) { // First time that this scaffold is found:
-                    scaffolds_positions[scaffold_name] = {'line':data_tfa[i].order,'pixel':y};
-                } else {
-                    scaffolds_positions[scaffold_name].pixel = y; // Second time that this scafold is found: the starting line will be the same. Is the pixel position that would be different depending on the zoom.
+                if (setting_scaffolds_colors) {
+                    i_color++;
+                    if (i_color > vcte.STATS_SCAFFOLDS_COLORS.length) {
+                        i_color = 0;
+                    }
                 }
+
+                if (viewer.files[vcte.FileType.TFA].scaffolds_positions[scaffold_name] == undefined) { // First time that this scaffold is found:
+                    viewer.files[vcte.FileType.TFA].scaffolds_positions[scaffold_name] = {'line':data_tfa[i].order,'pixel':y,'color':vcte.STATS_SCAFFOLDS_COLORS[i_color]};
+                } else {
+                    viewer.files[vcte.FileType.TFA].scaffolds_positions[scaffold_name].pixel = y; // Second time that this scafold is found: the starting line will be the same. Is the pixel position that would be different depending on the zoom.
+                }
+                viewer.files[vcte.FileType.TFA].scaffolds_positions[scaffold_name].visible = true;
                 prev_scaffold_name = scaffold_name;
             }
 

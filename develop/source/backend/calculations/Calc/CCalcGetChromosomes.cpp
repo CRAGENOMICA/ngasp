@@ -128,6 +128,8 @@ void CCalcGetChromosomes::GetNamesFromBAM(std::string input_file_name) {
                 NULL};
             int argc = sizeof (argv) / sizeof (char*) - 1;
 
+// samtools view -H /develop/data/exp1/outgroup.bam | cut -f2 | grep '^SN:chr' | sed s'/SN://'
+
             main_samview(argc, argv);
 
 

@@ -101,6 +101,7 @@
 #include "../../data_manager/Data/CDataStringSet.h"
 #include "../../data_manager/Data/CDataBoolean.h"
 #include "../../data_manager/Data/CDataTextFile.h"
+#include "../../data_manager/Data/CDataStdStringVector.h"
 
 /// ============================================================================
 /// CONSTANTS
@@ -192,6 +193,7 @@ public:
   CDataInt64          *slide_;                ///
   CDataInt            *physical_length_;      ///
   CDataBoolean        *b_mask_print_;         ///
+  CDataStdStringVector *scaffold_names_;     ///
   
   CDataBoolean *keep_intermediate_results;
   

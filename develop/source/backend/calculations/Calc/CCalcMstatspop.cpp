@@ -472,6 +472,19 @@ CCalcMstatspop::CCalcMstatspop()
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
 */
+
+    SET_INPUT_INFO(scaffold_names_,                                              // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CCALCMSTATSPOP_SCAFFOLD_NAMES_,                              // Short Name
+                   MSTATSPOP_SCAFFOLD_NAME_LONG,                                // Long Name
+                   MSTATSPOP_SCAFFOLD_NAME_DESC,                                // Description
+                   MSTATSPOP_SCAFFOLD_NAME_EXAMPLE,                             // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   MSTATSPOP_SCAFFOLD_NAME_DEF_VAL,                             // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_mandatory)                                           // Required
+
     SET_INPUT_INFO(keep_intermediate_results,                                   // Variable
                    UNDEFINED_STRING,                                            // Group
                    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS,                         // Short Name
@@ -483,7 +496,7 @@ CCalcMstatspop::CCalcMstatspop()
                    UNDEFINED_VALUE,                                             // Min. Value
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
-  
+
   
     //!mstatspop_outputs
   
@@ -880,6 +893,8 @@ void CCalcMstatspop::Prepare(void) {
     DM_INPUT(genetic_code_)
     DM_INPUT(criteria_transcript_)                                              //-c
     DM_INPUT(b_mask_print_)                                                     //-K
+    DM_INPUT(scaffold_names_)
+
 //    DM_INPUT(file_effsz_)                                                       //
     DM_INPUT(keep_intermediate_results)
   DM_GET_OUTPUTS
@@ -3612,6 +3627,12 @@ void CCalcMstatspop::Calculate(bool dry_run) {
     the_command->add(" -K ");
     the_command->add(b_mask_print_->value() ? "1" : "0");
   }
+
+  if (!scaffold_names_->auto_created())     {
+    the_command->add(" -n ");
+    the_command->add(scaffold_names_->GetDataString());
+  }
+
   /*
     if (file_effsz_->value() != "") {
        the_command->add(" ");

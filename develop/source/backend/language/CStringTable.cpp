@@ -512,17 +512,17 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][MSTATSPOP_PATHNAME_OUTPUT_FILE_DEF_VAL]                 = "Standard output";
   
 
-  strings_[ENGLISH_COL][MSTATSPOP_ALT_SFILE_SHORT]                              = "a";
-  strings_[ENGLISH_COL][MSTATSPOP_ALT_SFILE_LONG]                               = "a";
+  strings_[ENGLISH_COL][MSTATSPOP_ALT_SFILE_SHORT]                              = "A";
+  strings_[ENGLISH_COL][MSTATSPOP_ALT_SFILE_LONG]                               = "A";
   strings_[ENGLISH_COL][MSTATSPOP_ALT_SFILE_DESC]                               = "Alternative Spectrum File. Alternative_spectrum for each population (except outgroup)";
   strings_[ENGLISH_COL][MSTATSPOP_ALT_SFILE_EXAMPLE]                            = "File format: (average absolute values) header plus fr(0,1) fr(0,2) ... fr(0,n-1) theta(0)/nt, fr(1,1) fr(1,2) ... fr(1,n-1) theta(1)/nt...";
   strings_[ENGLISH_COL][MSTATSPOP_ALT_SFILE_ONLY]                               = "Optimal Test";
   
-  strings_[ENGLISH_COL][MSTATSPOP_NULL_SFILE_SHORT]                             = "n";
-  strings_[ENGLISH_COL][MSTATSPOP_NULL_SFILE_LONG]                              = "n";
+  strings_[ENGLISH_COL][MSTATSPOP_NULL_SFILE_SHORT]                             = "S";
+  strings_[ENGLISH_COL][MSTATSPOP_NULL_SFILE_LONG]                              = "S";
   strings_[ENGLISH_COL][MSTATSPOP_NULL_SFILE_DESC]                              = "[Null Spectrum File: null_spectrum for each population (except outgroup)";
   strings_[ENGLISH_COL][MSTATSPOP_NULL_SFILE_EXAMPLE]                           = "(average absolute values) header plus fr(0,1) fr(0,2) ... fr(0,n-1) theta(0)/nt, fr(1,1) fr(1,2) ... fr(1,n-1) theta(1)/nt...";
-  strings_[ENGLISH_COL][MSTATSPOP_NULL_SFILE_ONLY]                              = "-a defined";
+  strings_[ENGLISH_COL][MSTATSPOP_NULL_SFILE_ONLY]                              = "-A defined";
   strings_[ENGLISH_COL][MSTATSPOP_NULL_SFILE_DEF_VAL]                           = "SNM";
   
   strings_[ENGLISH_COL][MSTATSPOP_R2P_SHORT]                                    = "P";
@@ -575,6 +575,12 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][MSTATSPOP_HEIGHTS_FILE_DESC]                            = "Input file with weights for positions:";
   strings_[ENGLISH_COL][MSTATSPOP_HEIGHTS_FILE_EXAMPLE]                         = "Include three columns with a header, first the physical positions (1...end), second the weight for positions and third a boolean weight for the variant (eg. syn variant in nsyn counts is 0.000)";
   strings_[ENGLISH_COL][MSTATSPOP_HEIGHTS_FILE_DEF_VAL]                         = "all 1.000";
+
+  strings_[ENGLISH_COL][MSTATSPOP_SCAFFOLD_NAME_SHORT]                          = "n";
+  strings_[ENGLISH_COL][MSTATSPOP_SCAFFOLD_NAME_LONG]                           = "scaffold-name";
+  strings_[ENGLISH_COL][MSTATSPOP_SCAFFOLD_NAME_DESC]                           = "Input list of scaffold names:";
+  strings_[ENGLISH_COL][MSTATSPOP_SCAFFOLD_NAME_EXAMPLE]                        = "chr10,chr12,chr14";
+  strings_[ENGLISH_COL][MSTATSPOP_SCAFFOLD_NAME_DEF_VAL]                        = "";
 
   /// Command options: For MS Input
    
@@ -1933,6 +1939,12 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_FASTA2TFASTA_WEIGHTS_ONLY]                         = "";
   strings_[ENGLISH_COL][CALC_FASTA2TFASTA_WEIGHTS_DEFV]                         = "";  
   
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SCAFFOLD_NAME]                        = "Scaffold Names";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SCAFFOLD_NAME_LONG]                   = "scaffold-name";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SCAFFOLD_NAME_DESC]                   = "Input list of scaffold names:";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SCAFFOLD_NAME_EXAMPLE]                = "chr10,chr12,chr14";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_SCAFFOLD_NAME_DEF_VAL]                = "";
+
   strings_[ENGLISH_COL][CALC_SNP_CALLER_MPILEUP]                                = "Mpileup File";
   strings_[ENGLISH_COL][CALC_SNP_CALLER_MPILEUP_LONG]                           = "Input Mpileup";
   strings_[ENGLISH_COL][CALC_SNP_CALLER_MPILEUP_DESC]                           = "Input Mpileup";
@@ -2378,8 +2390,8 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CCALCMSTATSPOP_SUBSET_POSITIONS_] = "Subset Positions (-g)";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_CODE_NAME_] = "Code Name (-g)";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_GENETIC_CODE_] = "Genetic Code (-g)";
-  strings_[ENGLISH_COL][CCALCMSTATSPOP_FILE_H0F_] = "File H0f (-n)";
-  strings_[ENGLISH_COL][CCALCMSTATSPOP_FILE_H1F_] = "File H1f (-a)";
+  strings_[ENGLISH_COL][CCALCMSTATSPOP_FILE_H0F_] = "File H0f (-S)";
+  strings_[ENGLISH_COL][CCALCMSTATSPOP_FILE_H1F_] = "File H1f (-A)";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_CRITERIA_TRANSCRIPT_] = "Criteria Transcript (-c)";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_ALL_COMMAND_LINE_] = "All command line";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_FILE_IN_] = "Input File (-i)";
@@ -2394,12 +2406,15 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CCALCMSTATSPOP_FILE_EFFSZ_] = "File Effsz";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_INT_TOTAL_NSAM_ORDER_] = "Int total nsam order";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_MASK_PRINT_] = "Mask print (-K)";
+  strings_[ENGLISH_COL][CCALCMSTATSPOP_SCAFFOLD_NAMES_] = "Scaffold Names (-n)";
+
   
   //!mstatspop_outputs
   strings_[ENGLISH_COL][CCALCMSTATSPOP_CALC_OUTPUT_]                            = "Statistics";
   
   strings_[ENGLISH_COL][CCALCMSTATSPOP_CALC_STATS_SO_OUTPUT_]                   = "S";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_CALC_STATS_THETA_OUTPUT_]                = "Theta/nt(Wat)";
+  
   strings_[ENGLISH_COL][CCALCMSTATSPOP_CALC_STATS_THETA_NT_TAJ_OUTPUT_]         = "Theta/nt(Taj)";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_CALC_STATS_THETA_NT_FULI_OUTPUT_]        = "Theta/nt(Fu&Li)";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_CALC_STATS_THETA_NT_FAYWU_OUTPUT_]       = "Theta/nt(Fay&Wu)";

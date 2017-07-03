@@ -124,6 +124,19 @@ CCalcFasta2TFasta::CCalcFasta2TFasta()
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required)
 
+    SET_INPUT_INFO(scaffold_names,                                               // Variable
+                   UNDEFINED_STRING,                                            // Group
+                   CALC_FASTA2TFASTA_SCAFFOLD_NAME,                             // Short Name
+                   CALC_FASTA2TFASTA_SCAFFOLD_NAME_LONG,                        // Long Name
+                   CALC_FASTA2TFASTA_SCAFFOLD_NAME_DESC,                        // Description
+                   CALC_FASTA2TFASTA_SCAFFOLD_NAME_EXAMPLE,                     // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   CALC_FASTA2TFASTA_SCAFFOLD_NAME_DEF_VAL,                     // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_mandatory)                                           // Required)
+
+
     SET_INPUT_INFO(keep_intermediate_results,                                   // Variable
                    UNDEFINED_STRING,                                            // Group
                    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS,                         // Short Name
@@ -159,7 +172,7 @@ CCalcFasta2TFasta::CCalcFasta2TFasta()
                    UNDEFINED_VALUE,                                             // Min. Value
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_mandatory)                                           // Required)
-  
+
   END_CALCULATION_INTERFACE_DEFINITION
 }
 
@@ -173,6 +186,7 @@ void CCalcFasta2TFasta::Prepare(void) {
     DM_INPUT(bed_masking_file)
     DM_INPUT(samples_order)
     DM_INPUT(compress_output)
+    DM_INPUT(scaffold_names)
 
     DM_INPUT(keep_intermediate_results)
   DM_GET_OUTPUTS
@@ -224,6 +238,12 @@ void CCalcFasta2TFasta::Calculate(bool dry_run) {
   if (!samples_order->auto_created())     {
     command += " -O " + samples_order->value();
   }
+
+  if (!scaffold_names->auto_created())     {
+    command += " -n ";
+    command += scaffold_names->GetDataString();
+  }
+
 
   the_command->set_value(command);
 

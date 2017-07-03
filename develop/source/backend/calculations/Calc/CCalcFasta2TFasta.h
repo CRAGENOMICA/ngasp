@@ -50,6 +50,7 @@
 #include "../../data_manager/Data/CDataBed.h"
 #include "../../data_manager/Data/CDataBoolean.h"
 #include "../../data_manager/Data/CDataStdString.h"
+#include "../../data_manager/Data/CDataStdStringVector.h"
 
 class CCalcFasta2TFasta : public ICalculation {
  private:
@@ -59,6 +60,7 @@ class CCalcFasta2TFasta : public ICalculation {
   CDataBed *bed_masking_file;
   CDataStdString *samples_order;
   CDataBoolean *compress_output;
+  CDataStdStringVector *scaffold_names;
 
   CDataBoolean *keep_intermediate_results;
             

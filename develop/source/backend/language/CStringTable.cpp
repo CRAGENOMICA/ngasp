@@ -1494,7 +1494,7 @@ CStringTable::CStringTable() : IStringTable() {
 
   strings_[ENGLISH_COL][CALC_FASTA2TFASTA]                                      = "calc_fasta_to_tfasta";
   strings_[ENGLISH_COL][CALC_FASTA2TFASTA_BRIEF_DESC]                           = "";
-  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_DESC]                                 = "It converts a Fasta file to a TFasta file.";
+  strings_[ENGLISH_COL][CALC_FASTA2TFASTA_DESC]                                 = "This calculation changes the file format from a Fasta file to a T-Fasta file.";
 
   strings_[ENGLISH_COL][CALC_CREATETFASTAANNOTATION]                            = "create_tfa";
   strings_[ENGLISH_COL][CALC_CREATETFASTAANNOTATION_BRIEF_DESC]                 = "";
@@ -1585,81 +1585,81 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_OPEN_WEIGHTPOSITIONS_DESC]                         = "Description.";
 
   strings_[ENGLISH_COL][CALC_EXEC]                                              = "calc_execute";
-  strings_[ENGLISH_COL][CALC_EXEC_BRIEF_DESC]                                   = "";
-  strings_[ENGLISH_COL][CALC_EXEC_DESC]                                         = "This command executes an external application or system command.";
+  strings_[ENGLISH_COL][CALC_EXEC_BRIEF_DESC]                                   = "Execute";
+  strings_[ENGLISH_COL][CALC_EXEC_DESC]                                         = "This calculation is used for running external applications or system commands.";
   
   strings_[ENGLISH_COL][CALC_BCF2VCF]                                           = "BCD_To_VCF";
   strings_[ENGLISH_COL][CALC_BCF2VCF_BRIEF_DESC]                                = "";
   strings_[ENGLISH_COL][CALC_BCF2VCF_DESC]                                      = "BCF To VCF Conversor.";
 
   strings_[ENGLISH_COL][CALC_BAM2BAI]                                           = "calc_create_bam_index";
-  strings_[ENGLISH_COL][CALC_BAM2BAI_BRIEF_DESC]                                = "";
-  strings_[ENGLISH_COL][CALC_BAM2BAI_DESC]                                      = "Create BAM index.";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_BRIEF_DESC]                                = "Create BAM Index";
+  strings_[ENGLISH_COL][CALC_BAM2BAI_DESC]                                      = "This calculation creates the index of a BAM file (a BAI file).";
   
   strings_[ENGLISH_COL][CALC_GET_SEQ_LEN]                                       = "calc_get_seq_len";
   strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_BRIEF_DESC]                            = "Get Sequence Length";
-  strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_DESC]                                  = "It returns the sequence's length of a Fasta file.";
+  strings_[ENGLISH_COL][CALC_GET_SEQ_LEN_DESC]                                  = "This calculation gets a Fasta file and it returns its first sequence's length.";
 
   strings_[ENGLISH_COL][CALC_GET_MRD]                                           = "calc_get_mrd";
   strings_[ENGLISH_COL][CALC_GET_MRD_BRIEF_DESC]                                = "Mean Read Depth";
-  strings_[ENGLISH_COL][CALC_GET_MRD_DESC]                                      = "It returns a list of MRD of BAM files.";
+  strings_[ENGLISH_COL][CALC_GET_MRD_DESC]                                      = "This calculation gets a list of BAM files and it returns a list of MRD.";
 
   strings_[ENGLISH_COL][CALC_BAM2MPILEUP]                                       = "calc_BAM_to_Mpileup";
-  strings_[ENGLISH_COL][CALC_BAM2MPILEUP_BRIEF_DESC]                            = "";
-  strings_[ENGLISH_COL][CALC_BAM2MPILEUP_DESC]                                  = "BAM To Mpileup Conversor.";
+  strings_[ENGLISH_COL][CALC_BAM2MPILEUP_BRIEF_DESC]                            = "BAM To Mpileup";
+  strings_[ENGLISH_COL][CALC_BAM2MPILEUP_DESC]                                  = "This calculation changes the file format from a BAM file To a Mpileup file.";
 
-  strings_[ENGLISH_COL][CALC_BAM_CHROMOSOMES]                                   = "calc_bam_chromosomes";
-  strings_[ENGLISH_COL][CALC_BAM_CHROMOSOMES_BRIEF_DESC]                        = "";
-  strings_[ENGLISH_COL][CALC_BAM_CHROMOSOMES_DESC]                              = "Get BAM chromosomes.";
+  strings_[ENGLISH_COL][CALC_BAM_CHROMOSOMES]                                   = "bam_chromosomes"; // Desactivated  (I removed the "calc_") because it already exists the same calculation : "calc_get_chrom"
+  strings_[ENGLISH_COL][CALC_BAM_CHROMOSOMES_BRIEF_DESC]                        = "BAM Chromosomes";
+  strings_[ENGLISH_COL][CALC_BAM_CHROMOSOMES_DESC]                              = "This calculation gets a BAM file and it returns a list of its chromosomes.";
 
   
   strings_[ENGLISH_COL][CALC_SAM2MPILEUP]                                       = "SAM_to_Mpileup";
-  strings_[ENGLISH_COL][CALC_SAM2MPILEUP_BRIEF_DESC]                            = "";
+  strings_[ENGLISH_COL][CALC_SAM2MPILEUP_BRIEF_DESC]                            = "SAM To Mpileup";
   strings_[ENGLISH_COL][CALC_SAM2MPILEUP_DESC]                                  = "SAM To Mpileup Conversor.";
   
   strings_[ENGLISH_COL][CALC_SNIPCALLER]                                        = "calc_snp_caller";
-  strings_[ENGLISH_COL][CALC_SNIPCALLER_BRIEF_DESC]                             = "";
-  strings_[ENGLISH_COL][CALC_SNIPCALLER_DESC]                                   = "SNP Caller.";
+  strings_[ENGLISH_COL][CALC_SNIPCALLER_BRIEF_DESC]                             = "SNP Caller";
+  strings_[ENGLISH_COL][CALC_SNIPCALLER_DESC]                                   = "This calculation in a wrapper that calls the GH Caller external tool.";
 
   strings_[ENGLISH_COL][CALC_CONCAT_FILES]                                      = "calc_concat_text_files";
-  strings_[ENGLISH_COL][CALC_CONCAT_FILES_BRIEF_DESC]                           = "";
-  strings_[ENGLISH_COL][CALC_CONCAT_FILES_DESC]                                 = "Concatenate two text files. Depending on the given parameters, the operation done is: 1: output = input1 + input2. 2: output = output + input1. 3: output = output + input2.";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILES_BRIEF_DESC]                           = "Concat Text Files";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILES_DESC]                                 = "This calculation concatenates two text files. Depending on the given parameters, the operation done is: 1: output = input1 + input2. 2: output = output + input1. 3: output = output + input2.";
 
   strings_[ENGLISH_COL][CALC_CONCAT_FILE_NAMES]                                 = "calc_concat_file_names";
   strings_[ENGLISH_COL][CALC_CONCAT_FILE_NAMES_BRIEF_DESC]                      = "";
-  strings_[ENGLISH_COL][CALC_CONCAT_FILE_NAMES_DESC]                            = "Concatenate names of files. If File 2 is null then Output Names is += File 1. Else, Output Names = File 1 + File 2.";
+  strings_[ENGLISH_COL][CALC_CONCAT_FILE_NAMES_DESC]                            = "This calculation concatenates names of files. If File 2 is null then Output Names is += File 1. Else, Output Names = File 1 + File 2.";
 
   strings_[ENGLISH_COL][CALC_GET_FILE_NAME]                                     = "calc_get_file_name";
   strings_[ENGLISH_COL][CALC_GET_FILE_NAME_BRIEF_DESC]                          = "";
-  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_DESC]                                = "It gets the name of a file.";
+  strings_[ENGLISH_COL][CALC_GET_FILE_NAME_DESC]                                = "This calculation gets a File Node and returns only its file name. Its is placed, sometimes, in the middle of a File type node and an String type calculation input for conversion purposes.";
 
   strings_[ENGLISH_COL][CALC_CONCAT_STRINGS]                                    = "calc_concat_strings";
   strings_[ENGLISH_COL][CALC_CONCAT_STRINGS_BRIEF_DESC]                         = "";
-  strings_[ENGLISH_COL][CALC_CONCAT_STRINGS_DESC]                               = "Concatenate two strings. output = intput 1 + input 2.";
+  strings_[ENGLISH_COL][CALC_CONCAT_STRINGS_DESC]                               = "This calculation concatenates two strings. output = intput 1 + input 2.";
   
   strings_[ENGLISH_COL][CALC_COLLECT_DATA_COLUMNS]                              = "calc_collect_data_columns";
   strings_[ENGLISH_COL][CALC_COLLECT_DATA_COLUMNS_BRIEF_DESC]                   = "";
-  strings_[ENGLISH_COL][CALC_COLLECT_DATA_COLUMNS_DESC]                         = "Collect data columns.";
+  strings_[ENGLISH_COL][CALC_COLLECT_DATA_COLUMNS_DESC]                         = "This calculation is a wrapper that calls the calc_collect_data_columns external tool for filtering the output of the mstatspop calculation output file.";
   
   strings_[ENGLISH_COL][CALC_BOX_PLOT_VALUES]                                   = "calc_boxplot_values";
   strings_[ENGLISH_COL][CALC_BOX_PLOT_VALUES_BRIEF_DESC]                        = "";
-  strings_[ENGLISH_COL][CALC_BOX_PLOT_VALUES_DESC]                              = "This calculation receives an array and returns boxplot values.";
+  strings_[ENGLISH_COL][CALC_BOX_PLOT_VALUES_DESC]                              = "This calculation receives an array and it returns boxplot values.";
   
   strings_[ENGLISH_COL][CALC_VCF2GFASTA]                                        = "calc_gVCF_to_tFasta";
   strings_[ENGLISH_COL][CALC_VCF2GFASTA_BRIEF_DESC]                             = "";
-  strings_[ENGLISH_COL][CALC_VCF2GFASTA_DESC]                                   = "This is the calculation description.";
+  strings_[ENGLISH_COL][CALC_VCF2GFASTA_DESC]                                   = "This calculation changes the file format from a gVCF file To a T-Fasta file.";
 
   strings_[ENGLISH_COL][CALC_NPSTAT]                                            = "calc_npstat";
   strings_[ENGLISH_COL][CALC_NPSTAT_BRIEF_DESC]                                 = "";
-  strings_[ENGLISH_COL][CALC_NPSTAT_DESC]                                       = "This is the calculation description.";
+  strings_[ENGLISH_COL][CALC_NPSTAT_DESC]                                       = "This calculation is a wrapper that calls the npstat external tool.";
 
   strings_[ENGLISH_COL][CALC_CUT_BED]                                           = "calc_filter_BED";
   strings_[ENGLISH_COL][CALC_CUT_BED_BRIEF_DESC]                                = "";
-  strings_[ENGLISH_COL][CALC_CUT_BED_DESC]                                      = "Cut BED file.";
+  strings_[ENGLISH_COL][CALC_CUT_BED_DESC]                                      = "This calculation cuts a BED file.";
 
   strings_[ENGLISH_COL][CALC_CUT_GTF]                                           = "calc_filter_GTF";
   strings_[ENGLISH_COL][CALC_CUT_GTF_BRIEF_DESC]                                = "";
-  strings_[ENGLISH_COL][CALC_CUT_GTF_DESC]                                      = "Cut GTF file.";
+  strings_[ENGLISH_COL][CALC_CUT_GTF_DESC]                                      = "This calculation cuts a GTF file.";
 
   strings_[ENGLISH_COL][CALC_GET_CHROM]                                         = "calc_get_chrom";
   strings_[ENGLISH_COL][CALC_GET_CHROM_BRIEF_DESC]                              = "";
@@ -1667,19 +1667,19 @@ CStringTable::CStringTable() : IStringTable() {
   
   strings_[ENGLISH_COL][CALC_EXAMPLE]                                           = "calc_example";
   strings_[ENGLISH_COL][CALC_EXAMPLE_BRIEF_DESC]                                = "";
-  strings_[ENGLISH_COL][CALC_EXAMPLE_DESC]                                      = "This is an example calculation.";
+  strings_[ENGLISH_COL][CALC_EXAMPLE_DESC]                                      = "This is a calculation for debugging purposes.";
   
-    strings_[ENGLISH_COL][CALC_LIST_FILES] = "calc_list_files";
-    strings_[ENGLISH_COL][CALC_LIST_FILES_BRIEF_DESC] = "";
-    strings_[ENGLISH_COL][CALC_LIST_FILES_DESC] = "This calculation gets a list of files.";
+  strings_[ENGLISH_COL][CALC_LIST_FILES]                                        = "calc_list_files";
+  strings_[ENGLISH_COL][CALC_LIST_FILES_BRIEF_DESC]                             = "";
+  strings_[ENGLISH_COL][CALC_LIST_FILES_DESC]                                   = "This calculation gets a folder name and it returns a list of files.";
     
-  strings_[ENGLISH_COL][CALC_MATRIX2VECTOR] = "calc_matrix_to_vector";
-  strings_[ENGLISH_COL][CALC_MATRIX2VECTOR_BRIEF_DESC] = "";
-  strings_[ENGLISH_COL][CALC_MATRIX2VECTOR_DESC] = "";
+  strings_[ENGLISH_COL][CALC_MATRIX2VECTOR]                                     = "calc_matrix_to_vector";
+  strings_[ENGLISH_COL][CALC_MATRIX2VECTOR_BRIEF_DESC]                          = "";
+  strings_[ENGLISH_COL][CALC_MATRIX2VECTOR_DESC]                                = "This calculation gets a matrix (sometimes an output matrix from a pipeline) and it returns the desired row or column as a Vector type.";
 
-  strings_[ENGLISH_COL][CALC_SPLIT_BAM] = "calc_split_BAM";
-  strings_[ENGLISH_COL][CALC_SPLIT_BAM_BRIEF_DESC] = "";
-  strings_[ENGLISH_COL][CALC_SPLIT_BAM_DESC] = "";
+  strings_[ENGLISH_COL][CALC_SPLIT_BAM]                                         = "calc_split_BAM";
+  strings_[ENGLISH_COL][CALC_SPLIT_BAM_BRIEF_DESC]                              = "";
+  strings_[ENGLISH_COL][CALC_SPLIT_BAM_DESC]                                    = "This calculation gets one BAM file and it splites this file into n BAM files. One BAM file per chromosome.";
     
   strings_[ENGLISH_COL][_CALC_LAST]                                             = "";  // *************************************
   //@}

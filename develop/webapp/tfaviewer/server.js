@@ -299,6 +299,10 @@ app.post("/gff", function (req, res) {
                 }
             }
         }
+        //in case "_criteria_" is not defined in any CDS, we should: 
+        //   (i) keep all CDS and take care of overlapping transcripts (max_criteria_) OR
+        //  (ii) keep the first transcript of each "gene_id" (first_criteria_)... OR
+        // (iii) show a warning that "no criteria for counting CDS in case of alternative splicing"
     } catch (ex) {
         ret.error = ex;
     }

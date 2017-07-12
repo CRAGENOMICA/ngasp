@@ -1210,7 +1210,7 @@ CRAG.factory('viewer', function ($rootScope, drawing, vcte, sequences, ngProgres
 
         var file_names = "T-Fasta: " + this.GetNameRemovePath(viewer.files[vcte.FileType.TFA].file_name);
         if (this.GetNameRemovePath(viewer.files[vcte.FileType.GFF].file_name) != "") {
-            file_names += " | GFF: " + this.GetNameRemovePath(viewer.files[vcte.FileType.GFF].file_name);
+            file_names += " | GFF (with marked criteria for CDS): " + this.GetNameRemovePath(viewer.files[vcte.FileType.GFF].file_name);
         }
         if (this.GetNameRemovePath(viewer.files[vcte.FileType.WEIGHTS].file_name) != "") {
             file_names += " | Weights: " + this.GetNameRemovePath(viewer.files[vcte.FileType.WEIGHTS].file_name);

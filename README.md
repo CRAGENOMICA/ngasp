@@ -1,3 +1,28 @@
+[![License (LGPL 2.1)](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
+
+***Please see the [ngaSP website](https://bioinformatics.cragenomica.es/projects/ngaSP), where you would soon (can) download a precompiled executable, read documentation, ask questions, and receive technical support.***
+
+### ngaSP 0.5 (Fifty)
+
+This repository contains the next generation of the Genome Analysis Toolkit (ngaSP). The contents
+of this repository are 100% open source and released under the LGPL 2.1 license (see [LICENSE.TXT](https://github.com/cragenomica/ngaSP/blob/master/LICENSE.TXT)).
+
+ngaSP aims to bring together well-established tools from the [ngaSP](http://www.cragenomica.org/WIP) and
+[WIP](http://cragenomica.github.io/WIP/) codebases under a streamlined framework,
+and to enable selected tools to be run in a massively parallel way on local clusters or in the cloud using
+[Apache Spark](http://spark.apache.org/). It also contains many newly developed tools not present in earlier
+releases of the toolkit.
+
+## Table of Contents
+* [Requirements](#requirements)
+* [Quick Start Guide](#quickstart)
+* [Downloading ngaSP](#downloading)
+* [Building ngaSP](#building)
+* [Running ngaSP](#running)
+    * [Passing JVM options to gatk](#jvmoptions)
+
+## <a name="requirements">Requirements</a>
+
 ReadMe file — Instructions
 ==========================
 
@@ -6,6 +31,8 @@ This file provides a brief description of the project's folders structure.
 If this is the first time you open this project, you can start by reading 
 the manual (./doc/TeX/ngasp.pdf).
 
+
+## <a name="downloading">downloading</a>
 
 Project folders are organized in this way:
     * develop/

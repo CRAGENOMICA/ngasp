@@ -112,3 +112,4 @@ develop/examples/
 develop/webapp/bin/core.*
 develop/webapp/bin/vgcore.*
 
+/src/webapp/nbproject/private/

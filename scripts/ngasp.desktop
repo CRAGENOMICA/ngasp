@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=ngasp
-Exec=/bin/bash -c 'cd "$(dirname %k)" && /data/github/ngasp-workshop01/runme.sh'
-Icon=/data/github/ngasp-workshop01/media/ngasp_01.png
+Exec=/bin/bash -c 'cd "$(dirname %k)" && /home/hgracia/Escritorio/CRAG/ngasp/scripts/start.sh'
+Icon=/home/hgracia/Escritorio/CRAG/ngasp/scripts/media/ngasp_01.png
 Name[es_ES]=ngasp

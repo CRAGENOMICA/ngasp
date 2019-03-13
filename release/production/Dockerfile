@@ -42,13 +42,20 @@ RUN git clone https://github.com/CRAGENOMICA/ngasp.git
 WORKDIR /usr/ngasp
 RUN git checkout develop
 
+# para que continue funcionando todo hace falta que exista la carpeta develop y
+# contenga todo lo que hay en src
+RUN mkdir /develop
+RUN cp -R /usr/ngasp/src/* /develop
+
 
 # ==============================================================================
 # START
 # ==============================================================================
 
-WORKDIR /usr/ngasp/src/webapp
-ENTRYPOINT ["/usr/ngasp/src/webapp/start_ngasp.sh"]
+#WORKDIR /usr/ngasp/src/webapp
+#ENTRYPOINT ["/usr/ngasp/src/webapp/start_ngasp.sh"]
+WORKDIR /develop
+ENTRYPOINT ["/develop/webapp/start_ngasp.sh"]
 #CMD [""]
 
 

@@ -242,8 +242,7 @@ RUN mkdir -p /opt/lib/yaml && \
 # NGASP GIT CODE DOWNLOAD
 # ==============================================================================
 
-#TODO: no descargar el master
-#TODO: esto tal vez debería estar en el step2
+#TODO: no descargar el master?
 #TODO: el cheout sera del latest supongo
 
 #RUN mkdir /usr
@@ -257,24 +256,18 @@ RUN git checkout ngaSP-0.6
 #WORKDIR /usr/ngasp
 #RUN git checkout develop
 
+
 # para que continue funcionando todo hace falta que exista la carpeta develop y
 # contenga todo lo que hay en src
 RUN mkdir /develop
-RUN cp -R /usr/ngasp/src/* /develop
-
-#falta ejecutar el gradle?
-
+RUN cp -R /usr/ngasp/src/. /develop
 
 #Añado compilacion de las librerias
 RUN /bin/bash /develop/compile_all.sh
-
 
 # ==============================================================================
 # START
 # ==============================================================================
 
-#WORKDIR /usr/ngasp/src/webapp
-#ENTRYPOINT ["/usr/ngasp/src/webapp/start_ngasp.sh"]
 WORKDIR /develop
 ENTRYPOINT ["/develop/webapp/start_ngasp.sh"]
-#CMD [""]

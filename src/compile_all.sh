@@ -90,15 +90,16 @@ gcc ./sources/*.c -lgsl -lgslcblas -lm -Wall -DinGSL=1 -O3 -lz -o /develop/webap
 #make
 #sudo make install
 
+#ya esta en el dockerfile
 #gsl installation (dependency)
-mkdir -p /tmp/gsl
-    curl -o /tmp/gsl-2.2.tar.gz ftp://ftp.gnu.org/gnu/gsl/gsl-2.2.tar.gz -LOk
-    tar -zxvf /tmp/gsl-2.2.tar.gz -C /tmp/gsl && \
-    rm /tmp/gsl-2.2.tar.gz && \
-    cd /tmp/gsl/gsl-2.2 && \
-    ./configure && \
-    make && \
-    make install
+# mkdir -p /tmp/gsl
+#     curl -o /tmp/gsl-2.2.tar.gz ftp://ftp.gnu.org/gnu/gsl/gsl-2.2.tar.gz -LOk
+#     tar -zxvf /tmp/gsl-2.2.tar.gz -C /tmp/gsl && \
+#     rm /tmp/gsl-2.2.tar.gz && \
+#     cd /tmp/gsl/gsl-2.2 && \
+#     ./configure && \
+#     make && \
+#     make install
 
 
 

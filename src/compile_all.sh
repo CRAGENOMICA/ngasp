@@ -98,7 +98,7 @@ mkdir -p /tmp/gsl
     cd /tmp/gsl/gsl-2.2 && \
     ./configure && \
     make && \
-    sudo make install
+    make install
 
 
 

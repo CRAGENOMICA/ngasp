@@ -208,10 +208,10 @@ RUN yum erase -y kernel-headers \
     git \
     ncurses-devel
 RUN yum -y update; yum clean all
-RUM rm -rf /tmp/gsl
-RUM rm -rf /tmp/zlib
-RUM rm -rf /tmp/htslib
-RUM rm -rf /tmp/openmpi
+RUN rm -rf /tmp/gsl
+RUN rm -rf /tmp/zlib
+RUN rm -rf /tmp/htslib
+RUN rm -rf /tmp/openmpi
 
 # ==============================================================================
 # START

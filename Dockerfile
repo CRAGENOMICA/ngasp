@@ -17,14 +17,14 @@ LABEL maintainer="Héctor Gracia <hector.gracia@cragenomica.es>"
 
 RUN yum update -y && \
     mkdir -p /app && \
-    mkdir -p /opt/lib
+    mkdir -p /opt/lib && yum -y clean all
 
 # ****************
 # *** Packages ***
 # ****************
 
 RUN yum install -y kernel-headers kernel-devel && \
-    yum install -y gcc-c++ libstdc++-devel
+    yum install -y gcc-c++ libstdc++-devel && yum -y clean all
 RUN yum install -y make \
     bzip2 \
     boost \
@@ -37,9 +37,9 @@ RUN yum install -y make \
     zip \
     unzip \
     ncurses-devel \
-    openmpi-devel
+    openmpi-devel && yum -y clean all
     
-RUN yum groupinstall -y "Development Tools"
+RUN yum groupinstall -y "Development Tools" && yum -y clean all
 
 # ==============================================================================
 # RUNTIME LIBRARIES
@@ -56,7 +56,7 @@ RUN mkdir -p /tmp/gsl && \
     cd /tmp/gsl/gsl-2.2 && \
     ./configure && \
     make && \
-    make install
+    make install && rm -rf /tmp/gs
 
 # ************
 # *** zlib ***
@@ -69,7 +69,7 @@ RUN mkdir -p /tmp/zlib && \
     cd /tmp/zlib/zlib-1.2.10 && \
     ./configure && \
     make && \
-    make install
+    make install && rm -rf /tmp/zlib
 
 # **************
 # *** Htslib ***
@@ -82,7 +82,7 @@ RUN mkdir -p /tmp/htslib && \
     cd /tmp/htslib/htslib-1.3.1 && \
     ./configure && \
     make && \
-    make install
+    make install && rm -rf /tmp/htslib
 
 # ***************
 # *** openmpi ***
@@ -95,7 +95,7 @@ RUN mkdir /tmp/openmpi && \
     cd openmpi-1.10.1/ && \
     ./configure --prefix=/opt/lib/openmpi && \
     make all && \
-    make install
+    make install && rm -rf /tmp/openmpi
 ENV OPEN_MPI_HOME /opt/lib/openmpi
 ENV LD_LIBRARY_PATH "/opt/lib/openmpi/lib:${LD_LIBRARY_PATH}"
 ENV PATH "/opt/lib/openmpi/bin:${PATH}"
@@ -111,7 +111,7 @@ ENV PATH "/opt/lib/openmpi/bin:${PATH}"
 RUN curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \
     rpm -Uvh epel.rpm
 
-RUN yum install -y nodejs
+#RUN yum install -y nodejs
 
 # ***************
 # *** chrome  ***
@@ -133,7 +133,7 @@ RUN yum install -y nodejs
 # *** Java JDK ***
 # ****************
 
-RUN yum install -y http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm
+RUN yum install -y http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm && yum -y clean all
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre
 
 # **************
@@ -167,22 +167,24 @@ RUN mkdir -p /opt/lib/yaml && \
 # GUI APPS REQUIREMENTS
 # ==============================================================================
 
-VOLUME ["/tmp/.X11-unix", "/tmp/.X11-unix"]
-ENV DISPLAY :0.0
-RUN export DISPLAY=:0.0
+#VOLUME ["/tmp/.X11-unix", "/tmp/.X11-unix"]
+#ENV DISPLAY :0.0
+#RUN export DISPLAY=:0.0
 
 # ==============================================================================
 # NGASP
 # ==============================================================================
+# TOCHECK: la parte de descargar el git no debería hacer falta
 
 #TODO: no descargar el master?
 #TODO: el cheout sera del latest supongo
 
-WORKDIR /app
+
+#WORKDIR /app
 #Uso este para tests
-RUN git clone https://github.com/Hgracia/ngasp.git
-WORKDIR /app/ngasp
-RUN git checkout ngaSP-0.6
+#RUN git clone https://github.com/Hgracia/ngasp.git &&
+#WORKDIR /app/ngasp
+#RUN git checkout ngaSP-0.6
 
 #RUN git clone https://github.com/CRAGENOMICA/ngasp.git
 #WORKDIR /usr/ngasp
@@ -191,31 +193,32 @@ RUN git checkout ngaSP-0.6
 
 # para que continue funcionando todo hace falta que exista la carpeta develop y
 # contenga todo lo que hay en src
-RUN mkdir /develop
-RUN cp -R /app/ngasp/src/. /develop
+RUN mkdir /develop 
+COPY ./src /develop
 
 #Añado compilacion de las librerias
-RUN /bin/bash /develop/compile_all.sh
-
-# ==============================================================================
-# CLEAN
-# ==============================================================================
-
-RUN yum erase -y kernel-headers \
-    kernel-devel \
-    libstdc++-devel \
-    openmpi-devel \
-    git \
-    ncurses-devel
-RUN yum -y update; yum clean all
-RUN rm -rf /tmp/gsl
-RUN rm -rf /tmp/zlib
-RUN rm -rf /tmp/htslib
-RUN rm -rf /tmp/openmpi
+RUN /bin/bash /develop/compile_all.sh &&\
+    rm -rf /tmp/gsl &&\
+    rm -rf /tmp/zlib &&\
+    rm -rf /tmp/htslib &&\
+    rm -rf /tmp/openmpi &&\
+    rm -rf /tmp/fastaconvtr &&\
+    rm -rf /tmp/ghcaller &&\
+    rm -rf /tmp/mstatspop &&\
+    rm -rf /tmp/npstat &&\
+    rm -rf /develop/.gradle &&\
+    rm -rf /develop/source &&\
+    rm -rf /develop/webapp/tfaviewer &&\
+    rm -rf /develop/webapp/models &&\
+    rm -rf /develop/webapp/node_modules &&\
+    rm -rf /develop/webapp/public &&\
+    rm -rf /develop/tests &&\
+    rm -rf /develop/data && yum -y clean all
 
 # ==============================================================================
 # START
 # ==============================================================================
 
 WORKDIR /develop
-ENTRYPOINT ["/develop/webapp/start_ngasp.sh"]
+#ENTRYPOINT ["/develop/webapp/start_ngasp.sh"]
+ENTRYPOINT ["/bin/bash"]

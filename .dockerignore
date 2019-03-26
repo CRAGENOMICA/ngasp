@@ -5,3 +5,9 @@
 Dockerfile
 LICENSE.txt
 README.md
+/gradle/*
+/release/*
+/scripts/docker/*
+/scripts/nsgasp.xcodeproj/*
+/src/data/*
+/src/tests/*

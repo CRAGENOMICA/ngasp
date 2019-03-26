@@ -1,2 +1,0 @@
-infile:	./100Kallchr.tfa.gz	scaffold_name:	chr10	start_window:	1	end_window:	1000	missing:	0	iteration:	0	npermutations:	0	seed:	123456	
-infile:	./100Kallchr.tfa.gz	scaffold_name:	chr10	start_window:	1	end_window:	1000	missing:	0	iteration:	0	npermutations:	0	seed:	123456	

@@ -79,8 +79,6 @@ RUN /bin/bash /develop/compile_all.sh &&\
     rm -rf /tmp/npstat &&\
     rm -rf /develop/.gradle &&\
     rm -rf /develop/source &&\
-    rm -rf /develop/webapp/tfaviewer &&\
-    rm -rf /develop/webapp/models &&\
     rm -rf /develop/webapp/node_modules &&\
     rm -rf /develop/webapp/public &&\
     rm -rf /develop/tests &&\

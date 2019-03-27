@@ -15,36 +15,6 @@ FROM centos:7
 
 LABEL maintainer="Héctor Gracia <hector.gracia@cragenomica.es>"
 
-RUN mkdir -p /opt/lib
-#RUN yum update -y && yum -y clean all
-
-# ****************
-# *** Packages ***
-# ****************
-
-RUN yum update -y && yum install -y kernel-headers kernel-devel && \
-    yum install -y gcc-c++ libstdc++-devel && yum -y clean all
-RUN yum install -y make \
-    bzip2 \
-    boost \
-    boost-devel \ 
-    boost-system \
-    boost-filesystem \
-    boost-thread \
-    wget \
-    git \
-    zip \
-    unzip \
-    ncurses-devel \
-    openmpi-devel && yum -y clean all
-    
-# ****************
-# *** Java JDK ***
-# ****************
-
-RUN curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \
-    rpm -Uvh epel.rpm && yum install -y http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm && yum install -y nodejs && yum clean all
-
 # ==============================================================================
 # ENV REQUIREMENTS
 # ==============================================================================

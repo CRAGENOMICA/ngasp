@@ -47,10 +47,10 @@ RUN /bin/bash /develop/compile_all.sh &&\
     rm -rf /tmp/ghcaller &&\
     rm -rf /tmp/mstatspop &&\
     rm -rf /tmp/npstat &&\
+    rm -rf /app &&\
+    rm -rf /var/tmp &&\
     rm -rf /develop/.gradle &&\
     rm -rf /develop/source &&\
-    rm -rf /develop/webapp/node_modules &&\
-    rm -rf /develop/webapp/public &&\
     rm -rf /develop/tests &&\
     rm -rf /develop/data && yum -y clean all
 

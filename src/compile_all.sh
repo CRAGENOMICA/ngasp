@@ -12,6 +12,7 @@
 # ****************
 
 mkdir -p /opt/lib
+mkdir -p /app
 
 #TOCHECK quito el update por ahora
 #yum update -y &&
@@ -28,8 +29,8 @@ yum install -y make \
     git \
     zip \
     unzip \
-    ncurses-devel \
-    openmpi-devel && yum -y clean all
+    psmisc \
+    ncurses-devel && yum -y clean all
 
 # ****************
 # *** Java JDK ***

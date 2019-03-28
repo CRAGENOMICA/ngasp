@@ -212,6 +212,17 @@ gcc ./sources/*.c -lgsl -lgslcblas -lm -Wall -DinGSL=1 -O3 -lz -o /develop/webap
 #     make install
 
 
+# ***************
+# *** chrome  ***
+# ***************
+
+yum -y install mesa-dri-drivers libexif libcanberra-gtk2 libcanberra; yum clean all
+wget -O /root/google-chrome-stable_current_x86_64.rpm "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm" 
+yum -y install /root/google-chrome-stable_current_x86_64.rpm; yum clean all
+dbus-uuidgen > /etc/machine-id
+yum install -y chromium
+yum -y install  liberation-mono-fonts  liberation-narrow-fonts liberation-sans-fonts  liberation-serif-fonts
+yum clean all && rm -rf /root/google-chrome-stable_current_x86_64.rpm
 
 
 # **************************************

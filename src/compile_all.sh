@@ -56,7 +56,7 @@ mkdir -p /tmp/gsl && \
     cd /tmp/gsl/gsl-2.2 && \
     ./configure && \
     make && \
-    make install && rm -rf /tmp/gs
+    make install && rm -rf /tmp/gsl
 
 # ************
 # *** zlib ***
@@ -250,3 +250,37 @@ chmod 777 /develop/webapp/bin/*
 chmod -R g=u /develop
 chmod -R o=u /develop                                                           
 
+# ***************
+# *** Clean ***
+# ***************
+
+yum erase kernel-headers \
+    kernel-devel \
+    gcc-c++ \
+    libstdc++-devel \
+    make \
+    bzip2 \
+    boost-devel \
+    wget \
+    git \
+    zip \
+    unzip \
+    ncurses-devel && yum -y clean all
+
+yum group remove "Development Tools"
+
+rm -rf /tmp/gsl &&\
+rm -rf /tmp/zlib &&\
+rm -rf /tmp/htslib &&\
+rm -rf /tmp/openmpi &&\
+rm -rf /tmp/fastaconvtr &&\
+rm -rf /tmp/ghcaller &&\
+rm -rf /tmp/mstatspop &&\
+rm -rf /tmp/npstat &&\
+rm -rf /app &&\
+rm -rf /var/tmp &&\
+rm -rf /usr/include &&\
+rm -rf /develop/.gradle &&\
+rm -rf /develop/source &&\
+rm -rf /develop/tests &&\
+rm -rf /develop/data && yum -y clean all

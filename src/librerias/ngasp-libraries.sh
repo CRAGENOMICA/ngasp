@@ -26,7 +26,7 @@ mv libmpi_cxx.so.1 /opt/lib/openmpi/lib/libmpi_cxx.so.1
 mv libopen-rte.so.12 /opt/lib/openmpi/lib/libopen-rte.so.12
 mv libopen-pal.so.13 /opt/lib/openmpi/lib/libopen-pal.so.13
 mv libutil.so.1 /lib64/libutil.so.1
-
+ldconfig -n -v /lib64
 curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \
     rpm -Uvh epel.rpm 
 #yum install -y http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm && yum clean all

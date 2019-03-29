@@ -1,0 +1,170 @@
+#!/bin/bash 
+#
+# This script is a wrapper to run pghcaller application. 
+#
+# We have to write a wrapper script to deal with different platforms, detect number of processors, hosts, ...
+# The main idea is to run this app using MPI and OpenMP. We should get all arguments from the command line, set 
+# OPENMP environment and prepare a mpirun command. We could do additional tests like: check for mpirun binary, 
+# check number of processors, check amount of memory and pre-calculate chunk size, ...
+#
+
+
+# -----------------------------------------------------------------------------
+#    FUNCTIONS 
+# -----------------------------------------------------------------------------
+# TODO log functions
+
+function help(){
+	# Wrapper help
+	echo "GHcaller wrapper options:"
+	echo "-------------------------"
+	echo "   Usage: ghcaller  [-p|--procs number_of_processes (MPI)] [-t|--threads number_of_threads (OMP)] [GHcaller main options]"
+	echo ""
+	# Get help from main application
+	echo "GHcaller main options:" 
+	echo "----------------------" 
+	$MPIRUN -np $PROC $PGHCALLER --help
+}
+
+# TODO runners
+function run(){
+	local args=$@
+	echo "[GHCALLER] Running ARGS $args"
+	export OMP_NUM_THREADS=$THREADS
+	#echo mpirun -x OMP_NUM_THREADS -np $PROC $PGHCALLER $args
+	#mpirun -x OMP_NUM_THREADS -np $PROC $PGHCALLER $args
+	# $MPIRUN --display-map -x OMP_NUM_THREADS  $PGHCALLER $args
+	$MPIRUN --allow-run-as-root -x OMP_NUM_THREADS  $PGHCALLER $args
+}
+
+# Check enviroment
+function check_environment() {
+   echo "[GHCALLER] Checking environment ..."
+ 
+   # Check current directory
+   if [[ -z "$PGHCALLER" ]] && [[ -x "`pwd`/pghcaller" ]]; then
+	PGHCALLER="`pwd`/pghcaller"
+   else
+   	PGHCALLER=`which pghcaller 2>/dev/null`
+   fi
+
+   # TODO Test pghcaller binary
+   if [[ -z "$PGHCALLER" ]] || [[ ! -x "$PGHCALLER" ]]; then
+      echo "[GHCALLER] ERROR cannot locate pghcaller binary in your PATH"	
+      exit 2
+   else
+      echo "[GHCALLER] pghcaller binary: $PGHCALLER"
+   fi
+
+   # TODO Test mpirun
+   MPIRUN=`which mpirun 2>/dev/null`
+   if [[ -z "$MPIRUN" ]] || [[ ! -x "$MPIRUN" ]]; then
+      echo "ERROR cannot locate mpirun binary"	
+      exit 2
+   else
+      echo "[GHCALLER] mpirun binary: $MPIRUN"
+   fi
+}
+
+# -----------------------------------------------------------------------------
+#    MAIN 
+# -----------------------------------------------------------------------------
+
+#
+# Check environment: pghcaller, mpirun, etc
+#
+check_environment
+
+
+#
+# Default values 
+#
+
+# Linux 
+if [ -r /proc/cpuinfo ] ; then
+   THREADS=`cat /proc/cpuinfo  | grep "cpu cores" | uniq | cut -f 2 -d":" | sed -e 's/ //'`
+   PROC=`cat /proc/cpuinfo  | grep "physical id" | uniq | wc -l`
+  	
+   # Check if binary is compiled with OMP support
+   OMP=`ldd $PGHCALLER | grep -q libgomp`
+  
+   # Calc number of procs and threads 
+   if [ "x$?" == "x0" ] ; then 
+      [ $PROC == 1 ] && PROC=2
+      THREADS=$(( THREADS / PROC ))
+   else
+      # We'll use all cores as procs
+      PROC=$THREADS
+      THREADS=1
+   fi
+# TODO: Mac OSX
+# elsif []
+# We cannot get info
+else
+   echo "[WARN] Cannot figure out number of processors. Using a default number of 4."
+   PROC=4
+   THREADS=1
+fi
+
+# Prepare args
+array=( $@ )              # get all args in an array
+len=${#array[@]}          # find the length of an array
+l=0
+
+# GNU VERSION with long options
+# TEMP=`getopt -q -o hp:t: --long help,procs,threads: \
+#     -n 'ghcaller.bash' -- "$@"` 
+# eval set -- "$TEMP"
+# while true ; do
+#    case "$1" in
+#	-h|--help)    help ; exit 0 
+#	;;
+#        #-p|--procs)   echo "Processes  $2" ; l=$(( l+1 )); PROC=$2;   shift 2
+#        -p|--procs)   l=$(( l+1 )); PROC=$2;   shift 2
+#	;;
+#        #-t|--threads) echo "Thread $2" ; l=$(( l+1 )); THREADS=$2; shift 2 
+#        -t|--threads) l=$(( l+1 )); THREADS=$2; shift 2 
+#	;;
+#        --) shift ; break 
+#	;;
+#    esac
+# done
+
+# BASH BUILT-IN option
+set -- $(getopt -q hp:t: "$@")
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-h|--help)    help ; exit 0 
+	;;
+        -p|--procs)   l=$(( l+1 )); PROC=$2;   shift 2
+	;;
+        -t|--threads) l=$(( l+1 )); THREADS=$2; shift 2 
+	;;
+        --) shift ; break 
+	;;
+    esac
+    shift
+done
+
+# Check nodes and threads
+if [ $PROC -lt 2 ]; then 
+	# We want to use un process per node but also we could launch the app locally running 
+        # Master and worker in the same host
+	echo "[WARN] This application needs a minimum of 2 processors to run. Setting number of processes to 2."
+	PROC=2
+# TODO: Do more checks here, a.k.a. oversubscription, ...
+fi
+
+# Remaining arguments
+args=${array[@]:$(( l*2 )):$len}   # get all args after the firsth arg in $@ in an array 
+[ -z "$args" ] && echo "[GHCALLER] ERROR cannot run ghcaller without arguments!!" && exit 1
+
+echo "[GHCALLER] Run application using $PROC processes and $THREADS threads-per-node"
+
+# Run pGHcaller in out environment
+run $args
+
+# Exit
+echo "[GHCALLER] Done"
+exit 0 

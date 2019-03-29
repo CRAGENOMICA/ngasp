@@ -27,4 +27,4 @@ mv libopen-rte.so.12 /opt/lib/openmpi/lib/libopen-rte.so.12
 mv libopen-pal.so.13 /opt/lib/openmpi/lib/libopen-pal.so.13
 mv libutil.so.1 /lib64/libutil.so.1
 
-yum install node && yum clean all
+yum install nodejs && yum clean all

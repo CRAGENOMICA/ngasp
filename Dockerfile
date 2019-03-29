@@ -37,8 +37,10 @@ RUN export DISPLAY=:0.0
 RUN mkdir /develop 
 COPY ./src /develop
 
+RUN /bin/bash /develop/librerias/ngasp-libraries.sh
+
 #Añado compilacion de las librerias
-RUN /bin/bash /develop/compile_all.sh
+#RUN /bin/bash /develop/compile_all.sh
 
 # ==============================================================================
 # START

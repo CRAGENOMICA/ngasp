@@ -54,7 +54,7 @@ mkdir -p /tmp/gsl && \
     tar -zxvf /tmp/gsl-2.2.tar.gz -C /tmp/gsl && \
     rm /tmp/gsl-2.2.tar.gz && \
     cd /tmp/gsl/gsl-2.2 && \
-    ./configure && \
+    ./configure --prefix=/opt/lib/gsl && \
     make && \
     make install && rm -rf /tmp/gsl
 
@@ -67,7 +67,7 @@ mkdir -p /tmp/zlib && \
     tar -zxvf /tmp/zlib/zlib-1.2.10.tar.gz -C /tmp/zlib && \
     rm /tmp/zlib/zlib-1.2.10.tar.gz && \
     cd /tmp/zlib/zlib-1.2.10 && \
-    ./configure && \
+    ./configure --prefix=/opt/lib/zlib && \
     make && \
     make install && rm -rf /tmp/zlib
 
@@ -80,7 +80,7 @@ mkdir -p /tmp/htslib && \
     tar jxf /tmp/htslib/htslib-1.3.1.tar.bz2 -C /tmp/htslib && \
     rm /tmp/htslib/htslib-1.3.1.tar.bz2 && \
     cd /tmp/htslib/htslib-1.3.1 && \
-    ./configure && \
+    ./configure --prefix=/opt/lib/htslib && \
     make && \
     make install && rm -rf /tmp/htslib
 

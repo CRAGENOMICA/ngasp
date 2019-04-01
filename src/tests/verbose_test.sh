@@ -4,7 +4,8 @@
 # ngaSP Configuration
 ############################################################
 
-NGASP_EXEC='../backend/Debug/ngaSP_backend'
+NGASP_EXEC='/develop/webapp/bin/ngasp'
+#NGASP_EXEC='../backend/Debug/ngaSP_backend'
 NGASP_PARAMS='verbose -l debug'
 
 ############################################################

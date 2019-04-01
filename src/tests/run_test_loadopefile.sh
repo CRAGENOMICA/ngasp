@@ -5,8 +5,8 @@
 ############################################################
 
 OPERATIONS_FILE='loadopefile -f cmd -i ./operations_file.txt'
-NGASP_EXEC='../backend/Debug/ngaSP_backend'
-
+NGASP_EXEC='/develop/webapp/bin/ngasp'
+#NGASP_EXEC='../backend/Debug/ngaSP_backend'
 
 ############################################################
 # Valgrind Configuration

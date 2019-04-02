@@ -13,30 +13,13 @@ mv libmpi.so.12 /opt/lib/openmpi/lib/libmpi.so.12
 mv libmpi_cxx.so.1 /opt/lib/openmpi/lib/libmpi_cxx.so.1
 mv libopen-rte.so.12 /opt/lib/openmpi/lib/libopen-rte.so.12
 mv libopen-pal.so.13 /opt/lib/openmpi/lib/libopen-pal.so.13
-#por ahora, debería cambiarse al cambiar el prefixx del gsl
-mv libgsl.so.19 /usr/local/lib
-mv libgslcblas.so.0 /usr/local/lib
-#mv libgsl.so.19 /opt/lib/gsl/lib
-#mv libgslcblas.so.0 /opt/lib/gsl/lib
+mv libgsl.so.19 /opt/lib/gsl/lib/libgsl.so.19
+mv libgslcblas.so.0 /opt/lib/gsl/lib/libgslcblas.so.0
 ldconfig -n -v /lib64 
 ldconfig -n -v /opt/lib/openmpi/lib/
-ldconfig -n -v /usr/local/lib
 ldconfig -n -v /opt/lib/gsl/lib
-#Allready exist
-#ln -s libncurses.so.5 /lib64/libncurses.so.5
-#ln -s libtinfo.so.5 /lib64/libtinfo.so.5
-#ln -s libz.so.1 /lib64/libz.so.1
-#ln -s libstdc++.so.6 /lib64/libstdc++.so.6
-#ln -s libm.so.6 /lib64/libm.so.6
-#ln -s libgcc_s.so.1 /lib64/libgcc_s.so.1
-#ln -s libpthread.so.0 /lib64/libpthread.so.0
-#ln -s libc.so.6 /lib64/libc.so.6
-#ln -s libbz2.so.1 /lib64/libbz2.so.1
-#ln -s librt.so.1 /lib64/librt.so.1
-#ln -s libdl.so.2 /lib64/libdl.so.2
-#ln -s ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
-#ln -s libutil.so.1 /lib64/libutil.so.1
 
+#Node instalation, needed for central-manager
 #curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \
 #    rpm -Uvh epel.rpm 
 #yum install -y http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm && yum clean all

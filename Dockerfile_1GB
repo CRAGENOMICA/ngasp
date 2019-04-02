@@ -3,7 +3,7 @@
 # ==============================================================================
 # Usage:
 #
-#   - Build : docker build -f Dockerfile _1GB -t ngasp .
+#   - Build : docker build -f 'Dockerfile_1GB' -t ngasp .
 #   - Run   : xhost +
 #             docker run --rm --net host ngasp
 

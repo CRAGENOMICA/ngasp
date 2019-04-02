@@ -176,7 +176,7 @@ cp ./scripts/ghcaller /develop/webapp/bin
 # *** Requirements: zlib & gsl ***
 # ********************************
 
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/:
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/lib/zlib/:/opt/lib/gsl/
 mkdir /tmp/mstatspop
 cd /tmp/mstatspop
 # wget https://bioinformatics.cragenomica.es/numgenomics/people/sebas/software/files/page3_4.zip

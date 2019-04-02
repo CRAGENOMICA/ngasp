@@ -143,8 +143,7 @@ main()
 		testDescription='Run for a single population'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned.fas
-		experimentParams='-n 1 48'
-		#experimentParams='-N 1 48'
+		experimentParams='-N 1 48 -n MC1R.txt'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsOutg_One_Pop_Total.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsOutg_One_Pop_Total_ngaSP.txt
 		runTest

@@ -13,8 +13,15 @@ mv libmpi.so.12 /opt/lib/openmpi/lib/libmpi.so.12
 mv libmpi_cxx.so.1 /opt/lib/openmpi/lib/libmpi_cxx.so.1
 mv libopen-rte.so.12 /opt/lib/openmpi/lib/libopen-rte.so.12
 mv libopen-pal.so.13 /opt/lib/openmpi/lib/libopen-pal.so.13
-ldconfig -n -v /lib64
+#por ahora, debería cambiarse al cambiar el prefixx del gsl
+mv libgsl.so.19 /usr/local/lib
+mv libgslcblas.so.0 /usr/local/lib
+#mv libgsl.so.19 /opt/lib/gsl/lib
+#mv libgslcblas.so.0 /opt/lib/gsl/lib
+ldconfig -n -v /lib64 
 ldconfig -n -v /opt/lib/openmpi/lib/
+ldconfig -n -v /usr/local/lib
+ldconfig -n -v /opt/lib/gsl/lib
 #Allready exist
 #ln -s libncurses.so.5 /lib64/libncurses.so.5
 #ln -s libtinfo.so.5 /lib64/libtinfo.so.5

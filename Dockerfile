@@ -11,9 +11,15 @@
 # BASE IMAGE
 # ==============================================================================
 
-FROM centos:7
+FROM node:8.15.0 AS build-env
 
 LABEL maintainer="Héctor Gracia <hector.gracia@cragenomica.es>"
+
+ADD . /app
+WORKDIR /app
+
+FROM gcr.io/distroless/nodejs
+COPY --from=build-env /app /app
 
 # ==============================================================================
 # ENV REQUIREMENTS

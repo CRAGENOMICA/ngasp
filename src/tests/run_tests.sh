@@ -157,7 +157,7 @@ main()
 		testDescription='analyze a fasta file with 2 pops (48 and 46 individuals) and NO outgroup, erasing columns with missing values, 1000 permutations to calculate P-values with Fst, seed 123456.'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned.fas
-		experimentParams='-o 0 -p 1 -u 0 -t 1000 -s 123456 -G 0 -N 2 48 46'
+		experimentParams='-o 0 -p 1 -u 0 -t 1000 -s 123456 -G 0 -N 2 48 46 -n MC1R.txt'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsNOOutg_Total.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsNOOutg_Total_ngaSP.txt	
 	        runTest
@@ -171,7 +171,7 @@ main()
 		testDescription='analyze a fasta file with 2 pops (48 and 46 individuals) plus one outgroup, erasing columns with missing values, 1000 permutations to calculate P-values with Fst, seed 123456.'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned.fas
-		experimentParams='-o 0 -p 1 -u 0 -t 1000 -s 123456 -G 1 -N 3 48 46 1'
+		experimentParams='-o 0 -p 1 -u 0 -t 1000 -s 123456 -G 1 -N 3 48 46 1 -n MC1R.txt'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsOutg_Total.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsOutg_Total_ngaSP.txt	
 		runTest
@@ -185,7 +185,7 @@ main()
 		testDescription='same analysis but considering only nonsynonymous positions in coding regions. We use the option -g and include a GTF/GFF file.'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned.fas
-		experimentParams='-o 0 -p 1 -u 0 -t 1000 -s 123456 -G 1 -N 3 48 46 1 -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
+		experimentParams='-o 0 -p 1 -u 0 -t 1000 -s 123456 -G 1 -N 3 48 46 1 -n MC1R.txt -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsOutg_NSyn.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsOutg_NSyn_ngaSP.txt	
 		runTest
@@ -199,7 +199,7 @@ main()
 		testDescription='in this analysis we consider that each sequence is coming from one diploid individual (double number of lines). IUPAC symbols are allowed (K,W,S,R,M,Y). Haplotype-relaated analysis are not performed.'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned.fas
-		experimentParams='-o 0 -p 2 -u 0 -t 1000 -s 123456 -G 1 -N 3 48 46 1 -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
+		experimentParams='-o 0 -p 2 -u 0 -t 1000 -s 123456 -G 1 -N 3 48 46 1 -n MC1R.txt -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsOutg_NSyn_diploidseqs.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsOutg_NSyn_diploidseqs_ngaSP.txt	
 		runTest
@@ -212,7 +212,7 @@ main()
 		testDescription='analysis considering columns with missing values. In that case we do not consider (or we do not have) the outgroup. Haplotype-relaated analysis are not performed.'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned_Ns.fas
-		experimentParams='-o 0 -p 1 -u 1 -t 1000 -s 123456 -G 0 -N 2 48 46 -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
+		experimentParams='-o 0 -p 1 -u 1 -t 1000 -s 123456 -G 0 -N 2 48 46 -n MC1R.txt -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsOutg_NSyn_missing_nooutg.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsOutg_NSyn_missing_nooutg_ngaSP.txt	
 		runTest
@@ -225,7 +225,7 @@ main()
 		testDescription='analysis considering columns with missing values and in diploid sequences. Haplotype-relaated analysis are not performed.'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned_Nsdiploid.fas
-		experimentParams='-o 0 -p 2 -u 1 -t 1000 -s 123456 -G 1 -N 3 48 46 1 -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
+		experimentParams='-o 0 -p 2 -u 1 -t 1000 -s 123456 -G 1 -N 3 48 46 1 -n MC1R.txt -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsOutg_NSyn_missing_diploid.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsOutg_NSyn_missing_diploid_ngaSP.txt	
 		runTest
@@ -238,7 +238,7 @@ main()
 		testDescription='Output a table with SNPs (rows) and lineages (columns) using 0 1 and 9 (missing)'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned.fas
-		experimentParams='-o 6 -p 1 -u 0 -t 1000 -s 123456 -G 0 -N 2 48 46'
+		experimentParams='-o 6 -p 1 -u 0 -t 1000 -s 123456 -G 0 -N 2 48 46 -n MC1R.txt'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsNOOutg_Total_SNPTable.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsNOOutg_Total_SNPTable_ngaSP.txt	
 		runTest
@@ -251,7 +251,7 @@ main()
 		testDescription='Run mstatspop and calculate Optimal tests: You must give a file with the expected frequency spectrum for the alternative model (always choosen previously, not a posteriori).'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned.fas
-		experimentParams='-o 0 -p 1 -u 0 -t 1000 -s 123456 -G 1 -N 3 48 46 1 -a ../examples/MC1R_H1frq.txt -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
+		experimentParams='-o 0 -p 1 -u 0 -t 1000 -s 123456 -G 1 -N 3 48 46 1 -n MC1R.txt -a ../examples/MC1R_H1frq.txt -g ../examples/MC1R.gff nonsynonymous Nuclear_Universal'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsOutg_NSyn_Opttest.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsOutg_NSyn_Opttest_ngaSP.txt	
 		runTest
@@ -264,7 +264,7 @@ main()
 		testDescription='Shows the frequency spectrum in "dadi" format'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/MC1R_PigsOutg_aligned.fas
-		experimentParams='-o 3 -N 3 48 46 1 -G 1'
+		experimentParams='-o 3 -N 3 48 46 1 -n MC1R.txt -G 1'
 		mstatspopOutputFile=./test$numTest/MC1R_PigsOutg_Two_Pop_Outg_Total_TableFreq.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsOutg_Two_Pop_Outg_Total_TableFreq_ngaSP.txt	
 		runTest

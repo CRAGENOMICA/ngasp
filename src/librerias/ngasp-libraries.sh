@@ -13,11 +13,11 @@ mv libmpi.so.12 /opt/lib/openmpi/lib/libmpi.so.12
 mv libmpi_cxx.so.1 /opt/lib/openmpi/lib/libmpi_cxx.so.1
 mv libopen-rte.so.12 /opt/lib/openmpi/lib/libopen-rte.so.12
 mv libopen-pal.so.13 /opt/lib/openmpi/lib/libopen-pal.so.13
-mv libgsl.so.19 /opt/lib/gsl/lib/libgsl.so.19
-mv libgslcblas.so.0 /opt/lib/gsl/lib/libgslcblas.so.0
-ldconfig -n -v /lib64 
+mv libgsl.so.19 /usr/local/lib/libgsl.so.19
+mv libgslcblas.so.0 /usr/local/lib/libgslcblas.so.0
+ldconfig -n -v /lib64/
 ldconfig -n -v /opt/lib/openmpi/lib/
-ldconfig -n -v /opt/lib/gsl/lib
+ldconfig -n -v /usr/local/lib/
 
 #Node instalation, needed for central-manager
 #curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \

@@ -13,6 +13,7 @@
 
 mkdir -p /opt/lib
 mkdir -p /app
+cd /develop
 
 #TOCHECK quito el update por ahora
 #yum update -y &&
@@ -43,8 +44,6 @@ curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noa
 yum install -y http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm && yum clean all
 yum install -y nodejs && yum clean all
 
-cd /develop
-
 # ***********
 # *** gsl ***
 # ***********
@@ -54,7 +53,7 @@ mkdir -p /tmp/gsl && \
     tar -zxvf /tmp/gsl-2.2.tar.gz -C /tmp/gsl && \
     rm /tmp/gsl-2.2.tar.gz && \
     cd /tmp/gsl/gsl-2.2 && \
-    ./configure --prefix=/opt/lib/gsl && \
+    ./configure && \
     make && \
     make install && rm -rf /tmp/gsl
 
@@ -67,20 +66,20 @@ mkdir -p /tmp/zlib && \
     tar -zxvf /tmp/zlib/zlib-1.2.10.tar.gz -C /tmp/zlib && \
     rm /tmp/zlib/zlib-1.2.10.tar.gz && \
     cd /tmp/zlib/zlib-1.2.10 && \
-    ./configure --prefix=/opt/lib/zlib && \
+    ./configure && \
     make && \
     make install && rm -rf /tmp/zlib
 
 # **************
 # *** Htslib ***
 # **************
-
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/:
 mkdir -p /tmp/htslib && \
     curl -o /tmp/htslib/htslib-1.3.1.tar.bz2 https://github.com/samtools/htslib/releases/download/1.3.1/htslib-1.3.1.tar.bz2 -LOk && \
     tar jxf /tmp/htslib/htslib-1.3.1.tar.bz2 -C /tmp/htslib && \
     rm /tmp/htslib/htslib-1.3.1.tar.bz2 && \
     cd /tmp/htslib/htslib-1.3.1 && \
-    ./configure --prefix=/opt/lib/htslib && \
+    ./configure && \
     make && \
     make install && rm -rf /tmp/htslib
 
@@ -176,7 +175,6 @@ cp ./scripts/ghcaller /develop/webapp/bin
 # *** Requirements: zlib & gsl ***
 # ********************************
 
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/lib/zlib/:/opt/lib/gsl/
 mkdir /tmp/mstatspop
 cd /tmp/mstatspop
 # wget https://bioinformatics.cragenomica.es/numgenomics/people/sebas/software/files/page3_4.zip
@@ -254,7 +252,8 @@ chmod -R o=u /develop
 # *** Clean ***
 # ***************
 
-yum erase kernel-headers \
+yum erase make \
+    kernel-headers \
     kernel-devel \
     gcc-c++ \
     libstdc++-devel \

@@ -55,7 +55,7 @@ mkdir -p /tmp/gsl && \
     cd /tmp/gsl/gsl-2.2 && \
     ./configure && \
     make && \
-    make install && rm -rf /tmp/gsl
+    make install
 
 # ************
 # *** zlib ***
@@ -68,7 +68,7 @@ mkdir -p /tmp/zlib && \
     cd /tmp/zlib/zlib-1.2.10 && \
     ./configure && \
     make && \
-    make install && rm -rf /tmp/zlib
+    make install
 
 # **************
 # *** Htslib ***
@@ -81,7 +81,7 @@ mkdir -p /tmp/htslib && \
     cd /tmp/htslib/htslib-1.3.1 && \
     ./configure && \
     make && \
-    make install && rm -rf /tmp/htslib
+    make install
 
 # ***************
 # *** openmpi ***
@@ -252,25 +252,25 @@ chmod -R o=u /develop
 # *** Clean ***
 # ***************
 
-yum erase make \
-    kernel-headers \
-    kernel-devel \
-    gcc-c++ \
-    libstdc++-devel \
-    make \
-    bzip2 \
-    boost-devel \
-    wget \
-    git \
-    zip \
-    unzip \
-    ncurses-devel && yum -y clean all
+# yum erase make \
+#     kernel-headers \
+#     kernel-devel \
+#     gcc-c++ \
+#     libstdc++-devel \
+#     make \
+#     bzip2 \
+#     boost-devel \
+#     wget \
+#     git \
+#     zip \
+#     unzip \
+#     ncurses-devel && yum -y clean all
 
 yum group remove "Development Tools"
 
-rm -rf /tmp/gsl &&\
-rm -rf /tmp/zlib &&\
-rm -rf /tmp/htslib &&\
+#rm -rf /tmp/gsl &&\
+#rm -rf /tmp/zlib &&\
+#rm -rf /tmp/htslib &&\
 rm -rf /tmp/openmpi &&\
 rm -rf /tmp/fastaconvtr &&\
 rm -rf /tmp/ghcaller &&\
@@ -281,5 +281,5 @@ rm -rf /var/tmp &&\
 rm -rf /usr/include &&\
 rm -rf /develop/.gradle &&\
 rm -rf /develop/source &&\
-rm -rf /develop/tests &&\
+#rm -rf /develop/tests &&\
 rm -rf /develop/data && yum -y clean all

@@ -1,5 +1,6 @@
 mkdir -p /lib64/
 mkdir -p /opt/lib/openmpi/lib/
+mkdir -p /usr/local/lib/
 cd /develop/librerias
 mv libboost_iostreams.so.1.53.0 /lib64/libboost_iostreams.so.1.53.0
 mv libboost_chrono.so.1.53.0 /lib64/libboost_chrono.so.1.53.0
@@ -18,7 +19,6 @@ mv libgslcblas.so.0 /usr/local/lib/libgslcblas.so.0
 ldconfig -n -v /lib64/
 ldconfig -n -v /opt/lib/openmpi/lib/
 ldconfig -n -v /usr/local/lib/
-
 #Node instalation, needed for central-manager
 #curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \
 #    rpm -Uvh epel.rpm 

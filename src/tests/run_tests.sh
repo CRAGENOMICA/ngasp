@@ -23,7 +23,7 @@ CLEANING_TEST='Cleaning test...'
 MSTATSPOP_EXEC='/develop/webapp/bin/mstatspop'
 NGASP_EXEC='/develop/webapp/bin/ngasp'
 #NGASP_EXEC='../backend/Debug/ngaSP_backend'
-INPUT_FILES_PATH='/develop/src/tests/examples'
+INPUT_FILES_PATH='/develop/tests/examples'
 NGASP_DOESNOT_EXIST='ngaSP executable not found. It is expected here: '
 NGASP_EMPTY_FILE='Empty output from ngaSP'
 SKIP_CLEAN_PREVIOUS_TESTS="Atention: Previous mstatspop outputs WON'T BE regenerated"
@@ -135,7 +135,25 @@ main()
 		echo -en $RED$NGASP_DOESNOT_EXIST$NGASP_EXEC$NO_COLOR
 		echo -e ''
 	else
-	    	############################################################
+
+		############################################################
+		# New Test
+		############################################################
+
+		#../bin/mstatspop -f fasta -i ./100Kchr10.fa -o 0 -N 1 42    -T ../Results/mstatspop_100chr10.fa.01.txt -K 1 -n chr10.txt
+		numTest=001
+		testDescription='Example fa.01.txt'
+		fileParams='-f fasta -i'
+		inputFile=$INPUT_FILES_PATH/100Kchr10.fa
+		experimentParams='-o 0 -N 1 42 -K 1 -n chr10.txt'
+		mstatspopOutputFile=./test$numTest/mstatspop_100chr10.fa.01.txt
+		ngaSPOutputFile=./test$numTest/mstatspop_100chr10.fa.01_ngaSP.txt
+		runTest
+	fi ;
+	#Todo: lo pongo para probar solo el primer test
+	if False ; then
+		
+	    ############################################################
 		# Test
 		############################################################
 

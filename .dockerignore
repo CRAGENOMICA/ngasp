@@ -9,4 +9,4 @@ README.md
 /scripts/docker/*
 /scripts/nsgasp.xcodeproj/*
 /src/data/*
-/src/tests/*
+#/src/tests/*

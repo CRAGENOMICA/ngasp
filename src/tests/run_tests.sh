@@ -145,13 +145,13 @@ main()
 		testDescription='Example fa.01.txt'
 		fileParams='-f fasta -i'
 		inputFile=$INPUT_FILES_PATH/100Kchr10.fa
-		experimentParams='-o 0 -N 1 42 -K 1 -n $INPUT_FILES_PATH/chr10.txt'
+		experimentParams='-o 0 -N 1 42 -K 1 -n /develop/tests/examples/chr10.txt'
 		mstatspopOutputFile=./test$numTest/mstatspop_100chr10.fa.01.txt
 		ngaSPOutputFile=./test$numTest/mstatspop_100chr10.fa.01_ngaSP.txt
 		runTest
-	#fi ;
+	fi ;
 	#Todo: lo pongo para probar solo el primer test
-	#if False ; then
+	if False ; then
 		
 	    ############################################################
 		# Test

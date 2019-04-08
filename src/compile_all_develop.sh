@@ -94,7 +94,7 @@ mkdir /tmp/openmpi && \
     cd openmpi-1.10.1/ && \
     ./configure --prefix=/opt/lib/openmpi && \
     make all && \
-    make install && rm -rf /tmp/openmpi
+    make install
 
 
 # **************
@@ -252,33 +252,33 @@ chmod -R o=u /develop
 # *** Clean ***
 # ***************
 
- yum erase make \
-     kernel-headers \
-     kernel-devel \
-     gcc-c++ \
-     libstdc++-devel \
-     bzip2 \
-     boost-devel \
-     wget \
-     git \
-     zip \
-     unzip \
-     ncurses-devel && yum -y clean all
+# yum erase make \
+#     kernel-headers \
+#     kernel-devel \
+#     gcc-c++ \
+#     libstdc++-devel \
+#     bzip2 \
+#     boost-devel \
+#     wget \
+#     git \
+#     zip \
+#     unzip \
+#     ncurses-devel && yum -y clean all
 
-yum group remove "Development Tools"
+#yum group remove "Development Tools"
 
-rm -rf /tmp/gsl &&\
-rm -rf /tmp/zlib &&\
-rm -rf /tmp/htslib &&\
-rm -rf /tmp/openmpi &&\
-rm -rf /tmp/fastaconvtr &&\
-rm -rf /tmp/ghcaller &&\
-rm -rf /tmp/mstatspop &&\
-rm -rf /tmp/npstat &&\
-rm -rf /app &&\
-rm -rf /var/tmp &&\
-rm -rf /usr/include &&\
-rm -rf /develop/.gradle &&\
-rm -rf /develop/source &&\
-rm -rf /develop/tests &&\
-rm -rf /develop/data && yum -y clean all
+#rm -rf /tmp/gsl &&\
+#rm -rf /tmp/zlib &&\
+#rm -rf /tmp/htslib &&\
+#rm -rf /tmp/openmpi &&\
+#rm -rf /tmp/fastaconvtr &&\
+#rm -rf /tmp/ghcaller &&\
+#rm -rf /tmp/mstatspop &&\
+#rm -rf /tmp/npstat &&\
+#rm -rf /app &&\
+#rm -rf /var/tmp &&\
+#rm -rf /usr/include &&\
+#rm -rf /develop/.gradle &&\
+#rm -rf /develop/source &&\
+#rm -rf /develop/tests &&\
+#rm -rf /develop/data && yum -y clean all

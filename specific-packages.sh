@@ -37,6 +37,8 @@ origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/make-3.8
     origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/psmisc-22.20-15.el7.x86_64.rpm
     ncurses-devel 
 	origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/ncurses-devel-5.9-14.20130511.el7_4.x86_64.rpm
+yaml
+https://github.com/jbeder/yaml-cpp/tree/yaml-cpp-0.6.2
 
 # ****************
 # *** Java JDK ***
@@ -116,6 +118,7 @@ mkdir -p /app/gradle && \
 # *************
 # *** yaml *** 
 # *************
+
 
 mkdir -p /opt/lib/yaml && \
     cd /opt/lib/yaml && \

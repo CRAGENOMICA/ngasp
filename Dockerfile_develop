@@ -22,7 +22,7 @@ LABEL maintainer="Héctor Gracia <hector.gracia@cragenomica.es>"
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre
 ENV PATH "/app/gradle/gradle-3.1/bin:${PATH}"
 ENV OPEN_MPI_HOME /opt/lib/openmpi
-ENV LD_LIBRARY_PATH "/opt/lib/openmpi/lib:${LD_LIBRARY_PATH}"
+ENV LD_LIBRARY_PATH "/opt/lib/openmpi/lib:${LD_LIBRARY_PATH}:/usr/local/lib/"
 ENV PATH "/opt/lib/openmpi/bin:${PATH}"
 VOLUME ["/tmp/.X11-unix", "/tmp/.X11-unix"]
 ENV DISPLAY :0.0

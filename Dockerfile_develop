@@ -3,9 +3,9 @@
 # ==============================================================================
 # Usage:
 #
-#   - Build : docker build -t ngasp .
+#   - Build : docker build -f 'Dockerfile_develop' -t ngasp:develop .
 #   - Run   : xhost +
-#             docker run --rm --net host ngasp
+#             docker run --rm --net host ngasp:develop
 
 # ==============================================================================
 # BASE IMAGE
@@ -37,10 +37,8 @@ RUN export DISPLAY=:0.0
 RUN mkdir /develop 
 COPY ./src /develop
 
-RUN /bin/bash /develop/librerias/ngasp-libraries.sh
-
 #Añado compilacion de las librerias
-#RUN /bin/bash /develop/compile_all.sh
+RUN /bin/bash /develop/compile_all_develop.sh
 
 # ==============================================================================
 # START

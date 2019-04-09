@@ -1,3 +1,4 @@
+#Load every library needed
 mkdir -p /lib64/
 mkdir -p /opt/lib/openmpi/lib/
 mkdir -p /usr/local/lib/

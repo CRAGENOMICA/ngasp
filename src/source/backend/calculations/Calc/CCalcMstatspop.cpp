@@ -3503,8 +3503,8 @@ void CCalcMstatspop::Calculate(bool dry_run) {
 //TOCHECK: 
 //  CCalcMstatspop::Calculate (this=0xb49b00, dry_run=<optimized out>)
 //    at /develop/source/backend/calculations/Calc/CCalcMstatspop.cpp:3505
-  printf("formatfile: %s",formatfile_->value())
-  printf("formatfile datastring: %s",formatfile_->GetDataString())
+  printf("formatfile: %s",formatfile_->value().c_str());
+  printf("formatfile datastring: %s",formatfile_->GetDataString());
 
   if (!formatfile_->auto_created()) {
     the_command->add(" -f ");

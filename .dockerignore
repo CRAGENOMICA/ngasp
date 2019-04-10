@@ -1,10 +1,10 @@
-.git
-.gitignore
-.gitattributes
+#.git
+#.gitignore
+#.gitattributes
 Dockerfile
 LICENSE.txt
 README.md
-/gradle/*
+#/gradle/*
 /release/*
 /scripts/docker/*
 /scripts/nsgasp.xcodeproj/*

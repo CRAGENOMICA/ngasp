@@ -140,7 +140,7 @@ main()
 		# New Test
 		############################################################
 
-		#../bin/mstatspop -f fasta -i ./100Kchr10.fa -o 0 -N 1 42    -T ../Results/mstatspop_100chr10.fa.01.txt -K 1 -n chr10.txt
+		../bin/mstatspop -f fasta -i ./100Kchr10.fa -o 0 -N 1 42    -T ../Results/mstatspop_100chr10.fa.01.txt -K 1 -n chr10.txt
 		numTest=001
 		testDescription='Example fa.01.txt'
 		fileParams='-f fasta -i'
@@ -165,7 +165,6 @@ main()
 		mstatspopOutputFile=./test$numTest/MC1R_PigsOutg_One_Pop_Total.txt
 		ngaSPOutputFile=./test$numTest/MC1R_PigsOutg_One_Pop_Total_ngaSP.txt
 		runTest
-
 
 		############################################################
 		# Test

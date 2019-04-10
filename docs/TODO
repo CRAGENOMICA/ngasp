@@ -1,0 +1,152 @@
+TODO
+====
+Mio
+----
+Trabjar aquí, es un fork del ngasp
+/home/hgracia/Escritorio/CRAG/ngasp
+
+
+Documentacion
+https://www.staticgen.com/sphinx
+https://docs.readthedocs.io/en/latest/index.html   
+
+No entiendo porque se cierra el docker al cerrar la aplicación que se ejecuta
+1551698313400 CM Remove Client: ::1
+1551698313400 CM (>WEB) "event: REFRESH_REQUIRED. message: [object Object]"
+
+
+- Continuar desarrollo desde refactoring-file-structure?
+
+
+- aprender a usar Mkdocs?
+https://docs.readthedocs.io/en/latest/intro/getting-started-with-mkdocs.html
+
+https://readthedocs.org/projects/ngasp/
+Para empezar a usar MkDocs
+mkdocs new .
+mkdocs serve
+TODO: importar proyecto desde git
+https://docs.readthedocs.io/en/latest/intro/import-guide.html
+
+
+
+
+- No se donde se guardan las imagenes cuando usas save as image del menú. Cuidado de no quitar esta opción si me cargo el menú Open...
+
+- Mejorar carga de archivos en tfaviewer
+ejemplo boton examinar
+https://www.html5rocks.com/es/tutorials/file/dndfiles/
+
+Comprobado
+Great success! All the File APIs are supported.
+
+
+
+
+La pagina principal es:
+/home/hgracia/Escritorio/ngasp-workshop01/develop/webapp/tfaviewer/public/index.html
+
+Probablemente uno de estos es el que carga archivos
+
+Linea 197
+tfaviewer/public/partials/viewer.html
+            <li><a href="#" data-toggle="modal" ng-click="OnOpenFilesDialog()" data-target="#FilesModal">Open...</a></li>
+
+
+Buscar OnOpenFilesDialog
+/home/hgracia/Escritorio/ngasp-workshop01/develop/webapp/tfaviewer/public/js/controllers/viewerController.js
+
+
+
+linea 364 del fichero
+tfaviewer/public/index.html
+                        <div class="col-md-3"><label>T-Fasta File:</label></div>
+
+
+
+
+
+
+
+
+
+
+
+-TODO: evitar configuración inicial chrome en el docker
+
+- Rehacer todos los dockerfiles quitando versiones latest
+
+docker-compose -f docker-compose.yml -f production.yml up -d
+
+
+
+- la configuración del display de mac no es universal
+
+
+
+
+best practices for dockers
+https://nickjanetakis.com/blog/best-practices-when-it-comes-to-writing-docker-related-files
+https://docs.docker.com/v17.09/engine/userguide/eng-image/dockerfile_best-practices/#onbuild
+
+Software util
+https://www.fpcomplete.com/blog/software-release-management-best-practices
+lista de respositorios
+https://www.johanbostrom.se/blog/list-of-free-private-docker-registry-and-repository
+
+
+
+
+comprobar mejoras sobre docker
+redactar mejor el readme
+
+- porque no hay un requeriments.txt?
+
+
+
+Sebas
+-------
+conseguir status similar a dnasp
+abrirlo y conseguir comunidad
+Lista de deseos
+Lista:
++ Instalación del paquete y sus dependencias con un solo click
++ Correr el programa
+Conseguir menus con interfaz estable y runs estables.
+Mejorar el manejo intuitivo (introduciendo gías de ayuda interactiva?)
+Conseguir introducir input files and output files de manera sencilla.
+Añadir en la compilación todos los paquetes desde Github (eliminar el path a la pagina web personal)
+- https://www.html5rocks.com/es/tutorials/file/dndfiles/
+
+Añadir mas paquetes (propios y externos)
+Crear nuevas pipelines y validarlas con ejemplos (bibliográficos o propios)
+Acabar la documentación
+
+
+
+
+
+
+
+
+
+
+
+
+Gonzalo
+----------
+Aparte de esto. Dale un vistazo a los “Static Site Generators” disponibles. La idea es poner orden a todas las decisiones que vamos a tomar y documentar utilizando un repo.
+
+El manual de la aplicación lo tenemos que hacer en “readthedocs”. Estos también utilizan un SSG. A ver cual utilizan.
+
+
+goals?
+quereis que otros puedan modificar el codigo y añadir cosas?
+
+- Buscar alternativas, mejor si es open source open source y free
+
+
+
+
+
+

@@ -1,0 +1,477 @@
+DONE
+====
+Docker, python, full stack, java script, html5, git
+===================================================
+
+Readthedocs usan estos dos
+Getting started: With Sphinx | With MkDocs
+https://docs.readthedocs.io/en/latest/index.html
+
+Como ya mencionaste tu disconformidad con Sphinx, he intentado instalarme MkDocs y me he encontrado con este imprevisto.
+
+DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7.
+
+
+Lo he instalado en pip3
+
+
+Cosas preguntadas por gonzalo
+===
+Documentar todo en un repo
+“Static Site Generators”
+“readthedocs”
+
+Readthedocs usan estos dos
+Getting started: With Sphinx | With MkDocs
+https://docs.readthedocs.io/en/latest/index.html
+
+
+
+Requisitos para publicar una herramienta
+https://opensource.guide/starting-a-project/
+
+el readme existe pero no tiene esta estructura
+https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+
+licencia?
+GNU LESSER GENERAL PUBLIC LICENSE
+                       Version 2.1, February 1999
+
+actualizar? cambiar a v3 o a mit, esta ok así? Si no me dicen nada, yo no pienso cambiar nada
+GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+https://www.quora.com/What-are-the-major-differences-between-GNU-LGPL-v3-and-v2-1       
+
+
+Contributing guidelines
+Code of conduct
+
+Seccion de releases listas para descargar y usar como esta
+https://github.com/docker/compose/releases
+
+You’ll want to identify who’s responsible for maintaining the project after launch, and how you’ll share those tasks with your community.
+
+https://www.capterra.com/sem-compare/requirements-management-software?gclid=Cj0KCQiAzKnjBRDPARIsAKxfTRAcm9GhcXG43HTTQhNBUwYJfOs9svmezReTC2hlDIaDtCvhE5XQBrAaAovWEALw_wcB&gclsrc=aw.ds
+Collaboration   Prioritization  Status Reporting    To-Do List  Traceability
+
+http://geekyap.blogspot.com/2016/11/docker-vs-singularity-vs-shifter-in-hpc.html
+
+Si los usuarios objetivos usan HPC, mejor singularity
+ giving users access to the docker command is similar to giving them direct, full root access to a host.
+ singularity have it
+
+
+
+----
+
+comprobado, puede montarse una carpeta en docker y usar un boton chose file para elegir archivos de esa carpeta
+
+comprobado que en mac mini funciona ngasp release conectandome con  /usr/bin/vncviewer
+
+
+==============
+De aquí para abajo va en orden cronologico, para arriba en orden inverso
+==================
+Done hasta 5-3-19
+
+
+clonado repositorio de github de ngasp
+
+intento instalar o ejecutar ngasp
+start.sh: 3: [: Linux: unexpected operator
+
+
+
+
+Errores o problemas encontrados siguiendo los pasos del actual manual de instalación de ngasp_install.pdf
+
+No existia yum
+- Necesario instalar yum primero
+sudo apt install yum
+
+sudo yum install git
+No existen repositorios habilitados.
+ Ejecute "yum repolist all" para conocer los repositorios existentes.
+ Puede habilitarlos con yum-config-manager --enable <repositorio>
+
+- instalado yum-utils
+sudo apt install yum-utils
+
+sudo yum install git
+No existen repositorios habilitados.
+ Ejecute "yum repolist all" para conocer los repositorios existentes.
+ Puede habilitarlos con yum-config-manager --enable <repositorio>
+
+sudo yum-config-manager --enable
+Error: Trying to enable already enabled repos.
+
+sudo yum update
+No existen repositorios habilitados.
+ Ejecute "yum repolist all" para conocer los repositorios existentes.
+ Puede habilitarlos con yum-config-manager --enable <repositorio>
+hgracia@joandellz230:~/Escritorio/ngasp-workshop01$ yum repolist all
+repolist: 0
+
+
+sudo yum clean all
+sudo yum update
+sudo yum repolist
+
+
+- usar zypper en vez de yum?
+
+
+instalo docker a mi manera
+sudo apt  install docker.io
+
+sudo systemctl enable docker.service
+sudo systemctl start docker
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo newgrp docker
+
+curl -L https://github.com/docker/compose/releases/download/1.9.0-rc1/docker-compose-‘uname -s‘-‘uname -m‘ > /usr/bin/docker-compose
+
+curl: option -s‘-‘uname: is unknown
+curl: try 'curl --help' or 'curl --manual' for more information
+
+
+- Existe una versión nueva para instalar docker compose
+https://docs.docker.com/compose/install/
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+También existen otras alternativas
+https://docs.docker.com/compose/install/#alternative-install-options
+
+
+error componiendo el docker
+docker-compose -f compose.yml build
+ERROR: .FileNotFoundError: [Errno 2] No such file or directory: './compose.yml'
+
+fallo mio, no estaba en la carpeta docker
+
+
+root@joandellz230:~/Escritorio/ngasp-workshop01/docker# docker-compose -f compose.yml build
+Building step1
+Step 1/16 : FROM centos:latest
+latest: Pulling from library/centos
+a02a4930cb5d: Pull complete
+Digest: sha256:184e5f35598e333bfa7de10d8fb1cebb5ee4df5bc0f970bf2b1e7c7345136426
+Status: Downloaded newer image for centos:latest
+ ---> 1e1148e4cc2c
+Step 2/16 : RUN yum update -y &&     mkdir -p /app &&     mkdir -p /opt/lib
+ ---> Running in 40f37e18be8b
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+
+
+ One of the configured repositories failed (Unknown),
+ and yum doesn't have enough cached data to continue. At this point the only
+ safe thing yum can do is fail. There are a few ways to work "fix" this:
+
+     1. Contact the upstream for the repository and get them to fix the problem.
+
+     2. Reconfigure the baseurl/etc. for the repository, to point to a working
+        upstream. This is most often useful if you are using a newer
+        distribution release than is supported by the repository (and the
+        packages for the previous distribution release still work).
+
+     3. Run the command with the repository temporarily disabled
+            yum --disablerepo=<repoid> ...
+
+     4. Disable the repository permanently, so yum won't use it by default. Yum
+        will then just ignore the repository until you permanently enable it
+        again or use --enablerepo for temporary usage:
+
+            yum-config-manager --disable <repoid>
+        or
+            subscription-manager repos --disable=<repoid>
+
+     5. Configure the failing repository to be skipped, if it is unavailable.
+        Note that yum will try to contact the repo. when it runs most commands,
+        so will have to try and fail each time (and thus. yum will be be much
+        slower). If it is a very temporary problem though, this is often a nice
+        compromise:
+
+            yum-config-manager --save --setopt=<repoid>.skip_if_unavailable=true
+
+Cannot find a valid baseurl for repo: base/7/x86_64
+Could not retrieve mirrorlist http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=container error was
+12: Timeout on http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=container: (28, 'Resolving timed out after 30544 milliseconds')
+ERROR: Service 'step1' failed to build: The command '/bin/sh -c yum update -y &&     mkdir -p /app &&     mkdir -p /opt/lib' returned a non-zero code: 1
+
+
+Could not retrieve mirrorlist http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=container error was
+
+- Parece que son problemas derivados del ultimo comando del docker, ya que me ha cambiado el usuario a root@joandellz230
+sudo newgrp docker
+
+https://docs.docker.com/install/linux/linux-postinstall/
+
+
+- necesario cerrar la sesion y volver a abrirla
+
+docker-compose -f compose.yml build
+ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
+
+If it's at a non-standard location, specify the URL with the DOCKER_HOST environment variable.
+
+- ejecutarlo con sudo
+sudo docker-compose -f compose.yml build
+
+da problemas con repositorios de yum..
+en todos sitios dicen de usar mejor apt en vez de yum
+
+
+- error generando el compiler-environment
+
+sudo docker build -t development-environment .
+Sending build context to Docker daemon  4.096kB
+Step 1/9 : FROM compiler-environment
+pull access denied for compiler-environment, repository does not exist or may require 'docker login'
+
+
+- No es posible que en los comandos de construccion del docker, haya paths a carpetas personales....
+
+# Usage:
+#
+#   - Run   : docker run -it --rm --privileged -p 3000:3000 -e DISPLAY=$DISPLAY -v /home/jjene/all/Projects/NetBeansProjects/ngasp/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix development-environment /bin/bash
+#   - Build : docker build -t development-environment .
+
+
+Da error porque no resuel ve bien esta url o por temas de yum
+Could not retrieve mirrorlist http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=container error was
+12: Timeout on http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=container: (28, 'Resolving timed out after 30544 milliseconds')
+
+probado lo siguiente pero no hace nada
+sudo yum-config-manager --enable base/7/x86_64
+
+
+Esto suguiere que hay problemas de dns.
+https://github.com/gliderlabs/docker-alpine/issues/411
+
+Probado esto pero no lo soluciona
+I did try to create a temporary container with the --dns flag to the correct IP and it worked flawlessly.
+My definitive fix was to edit the /etc/docker/daemon.json file, adding this line:
+
+{
+    "dns": ["172.17.0.1"]
+}
+
+
+https://development.robinwinslow.uk/2016/06/23/fix-docker-networking-dns/#the-permanent-system-wide-fix
+
+nmcli dev show | grep 'IP4.DNS'
+IP4.DNS[1]:                             10.200.10.11
+IP4.DNS[2]:                             10.200.10.12
+
+docker run --dns 10.200.10.11 busybox nslookup google.com
+
+Probado el fix que propone docker y no funciona
+
+modificado
+"/etc/default/docker"
+para que ejecute
+DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4"
+
+tampoco funciona
+
+Sigue dando problemas de dns el docker-compose
+
+https://nickjanetakis.com/blog/the-3-biggest-wins-when-using-alpine-as-a-base-docker-image
+cambiar a alphine? todos los sitios hablan muy bien. Gonzalo dice que por ahora no. Nos quedamos en centos pero con versiones fijas, nada de usar latest
+comprobar si exiten todos los paquetes que quiero en alphine
+descargado alpine, no he llegado a comprobar si existen todos los paquetes
+docker run -i -t alpine
+
+
+modificar
+"/etc/default/docker"
+para que ejecute
+DOCKER_OPTS="-dns 10.200.10.11 -dns 8.8.8.8"
+
+Con esto ha funcionado docker y docker-compose
+
+La dirección DNS a poner se obtiene con este comando
+nmcli dev show | grep 'IP4.DNS'
+IP4.DNS[1]:                             10.200.10.11
+IP4.DNS[2]:                             10.200.10.12
+
+
+docker build -t development-environment .
+
+
+cd <ngasp_folder>/docker
+docker-compose -f compose.yml build
+docker-compose -f compose.yml up
+docker-compose -f compose.yml start
+
+
+Necesario cambiar el path para compilar
+docker run --rm -v /home/hgracia/Escritorio/ngasp-workshop01/develop:/develop compiler-environment /develop/compile_all.sh
+
+También falla el de develop
+docker run -it --rm --privileged -p 3000:3000 -e DISPLAY=$DISPLAY -v ‘pwd‘/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix development-environment /bin/bash
+
+Daba problemas las comillas, pero así tampoco parece funcionar
+docker run -it --rm --privileged -p 3000:3000 -e DISPLAY=$DISPLAY -v $PWD/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix development-environment /bin/bash
+
+La orden del front end esta mal
+docker run -ti --rm -v /home/hgracia/Escritorio/ngasp-workshop01/develop:/develop -p 3000:3000 development-environment /bin/bash
+
+
+docker run -it --rm --privileged -p 3000:3000 -e DISPLAY=$DISPLAY -v /home/hgracia/Escritorio/ngasp-workshop01/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix development-environment /bin/bash
+
+
+
+
+Error: Can't open display: :0
+
+docker run -it --rm --privileged -p 3000:3000 -e DISPLAY=${DISPLAY} -v /home/hgracia/Escritorio/ngasp-workshop01/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix development-environment /bin/bash
+
+xhost + 10.200.141.127
+docker run -it --rm --privileged -p 3000:3000 --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" -e DISPLAY=unix$DISPLAY -v /home/hgraca/Escritorio/ngasp-workshop01/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix development-environment /bin/bash
+
+docker run -it --rm -e 'DISPLAY=${DISPLAY}' -v /tmp/.X11-unix:/tmp/.X11-unix --hostname $(hostname) development-environment /bin/bash
+
+
+
+para crear nuevo docker
+docker tag local-image:tagname new-repo:tagname
+docker push new-repo:tagname
+
+
+docker tag step2:latest hgraciacrag/testngasp:latest
+docker push hgraciacrag/testngasp:latest
+
+
+para elimiar dockers
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+dcoker rmi docker if
+
+ 
+
+
+sudo xhost +local:joandellz230
+non-network local connections being added to access control list
+
+
+
+sudo docker run --rm -it -p 3000:3000 -v /home/hgraca/Escritorio/ngasp-workshop01/develop:/develop hgraciacrag/testngasp /bin/bash
+
+
+sudo docker run -it --rm --privileged --net host -p 3000:3000 -p 3001:3001 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/hgraca/Escritorio/ngasp-workshop01/develop:/develop hgraciacrag/testngasp /bin/bash
+
+sudo docker run -it --rm --privileged --net host -p 3000:3000 -p 3001:3001 -e DISPLAY=$DISPLAY -v `pwd`/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix  development-environment /bin/bash
+
+
+---- Mirar esto para el problema del display
+https://superuser.com/questions/1202611/forward-x11-over-an-ssh-connection-to-containers-host
+https://hub.docker.com/r/fgrehm/netbeans/
+http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/
+
+Al fin ha funcionado el display, ejecutando esto antes del docker
+sudo xhost +
+
+
++ Funciona lanzado desde el step2
+añadir descarga de github. (Es extraño porque me ha parecido verla en alguno de los dockerfiles)
++ mirar que docker file tiene la escarga. Esta en el compile
+
+# *************
+# *** yaml *** 
+# *************
+
+RUN mkdir -p /opt/lib/yaml && \
+    cd /opt/lib/yaml && \
+    wget https://github.com/jbeder/yaml-cpp/archive/master.zip && \
+    unzip -o master.zip && \
+    rm master.zip
+
++ Añadir algo similar a esto para que el ngasp se lance solo
+ENTRYPOINT ["/usr/picard/docker_helper.sh"]
+CMD [""]
+
+añadido . en start_ngasp.sh (no hace falta)
+cd ./develop/webapp
+
+Docker funciona, lanzado desde carpeta ngasp
+sudo docker run -it --rm --privileged --net host -p 3000:3000 -p 3001:3001 -e DISPLAY=$DISPLAY -v `pwd`/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix  step2 /bin/bash
+
+
+
+
+Al intentar lanzar el netbeans en el docker
+The JDK is missing and is required to run some NetBeans modules Please use the --jdkhome command line option to specify a JDK installation or see http://wiki.netbeans.org/FaqRunningOnJre for more information.
+
+
+
+En OSX el xhost + parece no ser suficiente
+https://stackoverflow.com/questions/48335431/osx-x11-error-cannot-open-display
+
+probar
+export DISPLAY=192.168.1.X:0
+
+
+
+- la configuración del display de mac no es universal
+
+Vale, en Mac parece un poco más complicado
+Tienes que ejecutar estas tres cosas según la documentación del ngasp
+
+open -a XQuartz
+ip=$(ifconfig en0 | awk ’$1=="inet" {print $2}’)  ##(esto no funciona bien)
+xhost + $ip
+
+En mac mini soluciona problema display
+export DISPLAY=10.200.141.108:0
+xhost +
+
+
+
+
+
+Error mac mini
+libGL error: No matching fbConfigs or visuals found
+libGL error: failed to load driver: swrast
+[29:52:0305/103528.876554:ERROR:bus.cc(396)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+libGL error: No matching fbConfigs or visuals found
+libGL error: failed to load driver: swrast
+[29:77:0305/103529.119900:ERROR:bus.cc(396)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[61:61:0305/103529.137392:ERROR:gl_context_glx.cc(227)] Couldn't make context current with X drawable.
+[61:61:0305/103529.140550:ERROR:gpu_info_collector.cc(68)] gl::GLContext::MakeCurrent() failed
+[61:61:0305/103529.140653:ERROR:gpu_info_collector.cc(186)] Could not create context for info collection.
+[61:61:0305/103529.141179:ERROR:gpu_init.cc(61)] gpu::CollectGraphicsInfo failed.
+[61:61:0305/103529.191917:ERROR:viz_main_impl.cc(184)] Exiting GPU process due to errors during initialization
+
+
+Error en mac mini
+
+[32:50:0228/143126.725249:ERROR:bus.cc(396)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[32:74:0228/143126.915879:ERROR:bus.cc(396)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+libGL error: No matching fbConfigs or visuals found
+libGL error: failed to load driver: swrast
+[60:60:0228/143127.269192:ERROR:gl_context_glx.cc(227)] Couldn't make context current with X drawable.
+[60:60:0228/143127.269297:ERROR:gpu_info_collector.cc(68)] gl::GLContext::MakeCurrent() failed
+[60:60:0228/143127.269432:ERROR:gpu_info_collector.cc(186)] Could not create context for info collection.
+[60:60:0228/143127.271047:ERROR:gpu_init.cc(61)] gpu::CollectGraphicsInfo failed.
+[60:60:0228/143127.334617:ERROR:viz_main_impl.cc(184)] Exiting GPU process due to errors during initialization
+
+
+
+Error tfviewer?
+
+(google-chrome:35): LIBDBUSMENU-GLIB-WARNING **: 12:44:31.384: Unable to get session bus: Unknown or unsupported transport ?disabled? for address ?disabled:?
+[35:93:0227/124436.434095:ERROR:crash_handler_host_linux.cc(443)] Failed to write crash dump for pid 916
+Cannot upload crash dump: failed to open
+--2019-02-27 12:44:36--  https://clients2.google.com/cr/report
+Resolving clients2.google.com (clients2.google.com)... 216.58.211.206, 2a00:1450:4003:80a::200e
+Connecting to clients2.google.com (clients2.google.com)|216.58.211.206|:443... connected.
+HTTP request sent, awaiting response... 1551271476546 CM Remove Client: ::1
+1551271476546 CM (>WEB) "event: REFRESH_REQUIRED. message: [object Object]"
+Failed to generate minidump./usr/ngasp/ngasp-workshop01/develop/webapp/start_ngasp.sh: line 32:    35 Bus error               (core dumped) google-chrome --no-sandbox --disable-bundled-ppapi-flash --app=http://localhost:3000

@@ -1,0 +1,103 @@
+ERRORES
+
+
+Al mirar el help del tfviewer
+(google-chrome:34): LIBDBUSMENU-GLIB-WARNING **: 12:44:09.943: Unable to get session bus: Unknown or unsupported transport ?disabled? for address ?disabled:?
+
+
+Al iniciar el docker?
+
+[35:53:0304/112340.418001:ERROR:bus.cc(396)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+libGL error: failed to open drm device: No such file or directory
+libGL error: failed to load driver: nouveau
+[35:84:0304/112340.510479:ERROR:bus.cc(396)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[68:68:0304/112340.599950:ERROR:sandbox_linux.cc(364)] InitializeSandbox() called with multiple threads in process gpu-process.
+
+(google-chrome:35): LIBDBUSMENU-GLIB-WARNING **: 11:24:36.578: Unable to get session bus: Unknown or unsupported transport ?disabled? for address ?disabled:?
+
+
+
+Error tfviewer, al maximizar la ventana con el f12 abierto
+
+(google-chrome:34): LIBDBUSMENU-GLIB-WARNING **: 09:52:26.273: Unable to get session bus: Unknown or unsupported transport ?disabled? for address ?disabled:?
+1551693165473 CM Remove Client: ::1
+1551693165474 CM (>WEB) "event: REFRESH_REQUIRED. message: [object Object]"
+Failed to generate minidump.[0304/095245.600376:ERROR:nacl_helper_linux.cc(310)] NaCl helper process running without a sandbox!
+Most likely you need to configure your SUID sandbox correctly
+/usr/ngasp/ngasp-workshop01/develop/webapp/start_ngasp.sh: line 32:    34 Bus error               (core dumped) google-chrome --no-sandbox --disable-bundled-ppapi-flash --app=http://localhost:3000
+
+
+Error tfviewer?
+
+(google-chrome:35): LIBDBUSMENU-GLIB-WARNING **: 12:44:31.384: Unable to get session bus: Unknown or unsupported transport ?disabled? for address ?disabled:?
+[35:93:0227/124436.434095:ERROR:crash_handler_host_linux.cc(443)] Failed to write crash dump for pid 916
+Cannot upload crash dump: failed to open
+--2019-02-27 12:44:36--  https://clients2.google.com/cr/report
+Resolving clients2.google.com (clients2.google.com)... 216.58.211.206, 2a00:1450:4003:80a::200e
+Connecting to clients2.google.com (clients2.google.com)|216.58.211.206|:443... connected.
+HTTP request sent, awaiting response... 1551271476546 CM Remove Client: ::1
+1551271476546 CM (>WEB) "event: REFRESH_REQUIRED. message: [object Object]"
+Failed to generate minidump./usr/ngasp/ngasp-workshop01/develop/webapp/start_ngasp.sh: line 32:    35 Bus error               (core dumped) google-chrome --no-sandbox --disable-bundled-ppapi-flash --app=http://localhost:3000
+
+
+Error en mac mini, al ejecutar el testrelease, no inicia ngasp
+
+[32:50:0228/143126.725249:ERROR:bus.cc(396)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[32:74:0228/143126.915879:ERROR:bus.cc(396)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+libGL error: No matching fbConfigs or visuals found
+libGL error: failed to load driver: swrast
+[60:60:0228/143127.269192:ERROR:gl_context_glx.cc(227)] Couldn't make context current with X drawable.
+[60:60:0228/143127.269297:ERROR:gpu_info_collector.cc(68)] gl::GLContext::MakeCurrent() failed
+[60:60:0228/143127.269432:ERROR:gpu_info_collector.cc(186)] Could not create context for info collection.
+[60:60:0228/143127.271047:ERROR:gpu_init.cc(61)] gpu::CollectGraphicsInfo failed.
+[60:60:0228/143127.334617:ERROR:viz_main_impl.cc(184)] Exiting GPU process due to errors during initialization
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SOLVED
+======
+
+- Este error ocurre en entorno develop si no se esta en /develop/webapp/
+Waiting for NodeJs to start...
+
+module.js:478
+    throw err;
+    ^
+
+Error: Cannot find module '/app/server.js'
+    at Function.Module._resolveFilename (module.js:476:15)
+    at Function.Module._load (module.js:424:25)
+    at Module.runMain (module.js:611:10)
+    at run (bootstrap_node.js:394:7)
+    at startup (bootstrap_node.js:160:9)
+    at bootstrap_node.js:507:3
+
+

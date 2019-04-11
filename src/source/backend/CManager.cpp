@@ -191,7 +191,6 @@ bool CManager::PrepareNextInstruction(void) {
 
      // This line shows instructions that are going to be executed:
       DEBUG_MSG3 << "$ " << instruction->GetAllCommandLine() END_MSG;
-      NORMAL_MSG3 << "$ " << instruction->GetAllCommandLine() END_MSG;
 
     /// If the command class is found, prepare it to be executed:
     if (all_commands()->selected_command() !=
@@ -222,7 +221,6 @@ void CManager::LaunchNextInstruction(void) {
   if (instruction != NULL) {
       
 std::string aux = instruction->GetAllCommandLine();
-      NORMAL_MSG3 << "Instruccion $ " << aux END_MSG;
 
     /// Run command:
     if (all_commands()->selected_command() !=
@@ -232,6 +230,7 @@ std::string aux = instruction->GetAllCommandLine();
         // This line shows only executed instructions:
         // Problem: I want to see not executed instructions too! (those that do not pass Prepare() function)
         // DEBUG_MSG3 << "$ " << instruction->GetAllCommandLine() END_MSG;
+      NORMAL_MSG3 << "selected_command: " << all_commands()->selected_command() END_MSG;
 
         // =====================================================================
         // Start Clock

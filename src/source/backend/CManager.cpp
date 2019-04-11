@@ -190,7 +190,8 @@ bool CManager::PrepareNextInstruction(void) {
     all_commands()->set_selected_command(current_command_name);
 
      // This line shows instructions that are going to be executed:
-      DEBUG_MSG3 << "Instruccion $ " << instruction->GetAllCommandLine() END_MSG;
+      DEBUG_MSG3 << "$ " << instruction->GetAllCommandLine() END_MSG;
+      NORMAL_MSG3 << "$ " << instruction->GetAllCommandLine() END_MSG;
 
     /// If the command class is found, prepare it to be executed:
     if (all_commands()->selected_command() !=
@@ -221,6 +222,7 @@ void CManager::LaunchNextInstruction(void) {
   if (instruction != NULL) {
       
 std::string aux = instruction->GetAllCommandLine();
+      NORMAL_MSG3 << "Instruccion $ " << aux END_MSG;
 
     /// Run command:
     if (all_commands()->selected_command() !=
@@ -293,17 +295,11 @@ void CManager::RunCommandLineExecutionMode(int argc, char *argv[]) {
   // add this instruction to the queue
   instructions_controller()->pushInstruction(argc, argv);
 
-      DEBUG_MSG3 << "Probando debuger " END_MSG;
-      NORMAL_MSG3 << "Probando mensajes " END_MSG;
-      fprintf(stderr, "Helloo");
-
   // This loop executes one command line only. But one command line could
   // generate more than one instruction. It's because of this that this is a 
   // while here:
   while (instructions_controller()->instructionsWaiting()) {
-      NORMAL_MSG3 << "Probando mensajes inside" END_MSG;
     if (PrepareNextInstruction()) {
-      NORMAL_MSG3 << "Probando mensajes finside" END_MSG;
       LaunchNextInstruction();
     }
   }

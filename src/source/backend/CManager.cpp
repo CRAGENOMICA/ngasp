@@ -295,6 +295,7 @@ void CManager::RunCommandLineExecutionMode(int argc, char *argv[]) {
 
       DEBUG_MSG3 << "Probando debuger " END_MSG;
       NORMAL_MSG3 << "Probando mensajes " END_MSG;
+      stdout << "42";
 
   // This loop executes one command line only. But one command line could
   // generate more than one instruction. It's because of this that this is a 

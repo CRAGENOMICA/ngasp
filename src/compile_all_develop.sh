@@ -216,6 +216,11 @@ chmod 777 /develop/webapp/bin/*
 chmod -R g=u /develop
 chmod -R o=u /develop                                                           
 
+# Para generar core files que se guardaran en /tmp
+# Para debugear usar: gdb /develop/webapp/bin/ngasp /tmp/core.%e.%p.%t
+echo '/tmp/core.%e.%p.%t' > /proc/sys/kernel/core_pattern
+
+
 # ***************
 # *** Clean ***
 # ***************

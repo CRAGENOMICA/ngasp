@@ -190,7 +190,7 @@ bool CManager::PrepareNextInstruction(void) {
     all_commands()->set_selected_command(current_command_name);
 
      // This line shows instructions that are going to be executed:
-      DEBUG_MSG3 << "$ " << instruction->GetAllCommandLine() END_MSG;
+      DEBUG_MSG3 << "Instruccion $ " << instruction->GetAllCommandLine() END_MSG;
 
     /// If the command class is found, prepare it to be executed:
     if (all_commands()->selected_command() !=

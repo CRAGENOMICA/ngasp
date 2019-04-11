@@ -294,12 +294,15 @@ void CManager::RunCommandLineExecutionMode(int argc, char *argv[]) {
   instructions_controller()->pushInstruction(argc, argv);
 
       DEBUG_MSG3 << "Probando debuger " END_MSG;
+      NORMAL_MSG3 << "Probando mensajes " END_MSG;
 
   // This loop executes one command line only. But one command line could
   // generate more than one instruction. It's because of this that this is a 
   // while here:
   while (instructions_controller()->instructionsWaiting()) {
+      NORMAL_MSG3 << "Probando mensajes inside" END_MSG;
     if (PrepareNextInstruction()) {
+      NORMAL_MSG3 << "Probando mensajes finside" END_MSG;
       LaunchNextInstruction();
     }
   }

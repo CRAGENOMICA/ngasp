@@ -230,7 +230,6 @@ std::string aux = instruction->GetAllCommandLine();
         // This line shows only executed instructions:
         // Problem: I want to see not executed instructions too! (those that do not pass Prepare() function)
         // DEBUG_MSG3 << "$ " << instruction->GetAllCommandLine() END_MSG;
-      NORMAL_MSG3 << "selected_command: " << all_commands()->selected_command() END_MSG;
 
         // =====================================================================
         // Start Clock

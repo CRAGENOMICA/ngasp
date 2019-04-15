@@ -1610,6 +1610,11 @@ enum KeyString {
   CALC_SPLIT_BAM_DESC,  
 
 
+  CALC_Test,
+  CALC_Test_BRIEF_DESC,
+  CALC_Test_DESC,
+
+
   _CALC_LAST,
   //@}
   

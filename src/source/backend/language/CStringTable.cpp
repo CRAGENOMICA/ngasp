@@ -1681,6 +1681,10 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_SPLIT_BAM_BRIEF_DESC]                              = "";
   strings_[ENGLISH_COL][CALC_SPLIT_BAM_DESC]                                    = "This calculation gets one BAM file and it splites this file into n BAM files. One BAM file per chromosome.";
     
+  strings_[ENGLISH_COL][CALC_Test] = "Test";
+  strings_[ENGLISH_COL][CALC_Test_BRIEF_DESC] = "";
+  strings_[ENGLISH_COL][CALC_Test_DESC] = "Test description";
+
   strings_[ENGLISH_COL][_CALC_LAST]                                             = "";  // *************************************
   //@}
 

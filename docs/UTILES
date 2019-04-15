@@ -1,0 +1,88 @@
+UTILES
+======
+
+Test de release
+===============
+sudo xhost +
+docker run -it --rm --net host hgraciacrag/resleasetest:0.1
+
+Para que no se ejecute directamente y poder hacer pruebas de desarrollo
+docker run -it --rm --net host --entrypoint /bin/bash hgraciacrag/resleasetest:0.1
+
+Whiteboard
+==========
+https://awwapp.com
+
+
+branch refactoring-file-structure
+=================================
+sudo docker run -it --rm --privileged --net host -p 3000:3000 -p 3001:3001 -e DISPLAY=$DISPLAY -v `pwd`/src/webapp:/app/webapp -v /tmp/.X11-unix:/tmp/.X11-unix  lm
+
+
+entorno desarrollo
+==================
+Docker funciona, lanzado desde carpeta ngasp
+En el docker development Ngasp no funciona si no se esta en /develop/webapp/
+sudo docker run -it --rm --privileged --net host -p 3000:3000 -p 3001:3001 -e DISPLAY=$DISPLAY -v `pwd`/develop:/develop -v /tmp/.X11-unix:/tmp/.X11-unix  development-environment /bin/bash
+
+Display
+=======
+Ubuntu:
+sudo xhost +
+
+Mac mini:
+export DISPLAY=10.200.141.108:0
+xhost +
+
+
+para entrar al servidor (por ahora no me funciona)
+=======================
+ssh hgracia@login.bio.crag.local
+ssh: Could not resolve hostname login.bio.crag.local: Name or service not known
+
+
+GIT
+===
+gitk
+git clone https://github.com/CRAGENOMICA/ngasp-workshop01.git
+git checkout develop
+
+para actualizar
+git pull
+
+https://help.github.com/en/articles/fork-a-repo
+fork
+git clone https://github.com/Hgracia/ngasp.git
+git remote -v
+git remote add upstream https://github.com/CRAGENOMICA/ngasp.git
+https://help.github.com/en/articles/syncing-a-fork
+
+
+para elimiar dockers
+====================
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+dcoker rmi docker if
+
+
+mac_mini
+========
+/usr/bin/vncviewer
+ssh -X ci_ngasp@10.200.141.108
+ci_ngasp
+ngasp2016
+
+
+
+Urls utiles
+===========
+https://intranet.cragenomica.es/cragdocs/targeta-esfera
+https://webmail.cragenomica.es/owa/
+https://github.com/CRAGENOMICA/ngasp/tree/develop
+http://circadian/portal
+https://github.com/CRAGENOMICA/ngasp_wip/issues
+
+
+Miguel
+======
+https://bitbucket.org/sbvbpy/sbvb/src/master/

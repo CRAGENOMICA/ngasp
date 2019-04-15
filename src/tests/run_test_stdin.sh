@@ -5,7 +5,8 @@
 ############################################################
 
 OPERATIONS_FILE='./operations_file.txt'
-NGASP_EXEC='../backend/Debug/ngaSP_backend'
+NGASP_EXEC='/develop/webapp/bin/ngasp'
+#NGASP_EXEC='../backend/Debug/ngaSP_backend'
 
 
 ############################################################

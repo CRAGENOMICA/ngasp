@@ -1,0 +1,43 @@
+# ==============================================================================
+# NGASP DOCKERFILE
+# ==============================================================================
+# Usage:
+#
+#   - Build : docker build -f 'Dockerfile_localManager' -t ngasp:localManager .
+#   - Run   : xhost +
+#             docker run --rm --net host ngasp:localManager
+
+# ==============================================================================
+# BASE IMAGE
+# ==============================================================================
+
+FROM centos:7
+
+LABEL maintainer="Héctor Gracia <hector.gracia@cragenomica.es>"
+
+# ==============================================================================
+# ENV REQUIREMENTS
+# ==============================================================================
+
+ENV OPEN_MPI_HOME /opt/lib/openmpi
+ENV LD_LIBRARY_PATH "/opt/lib/openmpi/lib:${LD_LIBRARY_PATH}:/usr/local/lib/"
+ENV PATH "/opt/lib/openmpi/bin:${PATH}"
+
+# ==============================================================================
+# Compilation
+# ==============================================================================
+
+# para que continue funcionando todo hace falta que exista la carpeta develop y
+# contenga todo lo que hay en src
+RUN mkdir /develop 
+COPY ./src /develop
+
+#Load every library needed
+RUN /bin/bash /develop/librerias/ngasp-libraries.sh
+
+# ==============================================================================
+# START
+# ==============================================================================
+
+WORKDIR /develop/webapp/bin/
+ENTRYPOINT ["/bin/bash"]

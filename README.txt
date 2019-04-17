@@ -1,10 +1,7 @@
-[![License (LGPL 2.1)](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
+$NgaSP
+========
 
-***Please see the [ngaSP website](https://bioinformatics.cragenomica.es/projects/ngaSP), where you would soon (can) download a precompiled executable, read documentation, ask questions, and receive technical support.***
-
-### NgaSP
-
-This repository contains the Next generation of the Genome Analysis Toolkit (NgaSP). The contents
+This repository contains the Next generation of the Genome Analysis Toolkit ($NgaSP). The contents
 of this repository are 100% open source and released under the LGPL 2.1 license (see [LICENSE.TXT](https://github.com/cragenomica/ngaSP/blob/master/LICENSE.TXT)).
 
 NgaSP aims to bring together well-established tools from the [NgaSP](http://www.cragenomica.org/WIP) and
@@ -16,12 +13,52 @@ releases of the toolkit.
 ## Table of Contents
 * [Requirements](#requirements)
 * [Quick Start Guide](#quickstart)
-* [Downloading ngaSP](#downloading)
 * [Building ngaSP](#building)
 * [Running ngaSP](#running)
     * [Passing JVM options to gatk](#jvmoptions)
+* Contribute
+* Support
+* License
+
+Requirements
+--------
+
+***Please see the [ngaSP website](https://bioinformatics.cragenomica.es/projects/ngaSP), where you would soon (can) download a precompiled executable, read documentation, ask questions, and receive technical support.***
 
 ## <a name="requirements">Requirements</a>
+
+
+Quick Start Guide
+------------
+
+Install $NgaSP by running:
+
+    install project
+
+Building ngaSP
+
+Running ngaSP
+
+
+Contribute
+----------
+
+- Issue Tracker: github.com/$NgaSP/$NgaSP/issues
+- Source Code: github.com/$NgaSP/$NgaSP
+
+Support
+-------
+
+If you are having issues, please let us know.
+We have a mailing list located at: project@google-groups.com
+
+License
+-------
+
+[![License (LGPL 2.1)](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
+
+
+
 
 ReadMe file — Instructions
 ==========================

@@ -1,0 +1,4 @@
+License
+=======
+
+This project is licensed under the LGPL 2.1 license - see the :download:`LICENSE.txt <https://github.com/cragenomica/ngaSP/blob/master/LICENSE.TXT>` file for details.

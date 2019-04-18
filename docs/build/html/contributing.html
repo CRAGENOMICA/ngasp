@@ -1,0 +1,200 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Project Teamwork Methodology &#8212; NgaSP  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Versioning" href="versioning.html" />
+    <link rel="prev" title="Built With" href="built with.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="project-teamwork-methodology">
+<h1>Project Teamwork Methodology<a class="headerlink" href="#project-teamwork-methodology" title="Permalink to this headline">¶</a></h1>
+<p>After reading this chapter you should be able to collaborate with the project team, realize changes to the source
+code, test them and create a new release.</p>
+<div class="section" id="system-users">
+<h2>System Users<a class="headerlink" href="#system-users" title="Permalink to this headline">¶</a></h2>
+<p>These are the main system users:• <strong>Software Engineer</strong>: It is the developer that creates the system and the continuous integration environ-
+ment• <strong>Pipeline Developer</strong>: It is the user who develops new analysis pipelines combining the existing available
+calculations• <strong>Calculation Developer</strong>: It is the software developer that uses the system to create new calculations• <strong>End User</strong>: It is the user who analyzes his/her data using already available pipelines• <strong>Web Developer</strong>: It is the developer that creates and maintains the project website</p>
+</div>
+<div class="section" id="vincent-driessens-branching-model">
+<h2>Vincent Driessen’s branching model<a class="headerlink" href="#vincent-driessens-branching-model" title="Permalink to this headline">¶</a></h2>
+<p>Follow the following steps for modifying the any file of the project:Please refer Figure 11.1 for Vincent Driessen’s branching model.• Download the project files to your computer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/CRAGENOMICA/ngasp.git
+</pre></div>
+</div>
+<p>• Your current branch is the master. Change to the develop one:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git checkout develop
+</pre></div>
+</div>
+<p>• If you had already the develop branch in your computer for some time, be sure that it has not modified
+by another developer in that time. Run a pull action for getting remote changes if they exist:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git pull
+</pre></div>
+</div>
+<p>• You will create your own branch. For example, feature-calc-gccontent:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git branch feature-calc-gccontent  
+$ git checkout feature-calc-gccontent
+$ git push --set-upstream origin feature-calc-gccontent
+</pre></div>
+</div>
+<p>• Now, you can modify the project files for adding the new feature. And when you finish it, add your
+changes to your local repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git add . --all  
+$ git commit -am <span class="s2">&quot;I added a new calculation to the project called GCContent.&quot;</span>
+</pre></div>
+</div>
+<p>• Your feature is not finished yet but you want to upload all your changes to the remote repository (for
+backup purposes, …). Run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="c1"># git pull &lt;---- Before a push run always a pull if you share this branch with another  </span>
+developer. Maybe his/her changes <span class="nb">break</span> your code... So, <span class="k">if</span> it happens maybe you don’t  
+want to upload your code, yet.  
+$ git push <span class="c1"># &lt;-- Upload your code to the remote repository</span>
+</pre></div>
+</div>
+<p>• You finished. It is time to upload your files to the remote repository. Do it in the same way as described
+before:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git pull  
+$ git push
+</pre></div>
+</div>
+<p>• Now, you can merge your branch with the develop branch. Do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git checkout develop  <span class="c1"># switch to the develop branch  </span>
+$ git merge feature-calc-gccontent  <span class="c1"># do the merge</span>
+</pre></div>
+</div>
+<p>• Once, it is decided that the develop branch can be a release, you can merge the develop branch with the
+master branch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git checkout master  <span class="c1"># switch to the master branch  </span>
+$ git merge develop  <span class="c1"># do the merge</span>
+</pre></div>
+</div>
+<p>• If Git shows conflicts that can no be resolved automatically. Do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo yum install meld  <span class="c1"># install meld  </span>
+$ git config --global merge.tool meld  <span class="c1"># Tell git that this is your merge tool  </span>
+$ git mergetool  <span class="c1"># Resolve conflicts manually  </span>
+$ git add .  <span class="c1"># Confirm  </span>
+$ git commit -am <span class="s2">&quot;Conflicts resolved manually.&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pull-request">
+<h2>Pull Request<a class="headerlink" href="#pull-request" title="Permalink to this headline">¶</a></h2>
+<p>This project is intended to be stored into the GitHutb repository. Once it is there, external contributor
+developers will be able to create a Fork of this project, update it and ask for a pull request to the project’s
+owner.See [Pull Request] for further information about Pull Requests.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">NgaSP</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running test.html">Running test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="built with.html">Built With</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project Teamwork Methodology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#system-users">System Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vincent-driessens-branching-model">Vincent Driessen’s branching model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pull-request">Pull Request</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="built with.html" title="previous chapter">Built With</a></li>
+      <li>Next: <a href="versioning.html" title="next chapter">Versioning</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, H. Gracia.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/contributing.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

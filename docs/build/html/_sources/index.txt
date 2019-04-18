@@ -3,18 +3,29 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to NgaSP's documentation!
-=================================
+NgaSP
+=====
+
+This repository contains the Next generation of the Genome Analysis Toolkit (NgaSP). The contents
+of this repository are 100% open source and released under the LGPL 2.1 license (see :download:`LICENSE.txt <https://github.com/cragenomica/ngaSP/blob/master/LICENSE.TXT>`).
+
+NgaSP aims to bring together well-established tools from the :download:`NgaSP <http://www.cragenomica.org/WIP>` and
+:download:`WIP <http://cragenomica.github.io/WIP/>` codebases under a streamlined framework,
+and to enable selected tools to be run in a massively parallel way on local clusters or in the cloud using
+:download:`Apache Spark <http://spark.apache.org/>`. It also contains many newly developed tools not present in earlier
+releases of the toolkit.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
+   prerequisites
+   installation
+   getting started
+   running test
+   built with
+   contributing
+   versioning
+   authors
+   license
+   acknowledgments
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

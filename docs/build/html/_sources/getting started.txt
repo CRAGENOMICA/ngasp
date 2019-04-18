@@ -1,0 +1,25 @@
+Getting started
+===============
+
+Ubuntu
+------
+.. code-block:: bash
+
+   #check images available
+   $ docker images
+   #REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+   #hgraciacrag/ngasp   latest              37f20a0899e7        About an hour ago   1.3GB
+   #ngasp               latest              37f20a0899e7        About an hour ago   1.3GB
+   $ docker run -it --rm --net host hgraciacrag/ngasp  
+
+
+MAC
+---
+.. code-block:: bash
+
+   #check images available
+   $ docker images
+   #REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+   #hgraciacrag/ngasp   latest              37f20a0899e7        About an hour ago   1.3GB
+   #ngasp               latest              37f20a0899e7        About an hour ago   1.3GB
+   $ docker run -it --rm -p 3000:3000 hgraciacrag/ngasp

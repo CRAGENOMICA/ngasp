@@ -1,65 +1,69 @@
 Built With
 ==========
 
-kernel-headers 
-origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/kernel-headers-3.10.0-957.10.1.el7.x86_64.rpm
-kernel-devel 
-origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/kernel-devel-3.10.0-957.10.1.el7.x86_64.rpm
-gcc-c++ 
-origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/gcc-c%2B%2B-4.8.5-36.el7_6.1.x86_64.rpm
-libstdc++-devel 
-origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/libstdc%2B%2B-devel-4.8.5-36.el7_6.1.x86_64.rpm
-make 
-origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/make-3.82-23.el7.x86_64.rpm
-bzip2 
-origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/bzip2-1.0.6-13.el7.x86_64.rpm  
-boost 
-origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-1.53.0-27.el7.x86_64.rpm
-boost-devel 
-origin_url = http://ftp.csuc.cat/centos/7.6.1810/os/x86_64/Packages/boost-devel-1.53.0-27.el7.x86_64.rpm
-boost-system 
-origin_url = http://ftp.csuc.cat/centos/7.6.1810/os/x86_64/Packages/boost-system-1.53.0-27.el7.x86_64.rpm
-boost-filesystem 
-origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-filesystem-1.53.0-27.el7.x86_64.rpm
-boost-thread 
-origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-thread-1.53.0-27.el7.x86_64.rpm
-wget 
-origin_url = http://ftp.csuc.cat/centos/7.6.1810/os/x86_64/Packages/wget-1.14-18.el7.x86_64.rpm
-git 
-origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/git-1.8.3.1-20.el7.x86_64.rpm
-zip 
-origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/zip-3.0-11.el7.x86_64.rpm
-unzip 
-origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/unzip-6.0-19.el7.x86_64.rpm
-psmisc 
-origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/psmisc-22.20-15.el7.x86_64.rpm
-ncurses-devel 
-origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/ncurses-devel-5.9-14.20130511.el7_4.x86_64.rpm
-yaml
-https://github.com/jbeder/yaml-cpp/tree/yaml-cpp-0.6.2
-
-http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm
-
-nodejs
-
-ftp://ftp.gnu.org/gnu/gsl/gsl-2.2.tar.gz
-
-http://zlib.net/fossils/zlib-1.2.10.tar.gz
-
-https://github.com/samtools/htslib/releases/download/1.3.1/htslib-1.3.1.tar.bz2
-
-https://www.open-mpi.org/software/ompi/v1.10/downloads/openmpi-1.10.1.tar.bz2
-
-https://services.gradle.org/distributions/gradle-3.1-bin.zip
 
 
-https://github.com/CRAGENOMICA/fastaconvtr/archive/master.zip
+kernel-headers  
+origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/kernel-headers-3.10.0-957.10.1.el7.x86_64.rpm  
+kernel-devel  
+origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/kernel-devel-3.10.0-957.10.1.el7.x86_64.rpm  
+gcc-c++  
+origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/gcc-c%2B%2B-4.8.5-36.el7_6.1.x86_64.rpm  
+libstdc++-devel  
+origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/libstdc%2B%2B-devel-4.8.5-36.el7_6.1.x86_64.rpm  
+make  
+origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/make-3.82-23.el7.x86_64.rpm  
+bzip2  
+origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/bzip2-1.0.6-13.el7.x86_64.rpm   
+boost  
+origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-1.53.0-27.el7.x86_64.rpm  
+boost-devel  
+origin_url = http://ftp.csuc.cat/centos/7.6.1810/os/x86_64/Packages/boost-devel-1.53.0-27.el7.x86_64.rpm  
+boost-system  
+origin_url = http://ftp.csuc.cat/centos/7.6.1810/os/x86_64/Packages/boost-system-1.53.0-27.el7.x86_64.rpm  
+boost-filesystem  
+origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-filesystem-1.53.0-27.el7.x86_64.rpm  
+boost-thread  
+origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-thread-1.53.0-27.el7.x86_64.rpm  
+wget  
+origin_url = http://ftp.csuc.cat/centos/7.6.1810/os/x86_64/Packages/wget-1.14-18.el7.x86_64.rpm  
+git  
+origin_url = http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/git-1.8.3.1-20.el7.x86_64.rpm  
+zip  
+origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/zip-3.0-11.el7.x86_64.rpm  
+unzip   
+origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/unzip-6.0-19.el7.x86_64.rpm  
+psmisc   
+origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/psmisc-22.20-15.el7.x86_64.rpm  
+ncurses-devel   
+origin_url = http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/ncurses-devel-5.9-14.20130511.el7_4.x86_64.rpm  
+yaml  
+https://github.com/jbeder/yaml-cpp/tree/yaml-cpp-0.6.2  
+  
+http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm   http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm  
+  
+nodejs  
+  
+ftp://ftp.gnu.org/gnu/gsl/gsl-2.2.tar.gz  
+  
+http://zlib.net/fossils/zlib-1.2.10.tar.gz  
+  
+https://github.com/samtools/htslib/releases/download/1.3.1/htslib-1.3.1.tar.bz2  
+  
+https://www.open-mpi.org/software/ompi/v1.10/downloads/openmpi-1.10.1.tar.bz2  
+  
+https://services.gradle.org/distributions/gradle-3.1-bin.zip  
+    
+Samtoolslib  
 
-https://github.com/lucaferretti/npstat/archive/master.zip
 
-Samtoolslib
+CRAGENOMICA Software
+====================
 
-https://github.com/CRAGENOMICA/pGHcaller/archive/master.zip
+https://github.com/CRAGENOMICA/fastaconvtr/archive/master.zip  
+  
+https://github.com/lucaferretti/npstat/archive/master.zip 
 
-
-https://github.com/CRAGENOMICA/mstatspop/archive/master.zip
+https://github.com/CRAGENOMICA/pGHcaller/archive/master.zip  
+  
+https://github.com/CRAGENOMICA/mstatspop/archive/master.zip   

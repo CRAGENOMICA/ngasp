@@ -9,7 +9,7 @@ Installation from source
 ------------------------
 .. code-block:: bash
 
-   git clone https://github.com/Hgracia/ngasp.git  
+   git clone https://github.com/CRAGENOMICA/ngasp.git  
    cd ngasp\
    git checkout ngaSP-0.6\
    docker build -t ngasp .

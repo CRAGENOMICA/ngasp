@@ -72,7 +72,7 @@ class CCalc${MY_Calc} : public ICalculation {
 private:
   // Step 2 - Declare your inputs and outputs:
   // Inputs
-  CDataCharVector *vector;
+  CDataCharVector *DNAvector;
   CDataBoolean *percentage;
   // Outputs
   CDataFloat *total;
@@ -176,10 +176,10 @@ void CCalc${MY_Calc}::Calculate(bool dry_run) {
 
   for (int64_t i = 0; i < DNAvector->Size(); i++) {
     switch(DNAvector[i]) {
-      case ’T’:T++;break;
-      case ’C’:C++;break;
-      case ’G’:G++;break;
-      case ’A’:A++;break;
+      case 'T':T++;break;
+      case 'C':C++;break;
+      case 'G':G++;break;
+      case 'A':A++;break;
       default:break;
     }
   }

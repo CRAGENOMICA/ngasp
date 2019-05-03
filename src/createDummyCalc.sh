@@ -38,7 +38,7 @@ touch ./source/backend/calculations/Calc/CCalc${MY_Calc}.h
 touch ./source/backend/calculations/Calc/CCalc${MY_Calc}.cpp
 
 #creation of CCalc${MY_Calc}.h
-cat << 'Eof' > ./source/backend/calculations/Calc/CCalc${MY_Calc}.h
+cat << EOF > ./source/backend/calculations/Calc/CCalc${MY_Calc}.h
 /* Add your LICENSE & COPYRIGHT note */
 /**
 *    \\brief 			CCalc${MY_Calc}.h
@@ -85,10 +85,10 @@ private:
 
 #endif    // CALCULATIONS_CALCS_CCAL${MY_Calc}_H_
 
-Eof
+EOF
 
 #creation of CCalc${MY_Calc}.cpp
-cat << 'Eof' > ./source/backend/calculations/Calc/CCalc${MY_Calc}.cpp
+cat << EOF > ./source/backend/calculations/Calc/CCalc${MY_Calc}.cpp
 /* Add your LICENSE & COPYRIGHT note */
 /**
 *    \\brief 			CCalc${MY_Calc}.cpp
@@ -204,7 +204,7 @@ void CCalc${MY_Calc}::Calculate(bool dry_run) {
 void CCalc${MY_Calc}::Finalize(void) {
   DM_DEL_ALL_LOCAL_DATA
 }
-Eof
+EOF
 
 echo "File created: ./source/backend/calculations/Calc/CCalc${MY_Calc}.h"
 echo "File created: ./source/backend/calculations/Calc/CCalc${MY_Calc}.cpp"

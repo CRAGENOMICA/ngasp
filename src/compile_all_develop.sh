@@ -218,7 +218,8 @@ chmod -R o=u /develop
 
 # Para generar core files que se guardaran en /tmp
 # Para debugear usar: gdb /develop/webapp/bin/ngasp /tmp/core.%e.%p.%t
-echo '/tmp/core.%e.%p.%t' > /proc/sys/kernel/core_pattern
+# Da error en el mac: /proc/sys/kernel/core_pattern: Read-only file system
+#echo '/tmp/core.%e.%p.%t' > /proc/sys/kernel/core_pattern
 
 
 # ***************

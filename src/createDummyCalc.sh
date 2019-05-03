@@ -169,10 +169,10 @@ void CCalc${MY_Calc}::Calculate(bool dry_run) {
 
   // Step 5 - Add your calculation. This is one example of GCContent calculation:
   total->set_value(0);
-  int64_t T = 0
-  int64_t C = 0
-  int64_t G = 0
-  int64_t A = 0
+  int64_t T = 0;
+  int64_t C = 0;
+  int64_t G = 0;
+  int64_t A = 0;
 
   for (int64_t i = 0; i < DNAvector->Size(); i++) {
     switch(DNAvector[i]) {

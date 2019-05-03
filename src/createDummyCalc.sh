@@ -175,12 +175,14 @@ void CCalc${MY_Calc}::Calculate(bool dry_run) {
   int64_t A = 0;
 
   for (int64_t i = 0; i < DNAvector->Size(); i++) {
-    switch(DNAvector[i]) {
-      case 'T':T++;break;
-      case 'C':C++;break;
-      case 'G':G++;break;
-      case 'A':A++;break;
-      default:break;
+    if (DNAvector[i] == 'T') {
+    	T++;
+    } else if (DNAvector[i] == 'C') {
+    	C++;
+    } else if (DNAvector[i] == 'G') {
+    	G++;
+    } else if (DNAvector[i] == 'A') {
+	A++;
     }
   }
 

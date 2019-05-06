@@ -175,13 +175,13 @@ void CCalc${MY_Calc}::Calculate(bool dry_run) {
   int64_t A = 0;
 
   for (int64_t i = 0; i < DNAvector->Size(); i++) {
-    if (DNAvector[i] == 'T') {
+    if (DNAvector[i]->value() == 'T') {
     	T++;
-    } else if (DNAvector[i] == 'C') {
+    } else if (DNAvector[i]->value() == 'C') {
     	C++;
-    } else if (DNAvector[i] == 'G') {
+    } else if (DNAvector[i]->value() == 'G') {
     	G++;
-    } else if (DNAvector[i] == 'A') {
+    } else if (DNAvector[i]->value() == 'A') {
 	A++;
     }
   }

@@ -23,7 +23,7 @@ else
 	sed -i -e 's/  _CALC_LAST,/  CALC_'"${MY_Calc}"',\n  CALC_'"${MY_Calc}"'_BRIEF_DESC,\n  CALC_'"${MY_Calc}"'_DESC,\n\n\n  _CALC_LAST,/g' ./source/backend/language/CStringTable.h
 
 	# addition of calc to ./source/backend/language/CStringTable.cpp    
-  	sed -i -e 's/  strings_\[ENGLISH_COL\]\[_CALC_LAST\]/  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'\] = \"'"${MY_Calc}"'\"\;\n  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'_BRIEF_DESC\] = "";\n  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'_DESC\] = \"'"${MY_Calc}"' description\";\n\n  strings_\[ENGLISH_COL\]\[_CALC_LAST\]/g' ./source/backend/language/CStringTable.cpp
+  	sed -i -e 's/  strings_\[ENGLISH_COL\]\[_CALC_LAST\]/  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'\] = \"calc_'"${MY_Calc}"'\"\;\n  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'_BRIEF_DESC\] = "";\n  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'_DESC\] = \"'"${MY_Calc}"' description\";\n\n  strings_\[ENGLISH_COL\]\[_CALC_LAST\]/g' ./source/backend/language/CStringTable.cpp
 
 	# addition of calc to ./source/backend/calculations/CCalcFactory.cpp
 	sed -i -e 's|//_CALC_LAST|\#include "Calc/CCalc'"${MY_Calc}"'.h"\n//_CALC_LAST|g' ./source/backend/calculations/CCalcFactory.cpp

@@ -3700,27 +3700,27 @@ void CCalcMstatspop::Calculate(bool dry_run) {
   }
   if (!kind_length_->auto_created()) {/*TOcheck*/
     the_command->add(" -k ");
-    the_command->add(kind_length_->value());
+    the_command->add(kind_length_->GetDataString());
   }
   if (!freq_missing_ms_->auto_created()) {/*TOcheck*/
     the_command->add(" -x ");
-    the_command->add(freq_missing_ms_->value());
+    the_command->add(CStringTools::ToString(freq_missing_ms_->value());
   }
   if (!n_ccov_->auto_created()) {/*TOcheck*/
     the_command->add(" -y ");
-    the_command->add(n_ccov_->value());
+    the_command->add(CStringTools::ToString(n_ccov_->value());
   }
   if (!location_missing_ms_->auto_created()) {/*TOcheck*/
     the_command->add(" -M ");
-    the_command->add(location_missing_ms_->value());
+    the_command->add(CStringTools::ToString(location_missing_ms_->value());
   }
   if (!r2i_ploidies_->auto_created()) {/*TOcheck*/
     the_command->add(" -P ");
-    the_command->add(r2i_ploidies_->value());
+    the_command->add(r2i_ploidies_->GetDataString());
   }
   if (!first_slide_->auto_created()) {/*TOcheck*/
     the_command->add(" -Z ");
-    the_command->add(first_slide_->value());
+    the_command->add(CStringTools::ToString(first_slide_->value());
   }
 
   /*

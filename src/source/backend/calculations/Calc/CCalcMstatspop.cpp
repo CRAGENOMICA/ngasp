@@ -497,6 +497,77 @@ CCalcMstatspop::CCalcMstatspop()
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
 
+    SET_INPUT_INFO(file_chr_name_all_,                                           // Variable
+                   UNDEFINED_STRING,                                          // Group
+                   UNDEFINED_STRING,                            // Short Name
+                   UNDEFINED_STRING,                                            // Long Name
+                   UNDEFINED_STRING,                                            // Description
+                   UNDEFINED_STRING,                                            // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   UNDEFINED_STRING,                                            // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(kind_length_,                                           // Variable
+                   UNDEFINED_STRING,                                          // Group
+                   UNDEFINED_STRING,                            // Short Name
+                   UNDEFINED_STRING,                                            // Long Name
+                   UNDEFINED_STRING,                                            // Description
+                   UNDEFINED_STRING,                                            // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   UNDEFINED_STRING,                                            // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(freq_missing_ms_,                                           // Variable
+                   UNDEFINED_STRING,                                          // Group
+                   UNDEFINED_STRING,                            // Short Name
+                   UNDEFINED_STRING,                                            // Long Name
+                   UNDEFINED_STRING,                                            // Description
+                   UNDEFINED_STRING,                                            // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   UNDEFINED_STRING,                                            // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(n_ccov_,                                           // Variable
+                   UNDEFINED_STRING,                                          // Group
+                   UNDEFINED_STRING,                            // Short Name
+                   UNDEFINED_STRING,                                            // Long Name
+                   UNDEFINED_STRING,                                            // Description
+                   UNDEFINED_STRING,                                            // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   UNDEFINED_STRING,                                            // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(location_missing_ms_,                                           // Variable
+                   UNDEFINED_STRING,                                          // Group
+                   UNDEFINED_STRING,                            // Short Name
+                   UNDEFINED_STRING,                                            // Long Name
+                   UNDEFINED_STRING,                                            // Description
+                   UNDEFINED_STRING,                                            // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   UNDEFINED_STRING,                                            // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
+
+    SET_INPUT_INFO(first_slide_,                                           // Variable
+                   UNDEFINED_STRING,                                          // Group
+                   UNDEFINED_STRING,                            // Short Name
+                   UNDEFINED_STRING,                                            // Long Name
+                   UNDEFINED_STRING,                                            // Description
+                   UNDEFINED_STRING,                                            // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   UNDEFINED_STRING,                                            // Default value
+                   UNDEFINED_VALUE,                                             // Min. Value
+                   UNDEFINED_VALUE,                                             // Max. Value
+                   OPTTYPE_optional)                                            // Required
   
     //!mstatspop_outputs
   
@@ -3512,10 +3583,18 @@ void CCalcMstatspop::Calculate(bool dry_run) {
     the_command->add(" -o ");
     the_command->add(CStringTools::ToString(output_->value()));
   }
-  if (!populations_initial_->auto_created()) {
+  if (!populations_initial_->auto_created()) {/*TOcheck*/
     the_command->add(" -N ");
     the_command->add(populations_initial_->value());
   }
+  if (!scaffold_names_->auto_created())     {/*TOcheck*/
+    the_command->add(" -n ");
+    the_command->add(file_chr_name_all_->value());
+  }
+
+  the_command->add(" -T ");
+  the_command->add(calc_output_->value());
+
   if (!b_outgroup_presence_->auto_created()) {
     the_command->add(" -G ");
     the_command->add(b_outgroup_presence_->value() ? "1" : "0");
@@ -3524,21 +3603,13 @@ void CCalcMstatspop::Calculate(bool dry_run) {
     the_command->add(" -u ");
     the_command->add(b_include_unknown_->value() ? "1" : "0");
   }
-
-  the_command->add(" -T ");
-  the_command->add(calc_output_->value());
-
-  if (!file_H1f_->auto_created()) {
-    the_command->add(" -a ");
+  if (!file_H1f_->auto_created()) {/*TOcheck*/
+    the_command->add(" -A ");
     the_command->add(file_H1f_->value());
   }
-  if (!file_H0f_->auto_created()) {
-    the_command->add(" -n ");
+  if (!file_H0f_->auto_created()) {/*TOcheck*/
+    the_command->add(" -S ");
     the_command->add(file_H0f_->value());
-  }
-  if (r2i_ploidies_->Size() > 0) {
-    the_command->add(" -P ");
-    the_command->add(r2i_ploidies_->GetDataString());
   }
   if (!sort_nsam_->auto_created()) {
     the_command->add(" -O ");
@@ -3627,10 +3698,29 @@ void CCalcMstatspop::Calculate(bool dry_run) {
     the_command->add(" -K ");
     the_command->add(b_mask_print_->value() ? "1" : "0");
   }
-
-  if (!scaffold_names_->auto_created())     {
-    the_command->add(" -n ");
-    the_command->add(scaffold_names_->GetDataString());
+  if (!kind_length_->auto_created()) {/*TOcheck*/
+    the_command->add(" -k ");
+    the_command->add(kind_length_->value());
+  }
+  if (!freq_missing_ms_->auto_created()) {/*TOcheck*/
+    the_command->add(" -x ");
+    the_command->add(freq_missing_ms_->value());
+  }
+  if (!n_ccov_->auto_created()) {/*TOcheck*/
+    the_command->add(" -y ");
+    the_command->add(n_ccov_->value());
+  }
+  if (!location_missing_ms_->auto_created()) {/*TOcheck*/
+    the_command->add(" -M ");
+    the_command->add(location_missing_ms_->value());
+  }
+  if (!r2i_ploidies_->auto_created()) {/*TOcheck*/
+    the_command->add(" -P ");
+    the_command->add(r2i_ploidies_->value());
+  }
+  if (!first_slide_->auto_created()) {/*TOcheck*/
+    the_command->add(" -Z ");
+    the_command->add(first_slide_->value());
   }
 
   /*

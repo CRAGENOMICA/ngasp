@@ -195,6 +195,14 @@ public:
   CDataBoolean        *b_mask_print_;         ///
   CDataStdStringVector *scaffold_names_;     ///
   
+  CDataStdString      *file_chr_name_all_;                                      
+  CDataIntVector      *kind_length_;                                           
+  CDataFloat          *freq_missing_ms_;                                    
+  CDataInt64          *n_ccov_;                                           
+  CDataInt64          *location_missing_ms_;                             
+  CDataInt64          *first_slide_;                                     
+
+
   CDataBoolean *keep_intermediate_results;
   
 /// ============================================================================

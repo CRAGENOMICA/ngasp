@@ -85,7 +85,8 @@ class CCMDmstatspop: public ICommand {
   CDataStdString      *file_out_;             ///
   CDataBoolean        *b_force_outgroup_;     ///
   CDataBoolean        *b_outgroup_presence_;  ///
-  CDataInt            *formatfile_;           ///
+  CDataStdString      *formatfile_;           /// Necesario para el wrapper
+  //CDataInt            *formatfile_;           ///
   CDataIntVector      *r2i_ploidies_;         ///
   CDataStdString      *file_mas_;             ///
   CDataInt64          *niter_;                ///

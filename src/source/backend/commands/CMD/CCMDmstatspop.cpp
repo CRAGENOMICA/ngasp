@@ -684,9 +684,8 @@ bool CCMDmstatspop::Prepare() {
 /// ============================================================================
   DM_NEW_DATA(populations_initial_)
   DM_NEW_DATA(ploidy_);
-  DM_NEW_DATA(out_file_name_);
   DM_NEW_DATA(b_include_unknown_);
-//  DM_NEW_DATA(file_out_);
+  DM_NEW_DATA(out_file_name_);
   DM_NEW_DATA(b_force_outgroup_);
   DM_NEW_DATA(b_outgroup_presence_);
   DM_NEW_DATA(r2i_ploidies_)
@@ -753,9 +752,8 @@ bool CCMDmstatspop::Prepare() {
     
   populations_initial_->set_auto_created(true);
   ploidy_->set_auto_created(true);
-  out_file_name_->set_auto_created(true);
   b_include_unknown_->set_auto_created(true);
-  //file_out_->set_auto_created(true);
+  out_file_name_->set_auto_created(true);
   b_force_outgroup_->set_auto_created(true);
   b_outgroup_presence_->set_auto_created(true);
   formatfile_->set_auto_created(true);
@@ -876,10 +874,10 @@ bool CCMDmstatspop::Prepare() {
         b_include_unknown_->set_auto_created(false);
         break;
 
-      //case KeyString::MSTATSPOP_PATHNAME_OUTPUT_FILE_SHORT:       // 'T'        
-      //  file_out_->set_value(arguments);
-      //  file_out_->set_auto_created(false);
-      //  break;
+      case KeyString::MSTATSPOP_PATHNAME_OUTPUT_FILE_SHORT:       // 'T'        
+        out_file_name_->set_value(arguments);
+        out_file_name_->set_auto_created(false);
+        break;
 
       case KeyString::MSTATSPOP_ALT_SFILE_SHORT:
         file_H1f_->set_value(arguments);
@@ -1087,10 +1085,9 @@ void CCMDmstatspop::Run() {
   calc_mstatspop_->SetInput(file_in_);                                          //-i
   calc_mstatspop_->SetInput(output_);                                           //-o
   calc_mstatspop_->SetInput(populations_initial_);                              //-N
-  calc_mstatspop_->SetInput(out_file_name_);                              //-
   calc_mstatspop_->SetInput(b_outgroup_presence_);                              //-G
   calc_mstatspop_->SetInput(b_include_unknown_);                                //-u
-  //calc_mstatspop_->SetInput(file_out_);                                         //-T
+  calc_mstatspop_->SetInput(out_file_name_);                                         //-T
   calc_mstatspop_->SetInput(file_H1f_);                                         //-A
   calc_mstatspop_->SetInput(file_H0f_);                                         //-S
   calc_mstatspop_->SetInput(r2i_ploidies_);                                     //-P
@@ -1163,9 +1160,8 @@ void CCMDmstatspop::Finalize() {
     
   DM_DEL_DATA(populations_initial_)
   DM_DEL_DATA(ploidy_);
-  DM_DEL_DATA(out_file_name_);
   DM_DEL_DATA(b_include_unknown_);
-  //DM_DEL_DATA(file_out_);
+  DM_DEL_DATA(out_file_name_);
   DM_DEL_DATA(b_force_outgroup_);
   DM_DEL_DATA(b_outgroup_presence_);
   DM_DEL_DATA(r2i_ploidies_)

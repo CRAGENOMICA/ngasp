@@ -23,7 +23,7 @@ else
 	sed -i -e 's/  _CALC_LAST,/  CALC_'"${MY_Calc}"',\n  CALC_'"${MY_Calc}"'_BRIEF_DESC,\n  CALC_'"${MY_Calc}"'_DESC,\n\n\n  _CALC_LAST,/g' ./source/backend/language/CStringTable.h
 
 	# addition of calc to ./source/backend/language/CStringTable.cpp    
-  	sed -i -e 's/  strings_\[ENGLISH_COL\]\[_CALC_LAST\]/  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'\] = \"'"${MY_Calc}"'\"\;\n  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'_BRIEF_DESC\] = "";\n  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'_DESC\] = \"'"${MY_Calc}"' description\";\n\n  strings_\[ENGLISH_COL\]\[_CALC_LAST\]/g' ./source/backend/language/CStringTable.cpp
+  	sed -i -e 's/  strings_\[ENGLISH_COL\]\[_CALC_LAST\]/  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'\] = \"calc_'"${MY_Calc}"'\"\;\n  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'_BRIEF_DESC\] = "";\n  strings_\[ENGLISH_COL\]\[CALC_'"${MY_Calc}"'_DESC\] = \"'"${MY_Calc}"' description\";\n\n  strings_\[ENGLISH_COL\]\[_CALC_LAST\]/g' ./source/backend/language/CStringTable.cpp
 
 	# addition of calc to ./source/backend/calculations/CCalcFactory.cpp
 	sed -i -e 's|//_CALC_LAST|\#include "Calc/CCalc'"${MY_Calc}"'.h"\n//_CALC_LAST|g' ./source/backend/calculations/CCalcFactory.cpp
@@ -72,7 +72,7 @@ class CCalc${MY_Calc} : public ICalculation {
 private:
   // Step 2 - Declare your inputs and outputs:
   // Inputs
-  CDataCharVector *vector;
+  CDataCharVector *DNAvector;
   CDataBoolean *percentage;
   // Outputs
   CDataFloat *total;
@@ -169,18 +169,20 @@ void CCalc${MY_Calc}::Calculate(bool dry_run) {
 
   // Step 5 - Add your calculation. This is one example of GCContent calculation:
   total->set_value(0);
-  int64_t T = 0
-  int64_t C = 0
-  int64_t G = 0
-  int64_t A = 0
+  int64_t T = 0;
+  int64_t C = 0;
+  int64_t G = 0;
+  int64_t A = 0;
 
   for (int64_t i = 0; i < DNAvector->Size(); i++) {
-    switch(DNAvector[i]) {
-      case ’T’:T++;break;
-      case ’C’:C++;break;
-      case ’G’:G++;break;
-      case ’A’:A++;break;
-      default:break;
+    if ((*DNAvector[i]) == 'T') {
+    	T++;
+    } else if ((*DNAvector[i]) == 'C') {
+    	C++;
+    } else if ((*DNAvector[i]) == 'G') {
+    	G++;
+    } else if ((*DNAvector[i]) == 'A') {
+	A++;
     }
   }
 

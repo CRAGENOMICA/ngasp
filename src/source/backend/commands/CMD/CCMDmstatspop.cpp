@@ -684,8 +684,9 @@ bool CCMDmstatspop::Prepare() {
 /// ============================================================================
   DM_NEW_DATA(populations_initial_)
   DM_NEW_DATA(ploidy_);
+  DM_NEW_DATA(out_file_name_);
   DM_NEW_DATA(b_include_unknown_);
-  DM_NEW_DATA(file_out_);
+//  DM_NEW_DATA(file_out_);
   DM_NEW_DATA(b_force_outgroup_);
   DM_NEW_DATA(b_outgroup_presence_);
   DM_NEW_DATA(r2i_ploidies_)
@@ -710,11 +711,11 @@ bool CCMDmstatspop::Prepare() {
   DM_NEW_DATA(window_)
   DM_NEW_DATA(slide_)
   DM_NEW_DATA(physical_length_)
-  DM_NEW_DATA(file_effsz_)
+  //DM_NEW_DATA(file_effsz_)
   DM_NEW_DATA(b_mask_print_)
     
   DM_NEW_DATA(calc_output_)
-  DM_NEW_DATA(out_stats_So_)
+  /*DM_NEW_DATA(out_stats_So_)
   DM_NEW_DATA(out_stats_thetaSo_)
   DM_NEW_DATA(out_stats_thetaTo_)
   DM_NEW_DATA(out_stats_thetaFL_)
@@ -744,16 +745,17 @@ bool CCMDmstatspop::Prepare() {
   DM_NEW_DATA(out_stats_fsth_)
   DM_NEW_DATA(out_stats_fstHKY_)
   DM_NEW_DATA(out_stats_piwHKY_)
-  DM_NEW_DATA(out_stats_piaHKY_)
-    
+  //DM_NEW_DATA(out_stats_piaHKY_)
+    */
   // Autocreated variables are those variables that the calculation will set to default values.
   // They are all initialy set to true.
   // Auto created will be changed to false if the user sets their value.
     
   populations_initial_->set_auto_created(true);
   ploidy_->set_auto_created(true);
+  out_file_name_->set_auto_created(true);
   b_include_unknown_->set_auto_created(true);
-  file_out_->set_auto_created(true);
+  //file_out_->set_auto_created(true);
   b_force_outgroup_->set_auto_created(true);
   b_outgroup_presence_->set_auto_created(true);
   formatfile_->set_auto_created(true);
@@ -780,7 +782,7 @@ bool CCMDmstatspop::Prepare() {
   window_->set_auto_created(true);
   slide_->set_auto_created(true);
   physical_length_->set_auto_created(true);
-  file_effsz_->set_auto_created(true);
+  //file_effsz_->set_auto_created(true);
   b_mask_print_->set_auto_created(true);
 
 /// ============================================================================
@@ -874,10 +876,10 @@ bool CCMDmstatspop::Prepare() {
         b_include_unknown_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_PATHNAME_OUTPUT_FILE_SHORT:       // 'T'        
-        file_out_->set_value(arguments);
-        file_out_->set_auto_created(false);
-        break;
+      //case KeyString::MSTATSPOP_PATHNAME_OUTPUT_FILE_SHORT:       // 'T'        
+      //  file_out_->set_value(arguments);
+      //  file_out_->set_auto_created(false);
+      //  break;
 
       case KeyString::MSTATSPOP_ALT_SFILE_SHORT:
         file_H1f_->set_value(arguments);
@@ -1050,10 +1052,10 @@ bool CCMDmstatspop::Prepare() {
 
       /// Command options: New & Not done
 
-      case KeyString::MSTATSPOP_WEIGHTS_VARIANTS_FILE_SHORT:
-        file_effsz_->set_value(arguments);
-        file_effsz_->set_auto_created(false);
-        break;
+      //case KeyString::MSTATSPOP_WEIGHTS_VARIANTS_FILE_SHORT:
+      //  file_effsz_->set_value(arguments);
+      //  file_effsz_->set_auto_created(false);
+      //  break;
 
       case KeyString::MSTATSPOP_COUNT_TRANSITIONS_SHORT:
         break;
@@ -1085,11 +1087,12 @@ void CCMDmstatspop::Run() {
   calc_mstatspop_->SetInput(file_in_);                                          //-i
   calc_mstatspop_->SetInput(output_);                                           //-o
   calc_mstatspop_->SetInput(populations_initial_);                              //-N
+  calc_mstatspop_->SetInput(out_file_name_);                              //-
   calc_mstatspop_->SetInput(b_outgroup_presence_);                              //-G
   calc_mstatspop_->SetInput(b_include_unknown_);                                //-u
-  calc_mstatspop_->SetInput(file_out_);                                         //-T
-  calc_mstatspop_->SetInput(file_H1f_);                                         //-a
-  calc_mstatspop_->SetInput(file_H0f_);                                         //-n
+  //calc_mstatspop_->SetInput(file_out_);                                         //-T
+  calc_mstatspop_->SetInput(file_H1f_);                                         //-A
+  calc_mstatspop_->SetInput(file_H0f_);                                         //-S
   calc_mstatspop_->SetInput(r2i_ploidies_);                                     //-P
   calc_mstatspop_->SetInput(sort_nsam_);                                        //-O
   calc_mstatspop_->SetInput(niter_);                                            //-t
@@ -1112,10 +1115,10 @@ void CCMDmstatspop::Run() {
   calc_mstatspop_->SetInput(genetic_code_);
   calc_mstatspop_->SetInput(criteria_transcript_);                              //-c
   calc_mstatspop_->SetInput(b_mask_print_);                                     //-K
-  calc_mstatspop_->SetInput(file_effsz_);                                       //
+  //calc_mstatspop_->SetInput(file_effsz_);                                       //
   
   calc_mstatspop_->SetOutput(calc_output_);
-  calc_mstatspop_->SetOutput(out_stats_So_);
+ /* calc_mstatspop_->SetOutput(out_stats_So_);
   calc_mstatspop_->SetOutput(out_stats_thetaSo_);
   calc_mstatspop_->SetOutput(out_stats_thetaTo_);
   calc_mstatspop_->SetOutput(out_stats_thetaFL_);
@@ -1145,8 +1148,8 @@ void CCMDmstatspop::Run() {
   calc_mstatspop_->SetOutput(out_stats_fsth_);
   calc_mstatspop_->SetOutput(out_stats_fstHKY_);
   calc_mstatspop_->SetOutput(out_stats_piwHKY_);
-  calc_mstatspop_->SetOutput(out_stats_piaHKY_);
-  
+  //calc_mstatspop_->SetOutput(out_stats_piaHKY_);
+  */
   calc_mstatspop_->Prepare();
   calc_mstatspop_->Calculate(manager()->all_commands()->dry_run());
   calc_mstatspop_->Finalize();
@@ -1160,8 +1163,9 @@ void CCMDmstatspop::Finalize() {
     
   DM_DEL_DATA(populations_initial_)
   DM_DEL_DATA(ploidy_);
+  DM_DEL_DATA(out_file_name_);
   DM_DEL_DATA(b_include_unknown_);
-  DM_DEL_DATA(file_out_);
+  //DM_DEL_DATA(file_out_);
   DM_DEL_DATA(b_force_outgroup_);
   DM_DEL_DATA(b_outgroup_presence_);
   DM_DEL_DATA(r2i_ploidies_)
@@ -1186,10 +1190,10 @@ void CCMDmstatspop::Finalize() {
   DM_DEL_DATA(window_)
   DM_DEL_DATA(slide_)
   DM_DEL_DATA(physical_length_)
-  DM_DEL_DATA(file_effsz_)
+  //DM_DEL_DATA(file_effsz_)
     
   DM_DEL_DATA(calc_output_)
-  DM_DEL_DATA(out_stats_So_)
+ /* DM_DEL_DATA(out_stats_So_)
   DM_DEL_DATA(out_stats_thetaSo_)
   DM_DEL_DATA(out_stats_thetaTo_)
   DM_DEL_DATA(out_stats_thetaFL_)
@@ -1219,8 +1223,8 @@ void CCMDmstatspop::Finalize() {
   DM_DEL_DATA(out_stats_fsth_)
   DM_DEL_DATA(out_stats_fstHKY_)
   DM_DEL_DATA(out_stats_piwHKY_)
-  DM_DEL_DATA(out_stats_piaHKY_)
-  
+  //DM_DEL_DATA(out_stats_piaHKY_)
+  */
   DM_DEL_ALL_LOCAL_DATA    
 }
 

@@ -809,7 +809,10 @@ bool CCMDmstatspop::Prepare() {
 
         
       case KeyString::MSTATSPOP_FORMAT_SHORT:
-        if (arguments == STR(FORMAT_FILE_FASTA)) {
+        // For wrapper
+        formatfile_->set_value(arguments);
+
+        /*if (arguments == STR(FORMAT_FILE_FASTA)) {
           formatfile_->set_value(FASTA_FILE);
           //niterdata_->set_value(1);
         } else {
@@ -831,7 +834,7 @@ bool CCMDmstatspop::Prepare() {
               }
             }
           }
-        }
+        }*/ //con este if el wrapper daba error de tipos de datos
         formatfile_->set_auto_created(false);
         break;
 

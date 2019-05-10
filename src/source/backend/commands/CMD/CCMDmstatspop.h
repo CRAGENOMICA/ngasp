@@ -111,7 +111,7 @@ class CCMDmstatspop: public ICommand {
   CDataInt64          *slide_;                ///
   CDataInt            *physical_length_;      ///
   CDataBoolean        *b_mask_print_;         ///
-  CDataStdStringVector *scaffold_name_;     ///
+  CDataStdString      *scaffold_name_;     ///
   
   CDataIntVector      *kind_length_;                                           
   CDataFloat          *freq_missing_ms_;                                    

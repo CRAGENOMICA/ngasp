@@ -3576,11 +3576,11 @@ void CCalcMstatspop::Calculate(bool dry_run) {
     the_command->add(" -o ");
     the_command->add(CStringTools::ToString(output_->value()));
   }
-  if (!populations_initial_->auto_created()) {/*TOcheck*/
+  if (!populations_initial_->auto_created()) {
     the_command->add(" -N ");
     the_command->add(populations_initial_->value());
   }
-  if (!scaffold_name_->auto_created())     {/*TOcheck*/
+  if (!scaffold_name_->auto_created())     {
     the_command->add(" -n ");
     the_command->add(scaffold_name_->value());
   }

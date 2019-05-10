@@ -1049,6 +1049,28 @@ bool CCMDmstatspop::Prepare() {
         scaffold_name_->set_auto_created(false);
         break;
 
+      /*case KeyString::MSTATSPOP_KIND_LENGTH_SHORT:           //-k ***NOT DONE***
+        kind_length_->set_value_string(arguments);
+        kind_length_->set_auto_created(false);
+        break;
+        case KeyString::MSTATSPOP_FREQ_MISSING_SHORT:           //-x ***NOT DONE***
+        freq_missing_ms_->set_value_string(arguments);
+        freq_missing_ms_->set_auto_created(false);
+        break;
+        case KeyString::MSTATSPOP_N_CCOV_SHORT:           //-y ***NOT DONE***
+        n_ccov_->set_value_string(arguments);
+        n_ccov_->set_auto_created(false);
+        break;
+        case KeyString::MSTATSPOP_LOCATION_MISSING_SHORT:           //-M ***NOT DONE***
+        location_missing_ms_->set_value_string(arguments);
+        location_missing_ms_->set_auto_created(false);
+        break;
+        case KeyString::MSTATSPOP_FIRST_SLIDE_SHORT:           //-Z ***NOT DONE***
+        first_slide_->set_value_string(arguments);
+        first_slide_->set_auto_created(false);
+        break;*/
+        
+
       /// Command options: Help
 
       case KeyString::MSTATSPOP_HELP_SHORT:                   //-h

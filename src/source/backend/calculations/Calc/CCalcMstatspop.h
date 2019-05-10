@@ -208,13 +208,13 @@ public:
 /// ============================================================================
 /// INPUT TRANSFORMATIONS
 /// ============================================================================
-  CDataInt *include_unknown_;
+  /*CDataInt *include_unknown_;
   CDataInt *force_outgroup_;
   CDataInt *outgroup_presence_;
   CDataInt *gfffiles_;
   CDataInt *H0frq_;
   CDataInt *H1frq_;
-  CDataInt *mask_print_;
+  CDataInt *mask_print_;*/
   
 /// ============================================================================
 /// OUTPUT DATAS

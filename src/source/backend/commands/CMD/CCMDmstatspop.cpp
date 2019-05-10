@@ -712,7 +712,8 @@ bool CCMDmstatspop::Prepare() {
   DM_NEW_DATA(physical_length_)
   //DM_NEW_DATA(file_effsz_)
   DM_NEW_DATA(b_mask_print_)
-    
+  DM_NEW_DATA(scaffold_name_)
+
   DM_NEW_DATA(calc_output_)
   /*DM_NEW_DATA(out_stats_So_)
   DM_NEW_DATA(out_stats_thetaSo_)
@@ -782,6 +783,7 @@ bool CCMDmstatspop::Prepare() {
   physical_length_->set_auto_created(true);
   //file_effsz_->set_auto_created(true);
   b_mask_print_->set_auto_created(true);
+  scaffold_name_->set_auto_created(true);
 
 /// ============================================================================
 /// SCRIPT - INIT
@@ -808,7 +810,7 @@ bool CCMDmstatspop::Prepare() {
       /// Command options:
 
         
-      case KeyString::MSTATSPOP_FORMAT_SHORT:
+      case KeyString::MSTATSPOP_FORMAT_SHORT:                 //-f
         // For wrapper
         formatfile_->set_value(arguments);
 
@@ -838,17 +840,17 @@ bool CCMDmstatspop::Prepare() {
         formatfile_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_INPUT_SHORT:
+      case KeyString::MSTATSPOP_INPUT_SHORT:                //-i
         file_in_->set_value(arguments);
         file_in_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_OUTPUT_SHORT:
+      case KeyString::MSTATSPOP_OUTPUT_SHORT:               //-o
         output_->set_value_string(arguments);
         output_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_POP_SHORT:
+      case KeyString::MSTATSPOP_POP_SHORT:                  //-N
         GetArgument(&arguments);  // Discard number of elements.
 
         if (arguments != "") {
@@ -864,33 +866,33 @@ bool CCMDmstatspop::Prepare() {
 
       /// Command options: General
 
-      case KeyString::MSTATSPOP_OUTGROUP_SHORT:
+      case KeyString::MSTATSPOP_OUTGROUP_SHORT:                   //-G
         b_outgroup_presence_->set_value_string(arguments);
         b_outgroup_presence_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_INCL_UNKNO_SHORT:
+      case KeyString::MSTATSPOP_INCL_UNKNO_SHORT:                 //-u
         b_include_unknown_->set_value_string(arguments);
         b_include_unknown_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_PATHNAME_OUTPUT_FILE_SHORT:       // 'T'        
+      case KeyString::MSTATSPOP_PATHNAME_OUTPUT_FILE_SHORT:       //-T        
         out_file_name_->set_value(arguments);
         out_file_name_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_ALT_SFILE_SHORT:
+      case KeyString::MSTATSPOP_ALT_SFILE_SHORT:                  //-A
         file_H1f_->set_value(arguments);
         file_H1f_->set_auto_created(false);
         // b_H1frq_->set_value(1);
         break;
 
-      case KeyString::MSTATSPOP_NULL_SFILE_SHORT:
+      case KeyString::MSTATSPOP_NULL_SFILE_SHORT:                 //-S
         file_H0f_->set_value(arguments);
         file_H0f_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_R2P_SHORT:
+      case KeyString::MSTATSPOP_R2P_SHORT:                        //-P
         if ((one_argument = GetArgument(&arguments)) != "") {
           //numPloidies_->set_value(static_cast<int>(atol(one_argument.c_str())));
           r2i_ploidies_->set_data_string(arguments);
@@ -898,7 +900,7 @@ bool CCMDmstatspop::Prepare() {
         }
         break;
 
-      case KeyString::MSTATSPOP_ORDER_SHORT:
+      case KeyString::MSTATSPOP_ORDER_SHORT:                      //-O
         GetArgument(&arguments);  // Discard number of elements.
 
         if (arguments != "") {
@@ -912,12 +914,12 @@ bool CCMDmstatspop::Prepare() {
         }
         break;
 
-      case KeyString::MSTATSPOP_PERM_ITE_SHORT:
+      case KeyString::MSTATSPOP_PERM_ITE_SHORT:                   //-t
         niter_->set_value(static_cast<long int>(atol(arguments.c_str())));
         niter_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_SEED_SHORT:
+      case KeyString::MSTATSPOP_SEED_SHORT:                       //-s
         seed_->set_value_string(arguments);
         seed_->set_auto_created(false);
         //idum_->set_value(-1*seed_->value());
@@ -925,71 +927,71 @@ bool CCMDmstatspop::Prepare() {
 
       /// Command options: For TFASTA Input
 
-      case KeyString::MSTATSPOP_WINDOW_SIZE_SHORT:
+      case KeyString::MSTATSPOP_WINDOW_SIZE_SHORT:                //-w
         window_->set_value(static_cast<long int>(atol(arguments.c_str())));
         window_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_SLIDE_SIZE_SHORT:
+      case KeyString::MSTATSPOP_SLIDE_SIZE_SHORT:                 //-z
         slide_->set_value(static_cast<long int>(atol(arguments.c_str())));
         slide_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_WINDOW_LENGTHS_SHORT:
+      case KeyString::MSTATSPOP_WINDOW_LENGTHS_SHORT:             //-Y
         physical_length_->set_value(static_cast<int>(atoi(arguments.c_str())));
         physical_length_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_COORDS_FILE_SHORT: // -W
+      case KeyString::MSTATSPOP_COORDS_FILE_SHORT:                // -W
         file_wcoord_->set_value(arguments);   
         file_wcoord_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_HEIGHTS_FILE_SHORT:
+      case KeyString::MSTATSPOP_HEIGHTS_FILE_SHORT:               //-E
         file_wps_->set_value(arguments);
         file_wps_->set_auto_created(false);
         break;
 
       /// Command options: For MS Input
 
-      case KeyString::MSTATSPOP_LENGTH_SHORT:
+      case KeyString::MSTATSPOP_LENGTH_SHORT:                     //-l
         length_->set_value_string(arguments);
         length_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_MS_ITERATIONS_SHORT:
+      case KeyString::MSTATSPOP_MS_ITERATIONS_SHORT:              //-r
         niterdata_->set_value(static_cast<long int>(atol(arguments.c_str())));
         niterdata_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_MASK_SHORT:
+      case KeyString::MSTATSPOP_MASK_SHORT:                       //-m
         file_mas_->set_value(arguments);
         file_mas_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_RATIOTRANS_SHORT:
+      case KeyString::MSTATSPOP_RATIOTRANS_SHORT:                 //-v
         ms_svratio_->set_value_string(arguments);
         ms_svratio_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_INCL_OUTGR_SHORT:
+      case KeyString::MSTATSPOP_INCL_OUTGR_SHORT:                 //-F
         b_force_outgroup_->set_value_string(arguments);
         b_force_outgroup_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_FREQREVMUT_SHORT:
+      case KeyString::MSTATSPOP_FREQREVMUT_SHORT:                 //-q
         freq_revert_->set_value_string(arguments);
         freq_revert_->set_auto_created(false);
         break;
 
       /// Command options: For FASTA Input      
 
-      case KeyString::MSTATSPOP_PLOIDY_SHORT:
+      case KeyString::MSTATSPOP_PLOIDY_SHORT:                     //-p
         ploidy_->set_value_string(arguments);
         ploidy_->set_auto_created(false);
         break;
 
-      case KeyString::MSTATSPOP_GFF_FILE_SHORT:
+      case KeyString::MSTATSPOP_GFF_FILE_SHORT:                   //-g
        
 
         if ((one_argument = GetArgument(&arguments)) != "") {
@@ -1002,7 +1004,7 @@ bool CCMDmstatspop::Prepare() {
           subset_positions_->set_auto_created(false);
         }
 
-        if ((one_argument == STR(SUBSET_POS_SYNONYMOUS)) ||
+        if ((one_argument == STR(SUBSET_POS_SYNONYMOUS)) ||  
              (one_argument == STR(SUBSET_POS_NONSYNONYMOUS)) ||
              (one_argument == STR(SUBSET_POS_0_FOLD)) ||
              (one_argument == STR(SUBSET_POS_2_FOLD)) ||
@@ -1026,7 +1028,7 @@ bool CCMDmstatspop::Prepare() {
         }
         break;
 
-      case KeyString::MSTATSPOP_CRITERIA_SHORT:
+      case KeyString::MSTATSPOP_CRITERIA_SHORT:               //-c
         criteria_transcript_->set_text_string(arguments);
         criteria_transcript_->set_auto_created(false);
 
@@ -1037,14 +1039,19 @@ bool CCMDmstatspop::Prepare() {
         }
         break;
 
-        case KeyString::MSTATSPOP_MASK_PRINT_SHORT: // -K
-          b_mask_print_->set_value_string(arguments);
-          b_mask_print_->set_auto_created(false);
-          break;
-          
+      case KeyString::MSTATSPOP_MASK_PRINT_SHORT:           //-k
+        b_mask_print_->set_value_string(arguments);
+        b_mask_print_->set_auto_created(false);
+        break;
+      
+      case KeyString::MSTATSPOP_SCAFFOLD_NAME_SHORT:           //-n
+        scaffold_name_->set_value_string(arguments);
+        scaffold_name_->set_auto_created(false);
+        break;
+
       /// Command options: Help
 
-      case KeyString::MSTATSPOP_HELP_SHORT:
+      case KeyString::MSTATSPOP_HELP_SHORT:                   //-h
         run_only_help_ = true;
         break;
 
@@ -1087,7 +1094,7 @@ void CCMDmstatspop::Run() {
   calc_mstatspop_->SetInput(populations_initial_);                              //-N
   calc_mstatspop_->SetInput(b_outgroup_presence_);                              //-G
   calc_mstatspop_->SetInput(b_include_unknown_);                                //-u
-  calc_mstatspop_->SetInput(out_file_name_);                                         //-T
+  calc_mstatspop_->SetInput(out_file_name_);                                    //-T
   calc_mstatspop_->SetInput(file_H1f_);                                         //-A
   calc_mstatspop_->SetInput(file_H0f_);                                         //-S
   calc_mstatspop_->SetInput(r2i_ploidies_);                                     //-P
@@ -1113,7 +1120,8 @@ void CCMDmstatspop::Run() {
   calc_mstatspop_->SetInput(criteria_transcript_);                              //-c
   calc_mstatspop_->SetInput(b_mask_print_);                                     //-K
   //calc_mstatspop_->SetInput(file_effsz_);                                       //
-  
+  calc_mstatspop_->SetInput(scaffold_name_);                                    //-n
+
   calc_mstatspop_->SetOutput(calc_output_);
  /* calc_mstatspop_->SetOutput(out_stats_So_);
   calc_mstatspop_->SetOutput(out_stats_thetaSo_);
@@ -1187,7 +1195,8 @@ void CCMDmstatspop::Finalize() {
   DM_DEL_DATA(slide_)
   DM_DEL_DATA(physical_length_)
   //DM_DEL_DATA(file_effsz_)
-    
+  DM_DEL_DATA(scaffold_name_)
+
   DM_DEL_DATA(calc_output_)
  /* DM_DEL_DATA(out_stats_So_)
   DM_DEL_DATA(out_stats_thetaSo_)

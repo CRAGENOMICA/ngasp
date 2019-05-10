@@ -473,9 +473,9 @@ CCalcMstatspop::CCalcMstatspop()
                    OPTTYPE_optional)                                            // Required
 */
 
-    SET_INPUT_INFO(scaffold_names_,                                              // Variable
+    SET_INPUT_INFO(scaffold_name_,                                              // Variable
                    UNDEFINED_STRING,                                            // Group
-                   CCALCMSTATSPOP_SCAFFOLD_NAMES_,                              // Short Name
+                   CCALCMSTATSPOP_SCAFFOLD_NAME_,                              // Short Name
                    MSTATSPOP_SCAFFOLD_NAME_LONG,                                // Long Name
                    MSTATSPOP_SCAFFOLD_NAME_DESC,                                // Description
                    MSTATSPOP_SCAFFOLD_NAME_EXAMPLE,                             // Example
@@ -493,18 +493,6 @@ CCalcMstatspop::CCalcMstatspop()
                    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_SAMP,                    // Example
                    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_ONLY,                    // Use only if
                    CCALC_ALL_KEEP_INTERMEDIATE_RESULTS_DEFV,                    // Default value
-                   UNDEFINED_VALUE,                                             // Min. Value
-                   UNDEFINED_VALUE,                                             // Max. Value
-                   OPTTYPE_optional)                                            // Required
-
-    SET_INPUT_INFO(file_chr_name_all_,                                           // Variable
-                   UNDEFINED_STRING,                                          // Group
-                   UNDEFINED_STRING,                            // Short Name
-                   UNDEFINED_STRING,                                            // Long Name
-                   UNDEFINED_STRING,                                            // Description
-                   UNDEFINED_STRING,                                            // Example
-                   UNDEFINED_STRING,                                            // Use only if
-                   UNDEFINED_STRING,                                            // Default value
                    UNDEFINED_VALUE,                                             // Min. Value
                    UNDEFINED_VALUE,                                             // Max. Value
                    OPTTYPE_optional)                                            // Required
@@ -964,8 +952,7 @@ void CCalcMstatspop::Prepare(void) {
     DM_INPUT(genetic_code_)
     DM_INPUT(criteria_transcript_)                                              //-c
     DM_INPUT(b_mask_print_)                                                     //-K
-    DM_INPUT(scaffold_names_)
-    DM_INPUT(file_chr_name_all_)
+    DM_INPUT(scaffold_name_)
     DM_INPUT(kind_length_)
     DM_INPUT(freq_missing_ms_)
     DM_INPUT(n_ccov_)
@@ -3593,9 +3580,9 @@ void CCalcMstatspop::Calculate(bool dry_run) {
     the_command->add(" -N ");
     the_command->add(populations_initial_->value());
   }
-  if (!scaffold_names_->auto_created())     {/*TOcheck*/
+  if (!scaffold_name_->auto_created())     {/*TOcheck*/
     the_command->add(" -n ");
-    the_command->add(file_chr_name_all_->value());
+    the_command->add(scaffold_name_->value());
   }
 
   the_command->add(" -T ");

@@ -2406,7 +2406,7 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CCALCMSTATSPOP_FILE_EFFSZ_] = "File Effsz";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_INT_TOTAL_NSAM_ORDER_] = "Int total nsam order";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_MASK_PRINT_] = "Mask print (-K)";
-  strings_[ENGLISH_COL][CCALCMSTATSPOP_SCAFFOLD_NAMES_] = "Scaffold Names (-n)";
+  strings_[ENGLISH_COL][CCALCMSTATSPOP_SCAFFOLD_NAME_] = "Scaffold Name (-n)";
 
   
   //!mstatspop_outputs

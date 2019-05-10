@@ -965,6 +965,12 @@ void CCalcMstatspop::Prepare(void) {
     DM_INPUT(criteria_transcript_)                                              //-c
     DM_INPUT(b_mask_print_)                                                     //-K
     DM_INPUT(scaffold_names_)
+    DM_INPUT(file_chr_name_all_)
+    DM_INPUT(kind_length_)
+    DM_INPUT(freq_missing_ms_)
+    DM_INPUT(n_ccov_)
+    DM_INPUT(location_missing_ms_)
+    DM_INPUT(first_slide_)
 
 //    DM_INPUT(file_effsz_)                                                       //
     DM_INPUT(keep_intermediate_results)

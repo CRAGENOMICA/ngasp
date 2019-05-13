@@ -648,7 +648,6 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][MSTATSPOP_HELP_DESC]                                    = "Help and exit";
 
   /// Command options: New & Not done
-  strings_[ENGLISH_COL][MSTATSPOP_SCAFFOLD_NAME_SHORT]                  = "n";
   strings_[ENGLISH_COL][MSTATSPOP_KIND_LENGTH_SHORT]                  = "k";
   strings_[ENGLISH_COL][MSTATSPOP_LOCATION_MISSING_SHORT]                  = "M";
   strings_[ENGLISH_COL][MSTATSPOP_FIRST_SLIDE_SHORT]                  = "Z";

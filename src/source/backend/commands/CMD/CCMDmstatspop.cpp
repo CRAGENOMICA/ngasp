@@ -1039,7 +1039,7 @@ bool CCMDmstatspop::Prepare() {
         }
         break;
 
-      case KeyString::MSTATSPOP_MASK_PRINT_SHORT:           //-k
+      case KeyString::MSTATSPOP_MASK_PRINT_SHORT:           //-K
         b_mask_print_->set_value_string(arguments);
         b_mask_print_->set_auto_created(false);
         break;

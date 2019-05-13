@@ -635,8 +635,8 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][MSTATSPOP_CRITERIA_DESC]                                = "Criteria to consider transcripts";
   strings_[ENGLISH_COL][MSTATSPOP_CRITERIA_ONLY]                                = "Coding regions";
 
-  strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_SHORT]                             = "k";
-  strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_LONG]                              = "k";
+  strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_SHORT]                             = "K";
+  strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_LONG]                              = "K";
   strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_DESC]                              = "Make a MASK file with the valid positions for this fasta. Useful for running ms simulations (1/0)";
   strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_DEF_VAL]                           = "0";
 
@@ -648,6 +648,12 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][MSTATSPOP_HELP_DESC]                                    = "Help and exit";
 
   /// Command options: New & Not done
+  strings_[ENGLISH_COL][MSTATSPOP_SCAFFOLD_NAME_SHORT]                  = "n";
+  strings_[ENGLISH_COL][MSTATSPOP_KIND_LENGTH_SHORT]                  = "k";
+  strings_[ENGLISH_COL][MSTATSPOP_LOCATION_MISSING_SHORT]                  = "M";
+  strings_[ENGLISH_COL][MSTATSPOP_FIRST_SLIDE_SHORT]                  = "Z";
+
+
 /*
   strings_[ENGLISH_COL][MSTATSPOP_WEIGHTS_VARIANTS_FILE_SHORT]                  = "e";
   strings_[ENGLISH_COL][MSTATSPOP_WEIGHTS_VARIANTS_FILE_LONG]                   = "weights-variants-FILE";

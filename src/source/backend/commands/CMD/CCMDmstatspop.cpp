@@ -713,6 +713,9 @@ bool CCMDmstatspop::Prepare() {
   //DM_NEW_DATA(file_effsz_)
   DM_NEW_DATA(b_mask_print_)
   DM_NEW_DATA(scaffold_name_)
+  DM_NEW_DATA(kind_length_)
+  DM_NEW_DATA(location_missing_ms_)
+  DM_NEW_DATA(first_slide_)
 
   DM_NEW_DATA(calc_output_)
   /*DM_NEW_DATA(out_stats_So_)
@@ -784,7 +787,9 @@ bool CCMDmstatspop::Prepare() {
   //file_effsz_->set_auto_created(true);
   b_mask_print_->set_auto_created(true);
   scaffold_name_->set_auto_created(true);
-
+  kind_length_->set_auto_created(true);
+  location_missing_ms_->set_auto_created(true);
+  first_slide_->set_auto_created(true);
 /// ============================================================================
 /// SCRIPT - INIT
 /// ============================================================================
@@ -1073,7 +1078,6 @@ bool CCMDmstatspop::Prepare() {
         first_slide_->set_value_string(arguments);
         first_slide_->set_auto_created(false);
         break;
-        
 
       /// Command options: Help
 
@@ -1147,6 +1151,9 @@ void CCMDmstatspop::Run() {
   calc_mstatspop_->SetInput(b_mask_print_);                                     //-K
   //calc_mstatspop_->SetInput(file_effsz_);                                       //
   calc_mstatspop_->SetInput(scaffold_name_);                                    //-n
+  calc_mstatspop_->SetInput(kind_length_);
+  calc_mstatspop_->SetInput(location_missing_ms_);
+  calc_mstatspop_->SetInput(first_slide_);
 
   calc_mstatspop_->SetOutput(calc_output_);
  /* calc_mstatspop_->SetOutput(out_stats_So_);
@@ -1222,6 +1229,9 @@ void CCMDmstatspop::Finalize() {
   DM_DEL_DATA(physical_length_)
   //DM_DEL_DATA(file_effsz_)
   DM_DEL_DATA(scaffold_name_)
+  DM_DEL_DATA(kind_length_)
+  DM_DEL_DATA(location_missing_ms_)
+  DM_DEL_DATA(first_slide_)
 
   DM_DEL_DATA(calc_output_)
  /* DM_DEL_DATA(out_stats_So_)

@@ -28,7 +28,7 @@ else
 	# addition of calc to ./source/backend/calculations/CCalcFactory.cpp
 	sed -i -e 's|//_CALC_LAST|\#include "Calc/CCalc'"${MY_Calc}"'.h"\n//_CALC_LAST|g' ./source/backend/calculations/CCalcFactory.cpp
 	sed -i -e 's|  //data_map_\[KeyString::_CALC_LAST\]|  data_map_\[KeyString::CALC_'"${MY_Calc}"'\] = new CCalc'"${MY_Calc}"'();\n  //data_map_\[KeyString::_CALC_LAST\]|g' ./source/backend/calculations/CCalcFactory.cpp
-
+	
 	echo "File ./source/backend/language/CStringTable.h modified to add ${MY_Calc}"
 	echo "File ./source/backend/language/CStringTable.cpp modified to add ${MY_Calc}"
 	echo "File ./source/backend/calculations/CCalcFactory.cpp modified to add ${MY_Calc}"
@@ -175,13 +175,13 @@ void CCalc${MY_Calc}::Calculate(bool dry_run) {
   int64_t A = 0;
 
   for (int64_t i = 0; i < DNAvector->Size(); i++) {
-    if ((*DNAvector[i]) == 'T') {
+    if ((*DNAvector)[i] == 'T') {
     	T++;
-    } else if ((*DNAvector[i]) == 'C') {
+    } else if ((*DNAvector)[i] == 'C') {
     	C++;
-    } else if ((*DNAvector[i]) == 'G') {
+    } else if ((*DNAvector)[i] == 'G') {
     	G++;
-    } else if ((*DNAvector[i]) == 'A') {
+    } else if ((*DNAvector)[i] == 'A') {
 	A++;
     }
   }

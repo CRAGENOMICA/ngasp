@@ -198,7 +198,7 @@ public:
   CDataIntVector      *kind_length_;                                           
   CDataFloat          *freq_missing_ms_;                                    
   CDataInt64          *n_ccov_;                                           
-  CDataInt64          *location_missing_ms_;                             
+  CDataFloat          *location_missing_ms_;                             
   CDataInt64          *first_slide_;                                     
 
 

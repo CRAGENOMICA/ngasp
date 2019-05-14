@@ -193,20 +193,27 @@ public:
   CDataInt64          *slide_;                ///
   CDataInt            *physical_length_;      ///
   CDataBoolean        *b_mask_print_;         ///
-  CDataStdStringVector *scaffold_names_;     ///
+  CDataStdString      *scaffold_name_;     ///
   
+  CDataIntVector      *kind_length_;                                           
+  CDataFloat          *freq_missing_ms_;                                    
+  CDataInt64          *n_ccov_;                                           
+  CDataFloat          *location_missing_ms_;                             
+  CDataInt64          *first_slide_;                                     
+
+
   CDataBoolean *keep_intermediate_results;
   
 /// ============================================================================
 /// INPUT TRANSFORMATIONS
 /// ============================================================================
-  CDataInt *include_unknown_;
+  /*CDataInt *include_unknown_;
   CDataInt *force_outgroup_;
   CDataInt *outgroup_presence_;
   CDataInt *gfffiles_;
   CDataInt *H0frq_;
   CDataInt *H1frq_;
-  CDataInt *mask_print_;
+  CDataInt *mask_print_;*/
   
 /// ============================================================================
 /// OUTPUT DATAS

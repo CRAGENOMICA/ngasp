@@ -28,7 +28,7 @@ else
 	# addition of calc to ./source/backend/calculations/CCalcFactory.cpp
 	sed -i -e 's|//_CALC_LAST|\#include "Calc/CCalc'"${MY_Calc}"'.h"\n//_CALC_LAST|g' ./source/backend/calculations/CCalcFactory.cpp
 	sed -i -e 's|  //data_map_\[KeyString::_CALC_LAST\]|  data_map_\[KeyString::CALC_'"${MY_Calc}"'\] = new CCalc'"${MY_Calc}"'();\n  //data_map_\[KeyString::_CALC_LAST\]|g' ./source/backend/calculations/CCalcFactory.cpp
-
+	
 	echo "File ./source/backend/language/CStringTable.h modified to add ${MY_Calc}"
 	echo "File ./source/backend/language/CStringTable.cpp modified to add ${MY_Calc}"
 	echo "File ./source/backend/calculations/CCalcFactory.cpp modified to add ${MY_Calc}"

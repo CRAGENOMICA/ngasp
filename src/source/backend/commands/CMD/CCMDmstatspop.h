@@ -77,15 +77,84 @@ class CCMDmstatspop: public ICommand {
   CCalcMstatspop *calc_mstatspop_;
 
 /// ============================================================================
-/// DATAS
+/// INPUT DATAS
 /// ============================================================================
   CDataStdString      *populations_initial_;  ///
+  CDataInt            *ploidy_;               ///
+  CDataStdString      *out_file_name_;             ///
+  CDataBoolean        *b_include_unknown_;    ///
+  CDataBoolean        *b_force_outgroup_;     ///
+  CDataBoolean        *b_outgroup_presence_;  ///
+  CDataStdString      *formatfile_;           ///
+  CDataIntVector      *r2i_ploidies_;         ///
+  CDataStdString      *file_mas_;             ///
+  CDataInt64          *niter_;                ///
+  CDataInt64          *niterdata_;            ///
+  CDataFloat          *ms_svratio_;           ///
+  CDataInt64          *length_;               ///
+  CDataFloat          *freq_revert_;          ///
+  CDataStdString      *file_GFF_;             ///
+  CDataCharVector     *subset_positions_;     ///
+  CDataCharVector     *code_name_;            ///
+  CDataCharVector     *genetic_code_;         ///
+  CDataStdString      *file_H0f_;             ///
+  CDataStdString      *file_H1f_;             ///
+  CDataCharVector     *criteria_transcript_;  ///
+  CDataStdString      *file_in_;              ///
+  CDataIntVector      *sort_nsam_;            /// position in the file
+  CDataInt            *output_;               ///
+  CDataInt64          *seed_;                 ///
+  CDataStdString      *file_wps_;             /// weights
+  CDataStdString      *file_wcoord_;          /// coordinates
+  //CDataStdString      *file_effsz_;           /// effect sizes
+  CDataInt64          *window_;               ///
+  CDataInt64          *slide_;                ///
+  CDataInt            *physical_length_;      ///
+  CDataBoolean        *b_mask_print_;         ///
+  CDataStdString      *scaffold_name_;     ///
+  
+  CDataIntVector      *kind_length_;                                           
+  CDataFloat          *freq_missing_ms_;                                    
+  CDataInt64          *n_ccov_;                                           
+  CDataFloat          *location_missing_ms_;                             
+  CDataInt64          *first_slide_;                                     
+
+
+  CDataBoolean *keep_intermediate_results;
+  
+/// ============================================================================
+/// INPUT TRANSFORMATIONS
+/// ============================================================================
+/*  CDataInt *include_unknown_;
+  CDataInt *force_outgroup_;
+  CDataInt *outgroup_presence_;
+  CDataInt *gfffiles_;
+  CDataInt *H0frq_;
+  CDataInt *H1frq_;
+  CDataInt *mask_print_;*/
+  
+/// ============================================================================
+/// OUTPUT DATAS
+/// ============================================================================
+  // These are all statistics that will become the calculation outputs.
+  // They have all windows information.
+  // Note: mstatspop clears its variables for every window iteration. These
+  // variables stores all iteration results. For example: "out_stats_So_" 
+  // contains all iteration results from "stats_So_".
+  
+  CDataTextFile    *calc_output_;
+
+/// ============================================================================
+/// DATAS
+/// ============================================================================
+/*  CDataStdString      *populations_initial_;  ///
   CDataInt            *ploidy_;               ///
   CDataBoolean        *b_include_unknown_;    ///
   CDataStdString      *file_out_;             ///
   CDataBoolean        *b_force_outgroup_;     ///
   CDataBoolean        *b_outgroup_presence_;  ///
-  CDataInt            *formatfile_;           ///
+  CDataStdString      *formatfile_;           /// Necesario para el wrapper
+  //CDataInt            *formatfile_;           ///
   CDataIntVector      *r2i_ploidies_;         ///
   CDataStdString      *file_mas_;             ///
   CDataInt64          *niter_;                ///
@@ -111,7 +180,7 @@ class CCMDmstatspop: public ICommand {
   CDataInt64          *window_;               ///
   CDataInt64          *slide_;                ///
   CDataInt            *physical_length_;      ///
-  CDataStdString      *file_effsz_;           ///
+  //CDataStdString      *file_effsz_;           ///
   CDataBoolean        *b_mask_print_;         ///
   
   CDataStdString      *calc_output_;
@@ -145,8 +214,8 @@ class CCMDmstatspop: public ICommand {
   CDataDoubleVector   *out_stats_fsth_;       /// FstH
   CDataDoubleVector   *out_stats_fstHKY_;     /// FstHKY
   CDataDoubleVector   *out_stats_piwHKY_;     /// PiWHKY
-  CDataDoubleVector   *out_stats_piaHKY_;     /// PiAHKY          
-  
+  //CDataDoubleVector   *out_stats_piaHKY_;     /// PiAHKY          
+  */
 /// ============================================================================
 /// COMMAND BEHAVIOURS
 /// ============================================================================

@@ -635,8 +635,8 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][MSTATSPOP_CRITERIA_DESC]                                = "Criteria to consider transcripts";
   strings_[ENGLISH_COL][MSTATSPOP_CRITERIA_ONLY]                                = "Coding regions";
 
-  strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_SHORT]                             = "k";
-  strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_LONG]                              = "k";
+  strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_SHORT]                             = "K";
+  strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_LONG]                              = "K";
   strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_DESC]                              = "Make a MASK file with the valid positions for this fasta. Useful for running ms simulations (1/0)";
   strings_[ENGLISH_COL][MSTATSPOP_MASK_PRINT_DEF_VAL]                           = "0";
 
@@ -648,6 +648,18 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][MSTATSPOP_HELP_DESC]                                    = "Help and exit";
 
   /// Command options: New & Not done
+  strings_[ENGLISH_COL][MSTATSPOP_KIND_LENGTH_SHORT]                  = "k";
+  strings_[ENGLISH_COL][MSTATSPOP_KIND_LENGTH_LONG]                  = "k";
+  strings_[ENGLISH_COL][MSTATSPOP_KIND_LENGTH_DESC]                  = "make a MASK file with the valid positions for this fasta. Useful for running ms simulations (1/0)]. DEFAULT 0";
+
+  strings_[ENGLISH_COL][MSTATSPOP_LOCATION_MISSING_SHORT]                  = "M";
+  strings_[ENGLISH_COL][MSTATSPOP_LOCATION_MISSING_LONG]                  = "M";
+  strings_[ENGLISH_COL][MSTATSPOP_LOCATION_MISSING_DESC]                  = "in case ms_e, column location of missing values at prior row (default 3), only in ms_e format with the option -u 1";
+
+  strings_[ENGLISH_COL][MSTATSPOP_FIRST_SLIDE_SHORT]                  = "Z";
+  strings_[ENGLISH_COL][MSTATSPOP_FIRST_SLIDE_LONG]                  = "Z";
+  strings_[ENGLISH_COL][MSTATSPOP_FIRST_SLIDE_DESC]                  = "first window size displacement [for comparing overlapped windows])]. DEFAULT 0";
+
 /*
   strings_[ENGLISH_COL][MSTATSPOP_WEIGHTS_VARIANTS_FILE_SHORT]                  = "e";
   strings_[ENGLISH_COL][MSTATSPOP_WEIGHTS_VARIANTS_FILE_LONG]                   = "weights-variants-FILE";
@@ -2406,7 +2418,7 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CCALCMSTATSPOP_FILE_EFFSZ_] = "File Effsz";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_INT_TOTAL_NSAM_ORDER_] = "Int total nsam order";
   strings_[ENGLISH_COL][CCALCMSTATSPOP_MASK_PRINT_] = "Mask print (-K)";
-  strings_[ENGLISH_COL][CCALCMSTATSPOP_SCAFFOLD_NAMES_] = "Scaffold Names (-n)";
+  strings_[ENGLISH_COL][CCALCMSTATSPOP_SCAFFOLD_NAME_] = "Scaffold Name (-n)";
 
   
   //!mstatspop_outputs

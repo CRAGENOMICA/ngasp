@@ -649,9 +649,16 @@ CStringTable::CStringTable() : IStringTable() {
 
   /// Command options: New & Not done
   strings_[ENGLISH_COL][MSTATSPOP_KIND_LENGTH_SHORT]                  = "k";
-  strings_[ENGLISH_COL][MSTATSPOP_LOCATION_MISSING_SHORT]                  = "M";
-  strings_[ENGLISH_COL][MSTATSPOP_FIRST_SLIDE_SHORT]                  = "Z";
+  strings_[ENGLISH_COL][MSTATSPOP_KIND_LENGTH_LONG]                  = "k";
+  strings_[ENGLISH_COL][MSTATSPOP_KIND_LENGTH_DESC]                  = "make a MASK file with the valid positions for this fasta. Useful for running ms simulations (1/0)]. DEFAULT 0";
 
+  strings_[ENGLISH_COL][MSTATSPOP_LOCATION_MISSING_SHORT]                  = "M";
+  strings_[ENGLISH_COL][MSTATSPOP_LOCATION_MISSING_LONG]                  = "M";
+  strings_[ENGLISH_COL][MSTATSPOP_LOCATION_MISSING_DESC]                  = "in case ms_e, column location of missing values at prior row (default 3), only in ms_e format with the option -u 1";
+
+  strings_[ENGLISH_COL][MSTATSPOP_FIRST_SLIDE_SHORT]                  = "Z";
+  strings_[ENGLISH_COL][MSTATSPOP_FIRST_SLIDE_LONG]                  = "Z";
+  strings_[ENGLISH_COL][MSTATSPOP_FIRST_SLIDE_DESC]                  = "first window size displacement [for comparing overlapped windows])]. DEFAULT 0";
 
 /*
   strings_[ENGLISH_COL][MSTATSPOP_WEIGHTS_VARIANTS_FILE_SHORT]                  = "e";

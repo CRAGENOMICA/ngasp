@@ -590,6 +590,61 @@ void CCMDmstatspop::DefineCommandOptions() {
                   OPTTYPE_mandatory_in_its_group)                               // Required
 
                     /// Command options: New & Not done
+MSTATSPOP_LOCATION_MISSING_SHORT -M
+MSTATSPOP_FIRST_SLIDE_SHORT -Z
+
+    SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
+                    DATA_FILE,                                                  // Data Type
+                    MSTATSPOP_SCAFFOLD_NAME_SHORT,                                      // Short Name
+                    MSTATSPOP_SCAFFOLD_NAME_LONG,                                       // Long Name
+                    MSTATSPOP_SCAFFOLD_NAME_DESC,                                       // Description
+                    UNDEFINED_STRING,                                           // Example
+                    UNDEFINED_STRING,                                           // Use only if
+                    UNDEFINED_STRING,                                           // Default value
+                    UNDEFINED_VALUE,                                            // Min. Value
+                    UNDEFINED_VALUE,                                            // Max. Value
+                    ARGTYPE_arg_required,                                       // Argument Required
+                    OPTTYPE_mandatory)                                          // Required
+
+    SET_OPTION_INFO(MSTATSPOP_GROUP_FA,                                       // Group
+                    DATA_MENU,                                                  // Data Type
+                    MSTATSPOP_KIND_LENGTH_SHORT,                                      // Short Name
+                    MSTATSPOP_KIND_LENGTH_LONG,                                       // Long Name
+                    MSTATSPOP_KIND_LENGTH_DESC,                                       // Description
+                    UNDEFINED_STRING,                                           // Example
+                    UNDEFINED_STRING,                                           // Use only if
+                    VALUE_0,                                           // Default value
+                    UNDEFINED_VALUE,                                            // Min. Value
+                    UNDEFINED_VALUE,                                            // Max. Value
+                    ARGTYPE_arg_required,                                       // Argument Required
+                    OPTTYPE_optional)                                          // Required
+    
+    SET_OPTION_INFO(MSTATSPOP_GROUP_MS,                                       // Group
+                    DATA_ONE_VALUE,                                                  // Data Type
+                    MSTATSPOP_LOCATION_MISSING_SHORT,                                      // Short Name
+                    MSTATSPOP_LOCATION_MISSING_LONG,                                       // Long Name
+                    MSTATSPOP_LOCATION_MISSING_DESC,                                       // Description
+                    UNDEFINED_STRING,                                           // Example
+                    UNDEFINED_STRING,                                           // Use only if
+                    VALUE_3,                                           // Default value
+                    UNDEFINED_VALUE,                                            // Min. Value
+                    UNDEFINED_VALUE,                                            // Max. Value
+                    ARGTYPE_arg_required,                                       // Argument Required
+                    OPTTYPE_optional)                                          // Required
+    
+    SET_OPTION_INFO(MSTATSPOP_GROUP_TFA,                                       // Group
+                    DATA_ONE_VALUE,                                                  // Data Type
+                    MSTATSPOP_FIRST_SLIDE_SHORT,                                      // Short Name
+                    MSTATSPOP_FIRST_SLIDE_LONG,                                       // Long Name
+                    MSTATSPOP_FIRST_SLIDE_DESC,                                       // Description
+                    UNDEFINED_STRING,                                           // Example
+                    UNDEFINED_STRING,                                           // Use only if
+                    VALUE_0,                                           // Default value
+                    UNDEFINED_VALUE,                                            // Min. Value
+                    UNDEFINED_VALUE,                                            // Max. Value
+                    ARGTYPE_arg_required,                                       // Argument Required
+                    OPTTYPE_optional)                                          // Required
+
 /*
     SET_OPTION_INFO (READ,
                       ,
@@ -1067,7 +1122,6 @@ bool CCMDmstatspop::Prepare() {
         n_ccov_->set_value_string(arguments);
         n_ccov_->set_auto_created(false);
         break;*/
-        
 
         case KeyString::MSTATSPOP_LOCATION_MISSING_SHORT:           //-M ***NOT DONE***
         location_missing_ms_->set_value_string(arguments);

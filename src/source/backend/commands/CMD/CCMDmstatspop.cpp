@@ -590,8 +590,6 @@ void CCMDmstatspop::DefineCommandOptions() {
                   OPTTYPE_mandatory_in_its_group)                               // Required
 
                     /// Command options: New & Not done
-MSTATSPOP_LOCATION_MISSING_SHORT -M
-MSTATSPOP_FIRST_SLIDE_SHORT -Z
 
     SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
                     DATA_FILE,                                                  // Data Type

@@ -71,7 +71,7 @@
 #include "CMD/CCMDVerbose.h"
 #include "CMD/CCMDVersion.h"
 #include "CMD/CCMDWith.h"
-
+//_COMMAND_LAST
 
 CCommandFactory::CCommandFactory() {
 }
@@ -115,5 +115,6 @@ void CCommandFactory::FillListWithAllCommands(std::list<ICommand *> *list) {
     list->push_back(new CCMDVerbose());
     list->push_back(new CCMDVersion());
     list->push_back(new CCMDWith());
+    //list _COMMAND_LAST
 }
 

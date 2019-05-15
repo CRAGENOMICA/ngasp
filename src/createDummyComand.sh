@@ -26,12 +26,12 @@ else
   sed -i -e 's|  strings_\[ENGLISH_COL\]\[_COMMAND_LAST\]|  strings_\[ENGLISH_COL\]\[CMD_'"${MY_Command}"'\] = \"'"${MY_Command}"'\"\;\n  strings_\[ENGLISH_COL\]\[CMD_'"${MY_Command}"'_ABB\] = \"'"${MY_Command}"'\";\n  strings_\[ENGLISH_COL\]\[CMD_'"${MY_Command}"'_DESC\] = \"'"${MY_Command}"' description\";\n\n  strings_\[ENGLISH_COL\]\[_COMMAND_LAST\]|g' ./source/backend/language/CStringTable.cpp
 
 	# addition of command to ./source/backend/commands/CCMDFactory.cpp
-	sed -i -e 's|//_COMMAND_LAST|\#include "CMD/CCMD'"${MY_Command}"'.h"\n//_COMMAND_LAST|g' ./source/backend/commands/CCMDFactory.cpp
-	sed -i -e 's|    //list _COMMAND_LAST|list->push_back(new CCMD'"${MY_Command}"'());\n    //list _COMMAND_LAST|g' ./source/backend/calculations/CCMDFactory.cpp
+	sed -i -e 's|//_COMMAND_LAST|\#include "CMD/CCMD'"${MY_Command}"'.h"\n//_COMMAND_LAST|g' ./source/backend/commands/CCommandFactory.cpp
+	sed -i -e 's|    //list _COMMAND_LAST|list->push_back(new CCMD'"${MY_Command}"'());\n    //list _COMMAND_LAST|g' ./source/backend/calculations/CCommandFactory.cpp
 	
 	echo "File ./source/backend/language/CStringTable.h modified to add ${MY_Command}"
 	echo "File ./source/backend/language/CStringTable.cpp modified to add ${MY_Command}"
-	echo "File ./source/backend/commands/CCMDFactory.cpp modified to add ${MY_Command}"
+	echo "File ./source/backend/commands/CCommandFactory.cpp modified to add ${MY_Command}"
 fi
 
 touch ./source/backend/commands/CMD/CCMD${MY_Command}.h

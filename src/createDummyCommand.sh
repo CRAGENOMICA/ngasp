@@ -60,9 +60,9 @@ class CCMD${MY_Command} : public ICommand {
 
  public:
   void DefineCommandOptions();
-  bool Prepare(void);
-  void Calculate(bool dry_run);
-  void Finalize(void);
+  bool Prepare();
+  void Run();
+  void Finalize();
 
 };
 
@@ -165,7 +165,7 @@ void CCMD${MY_Command}::DefineCommandOptions() {
   END_COMMAND_INTERFACE_DEFINITION
 }
 
-bool CCMD${MY_Command}::Prepare(void) {
+bool CCMD${MY_Command}::Prepare() {
   run_only_help_ = false;
 
   DM_GET_DATA3(CDataStdString, all_command_line_, STR(ALL_COMMAND_LINE))
@@ -206,7 +206,7 @@ void CCMD${MY_Command}::Run() {
   std::cout << "when done this comand will print the number of -b bases in the -l line of the -f fasta file\n";
 }
 
-void CCMD${MY_Command}::Finalize(void) {
+void CCMD${MY_Command}::Finalize() {
   /// Clean the command to reuse it later:
   DM_DEL_ALL_LOCAL_DATA
 }

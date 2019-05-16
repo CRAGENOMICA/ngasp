@@ -60,7 +60,7 @@ class CCMD${MY_Command} : public ICommand {
 
  public:
   void DefineCommandOptions();
-  void Prepare(void);
+  bool Prepare(void);
   void Calculate(bool dry_run);
   void Finalize(void);
 
@@ -104,7 +104,7 @@ CCMD${MY_Command}::~CCMD${MY_Command}() {
 /// ============================================================================
 /// COMMAND OPTIONS
 /// ============================================================================
-void CCMDmstatspop::DefineCommandOptions() {
+void CCMD${MY_Command}::DefineCommandOptions() {
   /// Command options:
   BEGIN_COMMAND_INTERFACE_DEFINITION
     SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
@@ -165,7 +165,7 @@ void CCMDmstatspop::DefineCommandOptions() {
   END_COMMAND_INTERFACE_DEFINITION
 }
 
-void CCMD${MY_Command}::Prepare(void) {
+bool CCMD${MY_Command}::Prepare(void) {
   run_only_help_ = false;
 
   DM_GET_DATA3(CDataStdString, all_command_line_, STR(ALL_COMMAND_LINE))

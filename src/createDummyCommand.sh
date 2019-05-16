@@ -101,11 +101,109 @@ CCMD${MY_Command}::CCMD${MY_Command}()
 CCMD${MY_Command}::~CCMD${MY_Command}() {
 }
 
+/// ============================================================================
+/// COMMAND OPTIONS
+/// ============================================================================
+void CCMDmstatspop::DefineCommandOptions() {
+  /// Command options:
+  BEGIN_COMMAND_INTERFACE_DEFINITION
+    SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
+                    DATA_MENU,                                                  // Data Type
+                    'f',                                     // Short Name
+                    UNDEFINED_STRING,                                      // Long Name
+                    UNDEFINED_STRING,                                      // Description
+                    UNDEFINED_STRING,                                           // Example
+                    UNDEFINED_STRING,                                           // Use only if
+                    UNDEFINED_STRING,                                           // Default value
+                    UNDEFINED_VALUE,                                            // Min. Value
+                    UNDEFINED_VALUE,                                            // Max. Value
+                    ARGTYPE_arg_required,                                       // Argument Required
+                    OPTTYPE_mandatory)                                          // Required
+  
+    SET_VALUE_INFO(FORMAT_FILE_FASTA,                                           // Value
+                   UNDEFINED_STRING,                                            // Description
+                   UNDEFINED_STRING,                                            // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   false)                                                       // Default Value (true / false)
+    SET_VALUE_INFO(FORMAT_FILE_TFASTA,                                          // Value
+                   UNDEFINED_STRING,                                            // Description
+                   UNDEFINED_STRING,                                            // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   false)                                                       // Default Value (true / false)
+    SET_VALUE_INFO(FORMAT_FILE_MS,                                              // Value
+                   UNDEFINED_STRING,                                            // Description
+                   UNDEFINED_STRING,                                            // Example
+                   UNDEFINED_STRING,                                            // Use only if
+                   false)                                                       // Default Value (true / false)
+
+  
+    SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
+                    DATA_ONE_VALUE,                                                  // Data Type
+                    'l',                                      // Short Name
+                    UNDEFINED_STRING,                                       // Long Name
+                    UNDEFINED_STRING,                                       // Description
+                    UNDEFINED_STRING,                                           // Example
+                    UNDEFINED_STRING,                                           // Use only if
+                    UNDEFINED_STRING,                                           // Default value
+                    UNDEFINED_VALUE,                                            // Min. Value
+                    UNDEFINED_VALUE,                                            // Max. Value
+                    ARGTYPE_arg_required,                                       // Argument Required
+                    OPTTYPE_mandatory)                                          // Required
+
+    SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
+                    DATA_MENU,                                                  // Data Type
+                    'b',                                     // Short Name
+                    UNDEFINED_STRING,                                      // Long Name
+                    UNDEFINED_STRING,                                      // Description
+                    UNDEFINED_STRING,                                           // Example
+                    UNDEFINED_STRING,                                           // Use only if
+                    UNDEFINED_STRING,                                           // Default value
+                    UNDEFINED_VALUE,                                            // Min. Value
+                    UNDEFINED_VALUE,                                            // Max. Value
+                    ARGTYPE_arg_required,                                       // Argument Required
+                    OPTTYPE_mandatory)                                          // Required
+  END_COMMAND_INTERFACE_DEFINITION
+}
+
 void CCMD${MY_Command}::Prepare(void) {
+  run_only_help_ = false;
+
+  DM_GET_DATA3(CDataStdString, all_command_line_, STR(ALL_COMMAND_LINE))
+  all_command_line_->set_value(this->instruction()->GetAllCommandLine());
+  
+/// ============================================================================
+/// COMMAND PARAMS
+/// ============================================================================
+  KeyString option = KeyString::UNDEFINED_STRING;
+  std::string arguments, one_argument;
+
+  if (instruction()->command_arguments()->size() == 1) {
+    run_only_help_ = true;
+  } else {
+    while (getopt_long_own(&option, &arguments)) {
+      switch (option) {
+        /// Command options:
+        case 'f':                 //-f fasta.fa
+        break;
+        
+        case 'l':                 //-l 1
+        break;
+        
+        case 'b':                 //-b A/T/C/G
+        break;
+        
+        case 'h':                   //-h
+          run_only_help_ = true;
+        break;
+      }
+    }
+  }
+
   return true;
 }
 
 void CCMD${MY_Command}::Run() {
+  std::cout << "when done this comand will print the number of -b bases in the -l line of the -f fasta file\n";
 }
 
 void CCMD${MY_Command}::Finalize(void) {

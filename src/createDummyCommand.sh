@@ -27,7 +27,7 @@ else
 
 	# addition of command to ./source/backend/commands/CCMDFactory.cpp
 	sed -i -e 's|//_COMMAND_LAST|\#include "CMD/CCMD'"${MY_Command}"'.h"\n//_COMMAND_LAST|g' ./source/backend/commands/CCommandFactory.cpp
-	sed -i -e 's|    //list _COMMAND_LAST|list->push_back(new CCMD'"${MY_Command}"'());\n    //list _COMMAND_LAST|g' ./source/backend/calculations/CCommandFactory.cpp
+	sed -i -e 's|    //list _COMMAND_LAST|list->push_back(new CCMD'"${MY_Command}"'());\n    //list _COMMAND_LAST|g' ./source/backend/commands/CCommandFactory.cpp
 	
 	echo "File ./source/backend/language/CStringTable.h modified to add ${MY_Command}"
 	echo "File ./source/backend/language/CStringTable.cpp modified to add ${MY_Command}"

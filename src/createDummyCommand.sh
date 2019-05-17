@@ -21,9 +21,11 @@ else
 
 	# addition of command to ./source/backend/language/CStringTable.h
 	sed -i -e 's|  _COMMAND_LAST,|//@{\n/// --------------------------------------------------------------------------\n CMD_'"${MY_Command}"',\n  CMD_'"${MY_Command}"'_ABB,\n  CMD_'"${MY_Command}"'_DESC,\n//@}\n\n  _COMMAND_LAST,|g' ./source/backend/language/CStringTable.h
+  sed -i -e 's|  _COMMAND_LAST,|//@{\n  '"${MY_Command}_INPUT_SHORT"',\n  '"${MY_Command}"'_INPUT_LONG,\n  '"${MY_Command}"'_INPUT_DESC,\n//@}\n\n  _COMMAND_LAST,|g' ./source/backend/language/CStringTable.h
 
 	# addition of command to ./source/backend/language/CStringTable.cpp    
   sed -i -e 's|  strings_\[ENGLISH_COL\]\[_COMMAND_LAST\]|  strings_\[ENGLISH_COL\]\[CMD_'"${MY_Command}"'\] = \"'"${MY_Command}"'\"\;\n  strings_\[ENGLISH_COL\]\[CMD_'"${MY_Command}"'_ABB\] = \"'"${MY_Command}"'\";\n  strings_\[ENGLISH_COL\]\[CMD_'"${MY_Command}"'_DESC\] = \"'"${MY_Command}"' description\";\n\n  strings_\[ENGLISH_COL\]\[_COMMAND_LAST\]|g' ./source/backend/language/CStringTable.cpp
+  sed -i -e 's|  strings_\[ENGLISH_COL\]\[_COMMAND_LAST\]|  strings_\[ENGLISH_COL\]\['"${MY_Command}"'_INPUT_SHORT\] = \"f\"\;\n  strings_\[ENGLISH_COL\]\['"${MY_Command}"'_INPUT_LONG\] = \"file\";\n  strings_\[ENGLISH_COL\]\['"${MY_Command}"'_INPUT_DESC\] = \"File input\";\n\n  strings_\[ENGLISH_COL\]\[_COMMAND_LAST\]|g' ./source/backend/language/CStringTable.cpp
 
 	# addition of command to ./source/backend/commands/CCMDFactory.cpp
 	sed -i -e 's|//_COMMAND_LAST|\#include "CMD/CCMD'"${MY_Command}"'.h"\n//_COMMAND_LAST|g' ./source/backend/commands/CCommandFactory.cpp
@@ -108,9 +110,9 @@ void CCMD${MY_Command}::DefineCommandOptions() {
   BEGIN_COMMAND_INTERFACE_DEFINITION
     SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
                     DATA_MENU,                                                  // Data Type
-                    "f",                                     // Short Name
-                    UNDEFINED_STRING,                                      // Long Name
-                    UNDEFINED_STRING,                                      // Description
+                    ${MY_Command}_INPUT_SHORT,                                     // Short Name
+                    ${MY_Command}_INPUT_LONG,                                      // Long Name
+                    ${MY_Command}_INPUT_DESC,                                      // Description
                     UNDEFINED_STRING,                                           // Example
                     UNDEFINED_STRING,                                           // Use only if
                     UNDEFINED_STRING,                                           // Default value
@@ -135,32 +137,6 @@ void CCMD${MY_Command}::DefineCommandOptions() {
                    UNDEFINED_STRING,                                            // Use only if
                    false)                                                       // Default Value (true / false)
 
-  
-    SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
-                    DATA_ONE_VALUE,                                                  // Data Type
-                    "l",                                      // Short Name
-                    UNDEFINED_STRING,                                       // Long Name
-                    UNDEFINED_STRING,                                       // Description
-                    UNDEFINED_STRING,                                           // Example
-                    UNDEFINED_STRING,                                           // Use only if
-                    UNDEFINED_STRING,                                           // Default value
-                    UNDEFINED_VALUE,                                            // Min. Value
-                    UNDEFINED_VALUE,                                            // Max. Value
-                    ARGTYPE_arg_required,                                       // Argument Required
-                    OPTTYPE_mandatory)                                          // Required
-
-    SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
-                    DATA_MENU,                                                  // Data Type
-                    "b",                                     // Short Name
-                    UNDEFINED_STRING,                                      // Long Name
-                    UNDEFINED_STRING,                                      // Description
-                    UNDEFINED_STRING,                                           // Example
-                    UNDEFINED_STRING,                                           // Use only if
-                    UNDEFINED_STRING,                                           // Default value
-                    UNDEFINED_VALUE,                                            // Min. Value
-                    UNDEFINED_VALUE,                                            // Max. Value
-                    ARGTYPE_arg_required,                                       // Argument Required
-                    OPTTYPE_mandatory)                                          // Required
   END_COMMAND_INTERFACE_DEFINITION
 }
 

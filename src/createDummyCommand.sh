@@ -55,6 +55,12 @@ cat << EOF > ./source/backend/commands/CMD/CCMD${MY_Command}.h
 
 #include "../ICommand.h"
 
+/// ============================================================================
+/// DATA TYPES
+/// ============================================================================
+#include "../../data_manager/CDataManager.h"
+#include "../../data_manager/Data/CDataStdString.h"
+
 class CCMD${MY_Command} : public ICommand {
  public:
   CCMD${MY_Command}();
@@ -66,6 +72,10 @@ class CCMD${MY_Command} : public ICommand {
   void Run();
   void Finalize();
 
+/// ============================================================================
+/// COMMAND BEHAVIOURS
+/// ============================================================================
+  bool run_only_help_;                        /// True if User only wants to watch the command help
 };
 
 #endif    // BACKEND_SRC_COMMANDS_CMD_CCMD${MY_Command}_H_

@@ -194,6 +194,9 @@ bool CCMD${MY_Command}::Prepare() {
         case 'h':                   //-h
           run_only_help_ = true;
         break;
+
+        default:
+        break;
       }
     }
   }

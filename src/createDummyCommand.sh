@@ -72,6 +72,11 @@ class CCMD${MY_Command} : public ICommand {
   void Run();
   void Finalize();
 
+ private:
+  std::string file_name_;
+  int64_t line_number_;
+  char base_;
+
 /// ============================================================================
 /// COMMAND BEHAVIOURS
 /// ============================================================================
@@ -96,6 +101,9 @@ cat << EOF > ./source/backend/commands/CMD/CCMD${MY_Command}.cpp
 #include "CCMD${MY_Command}.h"
 
 #include <string>
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 #include "../../language/CStringTable.h"
 #include "../../data_manager/CDataManager.h"
@@ -146,6 +154,32 @@ void CCMD${MY_Command}::DefineCommandOptions() {
                    UNDEFINED_STRING,                                            // Example
                    UNDEFINED_STRING,                                            // Use only if
                    false)                                                       // Default Value (true / false)
+    
+    SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
+                    DATA_MENU,                                                  // Data Type
+                    ${MY_Command}_LINE_SHORT,                                     // Short Name
+                    ${MY_Command}_LINE_LONG,                                      // Long Name
+                    ${MY_Command}_LINE_DESC,                                      // Description
+                    UNDEFINED_STRING,                                           // Example
+                    UNDEFINED_STRING,                                           // Use only if
+                    UNDEFINED_STRING,                                           // Default value
+                    UNDEFINED_VALUE,                                            // Min. Value
+                    UNDEFINED_VALUE,                                            // Max. Value
+                    ARGTYPE_arg_required,                                       // Argument Required
+                    OPTTYPE_mandatory)                                          // Required
+
+    SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
+                    DATA_MENU,                                                  // Data Type
+                    ${MY_Command}_BASE_SHORT,                                     // Short Name
+                    ${MY_Command}_BASE_LONG,                                      // Long Name
+                    ${MY_Command}_BASE_DESC,                                      // Description
+                    UNDEFINED_STRING,                                           // Example
+                    UNDEFINED_STRING,                                           // Use only if
+                    UNDEFINED_STRING,                                           // Default value
+                    UNDEFINED_VALUE,                                            // Min. Value
+                    UNDEFINED_VALUE,                                            // Max. Value
+                    ARGTYPE_arg_required,                                       // Argument Required
+                    OPTTYPE_mandatory)                                          // Required
 
   END_COMMAND_INTERFACE_DEFINITION
 }
@@ -169,12 +203,15 @@ bool CCMD${MY_Command}::Prepare() {
       switch (option) {
         /// Command options:
         case KeyString::${MY_Command}_INPUT_SHORT:                 //-f fasta.fa
+          file_name_ = arguments;
         break;
         
-        case 'l':                 //-l 1
+        case KeyString::${MY_Command}_LINE_SHORT:                 //-l 1
+          line_number_ = arguments;
         break;
         
-        case 'b':                 //-b A/T/C/G
+        case KeyString::${MY_Command}_BASE_SHORT:                 //-b A/T/C/G
+          base_ = arguments;
         break;
         
         case 'h':                   //-h
@@ -191,7 +228,31 @@ bool CCMD${MY_Command}::Prepare() {
 }
 
 void CCMD${MY_Command}::Run() {
-  std::cout << "when done this comand will print the number of -b bases in the -l line of the -f fasta file\n";
+  std::cout << "This comand print the number of -b bases in the -l line of the -f file\n";
+  string line;
+  ifstream myfile (file_name_);
+  int n,total;
+  if (myfile.is_open())
+  {
+    n = 0;
+    total = 0;
+    while ( getline (myfile,line) )
+    {
+      n++;
+      if (n == line_number_){
+        for(int i=0;line[i]!='\0';i++)
+        {
+          if(line[i]==base_){total++;}
+        }
+        break;
+      }
+    }
+    std::cout << "There are: " << total << "\n";
+    myfile.close();
+  }
+
+  else std::cout << "Unable to open file"; 
+
 }
 
 void CCMD${MY_Command}::Finalize() {

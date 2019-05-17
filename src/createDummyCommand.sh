@@ -92,9 +92,8 @@ CCMD${MY_Command}::CCMD${MY_Command}()
 : ICommand(CMD_${MY_Command},
            CMD_${MY_Command}_ABB,
            CMD_${MY_Command}_DESC,
-           NGASP_AUTHORS,
-           MSTATSPOP_COPYRIGHT,
-           GENERIC_CITATIONS,
+           UNDEFINED_STRING,
+           UNDEFINED_STRING,
            UNDEFINED_STRING) {
 }
 
@@ -109,7 +108,7 @@ void CCMD${MY_Command}::DefineCommandOptions() {
   BEGIN_COMMAND_INTERFACE_DEFINITION
     SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
                     DATA_MENU,                                                  // Data Type
-                    'f',                                     // Short Name
+                    "f",                                     // Short Name
                     UNDEFINED_STRING,                                      // Long Name
                     UNDEFINED_STRING,                                      // Description
                     UNDEFINED_STRING,                                           // Example
@@ -139,7 +138,7 @@ void CCMD${MY_Command}::DefineCommandOptions() {
   
     SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
                     DATA_ONE_VALUE,                                                  // Data Type
-                    'l',                                      // Short Name
+                    "l",                                      // Short Name
                     UNDEFINED_STRING,                                       // Long Name
                     UNDEFINED_STRING,                                       // Description
                     UNDEFINED_STRING,                                           // Example
@@ -152,7 +151,7 @@ void CCMD${MY_Command}::DefineCommandOptions() {
 
     SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
                     DATA_MENU,                                                  // Data Type
-                    'b',                                     // Short Name
+                    "b",                                     // Short Name
                     UNDEFINED_STRING,                                      // Long Name
                     UNDEFINED_STRING,                                      // Description
                     UNDEFINED_STRING,                                           // Example

@@ -168,7 +168,7 @@ bool CCMD${MY_Command}::Prepare() {
     while (getopt_long_own(&option, &arguments)) {
       switch (option) {
         /// Command options:
-        case 'f':                 //-f fasta.fa
+        case KeyString::${MY_Command}_INPUT_SHORT:                 //-f fasta.fa
         break;
         
         case 'l':                 //-l 1

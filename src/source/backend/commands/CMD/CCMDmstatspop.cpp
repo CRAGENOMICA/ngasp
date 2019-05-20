@@ -909,7 +909,11 @@ bool CCMDmstatspop::Prepare() {
         break;
 
       case KeyString::MSTATSPOP_POP_SHORT:                  //-N
-        GetArgument(&arguments);  // Discard number of elements.
+        // For wrapper
+        populations_initial_->set_value(arguments);
+        populations_initial_->set_auto_created(false);
+        
+        /*GetArgument(&arguments);  // Discard number of elements.
 
         if (arguments != "") {
           // in command line, pops are separated by space but it is needed to be
@@ -919,7 +923,7 @@ bool CCMDmstatspop::Prepare() {
                                  STR(COMA));
           populations_initial_->set_value(arguments);
           populations_initial_->set_auto_created(false);
-        }
+        }*/ //con este if el wrapper daba Segmentation faul
         break;
 
       /// Command options: General
@@ -959,7 +963,11 @@ bool CCMDmstatspop::Prepare() {
         break;
 
       case KeyString::MSTATSPOP_ORDER_SHORT:                      //-O
-        GetArgument(&arguments);  // Discard number of elements.
+        // For wrapper
+        sort_nsam_->set_data_string(arguments);
+        sort_nsam_->set_auto_created(false);
+        
+        /*GetArgument(&arguments);  // Discard number of elements.
 
         if (arguments != "") {
           // in command line, items are separated by space but it is needed to
@@ -969,7 +977,7 @@ bool CCMDmstatspop::Prepare() {
                                 STR(COMA));
           sort_nsam_->set_data_string(arguments);
           sort_nsam_->set_auto_created(false);
-        }
+        }*/ //con este if el wrapper daba Segmentation faul
         break;
 
       case KeyString::MSTATSPOP_PERM_ITE_SHORT:                   //-t

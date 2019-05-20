@@ -207,11 +207,11 @@ bool CCMD${MY_Command}::Prepare() {
         break;
         
         case KeyString::${MY_Command}_LINE_SHORT:                 //-l 1
-          line_number_ = arguments;
+          line_number_ = static_cast<int>(atol(arguments.c_str()));
         break;
         
         case KeyString::${MY_Command}_BASE_SHORT:                 //-b A/T/C/G
-          base_ = arguments;
+          base_ = arguments[0];
         break;
         
         case 'h':                   //-h
@@ -228,7 +228,12 @@ bool CCMD${MY_Command}::Prepare() {
 }
 
 void CCMD${MY_Command}::Run() {
-  std::cout << "This comand print the number of -b bases in the -l line of the -f file\n";
+  if(run_only_help_)
+  {
+    std::cout << "This comand print the number of -b bases in the -l line of the -f file\n";
+    return;
+  }
+
   string line;
   ifstream myfile (file_name_);
   int n,total;
@@ -247,7 +252,7 @@ void CCMD${MY_Command}::Run() {
         break;
       }
     }
-    std::cout << "There are: " << total << "\n";
+    std::cout << "There are: " << total << " " <<  base_ << " in line " << line_number_ << " of file " << file_name_ << "\n";
     myfile.close();
   }
 

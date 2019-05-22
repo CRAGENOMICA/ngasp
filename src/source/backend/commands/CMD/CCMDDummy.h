@@ -43,10 +43,10 @@ class CCMDDummy : public ICommand {
   CCalcDummy *calc_Dummy_;
 
   // Inputs
-  CDataCharVector *DNAvector_;
-  CDataBoolean *percentage_;
+  CDataCharVector *DNAvector;
+  CDataBoolean *percentage;
   // Outputs
-  CDataFloat *total_;
+  CDataFloat *total;
 
 /// ============================================================================
 /// COMMAND BEHAVIOURS

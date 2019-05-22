@@ -75,9 +75,9 @@ bool CCMDDummy::Prepare() {
 /// ============================================================================
 /// DATAS
 /// ============================================================================
-  DM_NEW_DATA(DNAvector_)
-  DM_NEW_DATA(percentage_);
-  DM_NEW_DATA(total_);
+  DM_NEW_DATA(DNAvector)
+  DM_NEW_DATA(percentage);
+  DM_NEW_DATA(total);
 
   DM_GET_DATA3(CDataStdString, all_command_line_, STR(ALL_COMMAND_LINE))
   all_command_line_->set_value(this->instruction()->GetAllCommandLine());
@@ -95,11 +95,11 @@ bool CCMDDummy::Prepare() {
       switch (option) {
         /// Command options:
         case KeyString::Dummy_INPUT_SHORT:                 //-f fasta.fa
-          DNAvector_->set_text_string(arguments);
+          DNAvector->set_text_string(arguments);
         break;
                
         case KeyString::Dummy_BASE_SHORT:                 //-b A/T/C/G
-          percentage_->set_value_string(arguments);
+          percentage->set_value_string(arguments);
         break;
         
         case 'h':                   //-h
@@ -116,9 +116,9 @@ bool CCMDDummy::Prepare() {
 }
 
 void CCMDDummy::Run() {
-  calc_Dummy_->SetInput(DNAvector_);
-  calc_Dummy_->SetInput(percentage_);
-  calc_Dummy_->SetOutput(total_);
+  calc_Dummy_->SetInput(DNAvector);
+  calc_Dummy_->SetInput(percentage);
+  calc_Dummy_->SetOutput(total);
   calc_Dummy_->Prepare();
   calc_Dummy_->Calculate(manager()->all_commands()->dry_run());
   calc_Dummy_->Finalize();
@@ -131,8 +131,8 @@ void CCMDDummy::Finalize() {
 /// ============================================================================
 /// DATAS
 /// ============================================================================
-  DM_DEL_DATA(DNAvector_)
-  DM_DEL_DATA(percentage_);
-  DM_DEL_DATA(total_);
+  DM_DEL_DATA(DNAvector)
+  DM_DEL_DATA(percentage);
+  DM_DEL_DATA(total);
   DM_DEL_ALL_LOCAL_DATA
 }

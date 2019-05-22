@@ -388,7 +388,8 @@ std::string CCalcFactory::GetCalculationsList(void) {
       first_calc = false;
     }
   }
-
+  
+  list.sort();
   return list;
 }  
 

@@ -116,5 +116,6 @@ void CCommandFactory::FillListWithAllCommands(std::list<ICommand *> *list) {
     list->push_back(new CCMDVersion());
     list->push_back(new CCMDWith());
     //list _COMMAND_LAST
+    list->sort();
 }
 

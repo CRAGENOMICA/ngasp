@@ -109,7 +109,8 @@ void CCalcDummy::Calculate(bool dry_run) {
     result /= divisor;
     total->set_value(result);
   }
-
+  NORMAL_MSG << "total: " << total->value()
+  END_MSG;
 }
 
 void CCalcDummy::Finalize(void) {

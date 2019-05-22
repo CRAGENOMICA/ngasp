@@ -16,6 +16,7 @@
 /// DATA TYPES
 /// ============================================================================
 #include "../../data_manager/CDataManager.h"
+#include "../../data_manager/Data/CDataStdString.h"
 #include "../../data_manager/Data/CDataCharVector.h"
 #include "../../data_manager/Data/CDataBoolean.h"
 #include "../../data_manager/Data/CDataFloat.h"

@@ -10,12 +10,12 @@
 #include "CCMDDummy.h"
 
 #include <string>
-#include <iostream>
-#include <fstream>
-using namespace std;
+//#include <iostream>
+//#include <fstream>
+//using namespace std;
 
 #include "../../language/CStringTable.h"
-#include "../../data_manager/CDataManager.h"
+#include "../../commands/CAllCommands.h"
 
 CCMDDummy::CCMDDummy()
 : ICommand(CMD_Dummy,
@@ -95,7 +95,7 @@ bool CCMDDummy::Prepare() {
       switch (option) {
         /// Command options:
         case KeyString::Dummy_INPUT_SHORT:                 //-f fasta.fa
-          DNAvector_->set_value_string(arguments);
+          DNAvector_->set_text_string(arguments);
         break;
                
         case KeyString::Dummy_BASE_SHORT:                 //-b A/T/C/G

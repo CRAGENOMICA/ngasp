@@ -81,7 +81,6 @@ bool CCMDDummy::Prepare() {
   
   CDataCharVector* DNAvector = new CDataCharVector;
   CDataBoolean* percentage = new CDataBoolean;
-  CDataFloat* total = new CDataFloat;
 
   //DM_GET_DATA3(CDataStdString, all_command_line_, STR(ALL_COMMAND_LINE))
   CDataStdString* all_command_line_ = new CDataStdString;
@@ -121,10 +120,10 @@ bool CCMDDummy::Prepare() {
 }
 
 void CCMDDummy::Run() {
-  calc_Dummy* calc_Dummy_ = new calc_Dummy;
+  CCalcDummy* calc_Dummy_ = new CCalcDummy;
   calc_Dummy_->SetInput(DNAvector);
   calc_Dummy_->SetInput(percentage);
-  calc_Dummy_->SetOutput(total);
+//  calc_Dummy_->SetOutput(total);
   calc_Dummy_->Prepare();
   calc_Dummy_->Calculate(manager()->all_commands()->dry_run());
   calc_Dummy_->Finalize();

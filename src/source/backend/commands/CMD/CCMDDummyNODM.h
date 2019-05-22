@@ -1,14 +1,14 @@
 /* Add your LICENSE & COPYRIGHT note */
 /**
-*    \brief 			CCMDDummy.h
+*    \brief 			CCMDDummyNODM.h
 *    \details
 *    \author
 *    \version
 *    \date
 */
 
-#ifndef BACKEND_SRC_COMMANDS_CMD_CCMDDummy_H_
-#define BACKEND_SRC_COMMANDS_CMD_CCMDDummy_H_
+#ifndef BACKEND_SRC_COMMANDS_CMD_CCMDDummyNODM_H_
+#define BACKEND_SRC_COMMANDS_CMD_CCMDDummyNODM_H_
 
 #include "../ICommand.h"
 
@@ -28,10 +28,10 @@
 #include "../../calculations/CAllCalculations.h"
 #include "../../calculations/Calc/CCalcDummy.h"
 
-class CCMDDummy : public ICommand {
+class CCMDDummyNODM : public ICommand {
  public:
-  CCMDDummy();
-  virtual ~CCMDDummy();
+  CCMDDummyNODM();
+  virtual ~CCMDDummyNODM();
 
  public:
   void DefineCommandOptions();
@@ -46,7 +46,7 @@ class CCMDDummy : public ICommand {
   CDataCharVector *DNAvector;
   CDataBoolean *percentage;
   // Outputs
-  CDataFloat *total;
+  //CDataFloat *total;
 
 /// ============================================================================
 /// COMMAND BEHAVIOURS
@@ -54,5 +54,5 @@ class CCMDDummy : public ICommand {
   bool run_only_help_;                        /// True if User only wants to watch the command help
 };
 
-#endif    // BACKEND_SRC_COMMANDS_CMD_CCMDDummy_H_
+#endif    // BACKEND_SRC_COMMANDS_CMD_CCMDDummyNODM_H_
 

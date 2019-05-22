@@ -1,13 +1,13 @@
 /* Add your LICENSE & COPYRIGHT note */
 /**
-*    \brief 			CCMDDummy.cpp
+*    \brief 			CCMDDummyNODM.cpp
 *    \details
 *    \author
 *    \version
 *    \date
 */
 
-#include "CCMDDummy.h"
+#include "CCMDDummyNODM.h"
 
 #include <string>
 //#include <iostream>
@@ -17,7 +17,7 @@
 #include "../../language/CStringTable.h"
 #include "../../commands/CAllCommands.h"
 
-CCMDDummy::CCMDDummy()
+CCMDDummyNODM::CCMDDummyNODM()
 : ICommand(CMD_Dummy,
            CMD_Dummy_ABB,
            CMD_Dummy_DESC,
@@ -26,13 +26,13 @@ CCMDDummy::CCMDDummy()
            UNDEFINED_STRING) {
 }
 
-CCMDDummy::~CCMDDummy() {
+CCMDDummyNODM::~CCMDDummyNODM() {
 }
 
 /// ============================================================================
 /// COMMAND OPTIONS
 /// ============================================================================
-void CCMDDummy::DefineCommandOptions() {
+void CCMDDummyNODM::DefineCommandOptions() {
   /// Command options:
   /*BEGIN_COMMAND_INTERFACE_DEFINITION
     SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
@@ -64,7 +64,7 @@ void CCMDDummy::DefineCommandOptions() {
   END_COMMAND_INTERFACE_DEFINITION*/
 }
 
-bool CCMDDummy::Prepare() {
+bool CCMDDummyNODM::Prepare() {
   run_only_help_ = false;
 
 /// ============================================================================
@@ -119,7 +119,7 @@ bool CCMDDummy::Prepare() {
   return true;
 }
 
-void CCMDDummy::Run() {
+void CCMDDummyNODM::Run() {
   CCalcDummy* calc_Dummy_ = new CCalcDummy;
   calc_Dummy_->SetInput(DNAvector);
   calc_Dummy_->SetInput(percentage);
@@ -129,7 +129,7 @@ void CCMDDummy::Run() {
   calc_Dummy_->Finalize();
 }
 
-void CCMDDummy::Finalize() {
+void CCMDDummyNODM::Finalize() {
   /// Clean the command to reuse it later:
  //DM_DEL_CALC(calc_Dummy_)
 

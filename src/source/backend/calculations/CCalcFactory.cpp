@@ -98,7 +98,7 @@
 #include "Calc/CCalcGetFileName.h"
 #include "Calc/CCalcGetSeqLength.h"
 #include "Calc/CCalcGetMeanReadDepth.h"
-//_CALC_LAST
+#include "Calc/CCalcDummy.h"n//_CALC_LAST
   
 CCalcFactory::CCalcFactory() {
   // ===========================================================================
@@ -172,7 +172,7 @@ CCalcFactory::CCalcFactory() {
   data_map_[KeyString::CALC_GET_FILE_NAME]          = new CCalcGetFileName();
   data_map_[KeyString::CALC_GET_SEQ_LEN]            = new CCalcGetSeqLength();
   data_map_[KeyString::CALC_GET_MRD]                = new CCalcGetMeanReadDepth();
-  //data_map_[KeyString::_CALC_LAST]
+  data_map_[KeyString::CALC_Dummy] = new CCalcDummy();n  //data_map_[KeyString::_CALC_LAST]
 }
 
 CCalcFactory::~CCalcFactory() {

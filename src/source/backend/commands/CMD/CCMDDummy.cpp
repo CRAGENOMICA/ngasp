@@ -37,7 +37,7 @@ void CCMDDummy::DefineCommandOptions() {
   BEGIN_COMMAND_INTERFACE_DEFINITION
     SET_OPTION_INFO(STANDARD_GROUP_FLAGS,                                       // Group
                     DATA_MENU,                                                  // Data Type
-                    Dummy_INPUT_SHORT,                                     // Short Name
+                    UNDEFINED_STRING,                                     // Short Name
                     Dummy_INPUT_LONG,                                      // Long Name
                     Dummy_INPUT_DESC,                                      // Description
                     UNDEFINED_STRING,                                           // Example

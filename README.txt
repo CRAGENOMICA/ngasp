@@ -1,3 +1,5 @@
+Last modifications and decisions of the proyect was documented in this private github: https://github.com/CRAGENOMICA/ngasp_intranet
+
 $NgaSP
 ========
 

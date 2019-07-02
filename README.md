@@ -1,3 +1,9 @@
+Last modifications and decisions of the proyect was documented in this private github:
+https://github.com/CRAGENOMICA/ngasp_intranet
+
+
+
+
 [![License (LGPL 2.1)](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
 
 ***Please see the [ngaSP website](https://bioinformatics.cragenomica.es/projects/ngaSP), where you would soon (can) download a precompiled executable, read documentation, ask questions, and receive technical support.***

@@ -389,7 +389,7 @@ std::string CCalcFactory::GetCalculationsList(void) {
     }
   }
   
-  list.sort();
+  //TODO: ordenar alfabeticamente la lista
   return list;
 }  
 

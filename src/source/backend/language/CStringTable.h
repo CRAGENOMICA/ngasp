@@ -1354,7 +1354,7 @@ enum KeyString {
   CMD_RESET_ABB,
   CMD_RESET_DESC,
   //@}
-  _COMMAND_LAST,
+//@{n/// --------------------------------------------------------------------------n CMD_Dummy,n  CMD_Dummy_ABB,n  CMD_Dummy_DESC,n//@}nn  _COMMAND_LAST,
 
   //@{
   /// ==========================================================================
@@ -1621,7 +1621,7 @@ enum KeyString {
   CALC_SPLIT_BAM_DESC,  
 
 
-  _CALC_LAST,
+  CALC_Dummy,n  CALC_Dummy_BRIEF_DESC,n  CALC_Dummy_DESC,nnn  _CALC_LAST,
   //@}
   
     CCALCCUT_BED_INPUT_BED_FILE,

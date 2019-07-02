@@ -1427,6 +1427,10 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][SAVE_STATE_TO_FILE_LONG]                                = "output";
   strings_[ENGLISH_COL][SAVE_STATE_TO_FILE_DESC]                                = "Output file.";
   //@}
+  strings_[ENGLISH_COL][CMD_Dummy] = "Dummy";
+  strings_[ENGLISH_COL][CMD_Dummy_ABB] = "Dummy";
+  strings_[ENGLISH_COL][CMD_Dummy_DESC] = "Dummy description";
+
   strings_[ENGLISH_COL][_COMMAND_LAST]                                          = "";  // *************************************
 
   //@{
@@ -1693,7 +1697,7 @@ CStringTable::CStringTable() : IStringTable() {
   strings_[ENGLISH_COL][CALC_SPLIT_BAM_BRIEF_DESC]                              = "";
   strings_[ENGLISH_COL][CALC_SPLIT_BAM_DESC]                                    = "This calculation gets one BAM file and it splites this file into n BAM files. One BAM file per chromosome.";
     
-  strings_[ENGLISH_COL][_CALC_LAST]                                             = "";  // *************************************
+  strings_[ENGLISH_COL][CALC_Dummy] = "calc_Dummy";n  strings_[ENGLISH_COL][CALC_Dummy_BRIEF_DESC] = "";n  strings_[ENGLISH_COL][CALC_Dummy_DESC] = "Dummy description";nn  strings_[ENGLISH_COL][_CALC_LAST]                                             = "";  // *************************************
   //@}
 
   strings_[ENGLISH_COL][CCALCCUT_BED_INPUT_BED_FILE]                            = "BED file";

@@ -18,9 +18,9 @@
 #include "../../commands/CAllCommands.h"
 
 CCMDDummyNODM::CCMDDummyNODM()
-: ICommand(CMD_Dummy,
-           CMD_Dummy_ABB,
-           CMD_Dummy_DESC,
+: ICommand(CMD_DummyNODM,
+           CMD_DummyNODM_ABB,
+           CMD_DummyNODM_DESC,
            UNDEFINED_STRING,
            UNDEFINED_STRING,
            UNDEFINED_STRING) {

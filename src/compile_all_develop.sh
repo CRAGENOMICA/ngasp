@@ -17,8 +17,8 @@ cd /develop
 
 yum install -y http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/kernel-headers-3.10.0-957.10.1.el7.x86_64.rpm \
                http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/kernel-devel-3.10.0-957.10.1.el7.x86_64.rpm && \
-    yum install -y http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/gcc-c%2B%2B-4.8.5-36.el7_6.1.x86_64.rpm \
-                   http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/libstdc%2B%2B-devel-4.8.5-36.el7_6.1.x86_64.rpm && yum -y clean all
+yum install -y http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/gcc-c%2B%2B-4.8.5-36.el7_6.1.x86_64.rpm \
+               http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/libstdc%2B%2B-devel-4.8.5-36.el7_6.1.x86_64.rpm
 yum install -y http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/make-3.82-23.el7.x86_64.rpm \
     http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/bzip2-1.0.6-13.el7.x86_64.rpm \
     http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-1.53.0-27.el7.x86_64.rpm \
@@ -31,19 +31,17 @@ yum install -y http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/make-3
     http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/zip-3.0-11.el7.x86_64.rpm \
     http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/unzip-6.0-19.el7.x86_64.rpm \
     http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/psmisc-22.20-15.el7.x86_64.rpm \
-    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/ncurses-devel-5.9-14.20130511.el7_4.x86_64.rpm \
-    && yum -y clean all
+    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/ncurses-devel-5.9-14.20130511.el7_4.x86_64.rpm
 
 # ****************
 # *** Java JDK ***
 # ****************
 
-yum groupinstall -y "Development Tools" && yum clean all
-
+yum groupinstall -y "Development Tools" 
 curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \
     rpm -Uvh epel.rpm 
-yum install -y http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm && yum clean all
-yum install -y nodejs && yum clean all
+yum install -y http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm 
+yum install -y nodejs 
 
 # ***********
 # *** gsl ***
@@ -51,8 +49,8 @@ yum install -y nodejs && yum clean all
 
 mkdir -p /tmp/gsl && \
     curl -o /tmp/gsl-2.2.tar.gz ftp://ftp.gnu.org/gnu/gsl/gsl-2.2.tar.gz -LOk && \
-    tar -zxvf /tmp/gsl-2.2.tar.gz -C /tmp/gsl && \
-    rm /tmp/gsl-2.2.tar.gz && \
+    tar -zxvf /tmp/gsl-2.2.tar.gz -C /tmp/gsl #&& \
+    #rm /tmp/gsl-2.2.tar.gz && \
     cd /tmp/gsl/gsl-2.2 && \
     ./configure && \
     make && \
@@ -64,8 +62,8 @@ mkdir -p /tmp/gsl && \
 
 mkdir -p /tmp/zlib && \
     curl -o  /tmp/zlib/zlib-1.2.10.tar.gz http://zlib.net/fossils/zlib-1.2.10.tar.gz -LOk && \
-    tar -zxvf /tmp/zlib/zlib-1.2.10.tar.gz -C /tmp/zlib && \
-    rm /tmp/zlib/zlib-1.2.10.tar.gz && \
+    tar -zxvf /tmp/zlib/zlib-1.2.10.tar.gz -C /tmp/zlib #&& \
+    #rm /tmp/zlib/zlib-1.2.10.tar.gz && \
     cd /tmp/zlib/zlib-1.2.10 && \
     ./configure && \
     make && \
@@ -77,8 +75,8 @@ mkdir -p /tmp/zlib && \
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/:
 mkdir -p /tmp/htslib && \
     curl -o /tmp/htslib/htslib-1.3.1.tar.bz2 https://github.com/samtools/htslib/releases/download/1.3.1/htslib-1.3.1.tar.bz2 -LOk && \
-    tar jxf /tmp/htslib/htslib-1.3.1.tar.bz2 -C /tmp/htslib && \
-    rm /tmp/htslib/htslib-1.3.1.tar.bz2 && \
+    tar jxf /tmp/htslib/htslib-1.3.1.tar.bz2 -C /tmp/htslib #&& \
+    #rm /tmp/htslib/htslib-1.3.1.tar.bz2 && \
     cd /tmp/htslib/htslib-1.3.1 && \
     ./configure && \
     make && \
@@ -104,10 +102,12 @@ mkdir /tmp/openmpi && \
 
 mkdir -p /app/gradle && \
     curl -o /app/gradle/gradle-3.1-bin.zip https://services.gradle.org/distributions/gradle-3.1-bin.zip -LOk && \
-    unzip -o /app/gradle/gradle-3.1-bin.zip -d /app/gradle && \
-    rm /app/gradle/gradle-3.1-bin.zip && \
+    unzip -o /app/gradle/gradle-3.1-bin.zip -d /app/gradle #&& \
+    #rm /app/gradle/gradle-3.1-bin.zip && \
     echo "export PATH=\$PATH:/app/gradle/gradle-3.1/bin" > /etc/profile.d/gradle.sh && \
     echo "export PATH=\$PATH:/app/gradle/gradle-3.1/bin" >> ~/.bashrc
+
+#source ~/.bashrc #......sebas?
 
 # *************
 # *** yaml *** 
@@ -117,9 +117,9 @@ mkdir -p /app/gradle && \
 
 mkdir -p /opt/lib/yaml && \
     cd /opt/lib/yaml && \
-    wget https://github.com/jbeder/yaml-cpp/tree/yaml-cpp-0.6.2 && \
-    unzip -o master.zip && \
-    rm master.zip
+    wget https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.6.2.tar.gz && \
+    tar -xvzf  yaml-cpp-0.6.2.tar.gz
+    #rm master.zip
 
 # *******************
 # *** fastaconvtr ***
@@ -150,6 +150,12 @@ gcc -o /develop/webapp/bin/npstat NPStat-v1.c /usr/local/lib/libgsl.a /usr/local
 cd /develop
 gradle clean -b /develop/.gradle/build_samtoolslib.gradle
 gradle build_and_export_lib -b /develop/.gradle/build_samtoolslib.gradle
+
+##>gradle
+##ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+##Please set the JAVA_HOME variable in your environment to match the
+##location of your Java installation.
+##export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre
 
 # ****************
 # *** ghcaller ***
@@ -204,8 +210,40 @@ gcc ./sources/*.c -lgsl -lgslcblas -lm -Wall -DinGSL=1 -O3 -lz -o /develop/webap
 # ***************
 
 cd /develop
-gradle build -b .gradle/build_backend.gradle
+gradle build --stacktrace --info -b .gradle/build_backend.gradle
 
+##FAILURE: Build failed with an exception.
+##
+##* What went wrong:
+##Execution failed for task ':compileNgaspExecutableNgaspCpp'.
+##> Multiple build operations failed.
+##      C++ compiler failed while compiling CCalcBCF2VCF.cpp.
+##      C++ compiler failed while compiling CCalcCollectDataColumns.cpp.
+##      C++ compiler failed while compiling CCalcConcatFiles.cpp.
+##      C++ compiler failed while compiling CCalcConcatStrings.cpp.
+##      C++ compiler failed while compiling CCalcArrayOpeX.cpp.
+##      C++ compiler failed while compiling CCalcBam2Bai.cpp.
+##      C++ compiler failed while compiling CCalcBamChromosomes.cpp.
+##      C++ compiler failed while compiling CCalcBoxPlotValues.cpp.
+##      C++ compiler failed while compiling CCalcConcatFileNames.cpp.
+##      C++ compiler failed while compiling CCalcArraySumAll.cpp.
+##      ...and 169 more failures.
+##  See the complete log at: file:///develop/.gradle/build/tmp/compileNgaspExecutableNgaspCpp/output.txt
+##
+##* Try:
+##Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+##
+##BUILD FAILED
+
+##/develop/source/backend/calculations/Calc/../../messages/../language/CStringTable.h:1624:17: error: expected '}' before 'CALC_Dummy_BRIEF_DESC'
+##   CALC_Dummy,n  CALC_Dummy_BRIEF_DESC,n  CALC_Dummy_DESC,nnn  _CALC_LAST,
+##                 ^
+##/develop/source/backend/calculations/Calc/../../messages/../language/CStringTable.h:1624:42: error: expected initializer before 'CALC_Dummy_DESC'
+##   CALC_Dummy,n  CALC_Dummy_BRIEF_DESC,n  CALC_Dummy_DESC,nnn  _CALC_LAST,
+##                                          ^
+##/develop/source/backend/calculations/Calc/../../messages/../language/CStringTable.h:2840:1: error: expected declaration before '}' token
+## };
+ 
 chmod 777 /develop/webapp/bin/*
 
 # ************************************************************************

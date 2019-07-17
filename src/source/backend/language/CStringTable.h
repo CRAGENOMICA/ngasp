@@ -1621,7 +1621,11 @@ enum KeyString {
   CALC_SPLIT_BAM_DESC,  
 
 
-  CALC_Dummy,n  CALC_Dummy_BRIEF_DESC,n  CALC_Dummy_DESC,nnn  _CALC_LAST,
+  CALC_Dummy,
+  CALC_Dummy_BRIEF_DESC,
+  CALC_Dummy_DESC,
+  
+  _CALC_LAST,
   //@}
   
     CCALCCUT_BED_INPUT_BED_FILE,

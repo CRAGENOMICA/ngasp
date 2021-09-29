@@ -15,24 +15,35 @@ mkdir -p /opt/lib
 mkdir -p /app
 cd /develop
 
-yum install -y http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/kernel-headers-3.10.0-957.10.1.el7.x86_64.rpm \
-               http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/kernel-devel-3.10.0-957.10.1.el7.x86_64.rpm && \
-    yum install -y http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/gcc-c%2B%2B-4.8.5-36.el7_6.1.x86_64.rpm \
-                   http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/libstdc%2B%2B-devel-4.8.5-36.el7_6.1.x86_64.rpm && yum -y clean all
-yum install -y http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/make-3.82-23.el7.x86_64.rpm \
-    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/bzip2-1.0.6-13.el7.x86_64.rpm \
-    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-1.53.0-27.el7.x86_64.rpm \
-    http://ftp.csuc.cat/centos/7.6.1810/os/x86_64/Packages/boost-devel-1.53.0-27.el7.x86_64.rpm \
-    http://ftp.csuc.cat/centos/7.6.1810/os/x86_64/Packages/boost-system-1.53.0-27.el7.x86_64.rpm \
-    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-filesystem-1.53.0-27.el7.x86_64.rpm \
-    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/boost-thread-1.53.0-27.el7.x86_64.rpm \
-    http://ftp.csuc.cat/centos/7.6.1810/os/x86_64/Packages/wget-1.14-18.el7.x86_64.rpm \
-    http://ftp.csuc.cat/centos/7.6.1810/updates/x86_64/Packages/git-1.8.3.1-20.el7.x86_64.rpm \
-    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/zip-3.0-11.el7.x86_64.rpm \
-    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/unzip-6.0-19.el7.x86_64.rpm \
-    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/psmisc-22.20-15.el7.x86_64.rpm \
-    http://mirror.gadix.com/centos/7.6.1810/os/x86_64/Packages/ncurses-devel-5.9-14.20130511.el7_4.x86_64.rpm \
-    && yum -y clean all
+REPO76UPDATES="https://vault.centos.org/7.6.1810/updates/x86_64/Packages"
+REPO76CR="https://vault.centos.org/7.6.1810/cr/x86_64/Packages"
+REPO76OS="https://vault.centos.org/7.6.1810/os/x86_64/Packages"
+
+yum install -y \
+ ${REPO76UPDATES}/kernel-headers-3.10.0-957.27.2.el7.x86_64.rpm \
+ ${REPO76UPDATES}/kernel-devel-3.10.0-957.27.2.el7.x86_64.rpm \
+ ${REPO76UPDATES}/gcc-c%2B%2B-4.8.5-36.el7_6.1.x86_64.rpm \
+ ${REPO76UPDATES}/wget-1.14-18.el7_6.1.x86_64.rpm \
+ ${REPO76UPDATES}/git-1.8.3.1-20.el7.x86_64.rpm \
+ ${REPO76UPDATES}/libstdc%2B%2B-devel-4.8.5-36.el7_6.1.x86_64.rpm && yum -y clean all
+
+yum install -y \
+ ${REPO76CR}/make-3.82-24.el7.x86_64.rpm \
+ ${REPO76CR}/unzip-6.0-20.el7.x86_64.rpm \
+ ${REPO76CR}/psmisc-22.20-16.el7.x86_64.rpm \
+ && yum -y clean all
+
+yum install -y \
+ ${REPO76OS}/bzip2-1.0.6-13.el7.x86_64.rpm \
+ ${REPO76OS}/boost-1.53.0-27.el7.x86_64.rpm \ 
+ ${REPO76OS}/boost-devel-1.53.0-27.el7.x86_64.rpm \
+ ${REPO76OS}/boost-system-1.53.0-27.el7.x86_64.rpm \
+ ${REPO76OS}/boost-filesystem-1.53.0-27.el7.x86_64.rpm \
+ ${REPO76OS}/boost-thread-1.53.0-27.el7.x86_64.rpm \
+ ${REPO76OS}/zip-3.0-11.el7.x86_64.rpm \
+ ${REPO76OS}/ncurses-devel-5.9-14.20130511.el7_4.x86_64.rpm \
+ && yum -y clean all
+
 
 # ****************
 # *** Java JDK ***
@@ -42,7 +53,11 @@ yum groupinstall -y "Development Tools" && yum clean all
 
 curl -o epel.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -LOk && \
     rpm -Uvh epel.rpm 
-yum install -y http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm && yum clean all
+yum install -y \
+  http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64.rpm \
+  http://vault.centos.org/7.3.1611/updates/x86_64/Packages/java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64.rpm \
+  && yum clean all
+
 yum install -y nodejs && yum clean all
 
 # ***********
